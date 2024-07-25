@@ -38,7 +38,7 @@ if ($_SESSION["role"] == "admin" or $_SESSION["role"] == "modify") {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    echo $inputDisable;
+
 
 
     // echo ($isEditable ?  $row["full name"] : "not editable");
@@ -48,6 +48,50 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $sql = "SELECT * FROM user_info";
         $result = mysqli_query($con, $sql);
+    } else if (isset($_POST["update_button"])) {
+
+        echo "clicked on update button";
+
+
+    //     $name = $_POST["fullname"];
+    //     $email = $_POST["email"];
+    //     $password = $_POST["password"];
+    //     $username = $_POST["username"];
+    //     $phone = $_POST["phone_number"];
+    //     $age = $_POST["age"];
+    //     $gender = $_POST["gender"];
+    //     $addressline_1 = $_POST["addresline_1"];
+    //     $addressline_2 = $_POST["addresline_2"];
+    //     $landmark = $_POST["landmark"];
+    //     $area = $_POST["area"];
+    //     $pincode = $_POST["pincode"];
+    //     $total_amount_due = $_POST["total_amount"];
+    //     $amount_recieved = $_POST["amount_recieved"];
+    //     $dob = $_POST["dob"];
+    //     $bank_name = $_POST["bank_name"];
+    //     $branch_name = $_POST["branch_name"];
+    //     $bank_account_number = $_POST["bank_account_number"];
+    //     $bank_ifsc = $_POST["bank_ifsc"];
+    //     $year = $_POST["year"];
+    //     $pan_card = $_POST["pan_card"];
+    //     $adhaar_card = $_POST["adhaar_card"];
+    //     $category = $_POST["category"];
+    //     $Membership = $_POST["membership"];
+    //     $company_name = $_POST["company_name"];
+    //     $user_type  =  $_POST["user_type"];
+
+    //     $sql2 = "UPDATE `for_office`.`user_info` SET `fullname` = '$name', `user_email` = '$email', `user_phoneNumber` = '$phone', `age` = '$age', `gender` = '$gender', `address_line_1` = '$addressline_1', `username` = '$username', `password` = '$password', `date_birth` = '$dob', `bank_name` = '$bank_name', `bank_account_number` = '$bank_account_number', `bank_IFSC_code` = '$bank_ifsc', `bank_branch_name` = '$branch_name', `Year` = '$year', `pan_card_required` = '$pan_card', `adhaar_number` = '$adhaar_card', `category` = '$category', `membership` = '$Membership', `name_of_company` = '$company_name', `address_line_2` = '$addressline_2', `landmark` = '$landmark', `area` = '$area', `pincode` = '$pincode', `total_amount_due` = '$total_amount_due', `total_amount_received` = '$amount_recieved', `membership_renewed` = 'no', `user_type` = '$user_type' WHERE (`id` = '$user_id')";
+
+    // $resul2 = mysqli_query($con,$sql2);
+
+    // if($resul2){
+    //     echo "data updated success fully";
+    // }else{
+
+    //     echo "something Erro while updating data";
+    // }   
+
+
     } else if (isset($_POST["search_button"])) {
         echo $_POST['search_date'];
         // echo "<br>".Date.now();
@@ -56,34 +100,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $date = $_POST["search_date"];
 
 
-        // $name = $_POST["fullname"];
-        // $email = $_POST["email"];
-        // $password = $_POST["password"];
-        // $username = $_POST["username"];
-        // $phone = $_POST["phone_number"];
-        // $age = $_POST["age"];
-        // $gender = $_POST["gender"];
-        // $addressline_1 = $_POST["addresline_1"];
-        // $addressline_2 = $_POST["addresline_2"];
-        // $landmark = $_POST["landmark"];
-        // $area = $_POST["area"];
-        // $pincode = $_POST["pincode"];
-        // $total_amount_due = $_POST["total_amount"];
-        // $amount_recieved = $_POST["amount_recieved"];
-        // $dob = $_POST["dob"];
-        // $bank_name = $_POST["bank_name"];
-        // $branch_name = $_POST["branch_name"];
-        // $bank_account_number = $_POST["bank_account_number"];
-        // $bank_ifsc = $_POST["bank_ifsc"];
-        // $year = $_POST["year"];
-        // $pan_card = $_POST["pan_card"];
-        // $adhaar_card = $_POST["adhaar_card"];
-        // $category = $_POST["category"];
-        // $Membership = $_POST["membership"];
-        // $company_name = $_POST["company_name"];
-        // $user_type  =  $_POST["user_type"];
-
-        // $sql2 = "UPDATE `for_office`.`user_info` SET `fullname` = '$name', `user_email` = '$email', `user_phoneNumber` = '$phone', `age` = '$age', `gender` = '$gender', `address_line_1` = '$addressline_1', `username` = '$username', `password` = '$password', `date_birth` = '$dob', `bank_name` = '$bank_name', `bank_account_number` = '$bank_account_number', `bank_IFSC_code` = '$bank_ifsc', `bank_branch_name` = '$branch_name', `Year` = '$year', `pan_card_required` = '$pan_card', `adhaar_number` = '$adhaar_card', `category` = '$category', `membership` = '$Membership', `name_of_company` = '$company_name', `address_line_2` = '$addressline_2', `landmark` = '$landmark', `area` = '$area', `pincode` = '$pincode', `total_amount_due` = '$total_amount_due', `total_amount_received` = '$amount_recieved', `membership_renewed` = 'no', `user_type` = '$user_type' WHERE (`id` = '$user_id')";
 
 
         $sql2 = "SELECT * FROM user_info WHERE fullname='$search_query' OR id='$search_query' OR user_email='$search_query' OR membership='$search_query'OR pincode='$search_query'OR user_type='$search_query'OR user_email='$search_query'OR area='$search_query' OR name_of_company ='$search_query'OR adhaar_number='$search_query' OR bank_branch_name='$search_query' OR membership_renewed='$search_query' OR gender='$search_query' OR bank_name='$search_query'  OR user_phoneNumber='$search_query'  OR age='$search_query'   OR gender='$search_query' OR date_birth='$date' ";
@@ -279,133 +295,141 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-                <?php
+                <!-- <form action="#" method="POST"> -->
+                    <?php
 
-                if (mysqli_num_rows($result) > 0) {
-                    while ($row = mysqli_fetch_assoc($result)) {
 
-                        echo '
 
-                
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+
+                            echo '
+
+            
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 
                     <th id=1 scope="row" class="px-4 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         ' . $row["id"] . '
                     </th>
                     <td class=px-4 py-4 ">
-                       ' . ($isEditable ? "<input  disabled style='max-width:80px'  margin-left:0' value=" . $row["fullname"] . ">" : $row["fullname"]) . '
+                       ' . ($isEditable ? "<input  name='fullname' disabled style='max-width:80px'  margin-left:0' value=" . $row["fullname"] . ">" : $row["fullname"]) . '
                     </td>
                     <td  class="px-4 py-4">
                        
-                         ' . ($isEditable ? "<input id='2' style='max-width:80px; margin-left:0' value=" . $row["username"] . ">" : $row["username"]) . '
+                         ' . ($isEditable ? "<input name='username' disabled id='2' style='max-width:80px; margin-left:0' value=" . $row["username"] . ">" : $row["username"]) . '
                     </td>
                      <td class="px-4 py-4">
                         
-                         ' . ($isEditable ? "<input style='max-width:80px; margin-left:0' value=" . $row["password"] . ">" : $row["password"]) . '
+                         ' . ($isEditable ? "<input name='password' disabled style='max-width:80px; margin-left:0' value=" . $row["password"] . ">" : $row["password"]) . '
                     </td>
                     <td class="px-4 py-4">
                       
-                        ' . ($isEditable ? "<input  style='max-width:80px; margin-left:0' value=" . $row["user_email"] . ">" : $row["user_email"]) . '
+                        ' . ($isEditable ? "<input name='email' disabled  style='max-width:80px; margin-left:0' value=" . $row["user_email"] . ">" : $row["user_email"]) . '
                     </td>
                     <td class="px-4 py-4">
                         
-                        ' . ($isEditable ? "<input style='max-width:80px'  margin-left:0' value=" . $row["user_phoneNumber"] . ">" : $row["user_phoneNumber"]) . '
+                        ' . ($isEditable ? "<input name='phone_number' disabled style='max-width:80px'  margin-left:0' value=" . $row["user_phoneNumber"] . ">" : $row["user_phoneNumber"]) . '
                     </td>
                     <td class="px-4 py-4">
                     
-                        ' . ($isEditable ? "<input style='max-width:80px'  margin-left:0' value=" . $row["age"] . ">" : $row["age"]) . '
+                        ' . ($isEditable ? "<input name='age' disabled style='max-width:80px'  margin-left:0' value=" . $row["age"] . ">" : $row["age"]) . '
                     </td>
                     <td class="px-4 py-4">
                         
-                        ' . ($isEditable ? "<input style='max-width:80px'  margin-left:0' value=" . $row["gender"] . ">" : $row["gender"]) . '
+                        ' . ($isEditable ? "<input name='gender' disabled style='max-width:80px'  margin-left:0' value=" . $row["gender"] . ">" : $row["gender"]) . '
                     </td>
                     <td class="px-4 py-4">
                        
-                        ' . ($isEditable ? "<input style='max-width:80px'  margin-left:0' value=" . $row["address_line_1"] . ">" : $row["address_line_1"]) . '
+                        ' . ($isEditable ? "<input name='addresline_1' disabled style='max-width:80px'  margin-left:0' value=" . $row["address_line_1"] . ">" : $row["address_line_1"]) . '
                     </td>
                      <td class="px-4 py-4">
                        
-                        ' . ($isEditable ? "<input style='max-width:80px'  margin-left:0' value=" . $row["date_birth"] . ">" :  $row["date_birth"]) . '
+                        ' . ($isEditable ? "<input name='dob' disabled style='max-width:80px'  margin-left:0' value=" . $row["date_birth"] . ">" :  $row["date_birth"]) . '
                     </td>
                      <td class="px-4 py-4">
                        
-                         ' . ($isEditable ? "<input style='max-width:80px'  margin-left:0' value=" . $row["bank_name"] . ">" : $row["bank_name"]) . '
+                         ' . ($isEditable ? "<input name='bank_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["bank_name"] . ">" : $row["bank_name"]) . '
                     </td> <td class="px-4 py-4">
                        
-                        ' . ($isEditable ? "<input style='max-width:80px'  margin-left:0' value=" . $row["fullname"] . ">" : $row["fullname"]) . '
+                        ' . ($isEditable ? "<input name='fullname' disabled style='max-width:80px'  margin-left:0' value=" . $row["fullname"] . ">" : $row["fullname"]) . '
                     </td> <td class="px-4 py-4">
                        
-                         ' . ($isEditable ? "<input style='max-width:80px'  margin-left:0' value=" . $row["bank_IFSC_code"] . ">" : $row["bank_IFSC_code"]) . '
+                         ' . ($isEditable ? "<input name='bank_ifsc' disabled style='max-width:80px'  margin-left:0' value=" . $row["bank_IFSC_code"] . ">" : $row["bank_IFSC_code"]) . '
                     </td>   
                     </td> <td class="px-4 py-4">
                         
-                        ' . ($isEditable ? "<input style='max-width:80px'  margin-left:0' value=" . $row["bank_branch_name"] . ">" : $row["bank_branch_name"]) . '
+                        ' . ($isEditable ? "<input name='branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["bank_branch_name"] . ">" : $row["bank_branch_name"]) . '
                     </td>   <td class="px-4 py-4">
                         
-                        ' . ($isEditable ? "<input style='max-width:80px'  margin-left:0' value=" . $row["Year"] . ">" : $row["Year"]) . '
+                        ' . ($isEditable ? "<input name='year' disabled style='max-width:80px'  margin-left:0' value=" . $row["Year"] . ">" : $row["Year"]) . '
                     </td>  <td class="px-4 py-4">
                        
-                        ' . ($isEditable ? "<input style='max-width:80px'  margin-left:0' value=" . $row["pan_card_required"] . ">" : $row["pan_card_required"]) . '
+                        ' . ($isEditable ? "<input name='pan_card' disabled style='max-width:80px'  margin-left:0' value=" . $row["pan_card_required"] . ">" : $row["pan_card_required"]) . '
                     </td>  <td class="px-4 py-4">
                         
-                        ' . ($isEditable ? "<input style='max-width:80px'  margin-left:0' value=" . $row["adhaar_number"] . ">" : $row["adhaar_number"]) . '
+                        ' . ($isEditable ? "<input name='adhaar_card' disabled style='max-width:80px'  margin-left:0' value=" . $row["adhaar_number"] . ">" : $row["adhaar_number"]) . '
                     </td>  <td class="px-4 py-4">
                         
-                        ' . ($isEditable ? "<input style='max-width:80px'  margin-left:0' value=" . $row["category"] . ">" :  $row["category"]) . '
+                        ' . ($isEditable ? "<input name='category' disabled style='max-width:80px'  margin-left:0' value=" . $row["category"] . ">" :  $row["category"]) . '
                     </td>  <td class="px-4 py-4">
                         
-                        ' . ($isEditable ? "<input style='max-width:80px'  margin-left:0' value=" . $row["membership"] . ">" :  $row["membership"]) . '
+                        ' . ($isEditable ? "<input name='membership' disabled style='max-width:80px'  margin-left:0' value=" . $row["membership"] . ">" :  $row["membership"]) . '
                     </td>  <td class="px-4 py-4">
                         
-                        ' . ($isEditable ? "<input style='max-width:80px'  margin-left:0' value=" . $row["name_of_company"] . ">" : $row["name_of_company"]) . '
+                        ' . ($isEditable ? "<input name='company_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["name_of_company"] . ">" : $row["name_of_company"]) . '
                     </td>  <td class="px-4 py-4">
                         
-                        ' . ($isEditable ? "<input style='max-width:80px'  margin-left:0' value=" . $row["address_line_2"] . ">" : $row["address_line_2"]) . '
+                        ' . ($isEditable ? "<input name='addresline_2' disabled style='max-width:80px'  margin-left:0' value=" . $row["address_line_2"] . ">" : $row["address_line_2"]) . '
                     </td>  <td class="px-4 py-4">
                         
-                        ' . ($isEditable ? "<input style='max-width:80px'  margin-left:0' value=" . $row["landmark"] . ">" : $row["landmark"]) . '
+                        ' . ($isEditable ? "<input name='landmark' disabled style='max-width:80px'  margin-left:0' value=" . $row["landmark"] . ">" : $row["landmark"]) . '
                     </td>  <td class="px-4 py-4">
                         
-                        ' . ($isEditable ? "<input style='max-width:80px'  margin-left:0' value=" . $row["area"] . ">" : $row["area"]) . '
+                        ' . ($isEditable ? "<input name='area' disabled style='max-width:80px'  margin-left:0' value=" . $row["area"] . ">" : $row["area"]) . '
                     </td>  <td class="px-4 py-4">
                         
-                        ' . ($isEditable ? "<input style='max-width:80px'  margin-left:0' value=" . $row["pincode"] . ">" :  $row["pincode"]) . '
+                        ' . ($isEditable ? "<input name='pincode' disabled style='max-width:80px'  margin-left:0' value=" . $row["pincode"] . ">" :  $row["pincode"]) . '
                     </td>  
                     <td class="px-4 py-4">
                         
-                        ' . ($isEditable ? "<input style='max-width:80px'  margin-left:0' value=" . $row["total_amount_due"] . ">" :  $row["total_amount_due"]) . '
+                        ' . ($isEditable ? "<input name='total_amount' disabled style='max-width:80px'  margin-left:0' value=" . $row["total_amount_due"] . ">" :  $row["total_amount_due"]) . '
                     </td>  <td class="px-4 py-4">
                         
-                        ' . ($isEditable ? "<input style='max-width:80px'  margin-left:0' value=" . $row["total_amount_received"] . ">" :  $row["total_amount_received"]) . '
+                        ' . ($isEditable ? "<input name='amount_recieved' disabled style='max-width:80px'  margin-left:0' value=" . $row["total_amount_received"] . ">" :  $row["total_amount_received"]) . '
                     </td>  <td class="px-4 py-4">
                         
-                        ' . ($isEditable ? "<input style='max-width:80px'  margin-left:0' value=" . $row["membership_renewed"] . ">" : $row["membership_renewed"]) . '
+                        ' . ($isEditable ? "<input  disabled style='max-width:80px'  margin-left:0' value=" . $row["membership_renewed"] . ">" : $row["membership_renewed"]) . '
                     </td>  <td class="px-4 py-4">
                         
-                        ' . ($isEditable ? "<input style='max-width:80px'  margin-left:0' value=" . $row["user_type"] . ">" : $row["user_type"]) . '
+                        ' . ($isEditable ? "<input name='user_type' disabled style='max-width:80px'  margin-left:0' value=" . $row["user_type"] . ">" : $row["user_type"]) . '
                     </td>  
 
                     <td class="px-4 py-4 text-right">
-                        <a href="#" onclick ="rt(event)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                    </td>
-                </tr>
-    ';
+                      
+                    
+                 
+                      <a onclick ="rt(event)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                      Edit</button>
+                      </td>
+                      </tr>
+                      ';
                     }
                 } else {
-
+                    
                     echo '
-
-                
+                    
+                    
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-    
-                        <th scope="row" colspan="28" class="px-6 mx-auto  text-center py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                             no data found
-                        </th>
-                                          </tr>
-        ';
+                    
+                    <th scope="row" colspan="28" class="px-6 mx-auto  text-center py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    no data found
+                    </th>
+                    </tr>
+                    ';
                 }
                 ?>
             </tbody>
+        <!-- </form> -->
         </table>
     </div>
 
@@ -858,7 +882,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         for (let element of document.getElementsByTagName("input")) {
             // element.disabled = true; 
 
-            element.disabled = true;
+            element.disabled = false;
         }
 
 
@@ -866,19 +890,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-    function rt(e){
+    function rt(e) {
 
         //   console.log(e.target.parentElement);  
-      console.log((e.target.parentElement).parentElement)
+        //   console.log(((e.target.parentElement).parentElement).getElementsByTagName("input"))
 
-    //   for (let element of e.target.parentElement.parentElement) {
-    //         // element.disabled = true; 
+        let dt = ((e.target.parentElement).parentElement).getElementsByTagName("input")
 
-    //        console.log(element);
-    //     }
+        for (let element of dt) {
+            element.disabled = false;
+            element.style.color = "red"
+            //    console.log(element);
+        }
 
+        // e.target.preventDefault()
+        // e.target.name="update_button"
+        // e.target.type="submit"
 
     }
+
 
 
 
