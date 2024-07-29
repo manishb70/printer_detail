@@ -4,12 +4,6 @@
 
 
 
-
-
-
-
-
-
     $sql = "SELECT * FROM user_info";
 
     try {
@@ -20,7 +14,7 @@
     }
 
 
-
+ 
 
     $i = 0;
 

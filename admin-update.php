@@ -20,9 +20,7 @@ $result = mysqli_query($con, $sql);
 //     echo $row2["user_name" ]."<br>";
 // }
 
-
 // // echo var_dump($result);
-
 
 $isEditable = false;
 if ($_SESSION["role"] == "admin" or $_SESSION["role"] == "modify") {
@@ -59,10 +57,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ";
 
             $result_2 = mysqli_query($con, $create_sql);
-
-
-
-
 
 
             if ($result_2) {
@@ -491,13 +485,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
     <!-- Modal toggle -->
-    <center>
+           <center>
         <button onclick="openNewAdminBox()" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
             Add a user
         </button>
-
-    </center>
-
 
 
     <div id="newUserAdmin" class="relative  transition hidden overflow-x-auto shadow-md sm:rounded-lg ">
