@@ -867,7 +867,7 @@ if (mysqli_num_rows($result) > 0) {
 <script>
 
 
-let id_1 =1
+
 console.log(id_1);
 
     function enableItem(e, id) {

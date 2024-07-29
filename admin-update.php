@@ -15,15 +15,10 @@ $result = mysqli_query($con, $sql);
 
 // echo mysqli_num_rows($result);
 
-
 // while ($row2 = mysqli_fetch_assoc($result)) {
 
-
 //     echo $row2["user_name" ]."<br>";
-
 // }
-
-
 
 
 // // echo var_dump($result);
@@ -33,49 +28,80 @@ $isEditable = false;
 if ($_SESSION["role"] == "admin" or $_SESSION["role"] == "modify") {
     $isEditable = true;
 }
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-
-    // $email = $_POST["email"];
-    // $password = $_POST["password"];
-    // $username = $_POST["username"];
-    // $phone = $_POST["mobile_number"];
-    // $created_by = $_POST["createdBy"];
-    // $updated_by = $_POST["updated_by"];
-    // $created_date = $_POST["created_date"];
-    // $updated_date = $_POST["updated_date"];
-    // $person_id = $_POST["person_id"]
-    // $start_date = 
-
-
-
-
-
-
-
-
-
-
-    // $sql="UPDATE `for_office`.`user_management` SET `user_name` = 'manish', `updataed_by` = 'system', `created_date` = '2024-07-22', `updated_date` = '2024-07-03', `mobile_number` = '7382781', `email_id` = 'djwk@example.com', `person_id` = '13', `password` = 'manish@123', `start_date` = '2024-07-11', `end_date` = '2024-07-14', `role` = 'modify' WHERE (`user_id` = '1');
-    // "
-
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
+        if (isset($_POST["add_new_user_admin"])) {
+
+
+            $user_id = $_POST["user_id"];
+            $username = $_POST["username"];
+            $email = $_POST["email_id"];
+            $password = $_POST["password"];
+            $updataed_by = $_POST["updataed_by"];
+            $phone = $_POST["mobile_number"];
+            $person_id  = $_POST["person_id"];
+            $start_date = $_POST["start_date"];
+            $end_date = $_POST["end_date"];
+
+            $createdBy = $_POST["createdBy"];
+            $updataed_by = $_POST["updataed_by"];
+            $updated_date = date("Y-m-d");
+            $created_date = date("Y-m-d");
+            $role  =  $_POST["role"];
+
+
+
+
+            $create_sql = "INSERT INTO `for_office`.`user_management` (`user_id`, `user_name`, `updataed_by`, `createdBy`, `created_date`, `updated_date`, `mobile_number`, `email_id`, `person_id`, `password`, `start_date`, `end_date`, `role`) VALUES ('$user_id', '$username', ' $updataed_by', '$createdBy', '$created_date', '$updated_date', '$phone', '$email', '$person_id', '$password', '$start_date', '$end_date', '$role');
+";
+
+            $result_2 = mysqli_query($con, $create_sql);
+
+
+
+
+
+
+            if ($result_2) {
+
+                echo "new user created successfyly";
+
+                $findNewAdminId = "SELECT * FROM  user_management where user_name='$username' ";
+
+                $result_3 = mysqli_query($con, $findNewAdminId);
+                $row1 = mysqli_fetch_assoc($result_3);
+                $newUserId = $row1["user_id"];
+
+                $sqlForAdminRoles = "insert into admin_roles (admin_id) values($newUserId)";
+
+                if (mysqli_query($con, $sqlForAdminRoles)) {
+
+
+                    echo "user success fully registered";
+                } else {
+                    echo "user is not registered please check admon role database";
+                }
+            } else {
+
+                echo "<br>err user not registered<br>";
+            }
+        }
+
+
+
+
+
+
+
+
         if (isset($_POST["search_button"])) {
 
-
-
-            // echo $_POST['search_date'];
-            // echo "<br>".Date.now();
             echo "<br>" . date('Y-m-d');
             $search_query = $_POST["search_query"];
             $date = $_POST["search_date"];
-
-
-
 
             $sql2 = "SELECT * FROM user_info WHERE fullname='$search_query' OR id='$search_query' OR user_email='$search_query' OR membership='$search_query'OR pincode='$search_query'OR user_type='$search_query'OR user_email='$search_query'OR area='$search_query' OR name_of_company ='$search_query'OR adhaar_number='$search_query' OR bank_branch_name='$search_query' OR membership_renewed='$search_query' OR gender='$search_query' OR bank_name='$search_query'  OR user_phoneNumber='$search_query'  OR age='$search_query'   OR gender='$search_query' OR date_birth='$date' ";
 
@@ -153,20 +179,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else if (isset($_POST["update_admin_roles"])) {
 
 
-
-
-
-
-
+            echo $_POST["admin_id"];
 
 
 
             echo "<br>hey this admin roles form <br>";
-
-            $userviewOnly = isset($_POST["user_viewOnly"]) ? 0 :1;
-            $user_write = isset($_POST["user_write"]) ? 0 :1;
-            $admin_viewOnly = isset($_POST["admin_viewOnly"]) ? 0 :1;
-            $admin_write = isset($_POST["admin_write"]) ? 0 :1;
+            $admin_id = $_POST["admin_id"];
+            $userviewOnly = isset($_POST["user_viewOnly"]) ? 0 : 1;
+            $user_write = isset($_POST["user_write"]) ? 0 : 1;
+            $admin_viewOnly = isset($_POST["admin_viewOnly"]) ? 0 : 1;
+            $admin_write = isset($_POST["admin_write"]) ? 0 : 1;
             $user_write_start_date = $_POST["user_write_start_date"];
             $user_write_end_date = $_POST["user_write_end_date"];
             $user_view_start_date = $_POST["user_view_start_date"];
@@ -176,43 +198,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $admin_view_start_date = $_POST["admin_view_start_date"];
             $admin_view_end_date = $_POST["admin_view_end_date"];
 
-            $sql_for_role = "INSERT INTO admin_roles (
-                admin_id, 
-                user_viewOnly, 
-                user_write, 
-                admin_viewOnly, 
-                admin_write, 
-                user_write_start_date, 
-                user_write_end_date, 
-                user_view_start_date, 
-                user_view_end_date, 
-                admin_write_start_date, 
-                admin_write_end_date, 
-                admin_view_start_date, 
-                admin_view_end_date
-            ) VALUES (
-                1, 
-                $userviewOnly, 
-                $user_write,
-                $admin_viewOnly,
-                $admin_write, 
-                '$user_write_start_date',
-                '$user_write_end_date', 
-                '$user_view_start_date', 
-                '$user_view_end_date', 
-                '$admin_write_start_date', 
-                '$admin_write_end_date', 
-                '$admin_view_start_date', 
-                '$admin_view_end_date'
-            )";
-            
-            // Execute the query
-            if (mysqli_query($conn, $sql_for_role)) {
+            // $sql_for_role = "INSERT INTO admin_roles (
+            //     admin_id, 
+            //     user_viewOnly, 
+            //     user_write, 
+            //     admin_viewOnly, 
+            //     admin_write, 
+            //     user_write_start_date, 
+            //     user_write_end_date, 
+            //     user_view_start_date, 
+            //     user_view_end_date, 
+            //     admin_write_start_date, 
+            //     admin_write_end_date, 
+            //     admin_view_start_date, 
+            //     admin_view_end_date
+            // ) VALUES (
+            //     $admin_id, 
+            //     $userviewOnly, 
+            //     $user_write,
+            //     $admin_viewOnly,
+            //     $admin_write, 
+            //     '$user_write_start_date',
+            //     '$user_write_end_date', 
+            //     '$user_view_start_date', 
+            //     '$user_view_end_date', 
+            //     '$admin_write_start_date', 
+            //     '$admin_write_end_date', 
+            //     '$admin_view_start_date', 
+            //     '$admin_view_end_date'
+            // )";
+
+
+
+            $sql_for_role = "UPDATE admin_roles SET user_viewOnly = $userviewOnly, user_write = $user_write, admin_viewOnly = $admin_viewOnly, admin_write = $admin_write, user_write_start_date = '$user_write_start_date', user_write_end_date = '$user_write_end_date', user_view_start_date = '$user_view_start_date', user_view_end_date = '$user_view_end_date', admin_write_start_date = '$admin_write_start_date', admin_write_end_date = '$admin_write_end_date', admin_view_start_date = '$admin_view_start_date', admin_view_end_date = '$admin_view_end_date' WHERE admin_id = $admin_id";
+
+
+
+            if (mysqli_query($con, $sql_for_role)) {
                 echo "New record created successfully";
             } else {
                 echo "Error: " . $sql_for_role . "<br>" . mysqli_error($conn);
             }
-   
         }
     }
 }
@@ -465,9 +491,149 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
     <!-- Modal toggle -->
-    <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-        Toggle modal
-    </button>
+    <center>
+        <button onclick="openNewAdminBox()" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+            Add a user
+        </button>
+
+    </center>
+
+
+
+    <div id="newUserAdmin" class="relative  transition hidden overflow-x-auto shadow-md sm:rounded-lg ">
+        <table class=" text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"">
+
+            <thead class=" text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    id
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    usernme
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    password
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    email
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    phone
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    person_id
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    start date
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    end date
+                </th>
+
+                <th scope="col" class="px-6 py-3">
+                    role
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    updated b
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    created by
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    created date
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    updated date
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    <span class="sr-only">Edit</span>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+
+
+
+
+                <form action="#" method="POST">
+
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <input class='formInputData' name='user_id' style='max-width:80px'>
+                        </th>
+                        <td class=px-6 py-4">
+                            <input class='formInputData' name='username' style='max-width:80px' margin-left:0>
+                        </td>
+                        <td class="px-6 py-4">
+
+                            <input class='formInputData' name='password' style='max-width:80px' margin-left:'>
+                        </td>
+                        <td class="px-6 py-4">
+                            <input class='formInputData' name='email_id' style='max-width:80px' margin-left:0>
+                        </td>
+                        <td class="px-6 py-4">
+                            <input class='formInputData' name='mobile_number' style='max-width:80px' margin-left:0>
+                        </td>
+                        <td class="px-6 py-4">
+                            <input class='formInputData' name='person_id' style='max-width:80px' margin-left:0>
+                        </td>
+                        <td class="px-6 py-4">
+                            <input type='date' class='formInputData' name='start_date' style='max-width:80px' margin-left:0>
+                        </td>
+                        <td class="px-6 py-4">
+
+                            <input class='formInputData' type='date' name='end_date' style='max-width:80px' margin-left:0>
+                        </td>
+                        <td class="px-6 py-4">
+
+                            <input class='formInputData' name='role' style='max-width:80px' margin-left:0>
+                        </td>
+                        <td class="px-6 py-4">
+
+                            <input class='formInputData' name='updataed_by' style='max-width:80px' margin-left:0'>
+                        </td>
+                        <td class="px-6 py-4">
+                            <input class='formInputData' name='createdBy' style='max-width:80px' margin-left:0>
+                        </td>
+                        <td class="px-6 py-4">
+
+                            <input class='formInputData' type='date' name='created_date' style='max-width:80px' margin-left:0>
+                        </td>
+                        </td>
+                        <td class="px-6 py-4">
+
+                            <input class='formInputData' type='date' name='updated_date' style='max-width:80px' margin-left:0'>
+                        </td>
+
+                        <td class="px-6 py-4 text-right">
+                            <!-- <a onclick ="" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a> -->
+                            <button name="add_new_user_admin" class=" inline-flex mr-2 ml-20 items-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="">
+                                add</button>
+                        </td>
+
+
+                        <!-- <td class="px-6 py-4 text-right">
+                         <a onclick ="showRolesBox(event)" data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user roles</a>
+                  
+                    </td> -->
+                    </tr>
+                </form>
+
+
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+
+
+
+
+
+
 
     <!-- Main modal -->
     <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -525,7 +691,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 
                                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            <input type="text" id="roleUserId" disabled value="2">
+                                            <input type="text" id="roleUserId" disabled name="admin_id" value="2">
+
                                         </th>
 
                                         <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -533,7 +700,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         </td>
                                         <td class=px-6 py-4">
                                             <div class="flex items-center mb-4">
-                                                <input id="default-checkbox" type="checkbox"  name="user_viewOnly" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                <input id="default-checkbox" type="checkbox" name="user_viewOnly" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                             </div>
                                         </td>
                                         <td class=px-6 py-4">
@@ -541,7 +708,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         </td>
                                         <td class="px-6 py-4">
 
-                                            <input type="date" name="user_view_end_date" value="20-23-2024">
+                                            <input type="date" name="user_view_end_date" value="2000-01-01">
                                         </td>
 
 
@@ -565,7 +732,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         </td>
                                         <td class="px-6 py-4">
 
-                                            <input type="date" name="user_view_end_date" value="20-23-2024">
+                                            <input type="date" name="user_write_end_date" value="2000-01-01">
                                         </td>
 
 
@@ -594,7 +761,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         </td>
                                         <td class="px-6 py-4">
 
-                                            <input type="date" name="admin_view_end_date" value="20-23-2024">
+                                            <input type="date" name="admin_view_end_date" value="2000-01-01">
                                         </td>
 
 
@@ -622,13 +789,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         </td>
                                         <td class="px-6 py-4">
 
-                                            <input type="date" name="admin_write_end_date" value="20-23-2024">
+                                            <input type="date" name="admin_write_end_date" value="2000-01-01">
                                         </td>
 
 
                                         <td class="px-6 py-4 text-right">
                                             <!-- <a onclick ="enableItem(event,rowId' . $row["user_id"] . ')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a> -->
-                                            <button id=rowId' name="update_data" class="hidden inline-flex mr-2 ml-20 items-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="">
+                                            <button id=rowId' onclick=name="update_data" class="hidden inline-flex mr-2 ml-20 items-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="">
                                                 Update</button>
                                         </td>
                                     </tr>
@@ -637,7 +804,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                             </tbody>
                         </table>
-                        <button name="update_admin_roles" style="margin: auto;
+                        <button name="update_admin_roles" onclick="beforeSubmitHandle()" style="margin: auto;
     display: block;" class=" inline-flex display-block mx-auto items-center py-2.5 px-3 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="">
                             Submit</button>
                         </form>
@@ -871,12 +1038,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
     </div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
+
+
 
 
 
 <script>
     let userIsSelected = 10;
+
+
+
+
+    const beforeSubmitHandle = () => {
+
+        document.getElementById("roleUserId").disabled = false;
+
+
+
+    }
+
 
 
     function enableItem(e, id) {
@@ -891,6 +1089,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
         }
+
+
 
         id.classList.remove("hidden")
         // console.log(id);
@@ -923,6 +1123,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         console.log(userIsSelected);
         document.getElementById("roleUserId").value = userIsSelected
 
+    }
+
+
+    const openNewAdminBox = () => {
+
+        newUserAdmin.style.display = "block"
 
 
 
