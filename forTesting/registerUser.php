@@ -1,5 +1,7 @@
 <?php
+session_start();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+ 
     include("../db.php");
 
 
@@ -29,11 +31,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($result) {
             echo "<br> registraion  success<br>";
 
-                session_start();
-                $_SESSION["companyId"] = $company_id;
+    
+            $_SESSION["mainCompanyId"] = $company_id;
+            $_SESSION["mainCompany"] = $company_name;
+            $_SESSION["bankName"] = $bank_name;
+            $_SESSION["bankAccountNumber"] =  $bank_account_number;
+            $_SESSION["bankIfscNumber"] = $bank_ifsc_number;
+            $_SESSION["bankBranchName"] = $bank_branch_name;
+            $_SESSION["totalNumberOfForm"] = $_POST['numberOfSubCompany'];
+            
+
+
 
             header("location: siteName.php");
-        } 
+        }
     } else {
 
         echo "error accoured";
@@ -144,7 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <label class="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="lastName">
                                     Number sub company's
                                 </label>
-                                <input class="w-full px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="lastName" type="text" placeholder="Last Name" />
+                                <input name="numberOfSubCompany"  class="w-full px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="lastName" type="text" placeholder="Last Name" />
                             </div>
                             <div class="mb-6 mt-3 text-center">
                                 <button class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 dark:bg-blue-700 dark:text-white dark:hover:bg-blue-900 focus:outline-none focus:shadow-outline" type="submit">

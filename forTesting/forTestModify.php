@@ -1,96 +1,3 @@
-<?php
-session_start();
-
-include("../db.php");
-
-
-if(!isset($_SESSION["totalNumberOfForm"])){
-
-
-    header("location: registerUser.php");
-
-
-}
-
-
-
-$total_number = $_SESSION["totalNumberOfForm"];
-
-
-
-
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-
-        
-    $mainCompanyId = $_SESSION['mainCompanyId'];
-    $company_address =  $_POST['company_address'];
-    $companny_name = $_SESSION['mainCompany'];
-    $category = $_POST['Category'];
-    $bank_name = $_POST["bank_name"];
-    $bank_account_number = $_POST["bank_account_number"];
-    $bank_ifsc_number = $_POST["bank_ifsc_number"];
-    $bank_branch_name = $_POST["bank_branch_name"];
-
-
-    $sql = "INSERT into customer_line_label_details (main_company_id,company_address,companny_name,category) values($mainCompanyId,'$company_address','$companny_name','$category')";
-
-    $result = mysqli_query($con, $sql);
-
-
-
-    if ($result) {
-
-        echo "Site are addess success fully";
-
-
-        $sub_company_id = mysqli_insert_id($con);
-
-        $sql2 = "INSERT into company_banking_details (main_company_id,sub_company_id,bank_name,bank_account_number,bank_ifsc_code,bank_branch_name) values($mainCompanyId,$sub_company_id,'$bank_name','$bank_account_number', '$bank_ifsc_number','$bank_branch_name')";
-
-        $result2 = mysqli_query($con, $sql2);
-
-        if ($result2) {
-
-
-
-            echo "<br> Sites are uploaded sucess fully <br>";
-            $_SESSION["totalNumberOfForm"]--;
-            if($_SESSION["totalNumberOfForm"]==0){
-                session_destroy();
-            
-            }
-        } else {
-
-            $sql3    = "DELETE FROM customer_line_label_details where sub_company_id=$sub_company_id ";
-
-            echo "the last sub company are deleted due to something wrong";
-        }
-    } else {
-
-        echo  " <br>Something went wrong when the registering sites <br>";
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -107,9 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-    <!-- source: https://gist.github.com/nraloux/bce10c4148380061781b928cdab9b193 -->
-    <!-- I have added support for dark mode and improved UI -->
-
     <div class="h-full bg-gray-400 dark:bg-gray-900">
         <!-- Container -->
         <div class="mx-auto">
@@ -121,17 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <!-- Col -->
                     <div class="w-full  bg-white dark:bg-gray-700 p-5 rounded-lg lg:rounded-l-none">
                         <h3 class="py-4 text-2xl text-center text-gray-800 dark:text-white">Register Location !!</h3>
-                        <?php
 
-
-                        $currenrt_number = 1;
-                        while ($total_number > 0) {
-
-
-
-                            echo '
-
-                            <h1>' . $currenrt_number . '</h1>
                             <form action="#" method="post" class="px-8 pt-6 pb-8 mb-4 bg-white dark:bg-gray-800 rounded">
     
                                 <div class="mb-4 md:flex md:justify-between">
@@ -221,18 +115,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     
                             </form>
-
-
-
-                        ';
-
-
-
-
-
-                            $currenrt_number++;
-                            $total_number--;
-                        }
 
 
 
