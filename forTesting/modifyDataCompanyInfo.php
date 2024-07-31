@@ -1,23 +1,52 @@
-
 <?php
 
 include("../db.php");
 
-$isEditable= true;
-$sql  = " SELECT * from company_header_level_details";
+function getData($id)
+{
 
-
-$result = mysqli_query($con,$sql);
-
-
-
-if (mysqli_num_rows($result)> 0){
-
-
-    print("data not funndl");
-
-
+    $name = "manish";
+    echo $name;
 }
+
+
+
+$isEditable = true;
+$sql  = " SELECT *FROM company_header_level_details JOIN company_banking_details ON company_header_level_details.company_id  = company_banking_details.main_company_id WHERE company_banking_details.sub_company_id=0";
+
+
+$result = mysqli_query($con, $sql);
+
+
+
+if (mysqli_num_rows($result) > 0) {
+
+    echo "is fetch successfukky";
+}
+
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    if (isset($_POST['update_data'])) {
+
+
+        echo "hello from updtaed";
+
+        $company_name = $_POST["name_of_company"];
+        $company_address = $_POST["company_address"];
+        $company_email = $_POST["company_email"];
+        $bank_name = $_POST["bank_name"];
+        $bank_account_number = $_POST["bank_account_number"];
+        $bank_ifsc_code = $_POST["bank_ifsc_code"];
+        $bank_branch_name = $_POST["bank_branch_name"];
+
+
+        // wait for creating update for updte in sql
+
+
+    }
+}
+
 
 
 
@@ -70,6 +99,7 @@ if (mysqli_num_rows($result)> 0){
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg ">
         <table class=" text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"">
 
+
             <thead class=" text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">
@@ -88,19 +118,19 @@ if (mysqli_num_rows($result)> 0){
                     Bank name
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Bank account number 
+                    Bank account number
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Bank IFSC number 
+                    Bank IFSC number
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Bank branch name
                 </th>
 
                 <th scope="col" class="px-6 py-3">
-                company pan card 
+                    company pan card
                 </th>
-            
+
                 <th scope="col" class="px-6 py-3">
                     <span class="sr-only">Edit</span>
                 </th>
@@ -121,55 +151,51 @@ if (mysqli_num_rows($result)> 0){
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        ' . ($isEditable ? "<input class='formInputData'  name='user_id' disabled style='max-width:80px' id=" . $row["user_id"] . "  margin-left:0' value=" . $row["user_id"] . ">" : $row["user_id"]) . '
+                        ' . ($isEditable ? "<input class='formInputData'  name='user_id' disabled style='max-width:80px' id=" . $row["company_id"] . "  margin-left:0' value=" . $row["company_id"] . ">" : $row["company_id"]) . '
                     </th>
                     <td class=px-6 py-4">
-                        ' . ($isEditable ? "<input class='formInputData' name='username' disabled style='max-width:80px'  margin-left:0' value=" . $row["user_name"] . ">" : $row["user_name"]) . '
+                        ' . ($isEditable ? "<input class='formInputData' name='name_of_company' disabled style='max-width:80px'  margin-left:0' value=" . $row["name_of_company"] . ">" : $row["name_of_company"]) . '
                     </td>
                     <td class="px-6 py-4">
                     
-                         ' . ($isEditable ? "<input class='formInputData' name='password' disabled style='max-width:80px'  margin-left:0' value=" . $row["password"] . ">" : $row["password"]) . '
+                         ' . ($isEditable ? "<input class='formInputData' name='company_address' disabled style='max-width:80px'  margin-left:0' value=" . $row["company_address"] . ">" : $row["company_address"]) . '
                     </td>
                     <td class="px-6 py-4">
-                        ' . ($isEditable ? "<input class='formInputData' name='email_id' disabled style='max-width:80px'  margin-left:0' value=" . $row["email_id"] . ">" : $row["email_id"]) . '
+                        ' . ($isEditable ? "<input class='formInputData' name='company_email' disabled style='max-width:80px'  margin-left:0' value=" . $row["company_email"] . ">" : $row["company_email"]) . '
                     </td>
                     <td class="px-6 py-4">
-                        ' . ($isEditable ? "<input class='formInputData' name='mobile_number' disabled style='max-width:80px'  margin-left:0' value=" . $row["mobile_number"] . ">" : $row["mobile_number"]) . '
+                        ' . ($isEditable ? "<input class='formInputData' name='bank_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["bank_name"] . ">" : $row["bank_name"]) . '
                     </td>
                     <td class="px-6 py-4">
-                         ' . ($isEditable ? "<input class='formInputData' name='person_id' disabled style='max-width:80px'  margin-left:0' value=" . $row["person_id"] . ">" : $row["person_id"]) . '
+                         ' . ($isEditable ? "<input class='formInputData' name='bank_account_number' disabled style='max-width:80px'  margin-left:0' value=" . $row["bank_account_number"] . ">" : $row["bank_account_number"]) . '
                     </td>
                     <td class="px-6 py-4">
-                        ' . ($isEditable ? "<input  type='date' class='formInputData' name='start_date' disabled style='max-width:80px'  margin-left:0' value=" . $row["start_date"] . ">" : $row["start_date"]) . '
+                        ' . ($isEditable ? "<input  type='txt' class='formInputData' name='bank_ifsc_code' disabled style='max-width:80px'  margin-left:0' value=" . $row["bank_ifsc_code"] . ">" : $row["bank_ifsc_code"]) . '
                     </td>
                     <td class="px-6 py-4">
                        
-                         ' . ($isEditable ? "<input class='formInputData' name='end_date' disabled style='max-width:80px'  margin-left:0' value=" . $row["end_date"] . ">" : $row["end_date"]) . '
+                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["bank_branch_name"] . ">" : $row["bank_branch_name"]) . '
                     </td>
-                     <td class="px-6 py-4">
-                        
-                         ' . ($isEditable ? "<input class='formInputData' name='role' disabled style='max-width:80px'  margin-left:0' value=" . $row["role"] . ">" : $row["role"]) . '
-                    </td>
-                     <td class="px-6 py-4">
-                        
-                         ' . ($isEditable ? "<input class='formInputData' name='updataed_by' disabled style='max-width:80px'  margin-left:0' value=" . $row["updataed_by"] . ">" : $row["updataed_by"]) . '
-                    </td> <td class="px-6 py-4">
-                         ' . ($isEditable ? "<input class='formInputData' name='createdBy' disabled style='max-width:80px'  margin-left:0' value=" . $row["createdBy"] . ">" : $row["createdBy"]) . '
-                    </td>  
+                    </td> 
 
                     <td class="px-6 py-4 text-right">
-                         <a onclick ="enableItem(event,rowId' . $row["user_id"] . ')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                    <button id=rowId' . $row["user_id"] . ' name="update_data" class="hidden inline-flex mr-2 ml-20 items-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="">
+                         <a onclick ="enableItem(event,rowId' . $row["company_id"] . ')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                    <button id=rowId' . $row["company_id"] . ' name="update_data" class="hidden inline-flex mr-2 ml-20 items-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="">
                       Update</button>
                     </td>
-
-
-                     <td class="px-6 py-4 text-right">
-                         <a onclick ="showRolesBox(event)" data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user roles</a>
+                       <td class="px-6 py-4 text-right">
+                           
+                         <td class="px-6 py-4 text-right">
+                         <a onclick ="showRolesBox(event)" data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="font-medium text-blue-600 dark:text-blue-500 pointer hover:underline">Edit locations</a>
                   
                     </td>
+                        </td>
+
+
+                    
                 </tr>
-                    </form>
+                    
+                </form>
                     
                 ';
                 }  ?>
@@ -181,6 +207,152 @@ if (mysqli_num_rows($result)> 0){
 
 
 
+
+
+
+
+
+
+    <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                    <h3 id="roleUserId" class="text-xl font-semibold text-gray-900 dark:text-white">
+                        Edit user
+                    </h3>
+                    <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+
+
+
+                <div>
+                    <div class="relative overflow-x-auto shadow-md sm:rounded-lg ">
+
+
+
+                        <table class=" text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"">
+
+            <thead class=" text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">
+                                    Compnay id
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Location
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    GST Number
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Emails
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    bank name
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    bank account number
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Bank ifsc number
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Branch name
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    category
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+
+                                </th>
+
+                                <th scope="col" class="px-6 py-3">
+                                    <span class="sr-only">Edit</span>
+                                </th>
+                            </tr>
+                            </thead>
+
+                            <form action="#" method="POST">
+                                <tbody id="sub_company_id">
+
+
+
+
+                                    <tr id="manish" class="bg-white border-b  dark:bg-gray-800 dark:border-gray-700">
+
+
+
+                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+
+                                            <input type="text" id="small-input" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="1">
+
+                                        </th>
+
+                                        <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <input type="text" id="small-input" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="Location">
+                                        </td>
+
+
+                                        <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <input type="text" id="small-input" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="GST Number">
+                                        </td>
+                                        <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <input type="text" id="small-input" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="Email">
+                                        </td>
+                                        <td class=px-6 py-4">
+                                            <div class="flex items-center mb-4">
+                                                <input type="text" id="small-input" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="Bank name">
+                                            </div>
+                                        </td>
+                                        <td class=px-6 py-4">
+                                            <input type="text" id="small-input" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="bank Account Number">
+                                        </td>
+                                        <td class="px-6 py-4">
+
+                                            <input type="text" id="small-input" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="Bank IFSC Number">
+                                        </td>
+
+                                        <td class=px-6 py-4">
+                                            <div class="flex items-center mb-4">
+                                                <input type="text" id="small-input" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="Branch name">
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+
+                                            <input type="text" id="small-input" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
+                                        </td>
+
+                                        <td class="px-6 py-4">
+
+
+                                            <button name="update_admin_roles" onclick="beforeSubmitHandle()" style="margin: auto;
+display: block;" class=" inline-flex display-block mx-auto items-center py-2.5 px-3 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="">
+                                                Submit</button>
+
+                                        </td>
+
+
+                                    </tr>
+
+
+
+
+
+
+
+                                </tbody>
+                            </form>
+                        </table>
+                    </div>
+
+
+                </div>
 
 
 
@@ -257,7 +429,19 @@ if (mysqli_num_rows($result)> 0){
 
         userIsSelected = (e.target.parentElement).parentElement.querySelector('[name="user_id"]').id
         console.log(userIsSelected);
-        document.getElementById("roleUserId").value = userIsSelected
+
+
+        document.getElementById("roleUserId").innerText = userIsSelected
+
+
+        let c_id = parseInt(userIsSelected);
+
+        getData(c_id);
+
+        // getData(userIsSelected);
+
+
+        // i have data in current_company
 
     }
 
@@ -266,9 +450,165 @@ if (mysqli_num_rows($result)> 0){
 
         newUserAdmin.style.display = "block"
 
+    }
+
+
+
+
+
+    let current_company;
+
+
+    const getData = async (id) => {
+
+        document.getElementById("sub_company_id").innerText = ""
+
+
+        try {
+            const response = await fetch(`function.php?find_id=${id}`);
+            const data = await response.json();
+            current_company = data;
+            console.log("data is fetch success");
+
+
+
+
+            Array.from(current_company).forEach(element => {
+
+
+                var {
+                    sub_company_id,
+                    company_address,
+                    GST_number,
+                    company_email,
+                    bank_name,
+                    bank_account_number,
+                    bank_ifsc_code,
+                    bank_branch_name,
+                    category
+                } = element
+
+
+                returnRow(sub_company_id, company_address, GST_number, company_email, bank_name, bank_account_number, bank_ifsc_code, bank_branch_name, category);
+
+            });
+
+        } catch (error) {
+            console.log("error when company data fetching");
+
+        }
+
+
+
+
+        // returnRow(1, "delhi", "ABC123", "MANISH@GMAIL.COM", "BANK OF INDIA", 123412, "ABC123", "SAGARPUR", "PRINTER");
 
 
     }
+
+
+
+    function createInput(name, value) {
+
+        var input = document.createElement("input");
+        input.type = "text";
+        input.id = "small-input";
+        input.name = name
+        input.classList.add("block", "w-full", "p-2", "text-gray-900", "border", "border-gray-300", "rounded-lg", "bg-gray-50", "text-xs", "focus:ring-blue-500", "focus:border-blue-500", "dark:bg-gray-700", "dark:border-gray-600", "dark:placeholder-gray-400", "dark:text-white", "dark:focus:ring-blue-500", "dark:focus:border-blue-500");
+        input.value = value;
+
+        return input
+
+    }
+
+
+
+
+    function returnRow(company_id, location, gst_number, email, bank_name, bank_account_number, Bank_ifsc_number, Branch_name, category) {
+
+
+        var submitForm = document.createElement('form');
+        submitForm.method = 'POST';
+        submitForm.action = '#'; // Replace with your actual form submission URL
+
+
+        var newTr = document.createElement("tr");
+        newTr.classList.add("bg-white", "border-b", "dark:bg-gray-800", "dark:border-gray-700");
+
+        var td1 = document.createElement("td");
+        td1.classList.add("px-6", "py-4");
+        newTr.appendChild(td1)
+        td1.appendChild(createInput("company_id", company_id))
+        
+
+        var td2 = document.createElement("td");
+        td2.classList.add("px-6", "py-4");
+        newTr.appendChild(td2)
+        td2.appendChild(createInput("location", location))
+
+
+        var td3 = document.createElement("td");
+        td3.classList.add("px-6", "py-4");
+        td3.appendChild(createInput("gst_number", gst_number))
+        newTr.appendChild(td3)
+
+
+        var td4 = document.createElement("td");
+        td4.classList.add("px-6", "py-4");
+        td4.appendChild(createInput("email", email))
+        newTr.appendChild(td4)
+
+
+        var td5 = document.createElement("td");
+        td5.classList.add("px-6", "py-4");
+        td5.appendChild(createInput("bank_name", bank_name))
+        newTr.appendChild(td5)
+
+
+        var td6 = document.createElement("td");
+        td6.classList.add("px-6", "py-4");
+        td6.appendChild(createInput("bank_account_number", bank_account_number))
+        newTr.appendChild(td6)
+
+
+        var td7 = document.createElement("td");
+        td7.classList.add("px-6", "py-4");
+        td7.appendChild(createInput("Bank_ifsc_number", Bank_ifsc_number))
+        newTr.appendChild(td7)
+
+
+        var td8 = document.createElement("td");
+        td8.classList.add("px-6", "py-4");
+        td8.appendChild(createInput("Branch_name", Branch_name))
+        newTr.appendChild(td8)
+
+
+        var td9 = document.createElement("td");
+        td9.classList.add("px-6", "py-4");
+        td9.appendChild(createInput("category", category))
+        newTr.appendChild(td9)
+
+
+
+
+        var button_s = document.createElement('button');
+        button_s.classList.add('inline-flex', 'display-block', 'mx-auto', 'items-center', 'py-2.5', 'px-3', 'text-sm', 'font-medium', 'text-white', 'bg-blue-700', 'rounded-lg', 'border', 'border-blue-700', 'hover:bg-blue-800', 'focus:ring-4', 'focus:outline-none', 'focus:ring-blue-300', 'dark:bg-blue-600', 'dark:hover:bg-blue-700', 'dark:focus:ring-blue-800');
+        button_s.name = 'updateLocatiosOfCompany';
+        button_s.type = 'submit';
+        button_s.textContent = 'Update';
+        // // // newTr.appendChild(button_s);
+
+        var td10 = document.createElement("td");
+        td10.classList.add("px-6", "py-4");
+        td10.appendChild(button_s)
+        newTr.appendChild(td10)
+
+        // newTr.appendChild(submitForm)
+
+        sub_company_id.appendChild(newTr)
+        sub_company_id.appendChild(submitForm)
+        
+   }
 </script>
 
 

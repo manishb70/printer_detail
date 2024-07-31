@@ -22,7 +22,7 @@ $result = mysqli_query($con, $sql);
 
 // // echo var_dump($result);
 
-$isEditable = false;
+$isEditable = true;
 if ($_SESSION["role"] == "admin" or $_SESSION["role"] == "modify") {
     $isEditable = true;
 }
