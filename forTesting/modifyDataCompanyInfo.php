@@ -530,7 +530,7 @@ display: block;" class=" inline-flex display-block mx-auto items-center py-2.5 p
         var submitForm = document.createElement('form');
         submitForm.method = 'POST';
         submitForm.action = '#'; // Replace with your actual form submission URL
-
+        submitForm.id = "my_tr"
 
         var newTr = document.createElement("tr");
         newTr.classList.add("bg-white", "border-b", "dark:bg-gray-800", "dark:border-gray-700");
@@ -605,8 +605,10 @@ display: block;" class=" inline-flex display-block mx-auto items-center py-2.5 p
 
         // newTr.appendChild(submitForm)
 
+        
         sub_company_id.appendChild(newTr)
-        sub_company_id.appendChild(submitForm)
+        // document.getElementsByTagName("body").appendChildI("submitForm")
+        // sub_company_id.appendChild(submitForm)
         
    }
 </script>
