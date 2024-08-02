@@ -62,30 +62,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
+
+
+
+
+
+
     $sql = "INSERT INTO sale_order_table (User_name, user_address, user_phone_number, user_email, item_required, item_shape, item_size, item_height, item_finish, installation_is_required, installatio_need_by_date, query_recieved, query_start_date, query_updated_date, query_created_by, query_updated_by, quotaion_shared_date, re_query, re_query_closure_date, followup, query_end_date, project_status, tentative_installation, installation_date, item_type, shop_drawing_start_date, shop_drawing_approved, sample_approval_start_date, sample_approval_date, perfomance_invoice, assemble_start_date, assemble_compition_date, dismantal_start_date, disamental_complition_date, packed_start_date, packed_completion_date, remarks, created_by, created_date, updated_by, updated_date) VALUES ('$username', '$user_address', '$user_phone_number', '$user_email', '$item_required', '$item_shape', '$item_size', '$item_height', '$item_finish', '$installation_is_required', '$installation_need_by_date', '$query_received', '$query_start_date', '$query_updated_date', '$query_created_by', '$query_updated_by', '$quotation_shared_date', '$re_query', '$re_query_closure_date', '$followup', '$query_end_date', '$project_status', '$tentative_installation', '$installation_date', '$item_type', '$shop_drawing_start_date', '$shop_drawing_approved', '$sample_approval_start_date', '$sample_approval_date', '$performance_invoice', '$assemble_start_date', '$assemble_completion_date', '$dismantle_start_date', '$dismantle_completion_date', '$packed_start_date', '$packed_completion_date', '$remarks', '$created_by', '$created_date', '$updated_by', '$updated_date');";
 
 
 
 
-    $result = mysqli_query($con,$sql);
+    $result = mysqli_query($con, $sql);
 
 
 
-        if($result){
+    if ($result) {
 
 
-            echo "data is success fully insreted <br>" ;
+        echo "data is success fully insreted <br>";
 
-            echo  "The project id is : ";
-            echo mysqli_insert_id($con);
+        echo  "The project id is : ";
+        echo mysqli_insert_id($con);
+    } else {
 
-
-        }else{
-
-                    echo "data is not insterted";
-
-
-        }
+        echo "data is not insterted";
+    }
 
 
 
@@ -166,7 +168,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-                    
+
 
 
 

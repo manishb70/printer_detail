@@ -64,6 +64,33 @@ $vendor = $_POST["vendor"];
 
 
 
+ 
+$sql =  "INSERT INTO `for_office`.`itemmaster` (`item_code`, `Item_Category`, `Item_Name`, `Category`, `Item_Type`, `Components`, `Quantity`, `Material`, `Design`, `Finish_type`, `Brand`, `Height`, `Length`, `Breadth`, `Upper_Dia`, `Bottom_Dia`, `Centre_Hole_dia`, `Size`, `Shape`, `Style`, `Thickness`,c `Weight`, `Depth`, `Bottom_hole_dia`, `Bottom_hole`, `Core`, `Indian_Imported`, `vendor`) VALUES ('itemabc2', 'utencile', 'fry pan ', 'utencil', 'utencil', '2', '10', 'iron', 'round', 'non stick', 'example brand', '5', '12', '25', '25.05', '12.24', '4.3', 'medium', 'round', 'round', '2', '400', '32', '32', '23', 'non stick', 'no', 'east delhi vendor');";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 echo "Item Code: $item_code<br>";
 echo "Item Category: $Item_Category<br>";
 echo "Item Name: $Item_Name<br>";
