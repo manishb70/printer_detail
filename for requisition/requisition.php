@@ -3,14 +3,32 @@
 include("../db.php");
 
 
-$isEditable = false;
+$isEditable = true;
 
 
 $sql = "select * from requisition_table";
 
 
-
 $result = mysqli_query($con, $sql);
+
+
+
+if ($_SERVER['REQUEST_METHOD'] == "GET") {
+
+
+
+    if (isset($_GET["search_query"])) {
+        $query = $_GET["search_query"];
+
+        $sql = "SELECT * FROM  requisition_table  where department_name ='$query' or item_name ='$query' or status='$query'  or S_no ='$query'or department_id ='$$query%'or requisition_type ='$query'or quantity ='$query' or user_remarks ='$query' or price ='$query' or handover_over_by ='$query' or %record_id% ='$query'  ";
+
+        $result = mysqli_query($con, $sql);
+
+        echo "QIURY";
+    }
+}
+
+
 
 
 
@@ -18,9 +36,6 @@ if (mysqli_num_rows($result) > 0) {
 
     echo "is fetch successfukky";
 }
-
-
-
 
 
 
@@ -45,13 +60,16 @@ if (mysqli_num_rows($result) > 0) {
 </head>
 
 <body>
+    <?php require("./navForLogged.php") ?>
 
 
 
-    <div>
 
 
-        <form class="flex items-center  max-w-lg mx-auto" method="POST">
+    <div class="" style="margin-top: 3.5rem;">
+
+
+        <form class="flex items-center  max-w-lg mx-auto" method="GET">
             <label for="voice-search" class="sr-only">Search</label>
             <div class="relative w-full mr-2">
 
@@ -72,7 +90,7 @@ if (mysqli_num_rows($result) > 0) {
         <table class=" text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"">
 
 
-            <thead class=" text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <thead class=" text-xs bg-blue-300 text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">
                     S_no
@@ -145,8 +163,7 @@ if (mysqli_num_rows($result) > 0) {
                 while ($row = mysqli_fetch_assoc($result)) {
 
                     echo '
-    <form action="#" method="POST">
-    
+
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -157,27 +174,27 @@ if (mysqli_num_rows($result) > 0) {
                     </td>
                     <td class="px-6 py-4">
                     
-                         ' . ($isEditable ? "<input class='formInputData' name='company_address' disabled style='max-width:80px'  margin-left:0' value=" . $row["created_date"] . ">" : $row["created_date"]) . '
+                         ' . ($isEditable ? "<input class='formInputData' name='created_date' disabled style='max-width:80px'  margin-left:0' value=" . $row["created_date"] . ">" : $row["created_date"]) . '
                     </td>
                     <td class="px-6 py-4">
-                        ' . ($isEditable ? "<input class='formInputData' name='company_email' disabled style='max-width:80px'  margin-left:0' value=" . $row["department_name"] . ">" : $row["department_name"]) . '
+                        ' . ($isEditable ? "<input class='formInputData' name='department_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["department_name"] . ">" : $row["department_name"]) . '
                     </td>
                     <td class="px-6 py-4">
-                        ' . ($isEditable ? "<input class='formInputData' name='bank_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["department_id"] . ">" : $row["department_id"]) . '
+                        ' . ($isEditable ? "<input class='formInputData' name='department_id' disabled style='max-width:80px'  margin-left:0' value=" . $row["department_id"] . ">" : $row["department_id"]) . '
                     </td>
                     <td class="px-6 py-4">
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_account_number' disabled style='max-width:80px'  margin-left:0' value=" . $row["requisition_type"] . ">" : $row["requisition_type"]) . '
+                         ' . ($isEditable ? "<input class='formInputData' name='requisition_type' disabled style='max-width:80px'  margin-left:0' value=" . $row["requisition_type"] . ">" : $row["requisition_type"]) . '
                     </td>
                     <td class="px-6 py-4">
-                        ' . ($isEditable ? "<input  type='txt' class='formInputData' name='bank_ifsc_code' disabled style='max-width:80px'  margin-left:0' value=" . $row["requisition_id"] . ">" : $row["requisition_id"]) . '
-                    </td>
-                    <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["project_id"] . ">" : $row["project_id"]) . '
+                        ' . ($isEditable ? "<input  type='txt' class='formInputData' name='requisition_id' disabled style='max-width:80px'  margin-left:0' value=" . $row["requisition_id"] . ">" : $row["requisition_id"]) . '
                     </td>
                     <td class="px-6 py-4">
                        
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["item_name"] . ">" : $row["item_name"]) . '
+                         ' . ($isEditable ? "<input class='formInputData' name='project_id' disabled style='max-width:80px'  margin-left:0' value=" . $row["project_id"] . ">" : $row["project_id"]) . '
+                    </td>
+                    <td class="px-6 py-4">
+                       
+                         ' . ($isEditable ? "<input class='formInputData' id='item_name' name='item_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["item_name"] . ">" : $row["item_name"]) . '
                     </td>
                     <td class="px-6 py-4">
                        
@@ -189,7 +206,7 @@ if (mysqli_num_rows($result) > 0) {
                     </td>
                     <td class="px-6 py-4">
                        
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["user_remarks"] . ">" : $row["user_remarks"]) . '
+                         ' . ($isEditable ? "<input class='formInputData' id='user_remarks' name='user_remarks' disabled style='max-width:80px'  margin-left:0' value=" . $row["user_remarks"] . ">" : $row["user_remarks"]) . '
                     </td>
                     <td class="px-6 py-4">
                        
@@ -205,7 +222,7 @@ if (mysqli_num_rows($result) > 0) {
                     </td>
                     <td class="px-6 py-4">
                        
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["status"] . ">" : $row["status"]) . '
+                         ' . ($isEditable ? "<input class='formInputData' name='status' id='status'  disabled style='max-width:80px'  margin-left:0' value=" . $row["status"] . ">" : $row["status"]) . '
                     </td>
                     <td class="px-6 py-4">
                        
@@ -217,8 +234,8 @@ if (mysqli_num_rows($result) > 0) {
                     </td>
                 
                     <td class="px-4 py-4 text-right">
-                         <a onclick ="enableItem(event,rowId' . $row["S_no"] . ')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                    <button id=rowId' . $row["S_no"] . ' name="update_data" class="hidden inline-flex mr-2  items-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="">
+                        
+                    <button   id=rowId' . $row["S_no"] . '  data-modal-target="crud-modal" data-modal-toggle="crud-modal"  name="update_reqsuisition" dataId=' . $row["S_no"] . ' class=" inline-flex mr-2  items-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="getDataOfEdit(event)">
                       Update</button>
                     </td>
                      
@@ -227,7 +244,7 @@ if (mysqli_num_rows($result) > 0) {
                     
                 </tr>
                     
-                </form>
+        
                     
                 ';
                 }  ?>
@@ -249,6 +266,68 @@ if (mysqli_num_rows($result) > 0) {
 
 
 
+    <!-- Main modal -->
+    <div id="crud-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+
+
+        <div class="relative p-4 w-full max-w-md max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                        Create New Product
+                    </h3>
+                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="crud-modal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                        </svg>
+
+                    </button>
+                </div>
+                <!-- Modal body -->
+                <form class="p-4 md:p-5">
+                    <div class="grid gap-4 mb-4 grid-cols-2">
+                        <div class="col-span-2">
+                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Item name</label>
+                            <input type="text" name="name" id="EditItemName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type product name" required="">
+                        </div>
+
+                        <div class="col-span-2 sm:col-span-1">
+                            <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
+                            <select id="stausList" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                <option selected value="PENDING">PENDING</option>
+                                <option value="CANCEL">CANCEL</option>
+
+                            </select>
+                        </div>
+                        <div class="col-span-2">
+                            <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Remarks</label>
+                            <textarea id="editRemark" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" onclick="updateDataUser(event)" id="updateButton" dataEditId="" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
+                        </svg>
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
 
 
@@ -257,16 +336,8 @@ if (mysqli_num_rows($result) > 0) {
 
 <script>
     let userIsSelected = 10;
-
-
-
-
     const beforeSubmitHandle = () => {
-
         document.getElementById("roleUserId").disabled = false;
-
-
-
     }
 
 
@@ -300,10 +371,6 @@ if (mysqli_num_rows($result) > 0) {
 
 
     let id_1 = 1;
-
-
-
-
     const showRolesBox = (e) => {
 
 
@@ -406,101 +473,12 @@ if (mysqli_num_rows($result) > 0) {
         return input
 
     }
-
-
-
-
-    function returnRow(company_id, location, gst_number, email, bank_name, bank_account_number, Bank_ifsc_number, Branch_name, category) {
-
-
-        var submitForm = document.createElement('form');
-        submitForm.method = 'POST';
-        submitForm.action = '#'; // Replace with your actual form submission URL
-        submitForm.id = "my_tr"
-
-        var newTr = document.createElement("tr");
-        newTr.classList.add("bg-white", "border-b", "dark:bg-gray-800", "dark:border-gray-700");
-
-        var td1 = document.createElement("td");
-        td1.classList.add("px-6", "py-4");
-        newTr.appendChild(td1)
-        td1.appendChild(createInput("company_id", company_id))
-
-
-        var td2 = document.createElement("td");
-        td2.classList.add("px-6", "py-4");
-        newTr.appendChild(td2)
-        td2.appendChild(createInput("location", location))
-
-
-        var td3 = document.createElement("td");
-        td3.classList.add("px-6", "py-4");
-        td3.appendChild(createInput("gst_number", gst_number))
-        newTr.appendChild(td3)
-
-
-        var td4 = document.createElement("td");
-        td4.classList.add("px-6", "py-4");
-        td4.appendChild(createInput("email", email))
-        newTr.appendChild(td4)
-
-
-        var td5 = document.createElement("td");
-        td5.classList.add("px-6", "py-4");
-        td5.appendChild(createInput("bank_name", bank_name))
-        newTr.appendChild(td5)
-
-
-        var td6 = document.createElement("td");
-        td6.classList.add("px-6", "py-4");
-        td6.appendChild(createInput("bank_account_number", bank_account_number))
-        newTr.appendChild(td6)
-
-
-        var td7 = document.createElement("td");
-        td7.classList.add("px-6", "py-4");
-        td7.appendChild(createInput("Bank_ifsc_number", Bank_ifsc_number))
-        newTr.appendChild(td7)
-
-
-        var td8 = document.createElement("td");
-        td8.classList.add("px-6", "py-4");
-        td8.appendChild(createInput("Branch_name", Branch_name))
-        newTr.appendChild(td8)
-
-
-        var td9 = document.createElement("td");
-        td9.classList.add("px-6", "py-4");
-        td9.appendChild(createInput("category", category))
-        newTr.appendChild(td9)
-
-
-
-
-        var button_s = document.createElement('button');
-        button_s.classList.add('inline-flex', 'display-block', 'mx-auto', 'items-center', 'py-2.5', 'px-3', 'text-sm', 'font-medium', 'text-white', 'bg-blue-700', 'rounded-lg', 'border', 'border-blue-700', 'hover:bg-blue-800', 'focus:ring-4', 'focus:outline-none', 'focus:ring-blue-300', 'dark:bg-blue-600', 'dark:hover:bg-blue-700', 'dark:focus:ring-blue-800');
-        button_s.name = 'updateLocatiosOfCompany';
-        button_s.type = 'submit';
-        button_s.textContent = 'Update';
-        // // // newTr.appendChild(button_s);
-
-        var td10 = document.createElement("td");
-        td10.classList.add("px-6", "py-4");
-        td10.appendChild(button_s)
-        newTr.appendChild(td10)
-
-        // newTr.appendChild(submitForm)
-
-
-        sub_company_id.appendChild(newTr)
-        // document.getElementsByTagName("body").appendChildI("submitForm")
-        // sub_company_id.appendChild(submitForm)
-
-    }
 </script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+<script src="./js/scripts.js"></script>
+<script src="./js/jquery.min.js"></script>
 
 
 </html>

@@ -1,5 +1,5 @@
 <?php
-// session_start();
+session_start();
 
 
 include("db_connection.php");
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $Quantity = $_POST["quantity"];
         // $user_remarks = "";
 
-        $record_id = $_SESSION["record_id"];
+        // $record_id = $_SESSION["record_id"];
 
 
         $sql = "INSERT INTO requisition_table (created_by,created_date, department_name,department_id,item_name, item_code, quantity, user_remarks,record_id,project_id) VALUES ('$created_by', '$created_date', '$department', $department_id,'$item_name', $item_id, $Quantity,'$user_remarks',$record_id,$project_id)";
@@ -93,8 +93,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -107,12 +105,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <body>
 
+    <?php require("./navForLogged.php") ?>
 
 
 
 
-    <!-- source: https://gist.github.com/nraloux/bce10c4148380061781b928cdab9b193 -->
-    <!-- I have added support for dark mode and improved UI -->
+
+
+
 
     <div class="h-full bg-gray-400 dark:bg-gray-900">
         <!-- Container -->
@@ -124,21 +124,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     <!-- Col -->
                     <div class="w-full  bg-white dark:bg-gray-700 p-5 rounded-lg lg:rounded-l-none">
-                        <h3 class="py-4 text-2xl text-center text-gray-800 dark:text-white">Genrate requirement !!</h3>
+                        <h3 class="py-4 text-2xl text-center text-gray-800 dark:text-white">Generate Requisition !!</h3>
+
+
+                        <!-- <form action="#" method="POST">
+
+                        <button type="submit" name="newRequisitionGenrate" >Genrate New Record</button>
+
+
+
+                        </form> -->
 
 
                         <form action="#" method="post" class="px-8 pt-6 pb-8 mb-4 bg-white dark:bg-gray-800 rounded">
 
+
                             <div class="mb-4 md:mr-2  md:mb-0">
                                 <label class="block mb-2 text-sm name font-bold text-gray-700 dark:text-white" for="firstName">
-                                    department
+                                    Department
                                 </label>
-                                <input name="department" class="w-full px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="firstName" type="txt" placeholder="Enter department" value="" />
+                                <input name="department" class="w-full color-black  px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="firstName" type="txt" placeholder="Enter department" value="" />
                             </div>
-                            <div class="mb-4 mt-4 md:flex md:justify-between">
+                            <div class="mb-4 mt-4 md:flex bg-blue-300  md:justify-between">
 
                                 <div class="mb-4 md:mr-2 max-w-1 md:mb-0">
-                                    <label class="block mb-2 text-sm name font-bold text-gray-700 dark:text-white" for="firstName">
+                                    <label class="block mb-2 text-sm name font-bold bg-blue-300 text-gray-700 dark:text-white" for="firstName">
                                         S.No
                                     </label>
                                     <input name="company_name" class="w-full px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="firstName" type="number" value="1" />
@@ -179,26 +189,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     </label>
                                     <input name="User_Remarks" class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="email" type="txt" placeholder="User_Remarks" />
                                 </div>
+
+
+
+
+                                <div class="mb-4 md:mr-2  ml-2 md:mb-0">
+                                    <label class="block mb-2 text-sm name font-bold text-gray-700 dark:text-white" for="firstName">
+                                        Need by date
+                                    </label>
+                                    <input type="date" name="department" class="w-full color-black  px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="firstName" type="txt" placeholder="Enter department" value="" />
+                                </div>
                             </div>
 
 
-                            
-                            
-                            
-                            <a onclick="addRowItem()" class="cursor-pointer" > add More</a>
-                            
+
+
+
+                            <a onclick="addRowItem()" class="cursor-pointer"> + Add row </a>
+
                             <div class="mb-6 mt-3 text-center">
-                                <button class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 dark:bg-blue-700 dark:text-white dark:hover:bg-blue-900 focus:outline-none focus:shadow-outline" name="newRequisitionGenrate" type="submit">
+                                <button style="    background-color: green;" class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 dark:bg-blue-700 dark:text-white dark:hover:bg-blue-900 focus:outline-none focus:shadow-outline" name="newRequisitionGenrate" type="submit">
                                     Submit
                                 </button>
                             </div>
                             <hr class="mb-6 border-t" />
                         </form>
-                            
-                            
-                        
 
-                  
+
+
+
+
 
 
 
@@ -218,23 +238,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 <script>
+    const addRowItem = () => {
 
 
 
-const addRowItem = () =>{
-
-
-
-alert("hello");
-
-
-
-
-}
+        alert("hello");
 
 
 
 
+    }
 </script>
+<script src="./js/scripts.js"></script>
 
 </html>

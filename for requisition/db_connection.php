@@ -14,10 +14,7 @@ $con = mysqli_connect(
 
 if (mysqli_connect_error()) {
     echo "Connection Error.<br>";
-} else {
-    echo "Database Connection Successfully.<br>";
-}
-
+} 
 
 
 

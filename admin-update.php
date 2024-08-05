@@ -257,7 +257,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Admin update</title>
 </head>
 
-<body>
+<body class="">
 
 
 
@@ -485,139 +485,136 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
     <!-- Modal toggle -->
-           <center>
+    <center>
         <button onclick="openNewAdminBox()" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
             Add a user
         </button>
 
 
-    <div id="newUserAdmin" class="relative  transition hidden overflow-x-auto shadow-md sm:rounded-lg ">
-        <table class=" text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"">
+        <div id="newUserAdmin" class="relative  transition hidden overflow-x-auto shadow-md sm:rounded-lg ">
+            <table class=" text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"">
 
             <thead class=" text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" class="px-6 py-3">
-                    id
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    usernme
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    password
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    email
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    phone
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    person_id
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    start date
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    end date
-                </th>
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        id
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        usernme
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        password
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        email
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        phone
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        person_id
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        start date
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        end date
+                    </th>
 
-                <th scope="col" class="px-6 py-3">
-                    role
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    updated b
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    created by
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    created date
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    updated date
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    <span class="sr-only">Edit</span>
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-
-
+                    <th scope="col" class="px-6 py-3">
+                        role
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        updated b
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        created by
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        created date
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        updated date
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <span class="sr-only">Edit</span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
 
 
-                <form action="#" method="POST">
-
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <input class='formInputData' name='user_id' style='max-width:80px'>
-                        </th>
-                        <td class=px-6 py-4">
-                            <input class='formInputData' name='username' style='max-width:80px' margin-left:0>
-                        </td>
-                        <td class="px-6 py-4">
-
-                            <input class='formInputData' name='password' style='max-width:80px' margin-left:'>
-                        </td>
-                        <td class="px-6 py-4">
-                            <input class='formInputData' name='email_id' style='max-width:80px' margin-left:0>
-                        </td>
-                        <td class="px-6 py-4">
-                            <input class='formInputData' name='mobile_number' style='max-width:80px' margin-left:0>
-                        </td>
-                        <td class="px-6 py-4">
-                            <input class='formInputData' name='person_id' style='max-width:80px' margin-left:0>
-                        </td>
-                        <td class="px-6 py-4">
-                            <input type='date' class='formInputData' name='start_date' style='max-width:80px' margin-left:0>
-                        </td>
-                        <td class="px-6 py-4">
-
-                            <input class='formInputData' type='date' name='end_date' style='max-width:80px' margin-left:0>
-                        </td>
-                        <td class="px-6 py-4">
-
-                            <input class='formInputData' name='role' style='max-width:80px' margin-left:0>
-                        </td>
-                        <td class="px-6 py-4">
-
-                            <input class='formInputData' name='updataed_by' style='max-width:80px' margin-left:0'>
-                        </td>
-                        <td class="px-6 py-4">
-                            <input class='formInputData' name='createdBy' style='max-width:80px' margin-left:0>
-                        </td>
-                        <td class="px-6 py-4">
-
-                            <input class='formInputData' type='date' name='created_date' style='max-width:80px' margin-left:0>
-                        </td>
-                        </td>
-                        <td class="px-6 py-4">
-
-                            <input class='formInputData' type='date' name='updated_date' style='max-width:80px' margin-left:0'>
-                        </td>
-
-                        <td class="px-6 py-4 text-right">
-                            <!-- <a onclick ="" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a> -->
-                            <button name="add_new_user_admin" class=" inline-flex mr-2 ml-20 items-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="">
-                                add</button>
-                        </td>
 
 
-                        <!-- <td class="px-6 py-4 text-right">
+                    <form action="#" method="POST">
+
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <input class='formInputData' name='user_id' style='max-width:80px'>
+                            </th>
+                            <td class=px-6 py-4">
+                                <input class='formInputData' name='username' style='max-width:80px' margin-left:0>
+                            </td>
+                            <td class="px-6 py-4">
+
+                                <input class='formInputData' name='password' style='max-width:80px' margin-left:'>
+                            </td>
+                            <td class="px-6 py-4">
+                                <input class='formInputData' name='email_id' style='max-width:80px' margin-left:0>
+                            </td>
+                            <td class="px-6 py-4">
+                                <input class='formInputData' name='mobile_number' style='max-width:80px' margin-left:0>
+                            </td>
+                            <td class="px-6 py-4">
+                                <input class='formInputData' name='person_id' style='max-width:80px' margin-left:0>
+                            </td>
+                            <td class="px-6 py-4">
+                                <input type='date' class='formInputData' name='start_date' style='max-width:80px' margin-left:0>
+                            </td>
+                            <td class="px-6 py-4">
+
+                                <input class='formInputData' type='date' name='end_date' style='max-width:80px' margin-left:0>
+                            </td>
+                            <td class="px-6 py-4">
+
+                                <input class='formInputData' name='role' style='max-width:80px' margin-left:0>
+                            </td>
+                            <td class="px-6 py-4">
+
+                                <input class='formInputData' name='updataed_by' style='max-width:80px' margin-left:0'>
+                            </td>
+                            <td class="px-6 py-4">
+                                <input class='formInputData' name='createdBy' style='max-width:80px' margin-left:0>
+                            </td>
+                            <td class="px-6 py-4">
+
+                                <input class='formInputData' type='date' name='created_date' style='max-width:80px' margin-left:0>
+                            </td>
+                            </td>
+                            <td class="px-6 py-4">
+
+                                <input class='formInputData' type='date' name='updated_date' style='max-width:80px' margin-left:0'>
+                            </td>
+
+                            <td class="px-6 py-4 text-right">
+                                <!-- <a onclick ="" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a> -->
+                                <button name="add_new_user_admin" class=" inline-flex mr-2 ml-20 items-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="">
+                                    add</button>
+                            </td>
+
+
+                            <!-- <td class="px-6 py-4 text-right">
                          <a onclick ="showRolesBox(event)" data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user roles</a>
                   
                     </td> -->
-                    </tr>
-                </form>
+                        </tr>
+                    </form>
 
 
-            </tbody>
-        </table>
-    </div>
-
-
-
+                </tbody>
+            </table>
+        </div>
 
 
 
@@ -626,187 +623,190 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-    <!-- Main modal -->
-    <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative p-4 max-h-full">
-            <!-- Modal content -->
-            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                <!-- Modal header -->
-                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                        Edit user
-                    </h3>
-                    <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal">
-                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                        </svg>
-                        <span class="sr-only">Close modal</span>
-                    </button>
-                </div>
 
 
 
-                <div>
-                    <div class="relative overflow-x-auto shadow-md sm:rounded-lg ">
-                        <table class=" text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"">
-
-            <thead class=" text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                            <tr>
-                                <th scope="col" class="px-6 py-3">
-                                    User id
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Role
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Permission
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Start date
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    End date
-                                </th>
-
-                                <th scope="col" class="px-6 py-3">
-                                    <span class="sr-only">Edit</span>
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-
-
-
-                                <form action="#" method="POST">
-
-                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            <input type="text" id="roleUserId" disabled name="admin_id" value="2">
-
-                                        </th>
-
-                                        <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            Users view
-                                        </td>
-                                        <td class=px-6 py-4">
-                                            <div class="flex items-center mb-4">
-                                                <input id="default-checkbox" type="checkbox" name="user_viewOnly" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                            </div>
-                                        </td>
-                                        <td class=px-6 py-4">
-                                            <input type="date" name="user_view_start_date" value="2000-01-01">
-                                        </td>
-                                        <td class="px-6 py-4">
-
-                                            <input type="date" name="user_view_end_date" value="2000-01-01">
-                                        </td>
-
-
-                                    </tr>
-                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-
-                                        </th>
-
-                                        <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            User edit
-                                        </td>
-                                        <td class=px-6 py-4">
-                                            <div class="flex items-center mb-4">
-                                                <input id="default-checkbox" type="checkbox" name="user_write" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                            </div>
-                                        </td>
-                                        <td class=px-6 py-4">
-                                            <input type="date" name="user_write_start_date" value="2000-01-01">
-                                        </td>
-                                        <td class="px-6 py-4">
-
-                                            <input type="date" name="user_write_end_date" value="2000-01-01">
-                                        </td>
-
-
-                                        <td class="px-6 py-4 text-right">
-                                            <!-- <a onclick ="enableItem(event,rowId' . $row["user_id"] . ')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a> -->
-                                            <button id=rowId' name="update_data" class="hidden inline-flex mr-2 ml-20 items-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="">
-                                                Update</button>
-                                        </td>
-                                    </tr>
-                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-
-                                        </th>
-
-                                        <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            Admin view
-                                        </td>
-                                        <td class=px-6 py-4">
-                                            <div class="flex items-center mb-4">
-                                                <input id="default-checkbox" type="checkbox" name="admin_viewOnly" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                            </div>
-                                        </td>
-                                        <td class=px-6 py-4">
-                                            <input type="date" name="admin_view_start_date" value="2000-01-01">
-                                        </td>
-                                        <td class="px-6 py-4">
-
-                                            <input type="date" name="admin_view_end_date" value="2000-01-01">
-                                        </td>
-
-
-                                        <td class="px-6 py-4 text-right">
-                                            <!-- <a onclick ="enableItem(event,rowId' . $row["user_id"] . ')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a> -->
-                                            <button id=rowId' name="update_data" class="hidden inline-flex mr-2 ml-20 items-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="">
-                                                Update</button>
-                                        </td>
-                                    </tr>
-                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-
-                                        </th>
-
-                                        <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            Admin write
-                                        </td>
-                                        <td class=px-6 py-4">
-                                            <div class="flex items-center mb-4">
-                                                <input id="default-checkbox" type="checkbox" value="" name="admin_write" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                            </div>
-                                        </td>
-                                        <td class=px-6 py-4">
-                                            <input type="date" name="admin_write_start_date" value="2000-01-01">
-                                        </td>
-                                        <td class="px-6 py-4">
-
-                                            <input type="date" name="admin_write_end_date" value="2000-01-01">
-                                        </td>
-
-
-                                        <td class="px-6 py-4 text-right">
-                                            <!-- <a onclick ="enableItem(event,rowId' . $row["user_id"] . ')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a> -->
-                                            <button id=rowId' onclick=name="update_data" class="hidden inline-flex mr-2 ml-20 items-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="">
-                                                Update</button>
-                                        </td>
-                                    </tr>
-
-
-
-                            </tbody>
-                        </table>
-                        <button name="update_admin_roles" onclick="beforeSubmitHandle()" style="margin: auto;
-    display: block;" class=" inline-flex display-block mx-auto items-center py-2.5 px-3 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="">
-                            Submit</button>
-                        </form>
+        <!-- Main modal -->
+        <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative p-4 max-h-full">
+                <!-- Modal content -->
+                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <!-- Modal header -->
+                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                            Edit user
+                        </h3>
+                        <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
                     </div>
 
 
+
+                    <div>
+                        <div class="relative overflow-x-auto shadow-md sm:rounded-lg ">
+                            <table class=" text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"">
+
+                                <thead class=" text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">
+                                        User id
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Role
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Permission
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Start date
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        End date
+                                    </th>
+
+                                    <th scope="col" class="px-6 py-3">
+                                        <span class="sr-only">Edit</span>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+
+
+                                    <form action="#" method="POST">
+
+                                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+
+                                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                <input type="text" id="roleUserId" disabled name="admin_id" value="2">
+
+                                            </th>
+
+                                            <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                Users view
+                                            </td>
+                                            <td class=px-6 py-4">
+                                                <div class="flex items-center mb-4">
+                                                    <input id="default-checkbox" type="checkbox" name="user_viewOnly" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                </div>
+                                            </td>
+                                            <td class=px-6 py-4">
+                                                <input type="date" name="user_view_start_date" value="2000-01-01">
+                                            </td>
+                                            <td class="px-6 py-4">
+
+                                                <input type="date" name="user_view_end_date" value="2000-01-01">
+                                            </td>
+
+
+                                        </tr>
+                                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+
+                                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+
+                                            </th>
+
+                                            <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                User edit
+                                            </td>
+                                            <td class=px-6 py-4">
+                                                <div class="flex items-center mb-4">
+                                                    <input id="default-checkbox" type="checkbox" name="user_write" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                </div>
+                                            </td>
+                                            <td class=px-6 py-4">
+                                                <input type="date" name="user_write_start_date" value="2000-01-01">
+                                            </td>
+                                            <td class="px-6 py-4">
+
+                                                <input type="date" name="user_write_end_date" value="2000-01-01">
+                                            </td>
+
+
+                                            <td class="px-6 py-4 text-right">
+                                                <!-- <a onclick ="enableItem(event,rowId' . $row["user_id"] . ')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a> -->
+                                                <button id=rowId' name="update_data" class="hidden inline-flex mr-2 ml-20 items-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="">
+                                                    Update</button>
+                                            </td>
+                                        </tr>
+                                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+
+                                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+
+                                            </th>
+
+                                            <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                Admin view
+                                            </td>
+                                            <td class=px-6 py-4">
+                                                <div class="flex items-center mb-4">
+                                                    <input id="default-checkbox" type="checkbox" name="admin_viewOnly" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                </div>
+                                            </td>
+                                            <td class=px-6 py-4">
+                                                <input type="date" name="admin_view_start_date" value="2000-01-01">
+                                            </td>
+                                            <td class="px-6 py-4">
+
+                                                <input type="date" name="admin_view_end_date" value="2000-01-01">
+                                            </td>
+
+
+                                            <td class="px-6 py-4 text-right">
+                                                <!-- <a onclick ="enableItem(event,rowId' . $row["user_id"] . ')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a> -->
+                                                <button id=rowId' name="update_data" class="hidden inline-flex mr-2 ml-20 items-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="">
+                                                    Update</button>
+                                            </td>
+                                        </tr>
+                                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+
+                                            </th>
+
+                                            <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                Admin write
+                                            </td>
+                                            <td class=px-6 py-4">
+                                                <div class="flex items-center mb-4">
+                                                    <input id="default-checkbox" type="checkbox" value="" name="admin_write" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                </div>
+                                            </td>
+                                            <td class=px-6 py-4">
+                                                <input type="date" name="admin_write_start_date" value="2000-01-01">
+                                            </td>
+                                            <td class="px-6 py-4">
+
+                                                <input type="date" name="admin_write_end_date" value="2000-01-01">
+                                            </td>
+
+
+                                            <td class="px-6 py-4 text-right">
+                                                <!-- <a onclick ="enableItem(event,rowId' . $row["user_id"] . ')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a> -->
+                                                <button id=rowId' onclick=name="update_data" class="hidden inline-flex mr-2 ml-20 items-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="">
+                                                    Update</button>
+                                            </td>
+                                        </tr>
+
+
+
+                                </tbody>
+                                         </table>
+                                     <button name="update_admin_roles" onclick="beforeSubmitHandle()" style="margin: auto;
+                                 display: block;" class=" inline-flex display-block mx-auto items-center py-2.5 px-3 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="">
+                                Submit</button>
+                            </form>
+                        </div>
+
+
+                    </div>
+
                 </div>
-
-
-
-
+            </div>
+    </div>
 
 
                 <!-- fake test box areA -->

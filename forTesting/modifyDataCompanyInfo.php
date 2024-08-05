@@ -332,7 +332,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
                                             <button name="update_admin_roles" onclick="beforeSubmitHandle()" style="margin: auto;
-display: block;" class=" inline-flex display-block mx-auto items-center py-2.5 px-3 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="">
+                                                        display: block;" class=" inline-flex display-block mx-auto items-center py-2.5 px-3 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="">
                                                 Submit</button>
 
                                         </td>
@@ -539,7 +539,7 @@ display: block;" class=" inline-flex display-block mx-auto items-center py-2.5 p
         td1.classList.add("px-6", "py-4");
         newTr.appendChild(td1)
         td1.appendChild(createInput("company_id", company_id))
-        
+
 
         var td2 = document.createElement("td");
         td2.classList.add("px-6", "py-4");
@@ -596,6 +596,7 @@ display: block;" class=" inline-flex display-block mx-auto items-center py-2.5 p
         button_s.name = 'updateLocatiosOfCompany';
         button_s.type = 'submit';
         button_s.textContent = 'Update';
+
         // // // newTr.appendChild(button_s);
 
         var td10 = document.createElement("td");
@@ -605,12 +606,12 @@ display: block;" class=" inline-flex display-block mx-auto items-center py-2.5 p
 
         // newTr.appendChild(submitForm)
 
-        
+
         sub_company_id.appendChild(newTr)
         // document.getElementsByTagName("body").appendChildI("submitForm")
         // sub_company_id.appendChild(submitForm)
-        
-   }
+
+    }
 </script>
 
 
