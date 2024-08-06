@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 
 //update data sql with ajax
 
@@ -36,8 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
         echo json_encode($rsponse);
-    }
-    if (isset($_POST['updatereqsuisitionFromStoreIssuer'])) {
+    } else if (isset($_POST['updatereqsuisitionFromStoreIssuer'])) {
 
 
         include("./db_connection.php");
@@ -54,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $finalRemarks = $_POST["finalRemarks"];
 
 
-    
+
         // echo    $user_id;
         // echo  $Price;
         // echo  $reqiusitionType;
@@ -68,14 +67,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $result = mysqli_query($con, $sql);
 
 
-        if($result){
+        if ($result) {
 
 
             $response["success"] = true;
             $response["data"] = "data updated success fully";
-
-
-        }else{
+        } else {
 
             $response["success"] = false;
             $response["data"] = "data is not updated";
@@ -85,5 +82,98 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
         echo  json_encode($response);
+    } else if (isset($_POST["newRequisitionInsert"])) {
+
+
+        include("./db_connection.php");
+
+        $created_by = $_SESSION["username"];
+        $created_date = date("y-m-d");
+        $newRequisitionInsert = "newRequisitionInsert";
+        // $recordId =  7;
+        $recordId =  $_SESSION["newRecordId"];
+        $newProjectId =  $_POST["newProjectId"];
+        $NewItenName =  $_POST["NewItenName"];
+        $newitemQuantity =  $_POST["newitemQuantity"];
+        $newItemNeedDate =  $_POST["newItemNeedDate"];
+        $newItemUserRemarks =  $_POST["newItemUserRemarks"];
+        $departMentId =  $_POST["departMentId"];
+        $departMentname =  $_POST["departMentname"];
+        $newItemId = $_POST["newItemId"];
+
+
+
+
+
+        $sql = "INSERT INTO requisition_table (created_by,created_date, department_name,department_id,item_name, item_code, quantity, user_remarks,record_id,project_id) 
+        VALUES ('$created_by', '$created_date', '$departMentname', $departMentId,'$NewItenName',$newItemId,$newitemQuantity,'$newItemUserRemarks',$recordId,$newProjectId)";
+
+
+
+        // $sql = "INSERT INTO requisition_table (created_by,created_date, department_name,department_id,item_name, item_code, quantity, user_remarks,record_id,project_id) 
+        // VALUES ('$created_by', '$created_date', '$department', $department_id,'$item_name', $item_id, $Quantity,'$user_remarks',$record_id,$project_id)";
+
+        try {
+            //code...
+
+
+            if (mysqli_query($con, $sql)) {
+
+
+                $response["success"] = true;
+                $response["data"] = "new Requisision success ";
+                $response["newId"] =  mysqli_insert_id($con);
+                $response["datainserted"] = "Yhaa success";
+            } else {
+                $response["success"] = false;
+                $response["data"] = "data is not inserted please tyry Again";
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+            $response["errror"] = $th;
+        }
+
+
+        echo  json_encode($response);
+    }
+}
+
+
+
+
+
+
+
+
+if ($_SERVER['REQUEST_METHOD'] == "GET") {
+
+
+
+
+    if (isset($_GET["getUserAdminRoles"])) {
+
+        include("./db_connection.php");
+
+        $userId = $_GET["userIsSelectedId"];
+
+
+
+        $sql = "select * from admin_roles where admin_id=$userId;";
+
+        $result = mysqli_query($con, $sql);;
+
+        if ($result) {
+
+            $response["success"] = true;
+            $response["data"] = mysqli_fetch_assoc($result);
+        } else {
+            $response["success"] = false;
+            $response["data"] = "Data not found please try again or register user to admin roles";
+        }
+
+
+
+
+        echo json_encode($response);
     }
 }

@@ -2,85 +2,83 @@
 session_start();
 
 
-include("db_connection.php");
-// echo "this is genrate requisition page";
+include("../db_connection.php");
+echo "this is genrate requisition page";
 
-// if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-
-
-
-
-//     if (isset($_POST["newRequisitionGenrate"])) {
-
-
-
-//         // if ($_POST["type"] == "newGenrate") {
-
-
-//         // $user = $_SESSION["username"];
-
-
-//         // $current_date = date("y-m-d");
-
-//         // $sql = "insert into requisition_table_header (created_by,created_date,updated_by,updated_date) values('$user','$current_date','user1','$current_date');";
-
-
-
-//         // try {
-//         //     $result = mysqli_query($con, $sql);
-//         // } catch (\Throwable $th) {
-//         //     echo "new record genration gailed";
-//         // }
-
-//         // if ($result) {
-
-//         //     echo "new record gereated success fully";
-//         //     $record_id = mysqli_insert_id($con);
-//         // } else {
-//         //     header("location:home.php");
-//         // }
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
 
 
-
-//         // $created_by = $_SESSION["username"];
-//         // $created_date = date("y-m-d");
-//         // $department = $_POST["department"];
-//         // $item_name = $_POST["item_name"];
-//         // // $item_id =  $record_id.$_POST["item_name"] ;
-//         // $item_id =  1;
-//         // $user_remarks = $_POST["User_Remarks"];
-//         // $department_id = 1;
-//         // // $requisitionType = "SCH";
-//         // // $requisitionId = 1
-//         // $project_id = $_POST["project_id"];
-//         // $Quantity = $_POST["quantity"];
-//         // // $user_remarks = "";
-
-//         // // $record_id = $_SESSION["record_id"];
-
-
-//         // $sql = "INSERT INTO requisition_table (created_by,created_date, department_name,department_id,item_name, item_code, quantity, user_remarks,record_id,project_id) VALUES ('$created_by', '$created_date', '$department', $department_id,'$item_name', $item_id, $Quantity,'$user_remarks',$record_id,$project_id)";
+    if (isset($_POST["newRequisitionGenrate"])) {
 
 
 
-//         // $result = mysqli_query($con, $sql);
+        // if ($_POST["type"] == "newGenrate") {
+
+
+        $user = $_SESSION["username"];
+
+
+        $current_date = date("y-m-d");
+
+        $sql = "insert into requisition_table_header (created_by,created_date,updated_by,updated_date) values('$user','$current_date','user1','$current_date');";
 
 
 
-//         // if ($result) {
+        try {
+            $result = mysqli_query($con, $sql);
+        } catch (\Throwable $th) {
+            echo "new record genration gailed";
+        }
+
+        if ($result) {
+
+            echo "new record gereated success fully";
+            $record_id = mysqli_insert_id($con);
+        } else {
+            header("location:home.php");
+        }
 
 
-//         //     echo "\nitem requisition is  is created is success fully";
-//         // }
-//         // }
-//     }
-// }
 
-// $sql = "SELECT * FROM "
+
+
+
+        $created_by = $_SESSION["username"];
+        $created_date = date("y-m-d");
+        $department = $_POST["department"];
+        $item_name = $_POST["item_name"];
+        // $item_id =  $record_id.$_POST["item_name"] ;
+        $item_id =  1;
+        $user_remarks = $_POST["User_Remarks"];
+        $department_id = 1;
+        // $requisitionType = "SCH";
+        // $requisitionId = 1
+        $project_id = $_POST["project_id"];
+        $Quantity = $_POST["quantity"];
+        // $user_remarks = "";
+
+        // $record_id = $_SESSION["record_id"];
+
+
+        $sql = "INSERT INTO requisition_table (created_by,created_date, department_name,department_id,item_name, item_code, quantity, user_remarks,record_id,project_id) VALUES ('$created_by', '$created_date', '$department', $department_id,'$item_name', $item_id, $Quantity,'$user_remarks',$record_id,$project_id)";
+
+
+
+        $result = mysqli_query($con, $sql);
+
+
+
+        if ($result) {
+
+
+            echo "\nitem requisition is  is created is success fully";
+        }
+        // }
+    }
+}
 
 
 
@@ -105,7 +103,7 @@ include("db_connection.php");
 
 <body>
 
-    <?php require("./navForLogged.php") ?>
+    <?php require("../navForLogged.php") ?>
 
 
 
@@ -140,14 +138,14 @@ include("db_connection.php");
                                 <label class="block mb-2 text-sm name font-bold text-gray-700 dark:text-white" for="firstName">
                                     Department
                                 </label>
-                                <input name="departmentName" id="departmentName" companyid="<?php echo 1; ?>" class="w-full color-black  px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="firstName" type="txt" placeholder="Enter department" value="" />
+                                <input name="department" class="w-full color-black  px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="firstName" type="txt" placeholder="Enter department" value="" />
                             </div>
 
                             <div class="mb-4 md:mr-2 max-w-1 md:mb-0">
                                 <label class="block mb-2 text-sm name font-bold bg-blue-300 text-gray-700 dark:text-white" for="firstName">
-                                    Record Number
+                                    Record number
                                 </label>
-                                <input name="company_name" class="w-full px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="firstName" type="number" value="<?php   echo  $_SESSION["newRecordId"]?>" />
+                                <input name="company_name" class="w-full px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="firstName" type="number" value="1" />
                             </div>
 
                         </div>
@@ -183,7 +181,7 @@ include("db_connection.php");
                                             Quantity
 
                                         </label>
-                                        <input name="quantity"  class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="quantity" type="number" placeholder="quantity" />
+                                        <input name="quantity" class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="quantity" type="number" placeholder="quantity" />
                                     </div>
                                     <div class="mb-4 ml-2">
                                         <label class="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="email">
@@ -221,6 +219,9 @@ include("db_connection.php");
 
 
 
+
+
+
                     </div>
                 </div>
             </div>
@@ -237,7 +238,7 @@ include("db_connection.php");
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                         Create New Product
                     </h3>
-                    <button type="button" id="clos_hover" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="crud-modal">
+                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="crud-modal">
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                         </svg>
@@ -247,27 +248,27 @@ include("db_connection.php");
                 <!-- Modal body -->
                 <div action="#" method="post" class="px-8 pt-6 pb-8 mb-4 bg-white dark:bg-gray-800 rounded">
 
-                                    
+
 
 
                     <div class="mb-4 md:mr-2  md:mb-0">
                         <label class="block mb-2 text-sm name font-bold text-gray-700 dark:text-white" for="firstName">
                             Project Id
                         </label>
-                        <input name="Project_Id"  id="newProjectId" class="w-full color-black  px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="Project Id" type="number" placeholder="Project Id" value="" />
+                        <input name="Project_Id" id="newProjectId" class="w-full color-black  px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="Project Id" type="txt" placeholder="Project Id" value="" />
                     </div>
                     <div class="mb-4 md:mr-2  md:mb-0">
                         <label class="block mb-2 text-sm name font-bold text-gray-700 dark:text-white" for="firstName">
                             Item name
                         </label>
-                        <input name="newItemName" required itemId="<?php echo 10 ; ?>" required id="NewItenName" class="w-full color-black  px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="newItemName" type="txt" placeholder="Item name" value="" />
+                        <input name="newItemName" id="NewItenName" class="w-full color-black  px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="newItemName" type="txt" placeholder="Item name" value="" />
                     </div>
 
                     <div class="mb-4 md:mr-2  md:mb-0">
                         <label class="block mb-2 text-sm name font-bold text-gray-700 dark:text-white" for="firstName">
                             Quantity
                         </label>
-                        <input name="quantity" id="newitemQuantity" class="w-full color-black  px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" type="number" placeholder="Item name" required />
+                        <input name="quantity" id="newitemQuantity" class="w-full color-black  px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" type="txt" placeholder="Item name" value="" />
                     </div>
 
 
@@ -282,7 +283,7 @@ include("db_connection.php");
                         <label class="block mb-2 text-sm name font-bold text-gray-700 dark:text-white" for="firstName">
                             User remarks
                         </label>
-                        <input name="NewUserRemark"  class="w-full color-black  px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="newItemUserRemarks" type="txt" placeholder="User remarks" />
+                        <input name="NewUserRemark" class="w-full color-black  px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="newItemUserRemarks" type="txt" placeholder="User remarks" />
                     </div>
 
 
@@ -306,7 +307,20 @@ include("db_connection.php");
 
 
 
-<script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+
+
+<script>
+    const addRowItem = () => {
+
+        alert("");
+
+
+    }
+</script>
 <script src="./js/scripts.js"></script>
-<script src="./js/jquery.min.js"></script>
+<script src="./temp.js"></script>
+<script src="../js/jquery.min.js"></script>
+
+
+
 </html>

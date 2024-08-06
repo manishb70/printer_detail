@@ -11,7 +11,7 @@
 
 
 
-<?php require("./navbar.php");?>
+<?php require("./navbar.php") ;?>
 
 
 

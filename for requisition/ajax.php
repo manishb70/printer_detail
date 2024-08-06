@@ -39,19 +39,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION["username"] = $row["user_name"];
                 $_SESSION["user_id"] = $row["user_id"];
                 $_SESSION["role"] = $row["role"];
-            
-                
             } else {
 
                 echo  "Password not match";
-                header("location:login.php");    
+                header("location:login.php");
             }
             $respone["loggedIn"] = "False";
             $respone["message"] = "User not found";
-            
-            
-
-        }else{
+        } else {
             header("location:login.php");
         }
 
@@ -59,7 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
 
         echo "user not found";
-        
     }
 
 
@@ -137,19 +131,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 $sql = "INSERT into requisition_table_heade";
             }
-
         }
-
-
-
-
-
-
-
-
-
-
-
-
     }
+
+
+
+
+        
+
+
+
 }
