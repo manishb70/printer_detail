@@ -170,39 +170,39 @@ if (mysqli_num_rows($result) > 0) {
                         ' . ($isEditable ? "<input class='formInputData'  name='user_id' disabled style='max-width:80px' id=" . $row["S_no"] . "  margin-left:0' value=" . $row["S_no"] . ">" : $row["S_no"]) . '
                     </th>
                     <td class=px-6 py-4">
-                        ' . ($isEditable ? "<input class='formInputData' name='name_of_company' disabled style='max-width:80px'  margin-left:0' value=" . $row["created_by"] . ">" : $row["created_by"]) . '
+                        ' . ($isEditable ? "<input class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500' name='name_of_company' disabled style='max-width:80px'  margin-left:0' value=" . $row["created_by"] . ">" : $row["created_by"]) . '
                     </td>
                     <td class="px-6 py-4">
                     
-                         ' . ($isEditable ? "<input class='formInputData' name='created_date' disabled style='max-width:80px'  margin-left:0' value=" . $row["created_date"] . ">" : $row["created_date"]) . '
+                         ' . ($isEditable ? "<input class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500' name='created_date' disabled style='max-width:80px'  margin-left:0' value=" . $row["created_date"] . ">" : $row["created_date"]) . '
                     </td>
                     <td class="px-6 py-4">
-                        ' . ($isEditable ? "<input class='formInputData' name='department_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["department_name"] . ">" : $row["department_name"]) . '
+                        ' . ($isEditable ? "<input class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500' name='department_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["department_name"] . ">" : $row["department_name"]) . '
                     </td>
                     <td class="px-6 py-4">
-                        ' . ($isEditable ? "<input class='formInputData' name='department_id' disabled style='max-width:80px'  margin-left:0' value=" . $row["department_id"] . ">" : $row["department_id"]) . '
+                        ' . ($isEditable ? "<input class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500' name='department_id' disabled style='max-width:80px'  margin-left:0' value=" . $row["department_id"] . ">" : $row["department_id"]) . '
                     </td>
                     <td class="px-6 py-4">
-                         ' . ($isEditable ? "<input class='formInputData' name='requisition_type' disabled style='max-width:80px'  margin-left:0' value=" . $row["requisition_type"] . ">" : $row["requisition_type"]) . '
+                         ' . ($isEditable ? "<input class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500' name='requisition_type' disabled style='max-width:80px'  margin-left:0' value=" . $row["requisition_type"] . ">" : $row["requisition_type"]) . '
                     </td>
                     <td class="px-6 py-4">
-                        ' . ($isEditable ? "<input  type='txt' class='formInputData' name='requisition_id' disabled style='max-width:80px'  margin-left:0' value=" . $row["requisition_id"] . ">" : $row["requisition_id"]) . '
-                    </td>
-                    <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='project_id' disabled style='max-width:80px'  margin-left:0' value=" . $row["project_id"] . ">" : $row["project_id"]) . '
+                        ' . ($isEditable ? "<input  type='txt' class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500' name='requisition_id' disabled style='max-width:80px'  margin-left:0' value=" . $row["requisition_id"] . ">" : $row["requisition_id"]) . '
                     </td>
                     <td class="px-6 py-4">
                        
-                         ' . ($isEditable ? "<input class='formInputData' id='item_name' name='item_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["item_name"] . ">" : $row["item_name"]) . '
+                         ' . ($isEditable ? "<input class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500' name='project_id' disabled style='max-width:80px'  margin-left:0' value=" . $row["project_id"] . ">" : $row["project_id"]) . '
                     </td>
                     <td class="px-6 py-4">
                        
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["item_code"] . ">" : $row["item_code"]) . '
+                         ' . ($isEditable ? "<input class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500' id='item_name' name='item_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["item_name"] . ">" : $row["item_name"]) . '
                     </td>
                     <td class="px-6 py-4">
                        
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["quantity"] . ">" : $row["quantity"]) . '
+                         ' . ($isEditable ? "<input class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["item_code"] . ">" : $row["item_code"]) . '
+                    </td>
+                    <td class="px-6 py-4">
+                       
+                         ' . ($isEditable ? "<input class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["quantity"] . ">" : $row["quantity"]) . '
                     </td>
                     <td class="px-6 py-4">
                        
@@ -210,27 +210,27 @@ if (mysqli_num_rows($result) > 0) {
                     </td>
                     <td class="px-6 py-4">
                        
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["price"] . ">" : $row["price"]) . '
+                         ' . ($isEditable ? "<input class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["price"] . ">" : $row["price"]) . '
                     </td>
                     <td class="px-6 py-4">
                        
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["date_hand_hover"] . ">" : $row["date_hand_hover"]) . '
+                         ' . ($isEditable ? "<input class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["date_hand_hover"] . ">" : $row["date_hand_hover"]) . '
                     </td>
                     <td class="px-6 py-4">
                        
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["handover_over_by"] . ">" : $row["handover_over_by"]) . '
+                         ' . ($isEditable ? "<input class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["handover_over_by"] . ">" : $row["handover_over_by"]) . '
                     </td>
                     <td class="px-6 py-4">
                        
-                         ' . ($isEditable ? "<input class='formInputData' name='status' id='status'  disabled style='max-width:80px'  margin-left:0' value=" . $row["status"] . ">" : $row["status"]) . '
+                         ' . ($isEditable ? "<input class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500' name='status' id='status'  disabled style='max-width:80px'  margin-left:0' value=" . $row["status"] . ">" : $row["status"]) . '
                     </td>
                     <td class="px-6 py-4">
                        
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["final_remarks"] . ">" : $row["final_remarks"]) . '
+                         ' . ($isEditable ? "<input class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["final_remarks"] . ">" : $row["final_remarks"]) . '
                     </td>
                     <td class="px-6 py-4">
                        
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["record_id"] . ">" : $row["record_id"]) . '
+                         ' . ($isEditable ? "<input class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["record_id"] . ">" : $row["record_id"]) . '
                     </td>
                 
                     <td class="px-4 py-4 text-right">
