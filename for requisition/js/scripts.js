@@ -436,6 +436,9 @@ const addRowToGenrate = (sno, project_id, item_name, quantity, user_remarks, nee
 const setRolesToSelectedUser = (event) => {
 
     userIsSelected = (event.target.getAttribute("userId"));
+    
+    // document.getElementById("roleUserId").value=jidji;
+    document.getElementById("roleUserId").value=userIsSelected;
 
 
     $.ajax({
@@ -457,12 +460,14 @@ const setRolesToSelectedUser = (event) => {
 
 
                     let userView =  parseInt(userRoles.user_viewOnly);
+                    let user_write =  parseInt(userRoles.user_write);
                     let admin_viewOnly =  parseInt(userRoles.admin_viewOnly);
                     let store_genrate = parseInt( userRoles.store_genrate);
                     let store_isseuer =  parseInt(userRoles.store_isseuer);
                     let store_manager = parseInt( userRoles.store_manager);
-                    let user_write =  parseInt(userRoles.user_write);
                     let admin_write  =  parseInt(userRoles.admin_write );
+
+                    console.log(userView);
 
                     console.log(userRoles);
 
@@ -472,15 +477,28 @@ const setRolesToSelectedUser = (event) => {
                     }else{
                         document.getElementById("user_viewOnly").checked=false
                     } 
-
-
+                    
+                    if(user_write){
+                        document.getElementById("user_write").checked=true
+                    }else{
+                        document.getElementById("user_write").checked=false
+                    } 
+                    
                     if(admin_viewOnly){
                         document.getElementById("adminView").checked=true
                     }else{
                         document.getElementById("adminView").checked=false
                     } 
 
-                        
+
+
+                    if(admin_write){
+                        document.getElementById("adminWrite").checked=true
+                    }else{
+                        document.getElementById("adminWrite").checked=false
+                    } 
+                    
+                    
 
                     if(store_genrate){
                         document.getElementById("genrateStoreRequest").checked=true
@@ -500,16 +518,6 @@ const setRolesToSelectedUser = (event) => {
                         document.getElementById("store_manager").checked=false
                     } 
 
-                    if(admin_write){
-                        document.getElementById("adminWrite").checked=true
-                    }else{
-                        document.getElementById("adminWrite").checked=false
-                    } 
-                    if(user_write){
-                        document.getElementById("user_write").checked=true
-                    }else{
-                        document.getElementById("user_write").checked=false
-                    } 
 
 
 
@@ -519,14 +527,14 @@ const setRolesToSelectedUser = (event) => {
 
 
 
-                    if(parseInt(userRoles.user_write)){
+                    // if(parseInt(userRoles.user_write)){
 
 
-                        console.log("they can userWrite");
-                    }else{
+                    //     console.log("they can userWrite");
+                    // }else{
 
-                        console.log("need permission");
-                    }
+                    //     console.log("need permission");
+                    // }
 
 
         }

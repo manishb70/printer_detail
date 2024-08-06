@@ -34,6 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (isset($_POST["add_new_user_admin"])) {
 
 
+            
+
             $user_id = $_POST["user_id"];
             $username = $_POST["username"];
             $email = $_POST["email_id"];
@@ -51,6 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $role  =  $_POST["role"];
 
 
+            echo "the selected user is :".$user_id;
 
 
             $create_sql = "INSERT INTO `for_office`.`user_management` (`user_id`, `user_name`, `updataed_by`, `createdBy`, `created_date`, `updated_date`, `mobile_number`, `email_id`, `person_id`, `password`, `start_date`, `end_date`, `role`) VALUES ('$user_id', '$username', ' $updataed_by', '$createdBy', '$created_date', '$updated_date', '$phone', '$email', '$person_id', '$password', '$start_date', '$end_date', '$role');
@@ -83,12 +86,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 echo "<br>err user not registered<br>";
             }
         }
-
-
-
-
-
-
 
 
         if (isset($_POST["search_button"])) {
@@ -173,16 +170,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else if (isset($_POST["update_admin_roles"])) {
 
 
+
             echo $_POST["admin_id"];
 
 
 
             echo "<br>hey this admin roles form <br>";
             $admin_id = $_POST["admin_id"];
-            $userviewOnly = isset($_POST["user_viewOnly"]) ? 0 : 1;
-            $user_write = isset($_POST["user_write"]) ? 0 : 1;
-            $admin_viewOnly = isset($_POST["admin_viewOnly"]) ? 0 : 1;
-            $admin_write = isset($_POST["admin_write"]) ? 0 : 1;
+            $userviewOnly = isset($_POST["user_viewOnly"]) ? 1 : 0;
+            $user_write = isset($_POST["user_write"]) ? 1 : 0;
+            $admin_viewOnly = isset($_POST["admin_viewOnly"]) ? 1 : 0;
+            $admin_write = isset($_POST["admin_write"]) ? 1 : 0;
             $user_write_start_date = $_POST["user_write_start_date"];
             $user_write_end_date = $_POST["user_write_end_date"];
             $user_view_start_date = $_POST["user_view_start_date"];
@@ -191,9 +189,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $admin_write_end_date = $_POST["admin_write_end_date"];
             $admin_view_start_date = $_POST["admin_view_start_date"];
             $admin_view_end_date = $_POST["admin_view_end_date"];
-            $store_manager = isset($_POST["store_manager"]) ? 0 : 1;
-            $store_issue = isset($_POST["store_isseuer"]) ? 0 : 1;
-            $store_genrate = isset($_POST["genrateStoreRequest"]) ? 0 : 1;
+            $store_manager = isset($_POST["store_manager"]) ? 1 : 0;
+            $store_issue = isset($_POST["store_isseuer"]) ? 1 : 0;
+            $store_genrate = isset($_POST["genrateStoreRequest"]) ? 1 : 0;
             // $sql_for_role = "INSERT INTO admin_roles (
             //     admin_id, 
             //     user_viewOnly, 
@@ -261,12 +259,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <body class="">
 
-
+<?php require ("./navForLogged.php") ?>  ss
 
     <div>
 
 
-        <form class="flex items-center  max-w-lg mx-auto" method="POST">
+        <form class="flex items-center  max-w-lg mx-auto mt-4"  method="POST">
             <label for="voice-search" class="sr-only">Search</label>
             <div class="relative w-full mr-2">
 
@@ -344,7 +342,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     echo '
     <form action="#" method="POST">
-    
+                        <input type="hidden" id="userNumber"  name="userNumber" value='.$row["user_id"].'>
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -399,7 +397,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
                      <td class="px-6 py-4 text-right">
-                         <a onclick ="setRolesToSelectedUser(event)" userId='. $row["user_id"] .' data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user roles</a>
+                         <a onclick ="setRolesToSelectedUser(event)" userId=' . $row["user_id"] . ' data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user roles</a>
                     </td>
                 </tr>
                     </form>
@@ -683,7 +681,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 
                                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                <input type="text" id="roleUserId" disabled name="admin_id" value="2">
+                                                <input type="text" id="roleUserId" name="admin_id" >
 
                                             </th>
 
@@ -700,7 +698,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                             </td>
                                             <td class="px-6 py-4">
 
-                                                <input type="date" name="user_view_end_date"  value="2000-01-01">
+                                                <input type="date" name="user_view_end_date" value="2000-01-01">
                                             </td>
 
 
@@ -745,7 +743,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                             </td>
                                             <td class=px-6 py-4">
                                                 <div class="flex items-center mb-4">
-                                                    <input id="adminView"  type="checkbox" name="admin_viewOnly" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                    <input id="adminView" type="checkbox" name="admin_viewOnly" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                                 </div>
                                             </td>
                                             <td class=px-6 py-4">
@@ -787,14 +785,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                                             <td class="px-6 py-4 text-right">
                                                 <!-- <a onclick ="enableItem(event,rowId' . $row["user_id"] . ')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a> -->
-                                                <button id=rowId' onclick=name="update_data" class="hidden inline-flex mr-2 ml-20 items-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="">
+                                                <button id=rowId'  class="hidden inline-flex mr-2 ml-20 items-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="">
                                                     Update</button>
                                             </td>
                                         </tr>
                                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 
                                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                <input type="text" id="roleUserId" disabled name="admin_id" value="2">
+                                                
 
                                             </th>
 
@@ -803,7 +801,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                             </td>
                                             <td class=px-6 py-4">
                                                 <div class="flex items-center mb-4">
-                                                    <input id="genrateStoreRequest"  type="checkbox" name="genrateStoreRequest" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                    <input id="genrateStoreRequest" type="checkbox" name="genrateStoreRequest" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                                 </div>
                                             </td>
                                             <td class=px-6 py-4">
@@ -811,7 +809,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                             </td>
                                             <td class="px-6 py-4">
 
-                                                <input type="date" name="user_view_end_date" value="2000-01-01">
+                                                <input type="date" id="user_view_end_date" name="user_view_end_date" value="2000-01-01">
                                             </td>
 
 
@@ -819,12 +817,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 
                                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                <input type="text" id="roleUserId" disabled name="admin_id" value="2">
+                                              
 
                                             </th>
 
                                             <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                               Store Manager
+                                                Store Manager
                                             </td>
                                             <td class=px-6 py-4">
                                                 <div class="flex items-center mb-4">
@@ -844,7 +842,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 
                                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                <input type="text" id="roleUserId" disabled name="admin_id" value="2">
+                                               
 
                                             </th>
 
@@ -910,7 +908,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <script>
     let userIsSelected = 10;
 
-
+                    
 
 
     const beforeSubmitHandle = () => {
@@ -958,17 +956,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     const showRolesBox = (e) => {
 
+        document.getElementById("roleUserId").value = ""
 
         //    console.log((e.target.parentElement).getElementByName("user_id"))
 
-        let selected_id = 1223;
+        
         // let selected_id = (e.target.parentElement).parentElement.getElementsByClassName("user_id");
 
 
-        userIsSelected = (e.target.parentElement).parentElement.querySelector('[name="user_id"]').id
+        userIsSelected = (e.target.parentElement).parentElement.getElementsByName("userNumber").value
         console.log(userIsSelected);
-        document.getElementById("roleUserId").value = userIsSelected
-
+        // document.getElementById("roleUserId").value = userIsSelected
+        document.getElementById("roleUserId").value = 10
     }
 
 
@@ -985,4 +984,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
 <script src="./js/scripts.js"></script>
 <script src="./js/jquery.min.js"></script>
+
 </html>
