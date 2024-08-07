@@ -106,7 +106,7 @@ if (mysqli_num_rows($result) > 0) {
                 </th>
                 <th scope="col" class="px-6 py-3">
                     created_by
-                </th>
+                </th>x
                 <th scope="col" class="px-6 py-3">
                     created_date
                 </th>
@@ -157,6 +157,13 @@ if (mysqli_num_rows($result) > 0) {
                     record id
                 </th>
 
+                <th scope="col" class="px-6 py-3">
+                    Updated date 
+                </th>
+
+                <th scope="col" class="px-6 py-3">
+                    Updated by 
+                </th>
                 <th scope="col" class="px-6 py-3">
                     <span class="sr-only">Edit</span>
                 </th>
@@ -240,6 +247,14 @@ if (mysqli_num_rows($result) > 0) {
                     <td class="px-6 py-4">
                        
                          ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["record_id"] . ">" : $row["record_id"]) . '
+                    </td>
+
+                       <td class="px-6 py-4">
+                       
+                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["updated_date"] . ">" : $row["updated_date"]) . '
+                    </td>   <td class="px-6 py-4">
+                       
+                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["updatedBy"] . ">" : $row["updatedBy"]) . '
                     </td>
                 
                    

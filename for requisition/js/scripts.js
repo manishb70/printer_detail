@@ -284,6 +284,7 @@ const updateRequisition = (event) => {
 const submitRowToAddAndAjax = (event) => {
 
 
+
     let newProjectId = document.getElementById("newProjectId").value
     let NewItenName = document.getElementById("NewItenName").value
     let newItemId = document.getElementById("NewItenName").getAttribute("itemId")
@@ -333,7 +334,11 @@ const submitRowToAddAndAjax = (event) => {
 
             if (data.success) {
 
-                addRowToGenrate(data.newId, newProjectId, NewItenName, newitemQuantity, newItemUserRemarks, newItemNeedDate);
+
+                s_no =document.getElementById("rowItem").childElementCount;
+                
+
+                addRowToGenrate(s_no+1, newProjectId, NewItenName, newitemQuantity, newItemUserRemarks, newItemNeedDate);
 
                 // $("#clos_hover").click();
 
@@ -367,6 +372,7 @@ const submitRowToAddAndAjax = (event) => {
 
 
 const addRowToGenrate = (sno, project_id, item_name, quantity, user_remarks, needByDate) => {
+
 
 
 
@@ -556,6 +562,8 @@ const setRolesToSelectedUser = (event) => {
 
 
 }
+
+
 
 
 
