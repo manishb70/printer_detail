@@ -261,13 +261,13 @@ if (isset($_POST["newRequisitionGenrate"])) {
                                         <label class="block mb-2 text-sm name font-bold text-gray-700 dark:text-white" for="firstName">
                                             Project Id
                                         </label>
-                                        <input name="project_id" class="w-full px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="firstName" type="number" placeholder="project id" />
+                                        <input name="project_id"  class="w-full px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" value="00" id="firstName"  type="number" placeholder="project id" />
                                     </div>
                                     <div class="md:ml-2">
                                         <label class="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="lastName">
                                             Item_Name
                                         </label>
-                                        <input name="item_name" class="w-full px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="firstName" type="text" placeholder="Item name" />
+                                        <input name="item_name" required class="w-full px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="firstName" type="text" placeholder="Item name" />
                                     </div>
 
                                     <div class="mb-4 ml-2">
@@ -275,7 +275,7 @@ if (isset($_POST["newRequisitionGenrate"])) {
                                             Quantity
 
                                         </label>
-                                        <input name="quantity" class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="quantity" type="number" placeholder="quantity" />
+                                        <input name="quantity" required class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="quantity" type="number" placeholder="quantity" />
                                     </div>
                                     <div class="mb-4 ml-2">
                                         <label class="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="email">
@@ -283,7 +283,7 @@ if (isset($_POST["newRequisitionGenrate"])) {
                                             User Remarks
 
                                         </label>
-                                        <input name="User_Remarks" class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="email" type="txt" placeholder="User_Remarks" />
+                                        <input name="User_Remarks" required class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="email" type="txt" placeholder="User_Remarks" />
                                     </div>
 
 

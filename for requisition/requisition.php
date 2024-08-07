@@ -1,9 +1,22 @@
 <?php
 
+session_start();
 include("../db.php");
 
 
-$isEditable = true;
+
+
+
+$isEditable = false;
+
+
+if($_SESSION["role"]=='requisitionGen'){
+
+    $isEditable = true;
+
+
+}
+
 
 
 $sql = "select * from requisition_table";
@@ -294,7 +307,7 @@ if (mysqli_num_rows($result) > 0) {
                             <select id="stausList" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                 <option selected value="PENDING">PENDING</option>
                                 <option value="CANCEL">CANCEL</option>
-                                <option value="Close">Close</option>
+                              
 
                             </select>
                         </div>

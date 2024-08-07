@@ -14,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (isset($_POST['login'])) {
 
+
         $username = $_POST['username'];
         $password = $_POST['password'];
 
@@ -33,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($row["password"] == $password) {
                 // echo $row["mobile_number"];
 
-                header("location:home.php");
+                header("location:dashboard.php");
                 $respone["loggedIn"] = "true";
                 $respone["message"] = "success";
                 $_SESSION["username"] = $row["user_name"];
@@ -68,6 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (isset($_POST["newGenrate"])) {
 
+                    
 
 
         if ($_POST["type"] == "newGenrate") {
