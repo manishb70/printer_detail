@@ -195,6 +195,9 @@ const updateFromIssuer = (event) => {
 
             console.log(data);
 
+            console.log("FEF");
+            window.location.reload();
+            window.location.reload();
 
             // currentRow.fadeOut(1000)
 
@@ -228,6 +231,7 @@ const updateFromIssuer = (event) => {
 
 
 const updateRequisition = (event) => {
+
     console.log("hwllo");
 
     let row = event.target;
@@ -562,6 +566,11 @@ const setRolesToSelectedUser = (event) => {
 
 
 }
+
+
+
+
+
 
 
 

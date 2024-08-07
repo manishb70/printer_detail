@@ -11,6 +11,12 @@ include("db_connection.php");
 
 $_SESSION["AddRowData"] = true;
 
+if ($_SESSION["newRecordId"]=="") {
+
+    
+    header("location:dashboard.php");
+}
+
 if (!isset($_SESSION["newRecordId"])) {
     header("location:dashboard.php");
 } elseif (!isset($_SESSION["username"])) {
@@ -93,7 +99,8 @@ if (isset($_POST["newRequisitionGenrate"])) {
     // $newItemNeedDate =  $_POST["newItemNeedDate"];
     $newItemUserRemarks =  $_POST["User_Remarks"];
     $departMentId =  1;
-    $departMentname =  $_POST["departmentName"];
+    $departMentname =  "HR";
+    // $departMentname =  $_POST["departmentName"];
     $newItemId = 1;
 
 
@@ -209,7 +216,7 @@ if (isset($_POST["newRequisitionGenrate"])) {
 
                     <!-- Col -->
                     <div class="w-full  bg-white dark:bg-gray-700 p-5 rounded-lg lg:rounded-l-none">
-                        <h3 class="py-4 text-2xl text-center text-gray-800 dark:text-white">Generate Requisition !!</h3>
+                        <h1 class="py-4 text-3xl font-bold text-center text-gray-800 dark:text-white">Requisition Request form</h1>
 
 
                         <!-- <form action="#" method="POST">
@@ -225,7 +232,7 @@ if (isset($_POST["newRequisitionGenrate"])) {
                                 <label class="block mb-2 text-sm name font-bold text-gray-700 dark:text-white" for="firstName">
                                     Department
                                 </label>
-                                <input name="departmentName" id="departmentName" companyid="<?php echo 1; ?>" class="w-full color-black  px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="firstName" type="txt" placeholder="Enter department" value="" />
+                                <input name="departmentName" id="departmentName" companyid="<?php echo 1; ?>" class="w-full color-black  px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="firstName" type="txt" placeholder="Enter department" value="hr" />
                             </div>
 
                             <div class="mb-4 md:mr-2 max-w-1 md:mb-0">
@@ -254,7 +261,7 @@ if (isset($_POST["newRequisitionGenrate"])) {
                                         <label class="block mb-2 text-sm name font-bold text-gray-700 dark:text-white" for="firstName">
                                             Project Id
                                         </label>
-                                        <input name="project_id" class="w-full px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="firstName" type="text" placeholder="project id" />
+                                        <input name="project_id" class="w-full px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="firstName" type="number" placeholder="project id" />
                                     </div>
                                     <div class="md:ml-2">
                                         <label class="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="lastName">
