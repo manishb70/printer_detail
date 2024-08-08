@@ -7,6 +7,7 @@ if (!isset($_SESSION["username"])) {
 // $user_info = $_GET["user_info"];
 
 
+
 // $sql = "SELECT * from user_management     where user_id='$user_info' or user_name='$user_info' ";
 $sql = "SELECT * from user_management";
 $result = mysqli_query($con, $sql);

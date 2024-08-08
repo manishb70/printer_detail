@@ -37,6 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         echo json_encode($rsponse);
     } else if (isset($_POST['updatereqsuisitionFromStoreIssuer'])) {
+        
+
 
 
         include("./db_connection.php");
