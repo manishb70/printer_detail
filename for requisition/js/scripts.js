@@ -231,6 +231,7 @@ const updateFromIssuer = (event) => {
 
 
 const updateRequisition = (event) => {
+    
 
     console.log("hwllo");
 

@@ -62,63 +62,32 @@ include("../db.php");
 
                                         while ($row = mysqli_fetch_array($result)) {
                                         ?>
-
                                             <option value="<?php echo $row["categoryId"] ?>"> <?php echo $row["catagory_name"] ?></option>
-
-
                                         <?php
-
-
 
                                         }
 
-
-
-
                                         ?>
-
-
 
                                     </select>
 
 
 
+                                    <div id="sub_catArea" class="">
 
 
-                                    <?php
-
-
-                                    $sql = "SELECT * FROM sub_category where catId= 1";
-                                    $result = mysqli_query($con, $sql);
-
-                                    while ($row = mysqli_fetch_array($result)) {
-                                    ?>
-
-                                        <h1 class="font-bold" sub-id="<?php echo $row["catId"] ?>"> <?php echo $row["name"] ?></h1>
-
+                                        <h1 class="font-bold" sub-id="DW">GLASS</h1>
 
 
                                         <div id="attrArea" class="mb-4 mt-4 border-2-black-600  md:flex-wrap   flex  flex-wrap " style="border: 2px solid;">
-                                        attrr area
+                                            attrr area
+
+                                        </div>
 
                                     </div>
 
-                                    <?php
 
 
-
-                                    }
-
-
-
-                                    ?>
-
-
-
-                                    <div id="attrArea" class="mb-4 mt-4  md:flex-wrap   flex  flex-wrap 	">
-                                        attrr area
-
-                                    </div>
 
 
                                     <!-- <a data-modal-target="crud-modal" id="addRowBtn" data-modal-toggle="crud-modal" class="cursor-pointer"> + Add row </a> -->
