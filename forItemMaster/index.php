@@ -95,13 +95,14 @@ include("../db.php");
                                     <div class="mb-4 mt-4 md:flex  md:justify-between">
 
                                         <div class="mb-6 mt-3 text-center">
-                                            <a name="recordSubmit" onclick="setRequireFieldsFromCategory(event)" style=" background-color: green;" class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 dark:bg-blue-700 dark:text-white dark:hover:bg-blue-900 focus:outline-none focus:shadow-outline" type="submit">
-                                                Submit
+                                            <a name="recordSubmit" onclick="submitItemInfoToDb()" style=" background-color: green;" class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 dark:bg-blue-700 dark:text-white dark:hover:bg-blue-900 focus:outline-none focus:shadow-outline" type="submit">
+                                                Save
                                             </a>
                                         </div>
 
                                     </div>
                                     <hr class="mb-6 border-t" />
+                                </div>
                             </form>
 
 
