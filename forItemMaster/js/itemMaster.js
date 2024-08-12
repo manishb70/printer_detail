@@ -205,12 +205,31 @@ const addSubCatFields = (data) => {
 
             // console.log(element.attr_id);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
             var div = document.createElement("div")
             div.classList.add("mb-4", "md:mr-2", "max-w-1", "md:mb-0")
+
 
             var lable = document.createElement("lable")
             lable.classList.add("block", "mb-2", "text-sm", "name", "font-bold", "text-gray-700", "dark:text-white")
             lable.innerText = element.name;
+
+
+
+
+
 
 
             var input = document.createElement("input")
@@ -219,6 +238,65 @@ const addSubCatFields = (data) => {
             input.placeholder = element.name
             input.setAttribute("attr-id", element.attr_id)
             input.setAttribute("subCat-id", element.SubcatId)
+
+
+
+
+            if (element.dropdown == "yes") {
+
+
+                input = document.createElement("select");
+                input.name = element.name;
+                input.classList.add("w-full", "px-3", "py-2", "text-sm", "leading-tight", "text-gray-700", "dark:text-white", "border", "rounded", "shadow", "appearance-none", "focus:outline-none", "focus:shadow-outline");
+                input.setAttribute("attr-id", element.attr_id)
+                input.setAttribute("subCat-id", element.SubcatId)
+                input.id = element.name
+                input.value = element.name
+
+
+
+                $.ajax({
+
+                    url: "ajaxItemMaster.php",
+                    method: "GET",
+                    dataType: "json",
+                    data: {
+                        getOptionAttr: "getOptionAttr",
+                        attr_id: element.attr_id
+                    },
+                    success: function (data) {
+
+
+                        console.log(data.data);
+
+                        data.data.forEach(element => {
+
+
+                            var option = document.createElement("option")
+
+                            option.innerText = element.description;
+                            option.value = element.description;
+
+                            // console.log(element.description);
+
+                            input.appendChild(option)
+
+
+                        })
+
+
+
+                    }
+
+
+
+                })
+
+
+
+
+            }
+
 
 
             div.appendChild(lable)
@@ -243,6 +321,7 @@ const addSubCatFields = (data) => {
 let selectedSubCat = 0;
 
 const shoeOrHideattr = (event) => {
+
 
     // console.log(events);
 
@@ -305,9 +384,38 @@ const shoeOrHideattr = (event) => {
 
 
 
+
+
+
+
+
+let currentItemStatus = "";
+
+
+
+document.getElementById("itemSubmit").addEventListener("click", () => {
+
+    console.log(currentItemStatus);
+    currentItemStatus = "SUBMIT";
+})
+
+
+document.getElementById("itemSave").addEventListener("click", () => {
+
+    currentItemStatus = "SAVE";
+    console.log(currentItemStatus);
+})
+
+
+
+
+
+
 const submitItemInfoToDb = () => {
 
+
     let inputs = document.getElementById(selectedSubCat).querySelectorAll("input")
+    let select = document.getElementById(selectedSubCat).querySelectorAll("select")
 
 
     // console.log(inputs);
@@ -319,7 +427,7 @@ const submitItemInfoToDb = () => {
 
     let itemCodeGen = "";
 
-    itemDataInfo["itemMasterItemcCodeGen"] = "itemMasterItemcCodeGen"
+    itemDataInfo["itemMasterSave"] = "itemMasterSave"
 
 
     itemDataInfo["manCatId"] = document.getElementById("catId").value
@@ -330,12 +438,14 @@ const submitItemInfoToDb = () => {
     inputs.forEach(element => {
 
 
-        let attrID = element.getAttribute("attr-id");
+        let attrName = element.getAttribute("name");
         let attributeValue = element.value
 
-        itemCodeGen += attributeValue.substring(0, 4)
+
+
+        itemCodeGen += attributeValue.substring(0, 2)
         itemCodeGen += "-"
-        attInfo[attrID] = attributeValue
+        attInfo[attrName] = attributeValue
 
         itemDataInfo["SubCatid"] = element.getAttribute("subCat-id")
 
@@ -343,9 +453,29 @@ const submitItemInfoToDb = () => {
 
 
 
+    select.forEach(element => {
+
+
+        let attrName = element.getAttribute("name");
+        let attributeValue = element.value
+
+        attInfo[attrName] = attributeValue
+
+    })
+
+
+
+
+
     itemDataInfo["itemCodeGenrated"] = itemCodeGen.toUpperCase();
+
+
+    itemDataInfo["currentItemStatus"] = currentItemStatus;
     itemDataInfo["attrData"] = attInfo;
 
+
+
+    
     // console.log(itemDataInfo);
 
 
@@ -353,12 +483,22 @@ const submitItemInfoToDb = () => {
 
         url: "ajaxItemMaster.php",
         method: "GET",
-        // dataType: "json",
+        dataType: "json",
         data: itemDataInfo,
         success: function (data) {
 
-
             console.log(data);
+
+
+
+            if(data.success){
+
+                document.getElementById("recordId").innerText= `Rcord Id : ${data.recordId} .`
+                document.getElementById("recordId").style.display="block"
+                document.getElementById("Item_code").innerText= `Item Code : ${data.ItemCode} .`
+                document.getElementById("Item_code").style.display="block"
+            }
+
 
 
 
@@ -376,4 +516,16 @@ const submitItemInfoToDb = () => {
 
 
 
+
 }
+
+
+
+
+
+
+
+
+
+
+

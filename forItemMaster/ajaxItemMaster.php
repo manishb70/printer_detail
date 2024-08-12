@@ -8,6 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     if (isset($_GET['categoryFields'])) {
 
+
         $catId = $_GET['catId'];
 
         include("db.php");
@@ -85,84 +86,90 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     }
 
 
-    if (isset($_GET["itemMasterItemcCodeGen"])) {
-
+    if (isset($_GET["itemMasterSave"])) {
 
         include("./db.php");
 
+        $attr  = $_GET["attrData"];;
 
 
 
-        // $response["mainCatId"] = $_GET["manCatId"];
-        // $response["success"] = true;
-        // $response["SubCatid"] = $_GET["SubCatid"];
-        // $response["itemcodegen"] = $_GET["itemMasterItemcCodeGen"];
+
+        $color = isset($attr["color"]) ? $attr["color"] : null;
+        $subCatId  = isset($_GET["SubCatid"]) ? $_GET["SubCatid"] : null;
+        $catId = isset($_GET["manCatId"]) ? $_GET["manCatId"] : null;
+        $itemCode = isset($_GET["itemCodeGenrated"]) ? $_GET["itemCodeGenrated"] : null;
+        $shortDiscription = isset($attr["shortDescription"]) ? $attr["shortDescription"] : null;
+        $size = isset($attr["Size"]) ? $attr["Size"] : null;
+        $watt = isset($attr["Watt"]) ? $attr["Watt"] : null;
+        $Shape = isset($attr["shape"]) ? $attr["shape"] : null;
+        $brand = isset($attr["Brand"]) ? $attr["Brand"] : null;
+        $Light_Output_colour = isset($attr["Light output Colour"]) ? $attr["Light output Colour"] : null;
+        $vandore = isset($attr["vendor"]) ? $attr["vendor"] : null;
+        $description = isset($attr["Long_Descripition"]) ? $attr["Long_Descripition"] : null;
+        $price = isset($attr["price"]) ? $attr["price"] : null;
+        $length = isset($attr["length"]) ? $attr["length"] : null;
+        $material = isset($attr["material"]) ? $attr["material"] : null;
+        $wireType = isset($attr["wireType"]) ? $attr["wireType"] : null;
+        $inBuiltSwicth  = isset($attr["inBuiltSwich"]) ? $attr["inBuiltSwich"] : null;
+        $pintop  = isset($attr["pintop"]) ? $attr["pintop"] : null;
+        $holer = isset($attr["Holder_type"]) ? $attr["Holder_type"] : null;
+        $images  = isset($attr["Images"]) ? $attr["Images"] : null;
+        $discount  = isset($attr["discount"]) ? $attr["discount"] : null;
+        $price  = isset($attr["price"]) ? $attr["price"] : null;
 
 
-        $itemCode = $_GET["itemCodeGenrated"];
-        $catId =  $_GET["manCatId"];
-        $subCatId  = $_GET["SubCatid"];
-
-        $attr  = $_GET["attrData"];
+        $itemStatus  = $_GET["currentItemStatus"];
 
 
-        $sql = "INSERT into itemmasterheader (item_code,categoryId,subcatid) values('$itemCode',$catId,$subCatId)";
+
+
+
+
+
+        $sql = "INSERT into electrical_catinfo (category_name,sub_category,Item_code,short_description,Size,Watt,Colour,Shape,Brand,Light_output_Colour,Vendor,Description,Price,Length,Material,WireType,In_Builtswitch,Pintop,Holdertype,Discount,Images,status) values ('$catId','$subCatId','$itemCode','$shortDiscription','$size','$watt','$color', '$Shape' ,'$brand','$Light_Output_colour','$vandore','$description','$price','$length','$material','$wireType','$inBuiltSwicth','$pintop','$holer','$discount','$images' ,'$itemStatus')";
+
 
 
         $result = mysqli_query($con, $sql);
 
 
-        if ($result) {
-
-            // $response["data"] = "inserted succesfylu in item master please add attribute ";
-
-            $lastInsertId = mysqli_insert_id($con);
-
-
-            // 
-            // forEach($attr as $data)
-
-            // $sql = "INSERT INTO itemattribute (item_code,attribute_id) values($lastInsertId,"
 
 
 
 
 
-            $sql = "INSERT INTO itemattribute (item_code,attribute_id,attribute_value) values" ;
-
-
-            $values = array();
-
-            foreach ($attr as $key => $value) {
-                // Assuming $key is item_code and $value is attribute_id
-                $values[] = "( $lastInsertId,$key, '$value')";
-            }
-            
-            $sql .= implode(", ", $values );
-            
-
-            
-
-
-            $result = mysqli_query($con, $sql);
-
-
-
-            if($result){
-
-
-
-                echo  "data inserted successfullt";
-
-
-            }
-            
-
-            echo $sql;
+        // echo "Color: " . $color . "<br>";
+        // echo "Sub Category ID: " . $subCatId . "<br>";
+        // echo "Category ID: " . $catId . "<br>";
+        // echo "Item Code: " . $itemCode . "<br>";
+        // echo "Short Description: " . $shortDiscription . "<br>";
+        // echo "Size: " . $size . "<br>";
+        // echo "Watt: " . $watt . "<br>";
+        // echo "Shape: " . $Shape . "<br>";
+        // echo "Brand: " . $brand . "<br>";
+        // echo "Light Output Colour: " . $Light_Output_colour . "<br>";
+        // echo "Vendor: " . $vandore . "<br>";
+        // echo "Description: " . $description . "<br>";
+        // echo "Price: " . $price . "<br>";
+        // echo "Length: " . $length . "<br>";
+        // echo "Material: " . $material . "<br>";
+        // echo "Wire Type: " . $wireType . "<br>";
+        // echo "In-Built Switch: " . $inBuiltSwicth . "<br>";
+        // echo "Pin Top: " . $pintop . "<br>";
+        // echo "Holder Type: " . $holer . "<br>";
+        // echo "Images: " . $images . "<br>";
 
 
 
-        
+
+        $response["recordId"] = mysqli_insert_id($con);
+        $response["ItemCode"] = $itemCode;
+
+
+        $response["statuss"] = $itemStatus;
+
+        $response["success"] = true;
 
 
 
@@ -170,30 +177,44 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
 
+        echo json_encode($response);
+    } else if ((isset($_GET["getOptionAttr"]))) {
+
+
+        include("./db.php");
+
+
+        $attrId = $_GET["attr_id"];
+
+
+        // $sql = "SELECT * from fields_lookup where attr_id=$attrId";
+        // $sql = "SELECT * from fields_lookup where attr_id=$attrId";
+        $sql = "SELECT * from fields_lookup;";
 
 
 
 
 
+        $result = mysqli_query($con, $sql);
 
 
+        $data = [];
 
 
-            $response["inserted id "] = $lastInsertId;
-            // 
-            $response["success"] = true;
+        while ($row = mysqli_fetch_array($result)) {
+
+            $data[] = $row;
         }
 
 
 
-        // $response["attr"]=$attr;
+
+        $response["success"] = true;
+        $response["data"] = $data;
 
 
 
 
-
-        echo $response["success"] = false;
-
-        echo json_encode($response);
+        echo  json_encode($response);
     }
 }
