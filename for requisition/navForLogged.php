@@ -32,7 +32,7 @@ $role =  $_SESSION["role"];
 
 
     <nav class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
-        <span class="self-center text-red-700 text-2xl font-semibold whitespace-nowrap dark:text-white"> role is : <?php echo $_SESSION["role"] ?> </span>
+        <!-- <span class="self-center text-red-700 text-2xl font-semibold whitespace-nowrap dark:text-white"> role is : <?php echo $_SESSION["role"] ?> </span> -->
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
 
 

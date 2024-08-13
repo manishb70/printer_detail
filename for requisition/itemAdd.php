@@ -45,7 +45,7 @@ include("./navForLogged.php");
 
                         <!-- Col -->
                         <div class="w-full  bg-white dark:bg-gray-700 p-5 rounded-lg lg:rounded-l-none">
-                            <h1 class="py-4 text-3xl font-bold text-center text-gray-800 dark:text-white">Item add</h1>
+                            <h1 class="py-4 text-3xl font-bold text-center text-gray-800 dark:text-white">Item Creation Request Form</h1>
 
                             <h1 id="recordId"
                               
