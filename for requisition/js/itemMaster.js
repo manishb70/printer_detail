@@ -31,7 +31,7 @@ const setRequireFieldsFromCategory = () => {
 
 
         }, error: function (error) {
-            alert('error; ' + eval(error))
+            console.log(('error; ' + eval(error)))
         }
 
 
@@ -175,8 +175,15 @@ const addSubCatFields = (data) => {
 
 
         var fileInput = document.createElement("input")
-            fileInput.type="file";
-            fileInput.name="itemImage";
+        fileInput.type = "file";
+        fileInput.name = "itemImage";
+
+        
+
+
+
+
+
 
         let attr = document.createElement("div");
         attr.classList.add("mb-4", "hidden", "mt-4", "transition-all", "border-2-black-600", "md:flex-wrap", "flex", "flex-wrap")
@@ -185,7 +192,7 @@ const addSubCatFields = (data) => {
 
         attr.appendChild(fileInput)
 
-        
+
         mainBox.appendChild(h1)
         mainBox.appendChild(btn)
 
@@ -244,6 +251,9 @@ const addSubCatFields = (data) => {
                 input.setAttribute("subCat-id", element.SubcatId)
                 input.id = element.name
                 input.value = element.name
+                input.required = true
+
+
 
 
 
@@ -279,7 +289,7 @@ const addSubCatFields = (data) => {
 
 
                     }, error: function (error) {
-                        alert('error; ' + eval(error))
+                        console.log('error; ' + eval(error))
                     }
 
 
@@ -407,22 +417,53 @@ if (document.getElementById("itemSubmit")) {
 
 
 
-const submitItemInfoToDb = () => {
+const submitItemInfoToDb = async () => {
 
 
     let inputs = document.getElementById(selectedSubCat).querySelectorAll("input")
     let select = document.getElementById(selectedSubCat).querySelectorAll("select")
 
 
-    // console.log(inputs);
 
-    let itemDataInfo = {}
+    let itemFilePath = "";
+
+
+    let fileItem = document.getElementById(selectedSubCat).querySelector('[name="itemImage"]');
+
+    if (fileItem && fileItem.files.length > 0) {
+        var formData = new FormData();
+        formData.append('itemImage', fileItem.files[0]);
+
+        // Assuming there are other fields in the form to append to formData
+
+        await $.ajax({
+            url: 'ajaxItemMaster.php',
+            type: 'POST',
+            data: formData,
+            dataType: "JSON",
+            contentType: false, // Prevent jQuery from setting Content-Type header
+            processData: false, // Prevent jQuery from converting the data into a query string
+            success: function (response) {
+
+                console.log("File path is :" + response.filePath);
+                console.log(response);
+
+                itemFilePath = response.filePath;
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('Error:', textStatus, errorThrown);
+            }
+        });
+    } else {
+        console.log("No file selected or file input not found.");
+    }
+
+
 
     let withName = {}
-
-
     let itemCodeGen = "";
 
+    let itemDataInfo = {}
     itemDataInfo["itemMasterSave"] = "itemMasterSave"
 
 
@@ -431,14 +472,17 @@ const submitItemInfoToDb = () => {
 
     let attInfo = {};
 
+    let fields_is_noteValid = false;
+
     inputs.forEach(element => {
 
 
         let attrName = element.getAttribute("name");
         let attributeValue = element.value
 
-
-
+        if (attributeValue.trim() == "") {
+            fields_is_noteValid = true;
+        }
         itemCodeGen += attributeValue.substring(0, 2)
         itemCodeGen += "-"
         attInfo[attrName] = attributeValue
@@ -447,153 +491,175 @@ const submitItemInfoToDb = () => {
 
     })
 
+    if (fields_is_noteValid) {
+        alert("please fill all the valu")
 
-
-    select.forEach(element => {
-
-
-        let attrName = element.getAttribute("name");
-        let attributeValue = element.value
-
-        attInfo[attrName] = attributeValue
-
-    })
-
-
-
-
-
-    itemDataInfo["itemCodeGenrated"] = itemCodeGen.toUpperCase();
-
-
-    itemDataInfo["currentItemStatus"] = currentItemStatus;
-    itemDataInfo["attrData"] = attInfo;
-
-
-
-
-    // console.log(itemDataInfo);
-
-
-    $.ajax({
-
-        url: "ajaxItemMaster.php",
-        method: "GET",
-        dataType: "json",
-        data: itemDataInfo,
-        success: function (data) {
-
-            console.log(data);
-
-
-
-            if (data.success) {
-
-                document.getElementById("recordId").innerText = `Rcord Id : ${data.recordId} .`
-                document.getElementById("recordId").style.display = "block"
-                document.getElementById("Item_code").innerText = `Item Code : ${data.ItemCode} .`
-                document.getElementById("Item_code").style.display = "block"
-            }
-
-
-            if(currentItemStatus=="SUBMIT"){
-                location.reload();
-            }
-
-
-
-
-        }
-
-
-    })
-
-
-
-
-
-
-
-
-
-
-}
-
-
-
-
-
-
-
-
-
-const sendElectricDataToItemMaster = (event) => {
-
-    //    console.log(event.target)\
-
-    btn = event.target
-    let data = btn.closest("tr").querySelectorAll("input")
-    let select = btn.closest("tr").querySelector("select")
-   
-
-
-    var formdata  = new FormData();
-
-
-
-    if(select.value=="submitToItemMaster"){
-
-
-    let fieldsData = {};
-
-    data.forEach(element => {
-
-        let itemName = element.name;
-        let value = element.value;
-
-        fieldsData[itemName] = value;
-
-    })
-
-    fieldsData["submitDataTOItemMaster"] = "submitDataTOItemMaster";
-
-
-
-
-
-    $.ajax({
-
-        url: "ajaxItemMaster.php",
-        method: "POST",
-        // dataType: 'JSON',
-        contentType: false,       // Important to send as multipart/form-data
-        processData: false,   
-        data: fieldsData,
-        success: function (data) {
-
-            console.log(data)
-           
-                alert("data success fully insert")
+        inputs.forEach(element => {  
             
+            
+            let attributeValue = element.value
+            
+            if (attributeValue.trim() == "") {
+          
+                element.style.borderColor="RED";
+                    }
 
-        },
-        error: function (error) {
-            console.log(error);
-        }
+        })
+
+    } else {
+
+
+
+        itemDataInfo["filePath"] = itemFilePath;
+
+        select.forEach(element => {
+
+
+            let attrName = element.getAttribute("name");
+            let attributeValue = element.value
+
+
+
+            attInfo[attrName] = attributeValue
+
+        })
 
 
 
 
 
-        
-    })
-    console.log(fieldsData);
+        itemDataInfo["itemCodeGenrated"] = itemCodeGen.toUpperCase();
 
-    }else{
-        alert("plase change status to submit")
+
+        itemDataInfo["currentItemStatus"] = currentItemStatus;
+        itemDataInfo["attrData"] = attInfo;
+
+
+
+
+        // console.log(itemDataInfo);
+
+
+        $.ajax({
+
+            url: "ajaxItemMaster.php",
+            method: "GET",
+            dataType: "json",
+            data: itemDataInfo,
+
+            success: function (data) {
+
+                console.log(data);
+
+
+
+                if (data.success) {
+
+                    document.getElementById("recordId").innerText = `Rcord Id : ${data.recordId} .`
+                    document.getElementById("recordId").style.display = "block"
+                    document.getElementById("Item_code").innerText = `Item Code : ${data.ItemCode} .`
+                    document.getElementById("Item_code").style.display = "block"
+                }
+
+
+                if (currentItemStatus == "SUBMIT") {
+                    location.reload();
+                }
+
+
+
+
+            }
+
+
+        })
+
+
+
+
+
+
+
     }
 
 
-}
+    }
+
+
+
+
+
+
+
+
+
+    const sendElectricDataToItemMaster = (event) => {
+
+        //    console.log(event.target)\
+
+        btn = event.target
+        let data = btn.closest("tr").querySelectorAll("input")
+        let select = btn.closest("tr").querySelector("select")
+
+
+
+        var formdata = new FormData();
+
+
+
+        if (select.value == "submitToItemMaster") {
+
+
+            let fieldsData = {};
+
+            data.forEach(element => {
+
+                let itemName = element.name;
+                let value = element.value;
+
+                fieldsData[itemName] = value;
+
+            })
+
+            fieldsData["submitDataTOItemMaster"] = "submitDataTOItemMaster";
+
+
+
+
+
+            $.ajax({
+
+                url: "ajaxItemMaster.php",
+                method: "POST",
+                // dataType: 'JSON',
+                contentType: false,       // Important to send as multipart/form-data
+                processData: false,
+                data: fieldsData,
+                success: function (data) {
+
+                    console.log(data)
+
+                    alert("data success fully insert")
+
+
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+
+
+
+
+
+
+            })
+            console.log(fieldsData);
+
+        } else {
+            alert("plase change status to submit")
+        }
+
+
+    }
 
 

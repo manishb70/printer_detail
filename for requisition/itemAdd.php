@@ -76,6 +76,8 @@ include("./navForLogged.php");
                                     <select
                                         class="w-full px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" onchange="setRequireFieldsFromCategory()" name="" id="catId">
 
+
+                                        <option selected value="SELECT CATEGORY"> +--SELECT CATEGORY --+</option>
                                         <?php
 
 
@@ -93,7 +95,7 @@ include("./navForLogged.php");
 
                                     </select>
 
-
+                                                
 
                                     <div id="sub_catArea" class="">
 

@@ -3,7 +3,7 @@
 include("../db.php");
 
 
-$isEditable = false;
+$isEditable = true;
 
 
 

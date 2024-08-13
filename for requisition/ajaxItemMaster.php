@@ -96,6 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
 
+
         $color = isset($attr["color"]) ? $attr["color"] : null;
         $subCatId  = isset($_GET["SubCatid"]) ? $_GET["SubCatid"] : null;
         $catId = isset($_GET["manCatId"]) ? $_GET["manCatId"] : null;
@@ -115,7 +116,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $inBuiltSwicth  = isset($attr["inBuiltSwich"]) ? $attr["inBuiltSwich"] : null;
         $pintop  = isset($attr["pintop"]) ? $attr["pintop"] : null;
         $holer = isset($attr["Holder_type"]) ? $attr["Holder_type"] : null;
-        $images  = isset($attr["Images"]) ? $attr["Images"] : null;
+        // $images  = isset($attr["Images"]) ? $attr["Images"] : null;
+        $images  =  isset($_GET["filePath"]) ? $_GET["filePath"] : null;
         $discount  = isset($attr["discount"]) ? $attr["discount"] : null;
         $price  = isset($attr["price"]) ? $attr["price"] : null;
 
@@ -167,10 +169,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $response["recordId"] = mysqli_insert_id($con);
         $response["ItemCode"] = $itemCode;
 
-        if(isset($_FILES)){
+        // if (isset($_FILES)) {
 
-            $response["file"] = $_FILES;
-        }
+        //     $response["file"] = $_FILES;
+        // }
 
 
         $response["statuss"] = $itemStatus;
@@ -315,7 +317,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $weight = "";
         $Depth = "";
         $Bottom_hole_dia = "";
-        $Bottom_hole= "";
+        $Bottom_hole = "";
         $Core = "";
         $Inner_Outer_thread = "";
         $Upper_thread = "";
@@ -338,7 +340,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-            $sql = "INSERT INTO itemmaster (
+        $sql = "INSERT INTO itemmaster (
             item_code,
             Item_Category,
             Item_Name,
@@ -442,12 +444,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($result) {
 
-            
 
+
+            // $sql1 = "UPDATE electrical_catinfo set status='APPROOVED' where Item_code='$itemCode' ;";
+            // $result1 = mysqli_query($con, $sql);
             $response["success"] = true;
             $response["message"] = "data inserted successfully";
         } else {
             $response["success"] = "false";
+        }
+
+
+
+
+
+
+        if ($_FILES) {
+
+            $requireData["files"] = $_FILES;
         }
 
 
@@ -460,14 +474,62 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-
-
-
-
-
-
-
         echo json_encode($response);
-    
+    } else if (isset($_FILES)) {
+
+
+
+
+        // $targetDir = "images/";
+
+        // // $fileType = $_FILES["itemImage"]["type"];
+        // $fileName =  time() . '_' . basename($_FILES["fileToUpload"]["name"]);
+
+        // $newFileName = $targetDir . $fileName;
+
+        // // $newFileName = $targetDir .$fileName ;
+
+        // // Check if file was uploaded without errors
+        // if ($_FILES["itemImage"]["error"] == UPLOAD_ERR_OK) {
+        //     // Move the file to the target directory with the new name
+        //     if (move_uploaded_file($_FILES["itemImage"]["tmp_name"], $newFileName)) {
+        //         $response["data"] = "The file has been uploaded successfully ";
+        //     }
+        // }
+
+
+        // $response["filePath"] = $fileName;
+        // $response["succes"] = true;
+
+
+        // echo  json_encode($response);
+
+
+
+        $targetDir = "images/";
+
+        // Create a unique file name using the current timestamp
+        $fileName = time() . '_' . basename($_FILES["itemImage"]["name"]);
+
+        // The full path to the new file
+        $newFileName = $targetDir . $fileName;
+
+        $response = [];
+
+        if ($_FILES["itemImage"]["error"] == UPLOAD_ERR_OK) {
+            // Move the uploaded file to the target directory with the new name
+            if (move_uploaded_file($_FILES["itemImage"]["tmp_name"], $newFileName)) {
+                $response["data"] = "The file has been uploaded successfully.";
+                $response["filePath"] = $fileName; // Return the file name (relative path)
+            } else {
+                $response["data"] = "There was an error moving the uploaded file.";
+            }
+        } else {
+            $response["data"] = "There was an error during the file upload.";
+        }
+
+        // Output the response as JSON
+        header('Content-Type: application/json');
+        echo json_encode($response);
     }
 }

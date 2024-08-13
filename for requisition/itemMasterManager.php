@@ -1,5 +1,100 @@
 <?php
 include("../db.php");
+
+
+
+$sql =  "SELECT * FROM for_office.electrical_catinfo a
+join for_office.itemmastercategory b ON a.category_name = b.categoryId 
+join for_office.sub_category c ON a.sub_category = c.subCatId; ";
+
+
+$result = mysqli_query($con, $sql);
+
+
+
+
+
+
+
+
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+
+
+    if (isset($_GET["search_query"])) {
+
+
+        $search_query = $_GET['search_query'];
+
+
+
+
+
+
+        // $sql ="SELECT * FROM for_office.electrical_catinfo a
+        //         join for_office.itemmastercategory b ON a.category_name = b.categoryId 
+        //         join for_office.sub_category c ON a.sub_category = c.subCatId 
+        //         where 
+        //         S.No='$search_query' or category_name ='$search_query' or sub_category='$search_query' or
+
+        //         Item_code='$search_query' or short_description='$search_query' or Size='$search_query' or Watt='$search_query' or 
+        //         Colour = '$search_query' or Shape='$search_query' or Brand='$search_query' or Light_output_Colour='$search_query' or 
+        //         Vendor='$search_query' or  Description='$search_query' or  Price='$search_query',
+        //         Length='$search_query' or Material='$search_query' or  WireType='$search_query' or  In_Builtswitch='$search_query' or
+        //         Pintop='$search_query' or
+        //         Holdertype='$search_query'
+        //         or Discount='$search_query' or  Images='$search_query' or  cat_id ='$search_query' or status='$search_query' or
+        //         cut='$search_query' or  categoryId='$search_query' or catagory_name or '$search_query'or  subCatId='$search_query'
+        //             or catId='$search_query' or   name='$search_query' ";
+
+
+
+        $sql = "SELECT * FROM for_office.electrical_catinfo a
+        JOIN for_office.itemmastercategory b ON a.category_name = b.categoryId 
+        JOIN for_office.sub_category c ON a.sub_category = c.subCatId 
+        WHERE 
+        `S.No` = '$search_query' OR 
+        a.category_name = '$search_query' OR 
+        a.sub_category = '$search_query' OR
+        Item_code = '$search_query' OR 
+        short_description = '$search_query' OR 
+        Size = '$search_query' OR 
+        Watt = '$search_query' OR 
+        Colour = '$search_query' OR 
+        Shape = '$search_query' OR 
+        Brand = '$search_query' OR 
+        Light_output_Colour = '$search_query' OR 
+        Vendor = '$search_query' OR  
+        Description = '$search_query' OR  
+        Price = '$search_query' OR
+        Length = '$search_query' OR 
+        Material = '$search_query' OR  
+        WireType = '$search_query' OR  
+        In_Builtswitch = '$search_query' OR
+        Pintop = '$search_query' OR
+        Holdertype = '$search_query' OR 
+        Discount = '$search_query' OR  
+        Images = '$search_query' OR  
+        cat_id = '$search_query' OR 
+        status = '$search_query' OR
+        cut = '$search_query' OR  
+        categoryId = '$search_query' OR 
+        category_name = '$search_query' OR
+        subCatId = '$search_query' OR  
+        catId = '$search_query' OR   
+        name = '$search_query'";
+
+
+
+        $result = mysqli_query($con, $sql);
+    }
+}
+
+
+
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,23 +106,42 @@ include("../db.php");
     <title>Document</title>
 </head>
 
-<body class="font-sans bg-blue-300">
+<body
+    style=" margin-top:8rem;"
+    class="font-sans bg-blue-300">
 
 
     <?php
-
 
 
     include("./navForLogged.php");
 
 
 
-
-
     ?>
 
+    <div>
+
+
+        <form class="flex items-center  mb-4  max-w-lg mx-auto" method="GET">
+            <label for="voice-search" class="sr-only">Search</label>
+            <div class="relative w-full mr-2">
+
+                <input type="text" id="voice-search" name="search_query" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Details From Database..." required />
+
+            </div>
+            <button type="submit" name="search" class="inline-flex items-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <svg class="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                </svg>Search
+            </button>
+        </form>
+
+    </div>
+
+
     <div
-        style="width: 90%; margin-top:8rem;"
+        style="width: 90%;"
         class="relative mx-auto   overflow-x-auto shadow-md sm:rounded-lg">
         <table
 
@@ -116,13 +230,6 @@ include("../db.php");
 
                 <?php
 
-
-                $sql =  "SELECT * FROM for_office.electrical_catinfo a
-                        join for_office.itemmastercategory b ON a.category_name = b.categoryId 
-                        join for_office.sub_category c ON a.sub_category = c.subCatId; ";
-
-
-                $result = mysqli_query($con, $sql);
 
 
                 if (mysqli_num_rows($result) > 0) {
@@ -322,26 +429,36 @@ include("../db.php");
 
                             </td>
                             <td class="px-5 py-2">
-                                <input
+                                <!-- <input
                                     name="Images"
                                     disabled
                                     class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
                                     value="<?php echo $row["Images"] ?>"
                                     placeholder=" ">
+ -->
+
+
+                                <img src="./images/<?php echo $row['Images']; ?>"
+
+
+                                    style="max-width:200px;;"
+                                    alt="">
+
+
                             </td>
                             <td class="px-5 py-2">
                                 <select class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900" name="itemStatus" id="itemStatus">
-                                    <option 
-                                    
-                                    class="text-black"
-                                    
-                                    <?= ($row['status'] == 'SUBMIT') ?  'selected' : ''; ?> value="SUBMIT">SUBMIT</option>
-                                    <option 
-                                    class="text-black" <?= ($row['status'] == 'SAVE') ? 'selected' : ''; ?> value="SAVE">SAVE</option>
-                                    <option 
-                                    <?= ($row['status'] == 'submitToItemMaster') ? 'selected' : ''; ?>
-                                   class="text-black"
-                                    value="submitToItemMaster">submitToItemMaster</option>
+                                    <option
+
+                                        class="text-black"
+
+                                        <?= ($row['status'] == 'SUBMIT') ?  'selected' : ''; ?> value="SUBMIT">SUBMIT</option>
+                                    <option
+                                        class="text-black" <?= ($row['status'] == 'SAVE') ? 'selected' : ''; ?> value="SAVE">SAVE</option>
+                                    <option
+                                        <?= ($row['status'] == 'submitToItemMaster') ? 'selected' : ''; ?>
+                                        class="text-black"
+                                        value="submitToItemMaster">submitToItemMaster</option>
                                 </select>
 
                             </td>
