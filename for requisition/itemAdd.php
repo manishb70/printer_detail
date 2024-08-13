@@ -16,9 +16,7 @@ include("../db.php");
 <?php
 
 
-
-        include("./navbar.php");
-
+include("./navForLogged.php");
 
 
 

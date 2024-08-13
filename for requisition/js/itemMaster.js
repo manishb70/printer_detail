@@ -24,19 +24,15 @@ const setRequireFieldsFromCategory = () => {
         data,
         dataType: "json",
         success: function (data) {
-
             document.getElementById("sub_catArea").innerText = ""
-
             let resData = data.data
 
-            // console.log(resData);
-
             addSubCatFields(resData)
-            // addRequireField(resData);
 
 
+        }, error: function (error) {
+            alert('error; ' + eval(error))
         }
-
 
 
     })
@@ -126,22 +122,13 @@ const addRequireField = (data) => {
 }
 
 
-
 const hideData = (event) => {
     event.preventDefault();
 
     let mainBox = document.getElementById("attrArea")
 
 
-
     mainBox.style.display = "none"
-
-
-
-
-
-
-
 
 
 
@@ -187,13 +174,18 @@ const addSubCatFields = (data) => {
         }
 
 
+        var fileInput = document.createElement("input")
+            fileInput.type="file";
+            fileInput.name="itemImage";
 
         let attr = document.createElement("div");
         attr.classList.add("mb-4", "hidden", "mt-4", "transition-all", "border-2-black-600", "md:flex-wrap", "flex", "flex-wrap")
         attr.id = `attr${index}`
 
 
+        attr.appendChild(fileInput)
 
+        
         mainBox.appendChild(h1)
         mainBox.appendChild(btn)
 
@@ -286,6 +278,8 @@ const addSubCatFields = (data) => {
 
 
 
+                    }, error: function (error) {
+                        alert('error; ' + eval(error))
                     }
 
 
@@ -389,24 +383,26 @@ const shoeOrHideattr = (event) => {
 
 
 
-let currentItemStatus = "";
+let currentItemStatus = "Save";
 
 
 
-document.getElementById("itemSubmit").addEventListener("click", () => {
 
-    console.log(currentItemStatus);
-    currentItemStatus = "SUBMIT";
-})
+if (document.getElementById("itemSubmit")) {
+    document.getElementById("itemSubmit").addEventListener("click", () => {
 
-
-document.getElementById("itemSave").addEventListener("click", () => {
-
-    currentItemStatus = "SAVE";
-    console.log(currentItemStatus);
-})
+        console.log(currentItemStatus);
+        currentItemStatus = "SUBMIT";
+    })
 
 
+    document.getElementById("itemSave").addEventListener("click", () => {
+
+        currentItemStatus = "SAVE";
+        console.log(currentItemStatus);
+    })
+
+}
 
 
 
@@ -475,7 +471,7 @@ const submitItemInfoToDb = () => {
 
 
 
-    
+
     // console.log(itemDataInfo);
 
 
@@ -491,14 +487,18 @@ const submitItemInfoToDb = () => {
 
 
 
-            if(data.success){
+            if (data.success) {
 
-                document.getElementById("recordId").innerText= `Rcord Id : ${data.recordId} .`
-                document.getElementById("recordId").style.display="block"
-                document.getElementById("Item_code").innerText= `Item Code : ${data.ItemCode} .`
-                document.getElementById("Item_code").style.display="block"
+                document.getElementById("recordId").innerText = `Rcord Id : ${data.recordId} .`
+                document.getElementById("recordId").style.display = "block"
+                document.getElementById("Item_code").innerText = `Item Code : ${data.ItemCode} .`
+                document.getElementById("Item_code").style.display = "block"
             }
 
+
+            if(currentItemStatus=="SUBMIT"){
+                location.reload();
+            }
 
 
 
@@ -527,5 +527,73 @@ const submitItemInfoToDb = () => {
 
 
 
+const sendElectricDataToItemMaster = (event) => {
+
+    //    console.log(event.target)\
+
+    btn = event.target
+    let data = btn.closest("tr").querySelectorAll("input")
+    let select = btn.closest("tr").querySelector("select")
+   
+
+
+    var formdata  = new FormData();
+
+
+
+    if(select.value=="submitToItemMaster"){
+
+
+    let fieldsData = {};
+
+    data.forEach(element => {
+
+        let itemName = element.name;
+        let value = element.value;
+
+        fieldsData[itemName] = value;
+
+    })
+
+    fieldsData["submitDataTOItemMaster"] = "submitDataTOItemMaster";
+
+
+
+
+
+    $.ajax({
+
+        url: "ajaxItemMaster.php",
+        method: "POST",
+        // dataType: 'JSON',
+        contentType: false,       // Important to send as multipart/form-data
+        processData: false,   
+        data: fieldsData,
+        success: function (data) {
+
+            console.log(data)
+           
+                alert("data success fully insert")
+            
+
+        },
+        error: function (error) {
+            console.log(error);
+        }
+
+
+
+
+
+        
+    })
+    console.log(fieldsData);
+
+    }else{
+        alert("plase change status to submit")
+    }
+
+
+}
 
 

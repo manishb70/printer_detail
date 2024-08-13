@@ -74,7 +74,7 @@ if (mysqli_num_rows($result) > 0) {
 
 
 
-    <div class="" style="margin-top: 3.5rem;">
+    <div class="" style="margin-top: 5.5rem;">
 
 
         <form class="flex items-center  max-w-lg mx-auto" method="GET">
