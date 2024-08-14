@@ -97,40 +97,198 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
 
-        $color = isset($attr["color"]) ? $attr["color"] : null;
-        $subCatId  = isset($_GET["SubCatid"]) ? $_GET["SubCatid"] : null;
-        $catId = isset($_GET["manCatId"]) ? $_GET["manCatId"] : null;
         $itemCode = isset($_GET["itemCodeGenrated"]) ? $_GET["itemCodeGenrated"] : null;
-        $shortDiscription = isset($attr["shortDescription"]) ? $attr["shortDescription"] : null;
-        $size = isset($attr["Size"]) ? $attr["Size"] : null;
+        $Item_Category = isset($_GET["manCatId"]) ? $_GET["manCatId"] : null;
+        $Short_Description = isset($attr["Short_Description"]) ? $attr["Short_Description"] : null;
+        $subCatId  = isset($_GET["SubCatid"]) ? $_GET["SubCatid"] : null;
+        $Price  = isset($attr["Price"]) ? $attr["Price"] : null;
+        $si_unit  = isset($attr["SI_unit"]) ? $attr["SI_unit"] : null;
+        $material = isset($attr["Material"]) ? $attr["Material"] : null;
+        $Design = isset($attr["Design"]) ? $attr["Design"] : null;
+        $Finish_type = isset($attr["Finish_type"]) ? $attr["Finish_type"] : null;
+        $Half_Full_Thread = isset($attr["Half_Full_Thread"]) ? $attr["Half_Full_Thread"] : null;
+        $Holder_Thread = isset($attr["Holder_Thread"]) ? $attr["Holder_Thread"] : null;
+        $Holder_type = isset($attr["Holder_type"]) ? $attr["Holder_type"] : null;
+        $Thread = isset($attr["Thread"]) ? $attr["Thread"] : null;
+        $brand = isset($attr["Brand"]) ? $attr["Brand"] : null;
+        $Light_Output_colour = isset($attr["Light_Output_colour"]) ? $attr["Light_Output_colour"] : null;
+        $Colour = isset($attr["Colour"]) ? $attr["Colour"] : null;
+        $Cut = isset($attr["Cut"]) ? $attr["Cut"] : null;
+        $Height = isset($attr["Height"]) ? $attr["Height"] : null;
+        $Length = isset($attr["Length"]) ? $attr["Length"] : null;
+        $Breadth = isset($attr["Breadth"]) ? $attr["Breadth"] : null;
+        $Upper_Dia = isset($attr["Upper_Dia"]) ? $attr["Upper_Dia"] : null;
+        $Bottom_Dia = isset($attr["Bottom_Dia"]) ? $attr["Bottom_Dia"] : null;
+        $Centre_Hole_dia = isset($attr["Centre_Hole_dia"]) ? $attr["Centre_Hole_dia"] : null;
+        $Size = isset($attr["Size"]) ? $attr["Size"] : null;
         $watt = isset($attr["Watt"]) ? $attr["Watt"] : null;
         $Shape = isset($attr["shape"]) ? $attr["shape"] : null;
-        $brand = isset($attr["Brand"]) ? $attr["Brand"] : null;
-        $Light_Output_colour = isset($attr["Light output Colour"]) ? $attr["Light output Colour"] : null;
-        $vandore = isset($attr["vendor"]) ? $attr["vendor"] : null;
-        $description = isset($attr["Long_Descripition"]) ? $attr["Long_Descripition"] : null;
-        $price = isset($attr["price"]) ? $attr["price"] : null;
-        $length = isset($attr["length"]) ? $attr["length"] : null;
-        $material = isset($attr["material"]) ? $attr["material"] : null;
-        $wireType = isset($attr["wireType"]) ? $attr["wireType"] : null;
-        $inBuiltSwicth  = isset($attr["inBuiltSwich"]) ? $attr["inBuiltSwich"] : null;
-        $pintop  = isset($attr["pintop"]) ? $attr["pintop"] : null;
-        $holer = isset($attr["Holder_type"]) ? $attr["Holder_type"] : null;
-        // $images  = isset($attr["Images"]) ? $attr["Images"] : null;
-        $images  =  isset($_GET["filePath"]) ? $_GET["filePath"] : null;
-        $discount  = isset($attr["discount"]) ? $attr["discount"] : null;
-        $price  = isset($attr["price"]) ? $attr["price"] : null;
+        $Side_Hole_dia = isset($attr["Side_Hole_dia"]) ? $attr["Side_Hole_dia"] : null;
+        $Top_hole_dia = isset($attr["Top_hole_dia"]) ? $attr["Top_hole_dia"] : null;
+        $No_of_ply = isset($attr["No_of_ply"]) ? $attr["No_of_ply"] : null;
+        $Style = isset($attr["Style"]) ? $attr["Style"] : null;
+        $Thickness = isset($attr["Thickness"]) ? $attr["Thickness"] : null;
+        $Weight = isset($attr["Weight"]) ? $attr["Weight"] : null;
+        $Depth = isset($attr["Depth"]) ? $attr["Depth"] : null;
+        $Bottom_hole_dia = isset($attr["Thickness"]) ? $attr["Thickness"] : null;
+        $Core = isset($attr["Core"]) ? $attr["Core"] : null;
+        $Inner_Outer_thread = isset($attr["Inner_Outer_thread"]) ? $attr["Inner_Outer_thread"] : null;
+        $Upper_thread = isset($attr["Upper_thread"]) ? $attr["Upper_thread"] : null;
+        $Lower_thread = isset($attr["Thickness"]) ? $attr["Thickness"] : null;
+        $Thread_length = isset($attr["Thread_length"]) ? $attr["Thread_length"] : null;
+        $Indian_Imported = isset($attr["Indian_Imported"]) ? $attr["Indian_Imported"] : null;
+        $In_built_switch  = isset($attr["In_built_switch"]) ? $attr["In_built_switch"] : null;
+        $Wire_type  = isset($attr["Wire_type"]) ? $attr["Wire_type"] : null;
+        $Vendor  = isset($attr["Vendor"]) ? $attr["Vendor"] : null;
+        $attribute1  = isset($attr["attribute1"]) ? $attr["attribute1"] : null;
+        $attribute2  = isset($attr["attribute2"]) ? $attr["attribute2"] : null;
+        $attribute3  = isset($attr["attribute3"]) ? $attr["attribute3"] : null;
+        $imagePath  =  isset($_GET["filePath"]) ? $_GET["filePath"] :   null;
+        $long_discription  =  isset($_GET["Long_Description"]) ? $_GET["Long_Description"] :   null;
+        $Pintop  =  isset($_GET["Pintop"]) ? $_GET["Pintop"] :   null;
+        $Discount  =  isset($_GET["Discount"]) ? $_GET["Discount"] :   null;
+        $fabric  =  isset($_GET["fabric"]) ? $_GET["fabric"] :   null;
+        $piping  =  isset($_GET["piping"]) ? $_GET["piping"] :   null;
+        $piping_color  =  isset($_GET["piping_color"]) ? $_GET["piping_color"] :   null;
+        $acrylic_diffuser  =  isset($_GET["acrylic_diffuser"]) ? $_GET["acrylic_diffuser"] :   null;
+        $gallery_heght  =  isset($_GET["gallery_heght"]) ? $_GET["gallery_heght"] :   null;
+        $sheet_color  =  isset($_GET["sheet_color"]) ? $_GET["sheet_color"] :   null;
+        $powder_coating  =  isset($_GET["powder_coating"]) ? $_GET["powder_coating"] :   null;
 
+        $departement = "departement";
+
+        $createdBy = "createdBy";
+        $createdDate = date("y-m-d");
 
         $itemStatus  = $_GET["currentItemStatus"];
 
 
 
+        $sql = "INSERT into item_master_temp (item_code,
+        Item_Category,
+        short_discrption,
+        subCatId,
+        Price,
+        si_unit,
+        material,
+        Design,
+        Finish_type,
+        Half_Full_Thread,
+        Holder_Thread,
+        Holder_type,
+        Thread,
+        brand,
+        Light_Output_colour,
+        Colour,
+        Cut,
+        Height,
+        Length,
+        Breadth,
+        Upper_Dia,
+        Bottom_Dia,
+        Centre_Hole_dia,
+        Size,
+        watt,
+        Shape,
+        Side_Hole_dia,
+        Top_hole_dia,
+        No_of_ply,
+        Style,
+        Thickness,
+        Weight,
+        Depth,
+        Bottom_hole_dia,
+        Core,
+        Inner_Outer_thread,
+        Upper_thread,
+        Lower_thread,
+        Thread_length,
+        Indian_Imported,
+        In_built_switch,
+        Wire_type,
+        vendor,
+        attribute1,
+        attribute2,
+        attribute3,
+        imagePath,
+        long_discription,
+        Pintop,
+        Discount,
+        fabric,
+        piping,
+        piping_color,
+        acrylic_diffuser,
+        gallery_heght,
+        sheet_color,
+        powder_coating,
+        departement,
+        createdBy,
+        createdDate,
+        itemStatus
 
-
-
-
-        $sql = "INSERT into electrical_catinfo (category_name,sub_category,Item_code,short_description,Size,Watt,Colour,Shape,Brand,Light_output_Colour,Vendor,Description,Price,Length,Material,WireType,In_Builtswitch,Pintop,Holdertype,Discount,Images,status) values ('$catId','$subCatId','$itemCode','$shortDiscription','$size','$watt','$color', '$Shape' ,'$brand','$Light_Output_colour','$vandore','$description','$price','$length','$material','$wireType','$inBuiltSwicth','$pintop','$holer','$discount','$images' ,'$itemStatus')";
+        ) 
+        values ('$itemCode',
+        '$Item_Category',
+        '$Short_Description',
+        '$subCatId',
+        '$Price',
+        '$si_unit',
+        '$material',
+         '$Design' ,
+        '$Finish_type',
+        '$Half_Full_Thread',
+        '$Holder_Thread',
+        '$Holder_type',
+        '$Thread',
+        '$brand',
+        '$Light_Output_colour',
+        '$Colour',
+        '$Cut',
+        '$Height',
+        '$Length',
+        '$Breadth',
+        '$Upper_Dia' ,
+        '$Bottom_Dia',
+        '$Centre_Hole_dia',
+        '$Size',
+        '$watt',
+        '$Shape',
+        '$Side_Hole_dia',
+        '$Top_hole_dia',
+        '$No_of_ply',
+        '$Style',
+        '$Thickness',
+        '$Weight',
+        '$Depth',
+        '$Bottom_hole_dia',
+        '$Core',
+        '$Inner_Outer_thread',
+        '$Upper_thread',
+        '$Lower_thread',
+        '$Thread_length',
+        '$Indian_Imported',
+        '$In_built_switch',
+        '$Wire_type',
+        '$Vendor',
+        '$attribute1',
+        '$attribute2',
+        '$attribute3',
+        '$imagePath',
+        '$long_discription',
+        '$Pintop',
+        '$Discount',
+        '$fabric',
+        '$piping',
+        '$piping_color',
+        '$acrylic_diffuser',
+        '$gallery_heght',
+        '$sheet_color',
+        '$powder_coating',
+        '$departement',
+        '$createdBy',
+        '$createdDate',
+        '$itemStatus'
+        )";
 
 
 
@@ -164,6 +322,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         // echo "Images: " . $images . "<br>";
 
 
+
+        if (mysqli_error($con)) {
+
+            $response["error"] = "" . mysqli_error($con);
+        }
 
 
         $response["recordId"] = mysqli_insert_id($con);
@@ -463,10 +626,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $requireData["files"] = $_FILES;
         }
-
-
-
-
 
 
 

@@ -178,7 +178,7 @@ const addSubCatFields = (data) => {
         fileInput.type = "file";
         fileInput.name = "itemImage";
 
-        
+
 
 
 
@@ -205,18 +205,6 @@ const addSubCatFields = (data) => {
             // console.log(element.attr_id);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
             var div = document.createElement("div")
             div.classList.add("mb-4", "md:mr-2", "max-w-1", "md:mb-0")
 
@@ -224,11 +212,6 @@ const addSubCatFields = (data) => {
             var lable = document.createElement("lable")
             lable.classList.add("block", "mb-2", "text-sm", "name", "font-bold", "text-gray-700", "dark:text-white")
             lable.innerText = element.name;
-
-
-
-
-
 
 
             var input = document.createElement("input")
@@ -474,8 +457,11 @@ const submitItemInfoToDb = async () => {
 
     let fields_is_noteValid = false;
 
-    inputs.forEach(element => {
 
+    let maxLenWord = 0;
+    inputs.forEach((element,index) => {
+                    
+        if(index>0 &index<6){
 
         let attrName = element.getAttribute("name");
         let attributeValue = element.value
@@ -483,26 +469,28 @@ const submitItemInfoToDb = async () => {
         if (attributeValue.trim() == "") {
             fields_is_noteValid = true;
         }
-        itemCodeGen += attributeValue.substring(0, 2)
-        itemCodeGen += "-"
+        itemCodeGen += attributeValue.substring(0, 4)
         attInfo[attrName] = attributeValue
-
+        
         itemDataInfo["SubCatid"] = element.getAttribute("subCat-id")
-
+        itemCodeGen += "-"
+        maxLenWord++;
+        
+       }
     })
 
     if (fields_is_noteValid) {
         alert("please fill all the valu")
 
-        inputs.forEach(element => {  
-            
-            
+        inputs.forEach(element => {
+
+
             let attributeValue = element.value
-            
+
             if (attributeValue.trim() == "") {
-          
-                element.style.borderColor="RED";
-                    }
+
+                element.style.borderColor = "RED";
+            }
 
         })
 
@@ -540,20 +528,22 @@ const submitItemInfoToDb = async () => {
         // console.log(itemDataInfo);
 
 
-        $.ajax({
+        await $.ajax({
 
             url: "ajaxItemMaster.php",
             method: "GET",
-            dataType: "json",
+            dataType: "JSON",
             data: itemDataInfo,
 
             success: function (data) {
 
                 console.log(data);
 
-
+                console.log(data.success);
 
                 if (data.success) {
+
+                    alert("data saved")
 
                     document.getElementById("recordId").innerText = `Rcord Id : ${data.recordId} .`
                     document.getElementById("recordId").style.display = "block"
@@ -561,13 +551,18 @@ const submitItemInfoToDb = async () => {
                     document.getElementById("Item_code").style.display = "block"
                 }
 
+                if (data[success]) {
 
+                    alert("data saved")
+
+                    document.getElementById("recordId").innerText = `Rcord Id : ${data.recordId} .`
+                    document.getElementById("recordId").style.display = "block"
+                    document.getElementById("Item_code").innerText = `Item Code : ${data.ItemCode} .`
+                    document.getElementById("Item_code").style.display = "block"
+                }
                 if (currentItemStatus == "SUBMIT") {
                     location.reload();
                 }
-
-
-
 
             }
 
@@ -583,83 +578,81 @@ const submitItemInfoToDb = async () => {
     }
 
 
+}
+
+
+
+
+
+
+
+
+
+const sendElectricDataToItemMaster = (event) => {
+
+    //    console.log(event.target)\
+
+    btn = event.target
+    let data = btn.closest("tr").querySelectorAll("input")
+    let select = btn.closest("tr").querySelector("select")
+
+
+
+    var formdata = new FormData();
+
+
+
+    if (select.value == "submitToItemMaster") {
+
+
+        let fieldsData = {};
+
+        data.forEach(element => {
+
+            let itemName = element.name;
+            let value = element.value;
+
+            fieldsData[itemName] = value;
+
+        })
+
+        fieldsData["submitDataTOItemMaster"] = "submitDataTOItemMaster";
+
+
+
+
+
+        $.ajax({
+
+            url: "ajaxItemMaster.php",
+            method: "POST",
+            // dataType: 'JSON',
+            contentType: false,       // Important to send as multipart/form-data
+            processData: false,
+            data: fieldsData,
+            success: function (data) {
+
+                console.log(data)
+
+                alert("data success fully insert")
+
+
+            },
+            error: function (error) {
+                console.log(error);
+            }
+
+
+
+
+        })
+        console.log(fieldsData);
+
+    } else {
+        alert("plase change status to submit")
     }
 
 
-
-
-
-
-
-
-
-    const sendElectricDataToItemMaster = (event) => {
-
-        //    console.log(event.target)\
-
-        btn = event.target
-        let data = btn.closest("tr").querySelectorAll("input")
-        let select = btn.closest("tr").querySelector("select")
-
-
-
-        var formdata = new FormData();
-
-
-
-        if (select.value == "submitToItemMaster") {
-
-
-            let fieldsData = {};
-
-            data.forEach(element => {
-
-                let itemName = element.name;
-                let value = element.value;
-
-                fieldsData[itemName] = value;
-
-            })
-
-            fieldsData["submitDataTOItemMaster"] = "submitDataTOItemMaster";
-
-
-
-
-
-            $.ajax({
-
-                url: "ajaxItemMaster.php",
-                method: "POST",
-                // dataType: 'JSON',
-                contentType: false,       // Important to send as multipart/form-data
-                processData: false,
-                data: fieldsData,
-                success: function (data) {
-
-                    console.log(data)
-
-                    alert("data success fully insert")
-
-
-                },
-                error: function (error) {
-                    console.log(error);
-                }
-
-
-
-
-
-
-            })
-            console.log(fieldsData);
-
-        } else {
-            alert("plase change status to submit")
-        }
-
-
-    }
+}
 
 

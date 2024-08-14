@@ -1,20 +1,16 @@
 <?php
-
 include("../db.php");
 
 
-$isEditable = true;
+
+// $sql =  "SELECT * FROM for_office.electrical_catinfo a
+// join for_office.itemmastercategory b ON a.category_name = b.categoryId 
+// join for_office.sub_category c ON a.sub_category = c.subCatId; ";
 
 
-
-$sql = "select * from itemmaster";
-
-
-
-
-
-
-
+$sql = "SELECT * FROM for_office.item_master_temp a
+join for_office.itemmastercategory b ON a.Item_Category = b.categoryId 
+join for_office.sub_category c ON a.sub_category = c.subCatId;";
 
 
 
@@ -22,18 +18,80 @@ $result = mysqli_query($con, $sql);
 
 
 
-if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
+
+
+
+
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
     if (isset($_GET["search_query"])) {
-        $query = $_GET["search_query"];
 
-        $sql = "SELECT * FROM  requisition_table  where department_name ='$query' or item_name ='$query' or status='$query'  or S_no ='$query'or department_id ='$$query%'or requisition_type ='$query'or quantity ='$query' or user_remarks ='$query' or price ='$query' or handover_over_by ='$query' or record_id ='$query'  ";
+
+        $search_query = $_GET['search_query'];
+
+
+
+
+
+
+        // $sql ="SELECT * FROM for_office.electrical_catinfo a
+        //         join for_office.itemmastercategory b ON a.category_name = b.categoryId 
+        //         join for_office.sub_category c ON a.sub_category = c.subCatId 
+        //         where 
+        //         S.No='$search_query' or category_name ='$search_query' or sub_category='$search_query' or
+
+        //         Item_code='$search_query' or short_description='$search_query' or Size='$search_query' or Watt='$search_query' or 
+        //         Colour = '$search_query' or Shape='$search_query' or Brand='$search_query' or Light_output_Colour='$search_query' or 
+        //         Vendor='$search_query' or  Description='$search_query' or  Price='$search_query',
+        //         Length='$search_query' or Material='$search_query' or  WireType='$search_query' or  In_Builtswitch='$search_query' or
+        //         Pintop='$search_query' or
+        //         Holdertype='$search_query'
+        //         or Discount='$search_query' or  Images='$search_query' or  cat_id ='$search_query' or status='$search_query' or
+        //         cut='$search_query' or  categoryId='$search_query' or catagory_name or '$search_query'or  subCatId='$search_query'
+        //             or catId='$search_query' or   name='$search_query' ";
+
+
+
+        $sql = "SELECT * FROM for_office.electrical_catinfo a
+        JOIN for_office.itemmastercategory b ON a.category_name = b.categoryId 
+        JOIN for_office.sub_category c ON a.sub_category = c.subCatId 
+        WHERE 
+        `S.No` = '$search_query' OR 
+        a.category_name = '$search_query' OR 
+        a.sub_category = '$search_query' OR
+        Item_code = '$search_query' OR 
+        short_description = '$search_query' OR 
+        Size = '$search_query' OR 
+        Watt = '$search_query' OR 
+        Colour = '$search_query' OR 
+        Shape = '$search_query' OR 
+        Brand = '$search_query' OR 
+        Light_output_Colour = '$search_query' OR 
+        Vendor = '$search_query' OR  
+        Description = '$search_query' OR  
+        Price = '$search_query' OR
+        Length = '$search_query' OR 
+        Material = '$search_query' OR  
+        WireType = '$search_query' OR  
+        In_Builtswitch = '$search_query' OR
+        Pintop = '$search_query' OR
+        Holdertype = '$search_query' OR 
+        Discount = '$search_query' OR  
+        Images = '$search_query' OR  
+        cat_id = '$search_query' OR 
+        status = '$search_query' OR
+        cut = '$search_query' OR  
+        categoryId = '$search_query' OR 
+        category_name = '$search_query' OR
+        subCatId = '$search_query' OR  
+        catId = '$search_query' OR   
+        name = '$search_query'";
+
+
 
         $result = mysqli_query($con, $sql);
-
-        echo "QIURY";
     }
 }
 
@@ -41,44 +99,37 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 
 
-if (mysqli_num_rows($result) > 0) {
-
-    echo "is fetch successfukky";
-}
-
-
-
 
 
 ?>
-
-
-
-
 <!DOCTYPE html>
-
-
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.4/dist/tailwind.min.css" rel="stylesheet">
-
-    <title>Admin update</title>
+    <title>Document</title>
 </head>
 
-<body>
-    <?php require("./navForLogged.php") ?>
+<body
+    style=" margin-top:8rem;"
+    class="font-sans ">
+
+
+    <?php
+
+
+    include("./navForLogged.php");
 
 
 
+    ?>
+
+    <div>
 
 
-    <div class="" style="margin-top: 3.5rem;">
-
-
-        <form class="flex items-center  max-w-lg mx-auto" method="GET">
+        <form class="flex items-center  mb-4  max-w-lg mx-auto" method="GET">
             <label for="voice-search" class="sr-only">Search</label>
             <div class="relative w-full mr-2">
 
@@ -95,169 +146,229 @@ if (mysqli_num_rows($result) > 0) {
     </div>
 
 
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg ">
-        <table class=" text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"">
+    <div
+        style="width: 90%;"
+        class="relative mx-auto   overflow-x-auto shadow-md sm:rounded-lg">
+        <table
 
 
-            <thead class=" text-xs bg-blue-300 text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" class="px-6 py-3">
-                    S_no
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    item_code
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Item_Category
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Item_Name
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    sub_category
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Item_Type
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Quantity
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Material
-                </th>
 
-                <th scope="col" class="px-6 py-3">
-                    Design
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Finish_type
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Half_Full_Thread
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Holder_Thread
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Holder_type
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Thread
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Brand
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Light_Output_colour
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Colour
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Cut
-                </th>
+            class=" text-sm mx-auto text-left border-2-black rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs  bg-blue-400 text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-5 py-2">
+                        S no
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Item_code
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Category name
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        sub Category
+                    </th>
 
-                <th scope="col" class="px-6 py-3">
-                    Height
-                </th>
+                    <th scope="col" class="px-5 py-2">
+                        short_description
+                    </th>
+         
+            
+                    <th scope="col" class="px-5 py-2">
+                        price
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        si_unit
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Material
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Design
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Finish_type
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Half_Full_Thread
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Holder_Thread
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Holder_type
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Thread
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Brand
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Light_Output_colour
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Colour
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Cut
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Height
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Length
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Breadth
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Upper_Dia
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Bottom_Dia
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Centre_Hole_dia
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Size
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        watt
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Shape
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Side_Hole_dia
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Top_hole_dia
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        No_of_ply
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Style
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Thickness
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Weight
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Depth
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Bottom_hole_dia
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Bottom_hole
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Bottom_hole
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Core
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Inner_Outer_thread
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Upper_thread
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Lower_thread
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Thread_length
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Thread_length
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Indian_Imported
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        In_built_switch
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        vendor
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        attribute1
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        attribute2
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        attribute3
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        createdBy
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        updatedBy
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        departement
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        updatedDate
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        long_discription
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Pintop
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Discount
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        itemStatus
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        createdDate
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        fabric
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        piping
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        piping_color
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        acrylic_diffuser
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        gallery_heght
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        sheet
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        sheet_color
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        powder_coating
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        subCatId
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        Image
+                    </th>
+                    <th scope="col" class="px-5 py-2">
+                        itemStatus
+                    </th>
 
-                <th scope="col" class="px-6 py-3">
-                    Length
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Breadth
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Upper_Dia
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Bottom_Dia
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Centre_Hole_dia
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Size
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    watt
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Shape
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Side_Hole_dia
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Top_hole_dia
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    No_of_ply
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Style
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Thickness
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Weight
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Depth
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Bottom_hole_dia
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Bottom_hole
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Core
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Inner_Outer_thread
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Upper_thread
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Lower_thread
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Thread_length
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Indian_Imported
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    In_built_switch
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Wire_type
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    vendor
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    attribute1
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    attribute2
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    attribute3
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    itemmastercol
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    imagePath
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    <span class="sr-only">Edit</span>
-                </th>
-            </tr>
+
+                </tr>
             </thead>
             <tbody>
 
@@ -266,221 +377,674 @@ if (mysqli_num_rows($result) > 0) {
                 <?php
 
 
-                while ($row = mysqli_fetch_assoc($result)) {
 
-                    echo '
-
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        ' . ($isEditable ? "<input class='formInputData'  name='user_id' disabled style='max-width:80px' id=" . $row["S_No"] . "  margin-left:0' value=" . $row["S_No"] . ">" : $row["S_No"]) . '
-                    </th>
-                    <td class=px-6 py-4">
-                        ' . ($isEditable ? "<input class='formInputData' name='name_of_company' disabled style='max-width:80px'  margin-left:0' value=" . $row["item_code"] . ">" : $row["item_code"]) . '
-                    </td>
-                    <td class="px-6 py-4">
-                    
-                         ' . ($isEditable ? "<input class='formInputData' name='created_date' disabled style='max-width:80px'  margin-left:0' value=" . $row["Item_Category"] . ">" : $row["Item_Category"]) . '
-                    </td>
-                    <td class="px-6 py-4">
-                        ' . ($isEditable ? "<input class='formInputData' name='department_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Item_Name"] . ">" : $row["Item_Name"]) . '
-                    </td>
-                    <td class="px-6 py-4">
-                        ' . ($isEditable ? "<input class='formInputData' name='department_id' disabled style='max-width:80px'  margin-left:0' value=" . $row["sub_category"] . ">" : $row["sub_category"]) . '
-                    </td>
-                    <td class="px-6 py-4">
-                         ' . ($isEditable ? "<input class='formInputData' name='requisition_type' disabled style='max-width:80px'  margin-left:0' value=" . $row["Item_Type"] . ">" : $row["Item_Type"]) . '
-                    </td>
-                    <td class="px-6 py-4">
-                        ' . ($isEditable ? "<input  type='txt' class='formInputData' name='requisition_id' disabled style='max-width:80px'  margin-left:0' value=" . $row["Quantity"] . ">" : $row["Quantity"]) . '
-                    </td>
-                    <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='project_id' disabled style='max-width:80px'  margin-left:0' value=" . $row["Material"] . ">" : $row["Material"]) . '
-                    </td>
-                    <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' id='item_name' name='item_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Design"] . ">" : $row["Design"]) . '
-                    </td>
-                    <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Finish_type"] . ">" : $row["Finish_type"]) . '
-                    </td>
-                    <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Half_Full_Thread"] . ">" : $row["Half_Full_Thread"]) . '
-                    </td>
-                    <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' id='user_remarks' name='user_remarks' disabled style='max-width:80px'  margin-left:0' value=" . $row["Holder_Thread"] . ">" : $row["Holder_Thread"]) . '
-                    </td>
-                    <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Holder_type"] . ">" : $row["Holder_type"]) . '
-                    </td>
-                    <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Thread"] . ">" : $row["Thread"]) . '
-                    </td>
-                    <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Brand"] . ">" : $row["Brand"]) . '
-                    </td>
-                    <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='status' id='status'  disabled style='max-width:80px'  margin-left:0' value=" . $row["Light_Output_colour"] . ">" : $row["Light_Output_colour"]) . '
-                    </td>
-                    <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Colour"] . ">" : $row["Colour"]) . '
-                    </td>
-                    <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Cut"] . ">" : $row["Cut"]) . '
-                    </td>
-
-                       <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Height"] . ">" : $row["Height"]) . '
-                    </td>   <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Length"] . ">" : $row["Length"]) . '
-                    </td>
-                  <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Breadth"] . ">" : $row["Breadth"]) . '
-                    </td>
-                    </td>   <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Upper_Dia"] . ">" : $row["Upper_Dia"]) . '
-                    </td>
-                    </td>   <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Bottom_Dia"] . ">" : $row["Bottom_Dia"]) . '
-                    </td>
-                    </td>   <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Centre_Hole_dia"] . ">" : $row["Centre_Hole_dia"]) . '
-                    </td>
-                    </td>   <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Size"] . ">" : $row["Size"]) . '
-                    </td>
-                    </td>   <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["watt"] . ">" : $row["watt"]) . '
-                    </td>
-                    </td>   <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Shape"] . ">" : $row["Shape"]) . '
-                    </td>
-                    </td>   <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Side_Hole_dia"] . ">" : $row["Side_Hole_dia"]) . '
-                    
-                    </td>   <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Top_hole_dia"] . ">" : $row["Top_hole_dia"]) . '
-                    
-                    </td>   <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["No_of_ply"] . ">" : $row["No_of_ply"]) . '
-                
-                    </td>   <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Style"] . ">" : $row["Style"]) . '
-                    </td>
-                    
-                     <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Thickness"] . ">" : $row["Thickness"]) . '
-                    </td>
-                    
-                      <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Weight"] . ">" : $row["Weight"]) . '
-                    </td>
-                     <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Depth"] . ">" : $row["Depth"]) . '
-                    </td>
-                     <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Bottom_hole_dia"] . ">" : $row["Bottom_hole_dia"]) . '
-                    </td>
-                     <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Bottom_hole"] . ">" : $row["Bottom_hole"]) . '
-                    </td>
-                     <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Core"] . ">" : $row["Core"]) . '
-                    </td>
-                     <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Inner_Outer_thread"] . ">" : $row["Inner_Outer_thread"]) . '
-                    </td>
-                     <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Upper_thread"] . ">" : $row["Upper_thread"]) . '
-                    </td>
-                     <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Lower_thread"] . ">" : $row["Lower_thread"]) . '
-                    </td>
-                     <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Thread_length"] . ">" : $row["Thread_length"]) . '
-                    </td>
-                     <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Indian_Imported"] . ">" : $row["Indian_Imported"]) . '
-                    </td>
-                     <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["In_built_switch"] . ">" : $row["In_built_switch"]) . '
-                    </td>
-                     <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["Wire_type"] . ">" : $row["Wire_type"]) . '
-                    </td>
-                     <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["vendor"] . ">" : $row["vendor"]) . '
-                    </td>
-                     <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["attribute1"] . ">" : $row["attribute1"]) . '
-                    </td>
-                     <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["attribute2"] . ">" : $row["attribute2"]) . '
-                    </td>
-                     <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["attribute3"] . ">" : $row["attribute3"]) . '
-                    </td>
-                     <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["itemmastercol"] . ">" : $row["itemmastercol"]) . '
-                    </td>
-                     <td class="px-6 py-4">
-                       
-                         ' . ($isEditable ? "<input class='formInputData' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["imagePath"] . ">" : $row["imagePath"]) . '
-                    </td>
-                
-                   
-                     
+                if (mysqli_num_rows($result) > 0) {
 
 
-                    
-                </tr>
-                    
-        
-                    
-                ';
-                }  ?>
+                    while ($row = mysqli_fetch_assoc($result)) {
 
+
+
+                ?>
+
+
+                        <tr class=" text-black border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row" class="px-5 py-2 font-medium  whitespace-nowrap dark:text-white">
+                                <?php echo $row["S_No"]; ?>
+
+                            </th>
+                            <td class="px-5 py-2">
+
+                                <input
+                                    name="item_code"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["item_code"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+
+                                <input
+                                    name="Item_Category"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Item_Category"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="sub_category"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["name"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="short_discrption"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["short_discrption"] ?>"
+                                    placeholder=" ">
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="price"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["price"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+
+                                <input
+                                    name="si_unit"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["si_unit"] ?>"
+                                    placeholder=" ">
+                            </td>
+                            <td class="px-5 py-2">
+
+                                <input
+                                    name="Material"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Material"] ?>"
+                                    placeholder=" ">
+                            </td>
+                            <td class="px-5 py-2">
+
+                                <input
+                                    name="Design"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Design"] ?>"
+                                    placeholder=" ">
+                            </td>
+                            <td class="px-5 py-2">
+
+                                <input
+                                    name="Finish_type"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Finish_type"] ?>"
+                                    placeholder=" ">
+                            </td>
+                            <td class="px-5 py-2">
+
+                                <input
+                                    name="Half_Full_Thread"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Half_Full_Thread"] ?>"
+                                    placeholder=" ">
+                            </td>
+                            <td class="px-5 py-2">
+
+                                <input
+                                    name="Holder_Thread"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Holder_Thread"] ?>"
+                                    placeholder=" ">
+                            </td>
+                            <td class="px-5 py-2">
+
+                                <input
+                                    name="Holder_type"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Holder_type"] ?>"
+                                    placeholder=" ">
+                            </td>
+                            <td class="px-5 py-2">
+
+                                <input
+                                    name="Thread"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Thread"] ?>"
+                                    placeholder=" ">
+                            </td>
+                            <td class="px-5 py-2">
+
+                                <input
+                                    name="Brand"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Brand"] ?>"
+                                    placeholder=" ">
+                            </td>
+                            <td class="px-5 py-2">
+
+                                <input
+                                    name="Light_Output_colour"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Light_Output_colour"] ?>"
+                                    placeholder=" ">
+                            </td>
+                            <td class="px-5 py-2">
+
+                                <input
+                                    name="Colour"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Colour"] ?>"
+                                    placeholder=" ">
+                            </td>
+                            <td class="px-5 py-2">
+
+                                <input
+
+                                    name="Cut"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Cut"] ?>"
+                                    placeholder=" ">
+                            </td>
+                            <td class="px-5 py-2">
+
+                                <input
+                                    name="Height"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Height"] ?>"
+                                    placeholder=" ">
+                            </td>
+                            <td class="px-5 py-2">
+
+                                <input
+                                    name="Length"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Length"] ?>"
+                                    placeholder=" ">
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="Breadth"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Breadth"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="Upper_Dia"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Upper_Dia"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+
+                            <td class="px-5 py-2">
+                                <input
+                                    name="Bottom_Dia"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Bottom_Dia"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="Centre_Hole_dia"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Centre_Hole_dia"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="Size"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Size"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="watt"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["watt"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="Shape"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Shape"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="Side_Hole_dia"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Side_Hole_dia"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="Top_hole_dia"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Top_hole_dia"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="No_of_ply"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["No_of_ply"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="Style"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Style"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="Thickness"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Thickness"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="Weight"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Weight"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="Depth"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Depth"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="Bottom_hole_dia"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Bottom_hole_dia"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="Bottom_hole"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Bottom_hole"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="Bottom_hole"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Bottom_hole"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="Core"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Core"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="Inner_Outer_thread"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Inner_Outer_thread"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="Upper_thread"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Upper_thread"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="Lower_thread"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Lower_thread"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="Thread_length"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Thread_length"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="Indian_Imported"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Indian_Imported"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="In_built_switch"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["In_built_switch"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="Wire_type"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Wire_type"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="vendor"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["vendor"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="attribute1"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["attribute1"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="attribute2"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["attribute2"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="attribute3"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["attribute3"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="createdBy"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["createdBy"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="updatedBy"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["updatedBy"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="departement"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["departement"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="updatedDate"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["updatedDate"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="long_discription"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["long_discription"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="Pintop"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Pintop"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="Discount"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["Discount"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="itemStatus"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["itemStatus"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="createdDate"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["createdDate"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="fabric"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["fabric"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="piping"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["piping"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="piping_color"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["piping_color"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="acrylic_diffuser"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["acrylic_diffuser"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="gallery_heght"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["gallery_heght"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="sheet"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["sheet"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="sheet_color"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["sheet_color"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="powder_coating"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["powder_coating"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            </td>
+                            <td class="px-5 py-2">
+                                <input
+                                    name="subCatId"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["subCatId"] ?>"
+                                    placeholder=" ">
+
+                            </td>
+                            </td>
+                            <td class="px-5 py-2">
+                                <!-- <input
+                                    name="Images"
+                                    disabled
+                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    value="<?php echo $row["imagePath"] ?>"
+                                    placeholder=" ">
+ -->
+
+
+                                <img src="./images/<?php echo $row['imagePath']; ?>"
+
+
+                                    style="max-width:200px;;"
+                                    alt="">
+
+
+                            </td>
+                            <td class="px-5 py-2">
+                                <select class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900" name="itemStatus" id="itemStatus">
+                                    <option
+
+                                        class="text-black"
+
+                                        <?= ($row['itemStatus'] == 'SUBMIT') ?  'selected' : ''; ?> value="SUBMIT">SUBMIT</option>
+                                    <option
+                                        class="text-black" <?= ($row['itemStatus'] == 'SAVE') ? 'selected' : ''; ?> value="SAVE">SAVE</option>
+                                    <option
+                                        <?= ($row['itemStatus'] == 'submitToItemMaster') ? 'selected' : ''; ?>
+                                        class="text-black"
+                                        value="submitToItemMaster">submitToItemMaster</option>
+                                </select>
+
+                            </td>
+
+                           
+
+
+                        </tr>
+
+
+                <?php
+
+
+                    }
+                }
+                ?>
             </tbody>
         </table>
     </div>
@@ -494,18 +1058,36 @@ if (mysqli_num_rows($result) > 0) {
 
 
 
-
-
-
-
-
-
 </body>
 
 
-<script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
-<script src="./js/scripts.js"></script>
-<script src="./js/jquery.min.js"></script>
 
+
+
+<script src="./js/itemMaster.js"></script>
+<script src="./js/jquery-3.7.1.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+
+
+
+
+
+
+
+
+</script>
 
 </html>
