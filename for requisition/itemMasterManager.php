@@ -8,9 +8,12 @@ include("../db.php");
 // join for_office.sub_category c ON a.sub_category = c.subCatId; ";
 
 
-$sql = "SELECT * FROM for_office.item_master_temp a
-join for_office.itemmastercategory b ON a.Item_Category = b.categoryId 
-join for_office.sub_category c ON a.sub_category = c.subCatId;";
+// $sql = "SELECT * FROM for_office.item_master_temp a
+// join for_office.itemmastercategory b ON a.Item_Category = b.categoryId 
+// join for_office.sub_category c ON a.sub_category = c.subCatId;";
+
+
+$sql = "SELECT * FROM for_office.item_master_temp ;";
 
 
 
@@ -90,9 +93,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         // name = '$search_query'";
 
 
-        $sql = "SELECT * FROM for_office.item_master_temp a
-join for_office.itemmastercategory b ON a.Item_Category = b.categoryId 
-join for_office.sub_category c ON a.sub_category = c.subCatId where a.S_No=$search_query;";
+//         $sql = "SELECT * FROM for_office.item_master_temp a
+// join for_office.itemmastercategory b ON a.Item_Category = b.categoryId 
+// join for_office.sub_category c ON a.sub_category = c.subCatId where a.S_No=$search_query;";
+        
+
+        $sql = "SELECT * FROM for_office.item_master_temp where S_No=$search_query ";
         
         
             echo $search_query;
@@ -423,7 +429,8 @@ join for_office.sub_category c ON a.sub_category = c.subCatId where a.S_No=$sear
                                     name="sub_category"
                                     disabled
                                     class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
-                                    value="<?php echo $row["name"] ?>"
+                          
+                                    value="<?php echo $row["sub_category"] ?>"
                                     placeholder=" ">
 
                             </td>
