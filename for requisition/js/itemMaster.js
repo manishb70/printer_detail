@@ -155,10 +155,12 @@ const addSubCatFields = (data) => {
 
 
         let h1 = document.createElement("h1");
-        h1.classList.add("font-bold")
+        h1.classList.add("font-bold", "cursor-auto")
         h1.textContent = element
         let btn = document.createElement("a")
         btn.innerText = "+";
+        btn.style.cursor = "pointer"
+        btn.style.cursor = 'pointer'
 
 
         let tempId = `attr${index}`
@@ -459,24 +461,26 @@ const submitItemInfoToDb = async () => {
 
 
     let maxLenWord = 0;
-    inputs.forEach((element,index) => {
-                    
-        if(index>0 &index<6){
+    inputs.forEach((element, index) => {
+
 
         let attrName = element.getAttribute("name");
         let attributeValue = element.value
+
+        // console.log(element);
 
         if (attributeValue.trim() == "") {
             fields_is_noteValid = true;
         }
         itemCodeGen += attributeValue.substring(0, 4)
         attInfo[attrName] = attributeValue
-        
+
         itemDataInfo["SubCatid"] = element.getAttribute("subCat-id")
-        itemCodeGen += "-"
-        maxLenWord++;
-        
-       }
+        if (index > 0 & index < 6) {
+            maxLenWord++;
+            itemCodeGen += "-"
+        }
+
     })
 
     if (fields_is_noteValid) {
@@ -551,15 +555,15 @@ const submitItemInfoToDb = async () => {
                     document.getElementById("Item_code").style.display = "block"
                 }
 
-                if (data[success]) {
+                // if (data[success]) {
 
-                    alert("data saved")
+                //     alert("data saved")
 
-                    document.getElementById("recordId").innerText = `Rcord Id : ${data.recordId} .`
-                    document.getElementById("recordId").style.display = "block"
-                    document.getElementById("Item_code").innerText = `Item Code : ${data.ItemCode} .`
-                    document.getElementById("Item_code").style.display = "block"
-                }
+                //     document.getElementById("recordId").innerText = `Rcord Id : ${data.recordId} .`
+                //     document.getElementById("recordId").style.display = "block"
+                //     document.getElementById("Item_code").innerText = `Item Code : ${data.ItemCode} .`
+                //     document.getElementById("Item_code").style.display = "block"
+                // }
                 if (currentItemStatus == "SUBMIT") {
                     location.reload();
                 }
@@ -656,3 +660,112 @@ const sendElectricDataToItemMaster = (event) => {
 }
 
 
+
+
+const setDataToItemManager = async () => {
+
+
+    let selectedSubCatId = document.getElementById("ManagerRuleCatId").value
+
+    // electrinicd id 
+
+
+
+    // sub cat = 1 id name is bulb
+
+
+
+
+    await $.ajax({
+        url: "ajaxItemMaster.php",
+        method: "GET",
+        dataType: "JSON",
+        data: {
+            getColumnInfo: "getColumnInfo",
+            selectedSubCatId: selectedSubCatId
+        },
+        success: function (data) {
+            // console.log(data.tbody_data);
+
+            setTableFormSubCat(data.tbody_data)
+
+        }
+    })
+
+
+}
+
+
+
+
+
+const setTableFormSubCat = (data) => {
+    document.getElementById("dataBodyTd").innerText = "";
+
+    let teadRow = document.getElementById("data_headTh");
+    teadRow.innerText = "";
+
+
+    Object.keys(data[0]).forEach(element => {
+        let th = document.createElement("th")
+        th.classList.add("px-5", "py-2")
+        th.setAttribute("scope", "col")
+        th.innerText = element
+        teadRow.appendChild(th)
+
+    })
+    let th = document.createElement("th")
+    th.classList.add("px-5", "py-2")
+    th.setAttribute("scope", "col")
+    th.innerText = "image"
+    teadRow.appendChild(th)
+
+
+
+    data.forEach(element => {
+
+        let tbody = document.getElementById("dataBodyTd")
+
+
+
+        var tr = document.createElement("tr")
+
+
+        Object.keys(element).forEach(mainData => {
+
+            var td = document.createElement("td")
+            td.classList.add("px-5", "py-2")
+            td.innerText = element[mainData]
+            // console.log(element[mainData]);
+
+
+            tr.appendChild(td)
+
+        })
+
+
+        var image = document.createElement("img")
+        image.src = "./images/"+element['imagePath'];
+        image.alt = "Dynamic Image";
+
+        var td = document.createElement("td")
+        td.classList.add("px-5", "py-2")
+        td.appendChild(image)
+
+
+        tr.appendChild(td)
+
+
+        document.getElementById("dataBodyTd").appendChild(tr);
+
+
+    })
+
+
+
+
+
+
+
+
+}

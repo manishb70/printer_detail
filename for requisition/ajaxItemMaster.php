@@ -1,8 +1,83 @@
 <?php
-
+session_start();
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+
+
+    if (isset($_GET['getColumnInfo'])) {
+
+
+        $selectedSubCatId = $_GET['selectedSubCatId'];
+
+        include("db.php");
+
+
+        $sql = "SELECT * FROM for_office.requireattributeforcatname where SubcatId=$selectedSubCatId";
+
+
+        $result = mysqli_query($con, $sql);
+
+        $data = [];
+
+        $columns = "SELECT S_No,item_code,Item_Category";
+
+        if (mysqli_num_rows($result) > 0) {
+
+            while ($row = mysqli_fetch_assoc($result)) {
+
+                $data[] = $row["name"];
+                $columns .= " , " . $row["name"];
+            }
+            $columns .= " , " . "imagePath";
+        }
+
+        // echo "<script>alert(errrol)</script>";
+
+
+
+        // $sql = "SELECT * FROM for_office.item_master_temp ;";/
+
+
+
+
+        $tbody_data = [];
+
+
+
+
+
+
+        $sql = "$columns from for_office.item_master_temp;";
+        $result = mysqli_query($con, $sql);
+
+        while ($row = mysqli_fetch_assoc($result)) {
+
+
+            $tbody_data[] = $row;
+        }
+
+
+
+
+        // $response["theaders"] = $data;
+
+        $response["tbody_data"] = $tbody_data;
+
+        $response["success"] = true;
+
+
+
+
+
+
+        echo  json_encode($response);
+    }
+
+
+
+
+
 
 
 
@@ -110,7 +185,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $Holder_Thread = isset($attr["Holder_Thread"]) ? $attr["Holder_Thread"] : null;
         $Holder_type = isset($attr["Holder_type"]) ? $attr["Holder_type"] : null;
         $Thread = isset($attr["Thread"]) ? $attr["Thread"] : null;
-        $brand = isset($attr["Brand"]) ? $attr["Brand"] : null;
+        $brand = isset($attr["Brand"]) ? $attr["Brand"] : null;;
+        // $brand = isset($attr["Brand"]) ? $attr["Brand"] : null;
         $Light_Output_colour = isset($attr["Light_Output_colour"]) ? $attr["Light_Output_colour"] : null;
         $Colour = isset($attr["Colour"]) ? $attr["Colour"] : null;
         $Cut = isset($attr["Cut"]) ? $attr["Cut"] : null;
@@ -122,7 +198,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $Centre_Hole_dia = isset($attr["Centre_Hole_dia"]) ? $attr["Centre_Hole_dia"] : null;
         $Size = isset($attr["Size"]) ? $attr["Size"] : null;
         $watt = isset($attr["Watt"]) ? $attr["Watt"] : null;
-        $Shape = isset($attr["shape"]) ? $attr["shape"] : null;
+        $Shape = isset($attr["Shape"]) ? $attr["Shape"] : null;
         $Side_Hole_dia = isset($attr["Side_Hole_dia"]) ? $attr["Side_Hole_dia"] : null;
         $Top_hole_dia = isset($attr["Top_hole_dia"]) ? $attr["Top_hole_dia"] : null;
         $No_of_ply = isset($attr["No_of_ply"]) ? $attr["No_of_ply"] : null;
@@ -134,7 +210,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $Core = isset($attr["Core"]) ? $attr["Core"] : null;
         $Inner_Outer_thread = isset($attr["Inner_Outer_thread"]) ? $attr["Inner_Outer_thread"] : null;
         $Upper_thread = isset($attr["Upper_thread"]) ? $attr["Upper_thread"] : null;
-        $Lower_thread = isset($attr["Thickness"]) ? $attr["Thickness"] : null;
+        $Lower_thread = isset($attr["Lower_thread"]) ? $attr["Lower_thread"] : null;
         $Thread_length = isset($attr["Thread_length"]) ? $attr["Thread_length"] : null;
         $Indian_Imported = isset($attr["Indian_Imported"]) ? $attr["Indian_Imported"] : null;
         $In_built_switch  = isset($attr["In_built_switch"]) ? $attr["In_built_switch"] : null;
@@ -144,32 +220,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $attribute2  = isset($attr["attribute2"]) ? $attr["attribute2"] : null;
         $attribute3  = isset($attr["attribute3"]) ? $attr["attribute3"] : null;
         $imagePath  =  isset($_GET["filePath"]) ? $_GET["filePath"] :   null;
-        $long_discription  =  isset($_GET["Long_Description"]) ? $_GET["Long_Description"] :   null;
-        $Pintop  =  isset($_GET["Pintop"]) ? $_GET["Pintop"] :   null;
-        $Discount  =  isset($_GET["Discount"]) ? $_GET["Discount"] :   null;
-        $fabric  =  isset($_GET["fabric"]) ? $_GET["fabric"] :   null;
-        $piping  =  isset($_GET["piping"]) ? $_GET["piping"] :   null;
-        $piping_color  =  isset($_GET["piping_color"]) ? $_GET["piping_color"] :   null;
-        $acrylic_diffuser  =  isset($_GET["acrylic_diffuser"]) ? $_GET["acrylic_diffuser"] :   null;
-        $gallery_heght  =  isset($_GET["gallery_heght"]) ? $_GET["gallery_heght"] :   null;
-        $sheet_color  =  isset($_GET["sheet_color"]) ? $_GET["sheet_color"] :   null;
-        $powder_coating  =  isset($_GET["powder_coating"]) ? $_GET["powder_coating"] :   null;
+        $long_discription  =  isset($attr["Long_Description"]) ? $attr["Long_Description"] :   null;
+        // $long_discription  =  "hekkir";
+        $Pintop  =  isset($attr["Pintop"]) ? $attr["Pintop"] :   null;
+        $Discount  =  isset($attr["Discount"]) ? $attr["Discount"] :   null;
+        $fabric  =  isset($attr["fabric"]) ? $attr["fabric"] :   null;
+        $piping  =  isset($attr["piping"]) ? $attr["piping"] :   null;
+        $piping_color  =  isset($attr["piping_color"]) ? $attr["piping_color"] :   null;
+        $acrylic_diffuser  =  isset($attr["acrylic_diffuser"]) ? $attr["acrylic_diffuser"] :   null;
+        $gallery_heght  =  isset($attr["gallery_heght"]) ? $attr["gallery_heght"] :   null;
+        $sheet =  isset($attr["sheet"]) ? $attr["sheet"] :   null;
+        $sheet_color  =  isset($attr["sheet_color"]) ? $attr["sheet_color"] :   null;
+        $powder_coating  =  isset($attr["powder_coating"]) ? $attr["powder_coating"] :   null;
+        $fabric_colour = isset($attr["fabric_colour"]) ? $attr["fabric_colour"] :   null;
 
         $departement = "departement";
 
-        $createdBy = "createdBy";
+        $createdBy = $_SESSION["username"];
         $createdDate = date("y-m-d");
 
         $itemStatus  = $_GET["currentItemStatus"];
+        ///
 
+
+        // $response["acceptes data"] = $attr;
+
+        ////
 
 
         $sql = "INSERT into item_master_temp (item_code,
         Item_Category,
-        short_discrption,
+        Short_Description,
         subCatId,
         Price,
-        si_unit,
+        SI_unit,
         material,
         Design,
         Finish_type,
@@ -188,7 +272,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         Bottom_Dia,
         Centre_Hole_dia,
         Size,
-        watt,
+        Watt,
         Shape,
         Side_Hole_dia,
         Top_hole_dia,
@@ -206,15 +290,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         Indian_Imported,
         In_built_switch,
         Wire_type,
-        vendor,
+        Vendor,
         attribute1,
         attribute2,
         attribute3,
         imagePath,
-        long_discription,
+        Long_Description,
         Pintop,
         Discount,
         fabric,
+        fabric_colour,
         piping,
         piping_color,
         acrylic_diffuser,
@@ -278,6 +363,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         '$Pintop',
         '$Discount',
         '$fabric',
+        '$fabric_colour,
         '$piping',
         '$piping_color',
         '$acrylic_diffuser',

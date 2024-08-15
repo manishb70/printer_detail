@@ -159,7 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     <div
         style="width: 90%;"
-        class="relative mx-auto   overflow-x-auto shadow-md sm:rounded-lg">
+        class="relative mx-auto  bg-gray-50 overflow-x-auto shadow-md sm:rounded-lg">
         <table
 
 
@@ -409,7 +409,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                                 <input
                                     name="item_code"
                                     disabled
-                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    class=" bg-transparent w-auto text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
                                     value="<?php echo $row["item_code"] ?>"
                                     placeholder=" ">
 
@@ -419,7 +419,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                                 <input
                                     name="Item_Category"
                                     disabled
-                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    class=" bg-transparent w-auto text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
                                     value="<?php echo $row["Item_Category"] ?>"
                                     placeholder=" ">
 
@@ -436,10 +436,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                             </td>
                             <td class="px-5 py-2">
                                 <input
-                                    name="short_discrption"
+                                    name="Short_Description"
                                     disabled
                                     class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
-                                    value="<?php echo $row["short_discrption"] ?>"
+                                    value="<?php echo $row["Short_Description"] ?>"
                                     placeholder=" ">
                             </td>
                             <td class="px-5 py-2">
@@ -447,7 +447,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                                     name="price"
                                     disabled
                                     class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
-                                    value="<?php echo $row["price"] ?>"
+                                    value="<?php echo $row["Price"] ?>"
                                     placeholder=" ">
 
                             </td>
@@ -457,7 +457,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                                     name="si_unit"
                                     disabled
                                     class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
-                                    value="<?php echo $row["si_unit"] ?>"
+                                    value="<?php echo $row["SI_unit"] ?>"
                                     placeholder=" ">
                             </td>
                             <td class="px-5 py-2">
@@ -629,7 +629,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                                     name="watt"
                                     disabled
                                     class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
-                                    value="<?php echo $row["watt"] ?>"
+                                    value="<?php echo $row["Watt"] ?>"
                                     placeholder=" ">
 
                             </td>
@@ -809,7 +809,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                                     name="vendor"
                                     disabled
                                     class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
-                                    value="<?php echo $row["vendor"] ?>"
+                                    value="<?php echo $row["Vendor"] ?>"
                                     placeholder=" ">
 
                             </td>
@@ -881,7 +881,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                                     name="long_discription"
                                     disabled
                                     class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
-                                    value="<?php echo $row["long_discription"] ?>"
+                                    value="<?php echo $row["Long_Description"] ?>"
                                     placeholder=" ">
 
                             </td>

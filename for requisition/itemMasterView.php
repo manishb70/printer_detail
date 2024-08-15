@@ -8,9 +8,12 @@ include("../db.php");
 // join for_office.sub_category c ON a.sub_category = c.subCatId; ";
 
 
-$sql = "SELECT * FROM for_office.item_master_temp a
-join for_office.itemmastercategory b ON a.Item_Category = b.categoryId 
-join for_office.sub_category c ON a.sub_category = c.subCatId;";
+// $sql = "SELECT * FROM for_office.item_master_temp a
+// join for_office.itemmastercategory b ON a.Item_Category = b.categoryId 
+// join for_office.sub_category c ON a.sub_category = c.subCatId;";
+
+
+$sql = "SELECT * FROM for_office.item_master_temp ;";
 
 
 
@@ -54,43 +57,51 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
 
-        $sql = "SELECT * FROM for_office.electrical_catinfo a
-        JOIN for_office.itemmastercategory b ON a.category_name = b.categoryId 
-        JOIN for_office.sub_category c ON a.sub_category = c.subCatId 
-        WHERE 
-        `S.No` = '$search_query' OR 
-        a.category_name = '$search_query' OR 
-        a.sub_category = '$search_query' OR
-        Item_code = '$search_query' OR 
-        short_description = '$search_query' OR 
-        Size = '$search_query' OR 
-        Watt = '$search_query' OR 
-        Colour = '$search_query' OR 
-        Shape = '$search_query' OR 
-        Brand = '$search_query' OR 
-        Light_output_Colour = '$search_query' OR 
-        Vendor = '$search_query' OR  
-        Description = '$search_query' OR  
-        Price = '$search_query' OR
-        Length = '$search_query' OR 
-        Material = '$search_query' OR  
-        WireType = '$search_query' OR  
-        In_Builtswitch = '$search_query' OR
-        Pintop = '$search_query' OR
-        Holdertype = '$search_query' OR 
-        Discount = '$search_query' OR  
-        Images = '$search_query' OR  
-        cat_id = '$search_query' OR 
-        status = '$search_query' OR
-        cut = '$search_query' OR  
-        categoryId = '$search_query' OR 
-        category_name = '$search_query' OR
-        subCatId = '$search_query' OR  
-        catId = '$search_query' OR   
-        name = '$search_query'";
+        // $sql = "SELECT * FROM for_office.electrical_catinfo a
+        // JOIN for_office.itemmastercategory b ON a.category_name = b.categoryId 
+        // JOIN for_office.sub_category c ON a.sub_category = c.subCatId 
+        // WHERE 
+        // `S.No` = '$search_query' OR 
+        // a.category_name = '$search_query' OR 
+        // a.sub_category = '$search_query' OR
+        // Item_code = '$search_query' OR 
+        // short_description = '$search_query' OR 
+        // Size = '$search_query' OR 
+        // Watt = '$search_query' OR 
+        // Colour = '$search_query' OR 
+        // Shape = '$search_query' OR 
+        // Brand = '$search_query' OR 
+        // Light_output_Colour = '$search_query' OR 
+        // Vendor = '$search_query' OR  
+        // Description = '$search_query' OR  
+        // Price = '$search_query' OR
+        // Length = '$search_query' OR 
+        // Material = '$search_query' OR  
+        // WireType = '$search_query' OR  
+        // In_Builtswitch = '$search_query' OR
+        // Pintop = '$search_query' OR
+        // Holdertype = '$search_query' OR 
+        // Discount = '$search_query' OR  
+        // Images = '$search_query' OR  
+        // cat_id = '$search_query' OR 
+        // status = '$search_query' OR
+        // cut = '$search_query' OR  
+        // categoryId = '$search_query' OR 
+        // category_name = '$search_query' OR
+        // subCatId = '$search_query' OR  
+        // catId = '$search_query' OR   
+        // name = '$search_query'";
 
 
+//         $sql = "SELECT * FROM for_office.item_master_temp a
+// join for_office.itemmastercategory b ON a.Item_Category = b.categoryId 
+// join for_office.sub_category c ON a.sub_category = c.subCatId where a.S_No=$search_query;";
+        
 
+        $sql = "SELECT * FROM for_office.item_master_temp where S_No=$search_query ";
+        
+        
+            echo $search_query;
         $result = mysqli_query($con, $sql);
     }
 }
@@ -154,7 +165,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
             class=" text-sm mx-auto text-left border-2-black rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs  bg-blue-400 text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-blue-300 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-5 py-2">
                         S no
@@ -398,7 +409,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                                 <input
                                     name="item_code"
                                     disabled
-                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    class=" bg-transparent w-auto text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
                                     value="<?php echo $row["item_code"] ?>"
                                     placeholder=" ">
 
@@ -408,7 +419,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                                 <input
                                     name="Item_Category"
                                     disabled
-                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                    class=" bg-transparent w-auto text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
                                     value="<?php echo $row["Item_Category"] ?>"
                                     placeholder=" ">
 
@@ -418,7 +429,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                                     name="sub_category"
                                     disabled
                                     class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
-                                    value="<?php echo $row["name"] ?>"
+                          
+                                    value="<?php echo $row["sub_category"] ?>"
                                     placeholder=" ">
 
                             </td>
@@ -1032,8 +1044,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                                 </select>
 
                             </td>
+<!-- 
+                            <td class="px-5 py-2">
+                                <button name="update_reqsuisition" onclick="sendElectricDataToItemMaster(event)"
 
-                           
+                                    data-item-code="<?php echo $row["item_code"];  ?>"
+                                    class=" inline-flex mr-2  items-center py-2.5 px-5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="getDataOfEditIssuer(event)">
+                                    Update</button>
+                            </td> -->
 
 
                         </tr>
