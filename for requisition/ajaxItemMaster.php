@@ -181,13 +181,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $material = isset($attr["Material"]) ? $attr["Material"] : null;
         $Design = isset($attr["Design"]) ? $attr["Design"] : null;
         $Finish_type = isset($attr["Finish_type"]) ? $attr["Finish_type"] : null;
-        $Half_Full_Thread = isset($attr["Half_Full_Thread"]) ? $attr["Half_Full_Thread"] : null;
+        $Half_Full_Thread = isset($attr["Half_Full_Thread"]) ? $attr["Half_Full_Thread"] : null; // need t o cheng with attrbute 5
         $Holder_Thread = isset($attr["Holder_Thread"]) ? $attr["Holder_Thread"] : null;
         $Holder_type = isset($attr["Holder_type"]) ? $attr["Holder_type"] : null;
         $Thread = isset($attr["Thread"]) ? $attr["Thread"] : null;
         $brand = isset($attr["Brand"]) ? $attr["Brand"] : null;;
         // $brand = isset($attr["Brand"]) ? $attr["Brand"] : null;
-        $Light_Output_colour = isset($attr["Light_Output_colour"]) ? $attr["Light_Output_colour"] : null;
+        $Light_Output_colour = isset($attr["Light_Output_Colour"]) ? $attr["Light_Output_Colour"] : null;
         $Colour = isset($attr["Colour"]) ? $attr["Colour"] : null;
         $Cut = isset($attr["Cut"]) ? $attr["Cut"] : null;
         $Height = isset($attr["Height"]) ? $attr["Height"] : null;
@@ -233,9 +233,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $sheet_color  =  isset($attr["sheet_color"]) ? $attr["sheet_color"] :   null;
         $powder_coating  =  isset($attr["powder_coating"]) ? $attr["powder_coating"] :   null;
         $fabric_colour = isset($attr["fabric_colour"]) ? $attr["fabric_colour"] :   null;
-        $colour_temparature = isset($attr["colour_temparature"]) ? $attr["colour_temparature"] :   null;
+        $colour_temparature = isset($attr["Colour_Temparature"]) ? $attr["Colour_Temparature"] :   null;
         $Dimmable = isset($attr["Dimmable"]) ? $attr["Dimmable"] :   null;
         $Location = isset($attr["Location"]) ? $attr["Location"] :   null;
+        $Dimmeter = isset($attr["Diameter"]) ? $attr["Diameter"] :   null; // need to add in column item 
+        $Collar = isset($attr["Collar"]) ? $attr["Collar"] :   null; // need to add in column item 
 
         $departement = "departement";
 
@@ -244,7 +246,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         $itemStatus  = $_GET["currentItemStatus"];
         ///
-
+            
 
         // $response["acceptes data"] = $attr;
 

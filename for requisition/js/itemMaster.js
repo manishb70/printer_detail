@@ -212,17 +212,17 @@ const addSubCatFields = (data) => {
 
 
             var lable = document.createElement("lable")
-            lable.classList.add("block", "mb-2", "text-sm", "name", "font-bold", "text-gray-700", "dark:text-white")
+            lable.classList.add("block", "mb-2", "text-sm", "name", "cursor-auto", "font-bold", "text-gray-700", "dark:text-white")
             lable.innerText = element.name;
 
-
+            lable.setAttribute("dt_name", element.name)
             var input = document.createElement("input")
             input.name = element.name
+            input.id = element.name
             input.classList.add("w-full", "px-3", "py-2", "text-sm", "leading-tight", "text-gray-700", "dark:text-white", "border", "rounded", "shadow", "appearance-none", "focus:outline-none", "focus:shadow-outline");
             input.placeholder = element.name
             input.setAttribute("attr-id", element.attr_id)
             input.setAttribute("subCat-id", element.SubcatId)
-
 
 
 
@@ -237,7 +237,6 @@ const addSubCatFields = (data) => {
                 input.id = element.name
                 input.value = element.name
                 input.required = true
-
 
 
 
@@ -281,6 +280,114 @@ const addSubCatFields = (data) => {
 
                 })
 
+
+
+                if (element.name === "Shape") {
+
+                    input.onchange = function (event) {
+                        let dt = event.target;
+
+
+
+
+
+                        if (dt.value === "Circle") {
+                            let length = document.getElementById("Length");
+                            let breadth = document.getElementById("Breadth");
+
+
+                            console.log(dt.parentElement)
+
+                            let lables = ((dt.parentElement).parentElement).getElementsByTagName("lable");
+
+                            Array.from(lables).forEach(element => {
+                                console.log(element.getAttribute("dt_name"));
+
+                                if (element.getAttribute("dt_name") == "Length") {
+                                    element.setAttribute("dt_name", "Upper_Dia")
+
+                                    element.innerText = "Upper_Dia"
+
+                                }
+
+
+
+                            })
+
+                            Array.from(lables).forEach(element => {
+
+
+                                if (element.getAttribute("dt_name") == "Breadth") {
+
+                                    element.setAttribute("dt_name", "Bottom_Dia")
+                                    element.innerText = "Bottom_Dia"
+
+
+                                }
+
+                            })
+
+
+
+
+
+
+                            length.name = "Upper_Dia"
+                            length.placeholder = "Upper_Dia"
+                            // length.style.backgroundColor = "red"
+                            // breadth.style.backgroundColor = "red"
+                            breadth.name = "Bottom_Dia"
+                            breadth.placeholder = "Bottom_Dia"
+
+                            // length.remove()
+                            // breadth.remove()
+
+
+
+
+                            // console.log(height);
+                        } else {
+
+                            let length = document.getElementById("Length");
+                            let breadth = document.getElementById("Breadth");
+                            length.name = "Length"
+                            length.placeholder = "Length"
+                            breadth.name = "Breadth"
+                            breadth.placeholder = "Breadth"
+
+                            let lables = ((dt.parentElement).parentElement).getElementsByTagName("lable");
+
+                            Array.from(lables).forEach(element => {
+                                console.log(element.getAttribute("dt_name"));
+
+                                if (element.getAttribute("dt_name") == "Upper_Dia") {
+
+                                    element.setAttribute("dt_name", "Length")
+                                    element.innerText = "Length"
+
+                                }
+
+                            })
+                            Array.from(lables).forEach(element => {
+                                console.log(element.getAttribute("dt_name"));
+                                if (element.getAttribute("dt_name") == "Bottom_Dia") {
+
+                                    element.setAttribute("dt_name", "Breadth")
+                                    element.innerText = "Breadth"
+
+
+                                }
+
+
+                            })
+
+
+
+
+
+                        }
+                    };
+                }
 
 
 
@@ -455,6 +562,10 @@ const submitItemInfoToDb = async () => {
     itemDataInfo["manCatId"] = document.getElementById("catId").value
 
 
+    itemCodeGen+=catId.options[catId.selectedIndex].text.substring(0, 2)
+
+
+
     let attInfo = {};
 
     let fields_is_noteValid = false;
@@ -472,19 +583,20 @@ const submitItemInfoToDb = async () => {
         if (attributeValue.trim() == "") {
             fields_is_noteValid = true;
         }
-        itemCodeGen += attributeValue.substring(0, 4)
         attInfo[attrName] = attributeValue
-
+        
         itemDataInfo["SubCatid"] = element.getAttribute("subCat-id")
-        if (index > 0 & index < 6) {
-            maxLenWord++;
+
+        if (index > 0 & index < 10) {
             itemCodeGen += "-"
+            itemCodeGen += attributeValue.substring(0, 2)
+            maxLenWord++;
         }
 
     })
 
     if (fields_is_noteValid) {
-        alert("please fill all the valu")
+        alert("please fill all the value")
 
         inputs.forEach(element => {
 
@@ -547,12 +659,14 @@ const submitItemInfoToDb = async () => {
 
                 if (data.success) {
 
+                    if (currentItemStatus == "SAVE") {
                     alert("data saved")
 
                     document.getElementById("recordId").innerText = `Rcord Id : ${data.recordId} .`
                     document.getElementById("recordId").style.display = "block"
                     document.getElementById("Item_code").innerText = `Item Code : ${data.ItemCode} .`
                     document.getElementById("Item_code").style.display = "block"
+                    }
                 }
 
                 // if (data[success]) {
@@ -565,9 +679,37 @@ const submitItemInfoToDb = async () => {
                 //     document.getElementById("Item_code").style.display = "block"
                 // }
                 if (currentItemStatus == "SUBMIT") {
-                    location.reload();
+
+                    alert("Data has been submited")
+
+
+                    document.getElementById("recordId").innerText = `Rcord Id : ${data.recordId} .`
+                    document.getElementById("recordId").style.display = "block"
+                    document.getElementById("Item_code").innerText = `Item Code : ${data.ItemCode} .`
+                    document.getElementById("Item_code").style.display = "block"
+
+
+                    inputs.forEach(element => {
+
+
+                        element.disabled = true
+
+                        // document.getElementById("itemSubmit").hasAttribute
+                        $("#itemSubmit").hide()
+                        $("#itemSave").hide()
+
+
+                    })
+
                 }
 
+                
+
+                select.forEach(element => {
+
+
+                    element.disabled = true
+                })
             }
 
 
@@ -609,59 +751,59 @@ const sendElectricDataToItemMaster = (event) => {
     // if (select.value == "submitToItemMaster") {
 
 
-        let fieldsData = {};
+    let fieldsData = {};
 
-        data.forEach(element => {
+    data.forEach(element => {
 
-            let itemName = element.td.innerText;
-            let value = element.innerText;
+        let itemName = element.td.innerText;
+        let value = element.innerText;
 
-            fieldsData[itemName] = value;
+        fieldsData[itemName] = value;
 
-        })
-
-
-
-
-                console.log(Object.keys(fieldsData));
+    })
 
 
 
 
-        fieldsData["submitDataTOItemMaster"] = "submitDataTOItemMaster";
+    console.log(Object.keys(fieldsData));
+
+
+
+
+    fieldsData["submitDataTOItemMaster"] = "submitDataTOItemMaster";
 
 
 
 
 
-        $.ajax({
+    $.ajax({
 
-            url: "ajaxItemMaster.php",
-            method: "POST",
-            // dataType: 'JSON',
-            contentType: false,       // Important to send as multipart/form-data
-            processData: false,
-            data: fieldsData,
-            success: function (data) {
+        url: "ajaxItemMaster.php",
+        method: "POST",
+        // dataType: 'JSON',
+        contentType: false,       // Important to send as multipart/form-data
+        processData: false,
+        data: fieldsData,
+        success: function (data) {
 
-                console.log(data)
+            console.log(data)
 
-                alert("data success fully insert")
-
-
-            },
-            error: function (error) {
-                console.log(error);
-            }
+            alert("data success fully insert")
 
 
+        },
+        error: function (error) {
+            console.log(error);
+        }
 
 
-        })
-        console.log(fieldsData);
+
+
+    })
+    console.log(fieldsData);
 
     // } else {
-        // alert("plase change status to submit")
+    // alert("plase change status to submit")
     // }
 
 
@@ -743,7 +885,7 @@ const setTableFormSubCat = (data) => {
         btn.name = "sendToItemToItemMaster"
         btn.classList.add("inline-flex", "mr-2", "items-center", "py-2.5", "px-5", "ms-2", "text-sm", "font-medium", "text-white", "bg-blue-700", "rounded-lg", "border", "border-blue-700", "hover:bg-blue-800", "focus:ring-4", "focus:outline-none", "focus:ring-blue-300,", "dark:bg-blue-600", "dark:hover:bg-blue-700", "dark:focus:ring-blue-800")
         btn.setAttribute("data-item-code", element['item_code'])
-        btn.onclick=function(event){
+        btn.onclick = function (event) {
             sendElectricDataToItemMaster(event)
         }
 
@@ -796,3 +938,8 @@ const setTableFormSubCat = (data) => {
 
 
 }
+
+
+
+
+
