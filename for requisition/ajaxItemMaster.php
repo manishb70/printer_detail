@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
 
-        $sql = "$columns from for_office.item_master_temp;";
+        $sql = "$columns from for_office.item_master_temp where SubcatId=$selectedSubCatId;";
         $result = mysqli_query($con, $sql);
 
         while ($row = mysqli_fetch_assoc($result)) {
@@ -196,7 +196,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $Upper_Dia = isset($attr["Upper_Dia"]) ? $attr["Upper_Dia"] : null;
         $Bottom_Dia = isset($attr["Bottom_Dia"]) ? $attr["Bottom_Dia"] : null;
         $Centre_Hole_dia = isset($attr["Centre_Hole_dia"]) ? $attr["Centre_Hole_dia"] : null;
-        $Size = isset($attr["Size"]) ? $attr["Size"] : null;
+        $Size = isset($attr["Socket"]) ? $attr["Socket"] : null;
         $watt = isset($attr["Watt"]) ? $attr["Watt"] : null;
         $Shape = isset($attr["Shape"]) ? $attr["Shape"] : null;
         $Side_Hole_dia = isset($attr["Side_Hole_dia"]) ? $attr["Side_Hole_dia"] : null;
@@ -233,6 +233,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $sheet_color  =  isset($attr["sheet_color"]) ? $attr["sheet_color"] :   null;
         $powder_coating  =  isset($attr["powder_coating"]) ? $attr["powder_coating"] :   null;
         $fabric_colour = isset($attr["fabric_colour"]) ? $attr["fabric_colour"] :   null;
+        $colour_temparature = isset($attr["colour_temparature"]) ? $attr["colour_temparature"] :   null;
+        $Dimmable = isset($attr["Dimmable"]) ? $attr["Dimmable"] :   null;
+        $Location = isset($attr["Location"]) ? $attr["Location"] :   null;
 
         $departement = "departement";
 
@@ -307,6 +310,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         sheet_color,
         powder_coating,
         departement,
+        colour_temparature,
+        Dimmable,
+        Location,
         createdBy,
         createdDate,
         itemStatus
@@ -363,7 +369,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         '$Pintop',
         '$Discount',
         '$fabric',
-        '$fabric_colour,
+        '$fabric_colour',
         '$piping',
         '$piping_color',
         '$acrylic_diffuser',
@@ -371,6 +377,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         '$sheet_color',
         '$powder_coating',
         '$departement',
+        '$colour_temparature',
+        '$Dimmable',
+        '$Location',
         '$createdBy',
         '$createdDate',
         '$itemStatus'
@@ -446,7 +455,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         // $sql = "SELECT * from fields_lookup where attr_id=$attrId";
         // $sql = "SELECT * from fields_lookup where attr_id=$attrId";
-        $sql = "SELECT * from fields_lookup;";
+        $sql = "SELECT * from fields_lookup where attr_id=$attrId;";
 
 
 

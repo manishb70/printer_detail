@@ -598,7 +598,7 @@ const sendElectricDataToItemMaster = (event) => {
 
     btn = event.target
     let data = btn.closest("tr").querySelectorAll("input")
-    let select = btn.closest("tr").querySelector("select")
+    let select = btn.closest("tr").querySelector("td")
 
 
 
@@ -606,19 +606,27 @@ const sendElectricDataToItemMaster = (event) => {
 
 
 
-    if (select.value == "submitToItemMaster") {
+    // if (select.value == "submitToItemMaster") {
 
 
         let fieldsData = {};
 
         data.forEach(element => {
 
-            let itemName = element.name;
-            let value = element.value;
+            let itemName = element.td.innerText;
+            let value = element.innerText;
 
             fieldsData[itemName] = value;
 
         })
+
+
+
+
+                console.log(Object.keys(fieldsData));
+
+
+
 
         fieldsData["submitDataTOItemMaster"] = "submitDataTOItemMaster";
 
@@ -652,9 +660,9 @@ const sendElectricDataToItemMaster = (event) => {
         })
         console.log(fieldsData);
 
-    } else {
-        alert("plase change status to submit")
-    }
+    // } else {
+        // alert("plase change status to submit")
+    // }
 
 
 }
@@ -730,6 +738,24 @@ const setTableFormSubCat = (data) => {
 
         var tr = document.createElement("tr")
 
+        var btn = document.createElement("button")
+        btn.innerText = "Submit Updates"
+        btn.name = "sendToItemToItemMaster"
+        btn.classList.add("inline-flex", "mr-2", "items-center", "py-2.5", "px-5", "ms-2", "text-sm", "font-medium", "text-white", "bg-blue-700", "rounded-lg", "border", "border-blue-700", "hover:bg-blue-800", "focus:ring-4", "focus:outline-none", "focus:ring-blue-300,", "dark:bg-blue-600", "dark:hover:bg-blue-700", "dark:focus:ring-blue-800")
+        btn.setAttribute("data-item-code", element['item_code'])
+        btn.onclick=function(event){
+            sendElectricDataToItemMaster(event)
+        }
+
+
+
+        // 
+        // <button name="update_reqsuisition" onclick="sendElectricDataToItemMaster(event)"
+
+        // data-item-code="<?php echo $row["item_code"];  ?>"
+        // class=" inline-flex mr-2  items-center py-2.5 px-5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="getDataOfEditIssuer(event)">
+        // Update</button>
+
 
         Object.keys(element).forEach(mainData => {
 
@@ -745,7 +771,7 @@ const setTableFormSubCat = (data) => {
 
 
         var image = document.createElement("img")
-        image.src = "./images/"+element['imagePath'];
+        image.src = "./images/" + element['imagePath'];
         image.alt = "Dynamic Image";
 
         var td = document.createElement("td")
@@ -755,6 +781,7 @@ const setTableFormSubCat = (data) => {
 
         tr.appendChild(td)
 
+        tr.appendChild(btn)
 
         document.getElementById("dataBodyTd").appendChild(tr);
 

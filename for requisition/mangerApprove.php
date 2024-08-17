@@ -124,9 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         <table class=" text-sm mx-auto text-left border-2-black rtl:text-right text-gray-500 dark:text-gray-400">
             <thead id="" class="text-xs text-gray-700 uppercase bg-blue-300 dark:bg-gray-700 dark:text-gray-400">
                 <tr id="data_headTh" class="transition-all">
-                    <th scope="col" class="px-5 py-2">
-                        sheet
-                    </th>
+             
 
                 </tr>
             </thead>
@@ -134,72 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
 
-                <?php
-
-
-
-                if (mysqli_num_rows($result) > 0) {
-
-
-                    while ($row = mysqli_fetch_assoc($result)) {
-
-
-
-                ?>
-
-
-                        <tr class=" text-black border-b dark:bg-gray-800 dark:border-gray-700">
-                            <th scope="row" class="px-5 py-2 font-medium  whitespace-nowrap dark:text-white">
-                                <?php echo $row["S_No"]; ?>
-
-                            </th>
-
-
-                            <td class="px-5 py-2">
-                                <input
-                                    name="Discount"
-                                    disabled
-                                    class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
-                                    value="<?php echo $row["Discount"] ?>"
-                                    placeholder=" ">
-
-                            </td>
-
-                            <td class="px-5 py-2">
-                                <select class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900" name="itemStatus" id="itemStatus">
-                                    <option
-
-                                        class="text-black"
-
-                                        <?= ($row['itemStatus'] == 'SUBMIT') ?  'selected' : ''; ?> value="SUBMIT">SUBMIT</option>
-                                    <option
-                                        class="text-black" <?= ($row['itemStatus'] == 'SAVE') ? 'selected' : ''; ?> value="SAVE">SAVE</option>
-                                    <option
-                                        <?= ($row['itemStatus'] == 'submitToItemMaster') ? 'selected' : ''; ?>
-                                        class="text-black"
-                                        value="submitToItemMaster">submitToItemMaster</option>
-                                </select>
-
-                            </td>
-
-                            <td class="px-5 py-2">
-                                <button name="update_reqsuisition" onclick="sendElectricDataToItemMaster(event)"
-
-                                    data-item-code="<?php echo $row["item_code"];  ?>"
-                                    class=" inline-flex mr-2  items-center py-2.5 px-5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="getDataOfEditIssuer(event)">
-                                    Update</button>
-                            </td>
-
-
-                        </tr>
-
-
-                <?php
-
-
-                    }
-                }
-                ?>
+            
             </tbody>
         </table>
     </div>
