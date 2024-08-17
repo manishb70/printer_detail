@@ -91,8 +91,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
         // $sql = "SELECT * FROM requireattributeforcatname where catId= $catId  ";
-        $sql = "SELECT * FROM sub_category where catId=$catId ;  ";
-
+        $sql = "SELECT * FROM sub_category where catId=$catId  ;  ";
+        $sql = "SELECT * FROM itemmastercategory a JOIN sub_category b ON a.categoryId =b.catId where b.catId = $catId " ;
+        
 
         $result = mysqli_query($con, $sql);
         // $row = mysqli_fetch_assoc($result);
@@ -246,7 +247,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         $itemStatus  = $_GET["currentItemStatus"];
         ///
-            
+                
+        
 
         // $response["acceptes data"] = $attr;
 
