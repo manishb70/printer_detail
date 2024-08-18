@@ -88,6 +88,7 @@ const addRequireField = (data) => {
         input.setAttribute("catId", element.catId)
         input.placeholder = element.name
 
+        //need to comment because due to get user input 
         // input.setAttribute("attribut-id",)
 
         div.appendChild(lable)
@@ -221,6 +222,7 @@ const addSubCatFields = (data) => {
             input.id = element.name
             input.classList.add("w-full", "px-3", "py-2", "text-sm", "leading-tight", "text-gray-700", "dark:text-white", "border", "rounded", "shadow", "appearance-none", "focus:outline-none", "focus:shadow-outline");
             input.placeholder = element.name
+            // input.value = element.name
             input.setAttribute("attr-id", element.attr_id)
             input.setAttribute("subCat-id", element.SubcatId)
 
@@ -562,7 +564,7 @@ const submitItemInfoToDb = async () => {
     itemDataInfo["manCatId"] = document.getElementById("catId").value
 
 
-    itemCodeGen+=catId.options[catId.selectedIndex].text.substring(0, 2)
+    itemCodeGen += catId.options[catId.selectedIndex].text.substring(0, 2)
 
 
 
@@ -570,7 +572,7 @@ const submitItemInfoToDb = async () => {
 
     let fields_is_noteValid = false;
 
-
+    let shortDescription = ""
     let maxLenWord = 0;
     inputs.forEach((element, index) => {
 
@@ -584,8 +586,10 @@ const submitItemInfoToDb = async () => {
             fields_is_noteValid = true;
         }
         attInfo[attrName] = attributeValue
-        
+
         itemDataInfo["SubCatid"] = element.getAttribute("subCat-id")
+
+        shortDescription += attributeValue
 
         if (index > 0 & index < 10) {
             itemCodeGen += "-"
@@ -643,6 +647,17 @@ const submitItemInfoToDb = async () => {
 
         // console.log(itemDataInfo);
 
+        let spiner = `<div role="status">
+    <svg aria-hidden="true" class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+    </svg>
+    <span class="sr-only">Loading...</span>
+</div>
+
+`
+
+        $("#itemSave").html(spiner)
 
         await $.ajax({
 
@@ -653,6 +668,8 @@ const submitItemInfoToDb = async () => {
 
             success: function (data) {
 
+                $("#itemSave").html("Save")
+
                 console.log(data);
 
                 console.log(data.success);
@@ -660,12 +677,12 @@ const submitItemInfoToDb = async () => {
                 if (data.success) {
 
                     if (currentItemStatus == "SAVE") {
-                    alert("data saved")
+                        alert("data saved")
 
-                    document.getElementById("recordId").innerText = `Rcord Id : ${data.recordId} .`
-                    document.getElementById("recordId").style.display = "block"
-                    document.getElementById("Item_code").innerText = `Item Code : ${data.ItemCode} .`
-                    document.getElementById("Item_code").style.display = "block"
+                        document.getElementById("recordId").innerText = `Rcord Id : ${data.recordId} .`
+                        document.getElementById("recordId").style.display = "block"
+                        document.getElementById("Item_code").innerText = `Item Code : ${data.ItemCode} .`
+                        document.getElementById("Item_code").style.display = "block"
                     }
                 }
 
@@ -703,7 +720,7 @@ const submitItemInfoToDb = async () => {
 
                 }
 
-                
+
 
                 select.forEach(element => {
 
@@ -734,73 +751,85 @@ const submitItemInfoToDb = async () => {
 
 
 
-const sendElectricDataToItemMaster = (event) => {
+const sendDataToItemMasterMain = (event) => {
 
     //    console.log(event.target)\
 
     btn = event.target
-    let data = btn.closest("tr").querySelectorAll("input")
+    let inputs = btn.closest("tr").querySelectorAll("input")
     let select = btn.closest("tr").querySelector("td")
 
 
 
-    var formdata = new FormData();
+    // var formdata = new FormData();
 
 
 
     // if (select.value == "submitToItemMaster") {
 
 
-    let fieldsData = {};
+    let inputFieldsData = {};
+    let attrData = {};
+    inputs.forEach(element => {
 
-    data.forEach(element => {
+        // console.log(element);
 
-        let itemName = element.td.innerText;
-        let value = element.innerText;
+        
 
-        fieldsData[itemName] = value;
+        let itemName = element.name;
+        let value = element.value;
+        
+        console.log(element.type);
 
+        attrData[itemName] = value;
+        // 
     })
 
 
 
 
-    console.log(Object.keys(fieldsData));
 
 
 
 
-    fieldsData["submitDataTOItemMaster"] = "submitDataTOItemMaster";
+
+
+    inputFieldsData["submitDataTOItemMaster"] = "submitToMainItemMas";
+    inputFieldsData["attrData"] = attrData;
 
 
 
+    console.log(inputFieldsData)
 
 
     $.ajax({
 
         url: "ajaxItemMaster.php",
         method: "POST",
-        // dataType: 'JSON',
-        contentType: false,       // Important to send as multipart/form-data
-        processData: false,
-        data: fieldsData,
+        dataType: "JSON",
+        data: inputFieldsData,
         success: function (data) {
 
             console.log(data)
 
-            alert("data success fully insert")
+            if (data.success) {
+
+                alert("Item has been success fully created")
+            } else if (!data.success) {
+                alert("please try again")
+            }
 
 
-        },
-        error: function (error) {
+        },error:function(error) {
             console.log(error);
+            
         }
 
 
 
 
     })
-    console.log(fieldsData);
+    // console.log(fieldsData);
 
     // } else {
     // alert("plase change status to submit")
@@ -810,7 +839,7 @@ const sendElectricDataToItemMaster = (event) => {
 }
 
 
-
+//this function ajax requesting and the response data to the setTableFormSubCat function
 
 const setDataToItemManager = async () => {
 
@@ -823,6 +852,20 @@ const setDataToItemManager = async () => {
 
     // sub cat = 1 id name is bulb
 
+    let spinner = `<div role="status">
+    <svg aria-hidden="true" class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+    </svg>
+    <span class="sr-only">Loading...</span>
+</div>`
+
+
+    let teadRow = document.getElementById("data_headTh");
+
+    let tbody = document.getElementById("dataBodyTd")
+    tbody.innerHTML = spinner
+    teadRow.innerHTML = spinner
 
 
 
@@ -848,7 +891,7 @@ const setDataToItemManager = async () => {
 
 
 
-
+//this function for to set table data for manager approval
 const setTableFormSubCat = (data) => {
     document.getElementById("dataBodyTd").innerText = "";
 
@@ -886,7 +929,7 @@ const setTableFormSubCat = (data) => {
         btn.classList.add("inline-flex", "mr-2", "items-center", "py-2.5", "px-5", "ms-2", "text-sm", "font-medium", "text-white", "bg-blue-700", "rounded-lg", "border", "border-blue-700", "hover:bg-blue-800", "focus:ring-4", "focus:outline-none", "focus:ring-blue-300,", "dark:bg-blue-600", "dark:hover:bg-blue-700", "dark:focus:ring-blue-800")
         btn.setAttribute("data-item-code", element['item_code'])
         btn.onclick = function (event) {
-            sendElectricDataToItemMaster(event)
+            sendDataToItemMasterMain(event)
         }
 
 
@@ -898,12 +941,33 @@ const setTableFormSubCat = (data) => {
         // class=" inline-flex mr-2  items-center py-2.5 px-5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="getDataOfEditIssuer(event)">
         // Update</button>
 
-
         Object.keys(element).forEach(mainData => {
+
+            // console.log(mainData);
+
+
+            // <input
+            // name="subCatId"
+            // disabled
+            // class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+            // value="<?php echo $row["subCatId"] ?>"
+            // placeholder=" ">
+
+            var input = document.createElement("input")
+            input.name = mainData
+            input.classList.add("bg-transparent", "text-blue-gray-700", "font-sans", "font-bold", "outline", "outline-0", "focus:outline-0", "disabled:bg-blue-gray-50", "disabled:border-0", "transition-all", "placeholder-shown:border", "placeholder-shown:border-blue-gray-200", "placeholder-shown:border-t-blue-gray-200", "border", "focus:border-2", "border-t-transparent", "focus:border-t-transparent", "text-sm", "px-5", "py-2.5", "rounded-[7px]", "border-blue-gray-200", "focus:border-gray-900")
+            input.disabled = true
+            input.value = element[mainData]
+
+
+
+
+
 
             var td = document.createElement("td")
             td.classList.add("px-5", "py-2")
-            td.innerText = element[mainData]
+            td.appendChild(input)
+            // td.innerText = element[mainData]
             // console.log(element[mainData]);
 
 
@@ -911,14 +975,17 @@ const setTableFormSubCat = (data) => {
 
         })
 
-
         var image = document.createElement("img")
+
         image.src = "./images/" + element['imagePath'];
         image.alt = "Dynamic Image";
-
+        // image.width="10rem"
+        image.style.maxWidth = "200px"
+        image.style.borderRadius = "10px"
         var td = document.createElement("td")
         td.classList.add("px-5", "py-2")
         td.appendChild(image)
+
 
 
         tr.appendChild(td)
@@ -943,3 +1010,169 @@ const setTableFormSubCat = (data) => {
 
 
 
+
+const setItemTableDataView = (data) => {
+    document.getElementById("dataBodyTd").innerText = "";
+
+    let teadRow = document.getElementById("data_headTh");
+    teadRow.innerText = "";
+
+
+    Object.keys(data[0]).forEach(element => {
+        let th = document.createElement("th")
+        th.classList.add("px-5", "py-2")
+        th.setAttribute("scope", "col")
+        th.innerText = element
+        teadRow.appendChild(th)
+
+    })
+    let th = document.createElement("th")
+    th.classList.add("px-5", "py-2")
+    th.setAttribute("scope", "col")
+    th.innerText = "image"
+    teadRow.appendChild(th)
+
+
+
+    data.forEach(element => {
+
+        let tbody = document.getElementById("dataBodyTd")
+
+
+
+        var tr = document.createElement("tr")
+
+        // var btn = document.createElement("button")
+        // btn.innerText = "Submit Updates"
+        // btn.name = "sendToItemToItemMaster"
+        // btn.classList.add("inline-flex", "mr-2", "items-center", "py-2.5", "px-5", "ms-2", "text-sm", "font-medium", "text-white", "bg-blue-700", "rounded-lg", "border", "border-blue-700", "hover:bg-blue-800", "focus:ring-4", "focus:outline-none", "focus:ring-blue-300,", "dark:bg-blue-600", "dark:hover:bg-blue-700", "dark:focus:ring-blue-800")
+        // btn.setAttribute("data-item-code", element['item_code'])
+        // btn.onclick = function (event) {
+        //     sendDataToItemMasterMain(event)
+        // }
+
+
+
+        // 
+        // <button name="update_reqsuisition" onclick="sendElectricDataToItemMaster(event)"
+
+        // data-item-code="<?php echo $row["item_code"];  ?>"
+        // class=" inline-flex mr-2  items-center py-2.5 px-5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="getDataOfEditIssuer(event)">
+        // Update</button>
+
+        Object.keys(element).forEach(mainData => {
+
+            // console.log(mainData);
+
+
+            // <input
+            // name="subCatId"
+            // disabled
+            // class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+            // value="<?php echo $row["subCatId"] ?>"
+            // placeholder=" ">
+
+            var input = document.createElement("input")
+            input.name = mainData
+            input.classList.add("bg-transparent", "text-blue-gray-700", "font-sans", "font-bold", "outline", "outline-0", "focus:outline-0", "disabled:bg-blue-gray-50", "disabled:border-0", "transition-all", "placeholder-shown:border", "placeholder-shown:border-blue-gray-200", "placeholder-shown:border-t-blue-gray-200", "border", "focus:border-2", "border-t-transparent", "focus:border-t-transparent", "text-sm", "px-5", "py-2.5", "rounded-[7px]", "border-blue-gray-200", "focus:border-gray-900")
+            input.disabled = true
+            input.value = element[mainData]
+
+
+
+
+
+
+            var td = document.createElement("td")
+            td.classList.add("px-5", "py-2")
+            td.appendChild(input)
+            // td.innerText = element[mainData]
+            // console.log(element[mainData]);
+
+
+            tr.appendChild(td)
+
+        })
+
+        var image = document.createElement("img")
+
+        image.src = "./images/" + element['imagePath'];
+        image.alt = "image not found please contact to manager";
+        // image.width="10rem"
+        image.style.maxWidth = "200px"
+        image.style.borderRadius = "10px"
+        var td = document.createElement("td")
+        td.classList.add("px-5", "py-2")
+        td.appendChild(image)
+
+
+
+        tr.appendChild(td)
+
+        // tr.appendChild(btn)  
+
+        document.getElementById("dataBodyTd").appendChild(tr);
+
+
+    })
+
+
+
+
+
+
+
+
+}
+
+
+//this function is for ajax request and set response data to setItemTableDataView
+const setDataToAllItemview = async () => {
+
+
+    let selectedSubCatId = document.getElementById("ManagerRuleCatId").value
+
+    // electrinicd id 
+
+
+
+    // sub cat = 1 id name is bulb
+
+    let spinner = `<div role="status">
+    <svg aria-hidden="true" class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+    </svg>
+    <span class="sr-only">Loading...</span>
+</div>`
+
+
+    let teadRow = document.getElementById("data_headTh");
+
+    let tbody = document.getElementById("dataBodyTd")
+    tbody.innerHTML = spinner
+    teadRow.innerHTML = spinner
+
+
+
+    await $.ajax({
+        url: "ajaxItemMaster.php",
+        method: "GET",
+        dataType: "JSON",
+        data: {
+            getAllItemInfo: "getAllItemInfo",
+            selectedSubCatId: selectedSubCatId
+        },
+        success: function (data) {
+            // console.log(data.tbody_data);
+
+            setItemTableDataView(data.tbody_data)
+            console.log(data);
+
+
+
+        }
+    })
+
+
+}
