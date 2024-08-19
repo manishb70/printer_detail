@@ -105,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $columns .= " , " . "imagePath";
         }
 
-        $columns .= " , " . "itemStatus";
+        // $columns .= " , " . "itemStatus";
         // echo "<script>alert(errrol)</script>";
 
 
