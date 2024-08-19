@@ -136,6 +136,8 @@ const hideData = (event) => {
 }
 
 
+let currentSubCatNameFor = "";
+
 //object passs
 const addSubCatFields = (data) => {
 
@@ -149,6 +151,7 @@ const addSubCatFields = (data) => {
     // run with sub category base
 
 
+    console.log(data);
 
 
     Object.keys(data).forEach((element, index) => {
@@ -162,7 +165,7 @@ const addSubCatFields = (data) => {
         btn.innerText = "+";
         btn.style.cursor = "pointer"
         btn.style.cursor = 'pointer'
-
+        btn.setAttribute("sub-name", element)
 
         let tempId = `attr${index}`
         attrArray.push(tempId)
@@ -174,6 +177,9 @@ const addSubCatFields = (data) => {
         btn.onclick = function (event) {
 
             shoeOrHideattr(event)
+
+            currentSubCatNameFor = event.target.getAttribute("sub-name")
+
         }
 
 
@@ -255,7 +261,7 @@ const addSubCatFields = (data) => {
                     success: function (data) {
 
 
-                        console.log(data.data);
+                        // console.log(data.data);
 
                         data.data.forEach(element => {
 
@@ -572,7 +578,7 @@ const submitItemInfoToDb = async () => {
 
     let fields_is_noteValid = false;
 
-    let shortDescription = ""
+    let shortDescription = currentSubCatNameFor;
     let maxLenWord = 0;
     inputs.forEach((element, index) => {
 
@@ -589,7 +595,14 @@ const submitItemInfoToDb = async () => {
 
         itemDataInfo["SubCatid"] = element.getAttribute("subCat-id")
 
-        shortDescription += attributeValue
+
+        if (index > 0 & index < 6) {
+            shortDescription += "-"
+            shortDescription += attributeValue.substring(0, 4)
+
+
+
+        }
 
         if (index > 0 & index < 10) {
             itemCodeGen += "-"
@@ -599,6 +612,8 @@ const submitItemInfoToDb = async () => {
 
     })
 
+
+    console.log(shortDescription.toUpperCase());
     if (fields_is_noteValid) {
         alert("please fill all the value")
 
@@ -633,6 +648,10 @@ const submitItemInfoToDb = async () => {
         })
 
 
+
+        attInfo["Short_Description"] = shortDescription.toUpperCase()
+
+        shortDescription
 
 
 
@@ -683,10 +702,13 @@ const submitItemInfoToDb = async () => {
                         document.getElementById("recordId").style.display = "block"
                         document.getElementById("Item_code").innerText = `Item Code : ${data.ItemCode} .`
                         document.getElementById("Item_code").style.display = "block"
+                        $("#short_discription").show()
+                        $("#short_discription").text(`Short Discription : ${data.shortDiscription} .`)
+
                     }
                 }
 
-                // if (data[success]) {
+                // if (data[success]) { 
 
                 //     alert("data saved")
 
@@ -774,19 +796,16 @@ const sendDataToItemMasterMain = (event) => {
 
         // console.log(element);
 
-        
+
 
         let itemName = element.name;
         let value = element.value;
-        
-        console.log(element.type);
+
+        // console.log(element.type);
 
         attrData[itemName] = value;
         // 
     })
-
-
-
 
 
 
@@ -799,7 +818,7 @@ const sendDataToItemMasterMain = (event) => {
 
 
 
-    console.log(inputFieldsData)
+    // console.log(inputFieldsData)
 
 
     $.ajax({
@@ -812,6 +831,7 @@ const sendDataToItemMasterMain = (event) => {
 
             console.log(data)
 
+            
             if (data.success) {
 
                 alert("Item has been success fully created")
@@ -820,9 +840,9 @@ const sendDataToItemMasterMain = (event) => {
             }
 
 
-        },error:function(error) {
+        }, error: function (error) {
             console.log(error);
-            
+
         }
 
 
@@ -882,6 +902,7 @@ const setDataToItemManager = async () => {
 
             setTableFormSubCat(data.tbody_data)
 
+
         }
     })
 
@@ -893,6 +914,8 @@ const setDataToItemManager = async () => {
 
 //this function for to set table data for manager approval
 const setTableFormSubCat = (data) => {
+
+    // console.log(data);
     document.getElementById("dataBodyTd").innerText = "";
 
     let teadRow = document.getElementById("data_headTh");
@@ -919,7 +942,7 @@ const setTableFormSubCat = (data) => {
 
         let tbody = document.getElementById("dataBodyTd")
 
-
+        // console.log(element.itemStatus);
 
         var tr = document.createElement("tr")
 
@@ -975,6 +998,9 @@ const setTableFormSubCat = (data) => {
 
         })
 
+
+        // console.log(element);
+
         var image = document.createElement("img")
 
         image.src = "./images/" + element['imagePath'];
@@ -990,8 +1016,9 @@ const setTableFormSubCat = (data) => {
 
         tr.appendChild(td)
 
-        tr.appendChild(btn)
-
+        if (element.itemStatus != "inRunning") {
+            tr.appendChild(btn)
+        }
         document.getElementById("dataBodyTd").appendChild(tr);
 
 
@@ -1008,7 +1035,139 @@ const setTableFormSubCat = (data) => {
 
 
 
+//this function for to set table data for manager approval searchingbox
+const setTableFormSubCatSearch = (data) => {
 
+    // console.log(data);
+    document.getElementById("dataBodyTd").innerText = "";
+
+    let teadRow = document.getElementById("data_headTh");
+    teadRow.innerText = "";
+
+
+    Object.keys(data[0]).forEach(element => {
+        let th = document.createElement("th")
+        th.classList.add("px-5", "py-2")
+        th.setAttribute("scope", "col")
+        th.innerText = element
+        teadRow.appendChild(th)
+
+    })
+    let th = document.createElement("th")
+    th.classList.add("px-5", "py-2")
+    th.setAttribute("scope", "col")
+    th.innerText = "image"
+    teadRow.appendChild(th)
+
+
+
+    data.forEach(element => {
+
+        let tbody = document.getElementById("dataBodyTd")
+
+
+
+
+        var tr = document.createElement("tr")
+
+        var btn = document.createElement("button")
+        btn.innerText = "Submit Updates"
+        btn.name = "sendToItemToItemMaster"
+        btn.classList.add("inline-flex", "mr-2", "items-center", "py-2.5", "px-5", "ms-2", "text-sm", "font-medium", "text-white", "bg-blue-700", "rounded-lg", "border", "border-blue-700", "hover:bg-blue-800", "focus:ring-4", "focus:outline-none", "focus:ring-blue-300,", "dark:bg-blue-600", "dark:hover:bg-blue-700", "dark:focus:ring-blue-800")
+        btn.setAttribute("data-item-code", element['item_code'])
+        btn.onclick = function (event) {
+            sendDataToItemMasterMain(event)
+        }
+
+
+
+        // console.log(btn);
+
+
+
+
+        // 
+        // <button name="update_reqsuisition" onclick="sendElectricDataToItemMaster(event)"
+
+        // data-item-code="<?php echo $row["item_code"];  ?>"
+        // class=" inline-flex mr-2  items-center py-2.5 px-5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="getDataOfEditIssuer(event)">
+        // Update</button>
+
+        Object.keys(element).forEach(mainData => {
+
+            // console.log(mainData);
+
+
+            // <input
+            // name="subCatId"
+            // disabled
+            // class=" bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-5 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+            // value="<?php echo $row["subCatId"] ?>"
+            // placeholder=" ">
+
+            var input = document.createElement("input")
+            input.name = mainData
+            input.classList.add("bg-transparent", "text-blue-gray-700", "font-sans", "font-bold", "outline", "outline-0", "focus:outline-0", "disabled:bg-blue-gray-50", "disabled:border-0", "transition-all", "placeholder-shown:border", "placeholder-shown:border-blue-gray-200", "placeholder-shown:border-t-blue-gray-200", "border", "focus:border-2", "border-t-transparent", "focus:border-t-transparent", "text-sm", "px-5", "py-2.5", "rounded-[7px]", "border-blue-gray-200", "focus:border-gray-900")
+            input.disabled = true
+            input.value = element[mainData]
+
+
+
+
+
+
+            var td = document.createElement("td")
+            td.classList.add("px-5", "py-2")
+            td.appendChild(input)
+            // td.innerText = element[mainData]
+            // console.log(element[mainData]);
+
+
+            tr.appendChild(td)
+
+        })
+
+
+        console.log(element);
+
+        var image = document.createElement("img")
+
+        image.src = "./images/" + element['imagePath'];
+        image.alt = "Dynamic Image";
+        // image.width="10rem"
+        image.style.maxWidth = "200px"
+        image.style.borderRadius = "10px"
+        var td = document.createElement("td")
+        td.classList.add("px-5", "py-2")
+        td.appendChild(image)
+
+        var td2 = document.createElement("td")
+        td2.classList.add("px-5", "py-2")
+
+
+
+        tr.appendChild(td)
+
+        if (element.itemStatus != "inRunning") {
+
+            td2.appendChild(btn)
+        }
+
+        tr.appendChild(td2)
+
+        document.getElementById("dataBodyTd").appendChild(tr);
+
+
+    })
+
+
+
+
+
+
+
+
+}
 
 
 const setItemTableDataView = (data) => {
@@ -1173,6 +1332,105 @@ const setDataToAllItemview = async () => {
 
         }
     })
+
+
+}
+
+
+
+
+
+var itemManagerSearchbtn = document.getElementById("searchQueryBtnManagerItem")
+
+
+itemManagerSearchbtn.addEventListener("click", function (event) {
+
+    event.preventDefault();
+
+    var text = $("#search_query").val()
+
+
+    searchDataInitemTampTable(text)
+
+})
+
+
+
+
+
+
+const searchDataInitemTampTable = (searchId) => {
+
+
+    let id = searchId
+
+
+
+
+    $.ajax({
+        url: "ajaxItemMaster.php",
+        method: "GET",
+        dataType: "JSON",
+        data: {
+            searchDataInitemTampTable: "searchDataInitemTampTable",
+            searchData: id
+        },
+        success: function (data) {
+
+            console.log(data);
+            setTableFormSubCatSearch(data.tbody_data)
+        }
+    })
+
+
+
+
+}
+
+
+
+
+// var itemViewDataSearch = document.getElementById("searchQueryBtnForAllItemView")
+
+
+// itemViewDataSearch.addEventListener("click", function (event) {
+
+//     event.preventDefault();
+
+//     var text = $("#search_query").val()
+
+
+//     serchDataInAllItemView(text)
+
+// })
+
+
+
+
+const serchDataInAllItemView = (searchId) => {
+
+
+    let id = searchId
+
+
+
+
+    $.ajax({
+        url: "ajaxItemMaster.php",
+        method: "GET",
+        dataType: "JSON",
+        data: {
+            searchDataInitemTampTable: "searchDataInitemTampTable",
+            searchData: id
+        },
+        success: function (data) {
+
+            console.log(data);
+            setItemTableDataView(data.tbody_data)
+        }
+    })
+
+
 
 
 }

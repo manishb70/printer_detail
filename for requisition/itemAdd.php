@@ -56,6 +56,11 @@ include("../db.php");
                                 class="hidden text-2xl font-bold text-center text-gray-800 dark:text-white"
                                 id="Item_code"
                                 style="  color:green;  text-align: left;"> Item Code : 1212 </h1>
+                            <h1
+
+                                class="hidden text-2xl font-bold text-center text-gray-800 dark:text-white"
+                                id="short_discription"
+                                style="  color:green;  text-align: left;"> Item Code : 1212 </h1>
 
                             <!-- <form action="#" method="POST">
 

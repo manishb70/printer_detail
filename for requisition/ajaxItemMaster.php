@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
 
-             if (isset($_GET['getAllItemInfo'])) {
+    if (isset($_GET['getAllItemInfo'])) {
 
 
         $selectedSubCatId = $_GET['selectedSubCatId'];
@@ -125,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $sql = "$columns from for_office.item_master_main where SubcatId=$selectedSubCatId;";
         // $sql = "$columns from for_office.item_master_main ";
         $result = mysqli_query($con, $sql);
-            
+
         while ($row = mysqli_fetch_assoc($result)) {
 
 
@@ -513,7 +513,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         $response["recordId"] = mysqli_insert_id($con);
         $response["ItemCode"] = $itemCode;
-
+        $response["shortDiscription"] =$Short_Description ;
         // if (isset($_FILES)) {
 
         //     $response["file"] = $_FILES;
@@ -565,6 +565,110 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $response["success"] = true;
         $response["data"] = $data;
 
+
+
+
+        echo  json_encode($response);
+    }
+
+
+
+    //this is for searchManager Item data n table
+
+
+    else if ((isset($_GET["searchDataInitemTampTable"]))) {
+
+
+        include("./db.php");
+
+        $id = $_GET['searchData'];
+
+        $response["success"] = true;
+
+        $sql = "SELECT subCatId FROM for_office.item_master_temp where   S_No=$id";
+
+        $result  = mysqli_query($con, $sql);
+
+        $row = mysqli_fetch_assoc($result);
+
+        $subCatId = $row["subCatId"];
+
+
+        //finding all column names form require attributes table
+
+        $sql  =  "SELECT * FROM for_office.requireattributeforcatname where SubcatId =$subCatId;";
+
+
+
+        // for insert columns code into this line
+
+
+        $result = mysqli_query($con, $sql);
+
+        $data = [];
+
+        $columns = "SELECT S_No,item_code,Item_Category,catagory_name,a.subCatId,name as sub_cat_name";
+
+        if (mysqli_num_rows($result) > 0) {
+
+            while ($row = mysqli_fetch_assoc($result)) {
+
+                $data[] = $row["name"];
+                $columns .= " , " . $row["name"];
+            }
+            $columns .= " , " . "imagePath";
+        }
+
+        $columns .= " , " . "itemStatus";
+
+
+
+        $sql = "$columns from for_office.item_master_temp a
+JOIN  itemmastercategory b ON  a.Item_Category = b.categoryId
+JOIN sub_category c ON a.subCatId  = c.subCatId where S_No=$id;";
+
+
+
+
+
+
+
+        $result = mysqli_query($con, $sql);
+
+        if (!mysqli_num_rows($result) > 0) {
+
+
+
+            $response["error"] = "No data found";
+        }
+
+        while ($row = mysqli_fetch_assoc($result)) {
+
+
+            $tbody_data[] = $row;
+        }
+
+
+
+
+        // $response["theaders"] = $data;
+
+        $response["tbody_data"] = $tbody_data;
+
+
+        ///     
+
+
+        // $result  = mysqli_query($con, $sql);
+
+
+
+        $columns = mysqli_fetch_assoc($result);
+
+
+
+        $response["sql"] = $sql;
+        $response['columns'] = $columns;
 
 
 
@@ -635,7 +739,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $attribute1  = isset($attr["attribute1"]) ? $attr["attribute1"] : null;
         $attribute2  = isset($attr["attribute2"]) ? $attr["attribute2"] : null;
         $attribute3  = isset($attr["attribute3"]) ? $attr["attribute3"] : null;
-        $imagePath  =  isset($_GET["filePath"]) ? $_GET["filePath"] :   null;
+        // $imagePath  =  isset($_GET["filePath"]) ? $_GET["filePath"] :   null;
+        $imagePath  =  isset($attr["imagePath"]) ? $attr["imagePath"] :   null;
         $long_discription  =  isset($attr["Long_Description"]) ? $attr["Long_Description"] :   null;
         // $long_discription  =  "hekkir";
         $Pintop  =  isset($attr["Pintop"]) ? $attr["Pintop"] :   null;
@@ -663,7 +768,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $createdBy = $_SESSION["username"];
         $createdDate = date("y-m-d");
 
-        $itemStatus  = (isset($_GET["currentItemStatus"]));
+        $itemStatus  = (isset($attr["currentItemStatus"]));
         ///
 
 
@@ -829,9 +934,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($result) {
 
 
+            $itemId = $attr["S_No"];
 
-            $response["success"] = true;
-            $response["message"] = "data inserted successfully";
+
+
+
+            $sql = "update for_office.item_master_temp set itemStatus='inRunning' where S_No= $itemId;";
+
+
+            $result1 = mysqli_query($con, $sql);
+
+
+
+
+            if ($result1) {
+                $response["success"] = true;
+                $response["message"] = "data inserted successfully";
+                
+            }
         } else {
             $response["success"] = "false";
         }
@@ -842,6 +962,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
         $response["itemMasterId"] = mysqli_insert_id($con);
+      
+        
 
 
 
@@ -849,12 +971,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
         echo json_encode($response);
-    } 
-    
-    
-    
-    
-    else if (isset($_FILES)) {
+    } else if (isset($_FILES)) {
 
 
 
