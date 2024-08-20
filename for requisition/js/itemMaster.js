@@ -244,7 +244,9 @@ const addSubCatFields = (data) => {
                 input.setAttribute("subCat-id", element.SubcatId)
                 input.id = element.name
                 input.value = element.name
+                input.classList.add("cursor-pointer")
                 input.required = true
+                input.style.cursor="pointer"
 
 
 
@@ -703,7 +705,7 @@ const submitItemInfoToDb = async () => {
                         document.getElementById("Item_code").innerText = `Item Code : ${data.ItemCode} .`
                         document.getElementById("Item_code").style.display = "block"
                         $("#short_discription").show()
-                        $("#short_discription").text(`Short Discription : ${data.shortDiscription} .`)
+                        $("#short_discription").text(`Short Description : ${data.shortDiscription} .`)
 
                     }
                 }
@@ -834,7 +836,7 @@ const sendDataToItemMasterMain = (event) => {
             
             if (data.success) {
 
-                alert("Item has been success fully created")
+                alert("Item has been successfully created")
             } else if (!data.success) {
                 alert("please try again")
             }

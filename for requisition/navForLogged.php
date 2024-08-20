@@ -6,6 +6,7 @@ if (!isset($_SESSION["username"])) {
 }
 
 
+$current_uri = basename($_SERVER['REQUEST_URI']) ;
 
 
 
@@ -43,8 +44,9 @@ $role =  $_SESSION["role"];
             <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
 
             </a>
-            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"> Dashboard</span>
+            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">  Dashboard</span>
             <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+            
 
                 <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
                     <span class="sr-only">Open main menu</span>
@@ -56,7 +58,7 @@ $role =  $_SESSION["role"];
             <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
                 <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                     <li>
-                        <a href="./dashboard.php" class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">Home</a>
+                        <a href="./dashboard.php" class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent <?php if($current_uri=="dashboard.php"){echo "md:text-blue-700"; }  else{echo "md:text-black";}  ?> md:p-0 md:dark:text-blue-500" aria-current="page">Home</a>
                     </li>
 
                     <?php
@@ -66,7 +68,7 @@ $role =  $_SESSION["role"];
                         if ($role == "requisitionGen") {
                     ?>
                             <li>
-                                <a href="./genrate_requisition.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Generate Requistition</a>
+                                <a href="./genrate_requisition.php" class="block py-2 px-3 text-gray-900  rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Generate Requistition</a>
                             </li>
                     <?php
 
@@ -79,7 +81,7 @@ $role =  $_SESSION["role"];
                     ?>
 
                         <li>
-                            <a href="users_form.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Users</a>
+                            <a href="users_form.php" class="block py-2 px-3 text-gray-900  rounded hover:bg-gray-100  md:hover:bg-transparent <?php if($current_uri=="users_form.php"){echo "md:text-blue-700"; }  else{echo "md:text-black";}  ?> md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Users</a>
                         </li>
 
 
@@ -87,7 +89,7 @@ $role =  $_SESSION["role"];
 
                     <?php   } ?>
                     <li>
-                        <a href="./requisition.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">History</a>
+                        <a href="./requisition.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent <?php if($current_uri=="requisition.php"){echo "md:text-blue-700"; }  else{echo "md:text-black";}  ?> md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">History</a>
                     </li>
 
 
@@ -97,7 +99,7 @@ $role =  $_SESSION["role"];
 
                     ?>
                         <li>
-                            <a href="./storemanager.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Store manager view </a>
+                            <a href="./storemanager.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent <?php if($current_uri=="storemanager.php"){echo "md:text-blue-700"; }  else{echo "md:text-black";}  ?> md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Store manager view </a>
                         </li>
                     <?php } ?>
 
@@ -109,7 +111,7 @@ $role =  $_SESSION["role"];
                     ?>
 
                         <li>
-                            <a href="./storeIsseuer.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Store issuer</a>
+                            <a href="./storeIsseuer.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent <?php if($current_uri=="storeIsseuer.php"){echo "md:text-blue-700"; }  else{echo "md:text-black";}  ?> md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Store issuer</a>
                         </li>
 
                     <?php
@@ -120,7 +122,7 @@ $role =  $_SESSION["role"];
 
 
                     <li>
-                        <a href="./itemAdd.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">item add</a>
+                        <a href="./itemAdd.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 <?php if($current_uri=="itemAdd.php"){echo "md:text-blue-700"; }  else{echo "md:text-black";}  ?> md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">item add</a>
                     </li>
 
 
@@ -128,7 +130,7 @@ $role =  $_SESSION["role"];
 
                 
                     <li>
-                        <a href="./allitems.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">items</a>
+                        <a href="./allitems.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent <?php if($current_uri=="allitems.php"){echo "md:text-blue-700"; }  else{echo "md:text-black";}  ?> md:hover:text-blue-700  md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">item master</a>
                     </li>
 
 
