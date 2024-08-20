@@ -62,6 +62,10 @@ include("../db.php");
                                 id="short_discription"
                                 style="  color:green;  text-align: left;"> Item Code : 1212 </h1>
 
+                                <img class="float-right" style="display: none;" id="uploaded_file_path"  width="200px" src="./images/1724158171_Screenshot 2024-08-20 114403.png"  alt="">
+
+
+
                             <!-- <form action="#" method="POST">
 
                         <button type="submit" name="newRequisitionGenrate" >Genrate New Record</button>

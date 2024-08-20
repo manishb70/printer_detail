@@ -11,9 +11,9 @@ include("db_connection.php");
 
 $_SESSION["AddRowData"] = true;
 
-if ($_SESSION["newRecordId"]=="") {
+if ($_SESSION["newRecordId"] == "") {
 
-    
+
     header("location:dashboard.php");
 }
 
@@ -120,8 +120,6 @@ if (isset($_POST["newRequisitionGenrate"])) {
     if (mysqli_query($con, $sql)) {
 
         echo "success";
-        
-       
     } else {
         echo "error when sql insert";
     }
@@ -239,7 +237,7 @@ if (isset($_POST["newRequisitionGenrate"])) {
                                 <label class="block mb-2 text-sm name font-bold bg-blue-300 text-gray-700 dark:text-white" for="firstName">
                                     Record Number
                                 </label>
-                                <input name="company_name" class="w-full px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="firstName" type="number" value="<?php echo  $_SESSION["newRecordId"]; ?>" />
+                                <input name="company_name" disabled class="w-full px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="firstName" type="number" value="<?php echo  $_SESSION["newRecordId"]; ?>" />
                             </div>
 
                         </div>
@@ -261,13 +259,19 @@ if (isset($_POST["newRequisitionGenrate"])) {
                                         <label class="block mb-2 text-sm name font-bold text-gray-700 dark:text-white" for="firstName">
                                             Project Id
                                         </label>
-                                        <input name="project_id"  class="w-full px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" value="00" id="firstName"  type="number" placeholder="project id" />
+                                        <input name="project_id" class="w-full px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" value="00" id="firstName" type="number" placeholder="project id" />
                                     </div>
                                     <div class="md:ml-2">
                                         <label class="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="lastName">
                                             Item_Name
                                         </label>
                                         <input name="item_name" required class="w-full px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="firstName" type="text" placeholder="Item name" />
+                                    </div>
+                                    <div class="md:ml-2">
+                                        <label class="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="lastName">
+                                            Short discription
+                                        </label>
+                                        <input name="item_name" required class="w-full px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="firstName" type="text" placeholder="Short discription" />
                                     </div>
 
                                     <div class="mb-4 ml-2">

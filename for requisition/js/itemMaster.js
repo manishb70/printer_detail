@@ -551,6 +551,10 @@ const submitItemInfoToDb = async () => {
                 console.log(response);
 
                 itemFilePath = response.filePath;
+
+                document.getElementById("uploaded_file_path").style.display="block"
+                document.getElementById("uploaded_file_path").src=`./images/${itemFilePath}`
+
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.error('Error:', textStatus, errorThrown);
