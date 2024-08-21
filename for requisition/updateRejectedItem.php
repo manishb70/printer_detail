@@ -63,12 +63,12 @@ include("db_connection.php");
 
 
                             </div>
-                            <button onclick="updateFieldDataSet()">Get</button>
+                            <button onclick="updateFieldDataSet(1)">Get</button>
                             <div class="mb-4 md:mr-2 max-w-1 md:mb-0">
                                 <label class="block mb-2 text-sm name font-bold bg-blue-300 text-gray-700 dark:text-white" for="firstName">
                                     Short Discription
                                 </label>
-                                <input name="company_name" disabled class="w-full px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="firstName" type="number" value="<?php echo  $_SESSION["newRecordId"]; ?>" />
+                                <input name="company_name" disabled class="w-full px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="firstName" type="number" />
                             </div>
 
                         </div>
@@ -76,7 +76,7 @@ include("db_connection.php");
 
                             <div>
 
-                                <div id="rowItem" class="mb-4 mt-4 md:flex bg-blue-300  md:justify-between">
+                                <div id="rowItem" class="mb-4 mt-4 md:flex bg-blue-300 flex flex-wrap  md:justify-between">
 
 
                                     <div class="mb-4 ml-2">
@@ -206,5 +206,6 @@ include("db_connection.php");
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
 <script src="./js/scripts.js"></script>
 <script src="./js/jquery.min.js"></script>
+<script src="./js/updateItem.js"></script>
 
 </html>

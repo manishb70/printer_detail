@@ -674,6 +674,112 @@ JOIN sub_category c ON a.subCatId  = c.subCatId where S_No=$id;";
 
         echo  json_encode($response);
     }
+
+
+
+
+    //this is for get item detail for update from item master ith item master
+
+    else if ((isset($_GET["getItemWithItemCodeForUpdate"]))) {
+
+
+        include("./db.php");
+
+        $id = $_GET['selected_item_code'];
+
+        $response["success"] = true;
+
+        $sql = "SELECT subCatId FROM for_office.item_master_temp where   item_code='$id'";
+
+        $result  = mysqli_query($con, $sql);
+
+        $row = mysqli_fetch_assoc($result);
+        // echo $row['subCatId'];
+
+
+        $subCatId = $row["subCatId"];
+
+
+        //finding all column names form require attributes table
+
+        $sql  =  "SELECT * FROM for_office.requireattributeforcatname where SubcatId =$subCatId;";
+
+
+
+        // for insert columns code into this line
+
+
+        $result = mysqli_query($con, $sql);
+
+        $data = [];
+
+        $columns = "SELECT S_No,item_code,Item_Category,catagory_name,a.subCatId,name as sub_cat_name";
+
+        if (mysqli_num_rows($result) > 0) {
+
+            while ($row = mysqli_fetch_assoc($result)) {
+
+                $data[] = $row["name"];
+                $columns .= " , " . $row["name"];
+            }
+            $columns .= " , " . "imagePath";
+        }
+
+        $columns .= " , " . "itemStatus";
+
+
+
+        $sql = "$columns from for_office.item_master_temp a
+JOIN  itemmastercategory b ON  a.Item_Category = b.categoryId
+JOIN sub_category c ON a.subCatId  = c.subCatId where a.item_code ='$id';";
+
+
+
+
+
+
+
+        $result = mysqli_query($con, $sql);
+
+        if (!mysqli_num_rows($result) > 0) {
+
+
+
+            $response["error"] = "No data found";
+        }
+
+        while ($row = mysqli_fetch_assoc($result)) {
+
+
+            $tbody_data[] = $row;
+        }
+
+
+
+
+        // $response["theaders"] = $data;
+
+        $response["tbody_data"] = $tbody_data;
+
+
+        ///     
+
+
+        // $result  = mysqli_query($con, $sql);
+
+
+
+        $columns = mysqli_fetch_assoc($result);
+
+
+
+        $response["sql"] = $sql;
+        $response['columns'] = $columns;
+
+
+
+        echo  json_encode($response);
+    }
 }
 
 //this send data to main item master
@@ -952,7 +1058,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($result) {
 
 
-               
+
 
 
 
@@ -976,23 +1082,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else {
             $response[] = "Item  hav been rejectd";
         }
-                if($itemStatus=="Reject"){
-
-                    
-                $sql = "update for_office.item_master_temp set itemStatus='$itemStatus' where S_No= $itemId;";
+        if ($itemStatus == "Reject") {
 
 
-                $result1 = mysqli_query($con, $sql);
-                $response["success"] = true;
+            $sql = "update for_office.item_master_temp set itemStatus='$itemStatus' where S_No= $itemId;";
 
 
-                if($result1){
-                    $response[] =  "reject Itemm has been success fully up dated";
-                }
+            $result1 = mysqli_query($con, $sql);
+            $response["success"] = true;
 
 
-
-                }
+            if ($result1) {
+                $response[] =  "reject Itemm has been success fully up dated";
+            }
+        }
 
         $response["attr"] = $attr;
         // $response["sql"] = $sql;
