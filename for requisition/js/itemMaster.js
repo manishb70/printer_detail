@@ -226,7 +226,7 @@ const addSubCatFields = (data) => {
             var input = document.createElement("input")
             input.name = element.name
             input.id = element.name
-            input.classList.add("w-full", "px-3", "py-2", "text-sm", "leading-tight", "text-gray-700", "dark:text-white", "border", "rounded", "shadow", "appearance-none", "focus:outline-none", "focus:shadow-outline");
+            input.classList.add("w-full", "px-3", "py-2", "text-sm", "hover:outline", "leading-tight", "text-gray-700", "dark:text-white", "border", "rounded", "shadow", "appearance-none", "focus:outline-none", "focus:shadow-outline");
             input.placeholder = element.name
             // input.value = element.name
             input.setAttribute("attr-id", element.attr_id)
@@ -242,14 +242,19 @@ const addSubCatFields = (data) => {
                 input.classList.add("w-full", "px-3", "py-2", "text-sm", "leading-tight", "text-gray-700", "dark:text-white", "border", "rounded", "shadow", "appearance-none", "focus:outline-none", "focus:shadow-outline");
                 input.setAttribute("attr-id", element.attr_id)
                 input.setAttribute("subCat-id", element.SubcatId)
+                input.style.minWidth = "10rem"
                 input.id = element.name
                 input.value = element.name
                 input.classList.add("cursor-pointer")
                 input.required = true
-                input.style.cursor="pointer"
+                input.style.cursor = "pointer"
 
 
 
+                var option = document.createElement("option")
+                option.innerText = "select"
+                option.hidden = "true"
+                input.appendChild(option)
 
                 $.ajax({
 
@@ -270,8 +275,14 @@ const addSubCatFields = (data) => {
 
                             var option = document.createElement("option")
 
-                            option.innerText = element.description;
-                            option.value = element.description;
+                            function capitalizeFirstLetter(string) {
+                                return string.charAt(0).toUpperCase() + string.slice(1);
+                            }
+
+
+                            // option.innerText = element.description;
+                            option.innerText = capitalizeFirstLetter(element.description);
+                            option.value = capitalizeFirstLetter(element.description);
 
                             // console.log(element.description);
 
@@ -289,6 +300,7 @@ const addSubCatFields = (data) => {
 
 
                 })
+
 
 
 
@@ -552,8 +564,8 @@ const submitItemInfoToDb = async () => {
 
                 itemFilePath = response.filePath;
 
-                document.getElementById("uploaded_file_path").style.display="block"
-                document.getElementById("uploaded_file_path").src=`./images/${itemFilePath}`
+                document.getElementById("uploaded_file_path").style.display = "block"
+                document.getElementById("uploaded_file_path").src = `./images/${itemFilePath}`
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -784,10 +796,11 @@ const sendDataToItemMasterMain = (event) => {
     //    console.log(event.target)\
 
     btn = event.target
+    let row = btn.closest("tr")
     let inputs = btn.closest("tr").querySelectorAll("input")
-    let select = btn.closest("tr").querySelector("td")
+    let select = btn.closest("tr").querySelectorAll("select")
 
-
+    // console.log(object);
 
     // var formdata = new FormData();
 
@@ -799,6 +812,20 @@ const sendDataToItemMasterMain = (event) => {
     let inputFieldsData = {};
     let attrData = {};
     inputs.forEach(element => {
+
+        // console.log(element);
+
+
+
+        let itemName = element.name;
+        let value = element.value;
+
+        // console.log(element.type);
+
+        attrData[itemName] = value;
+        // 
+    })
+    select.forEach(element => {
 
         // console.log(element);
 
@@ -837,11 +864,21 @@ const sendDataToItemMasterMain = (event) => {
 
             console.log(data)
 
-            
-            if (data.success) {
+
+
+             if (data.Status=="Reject") {
+                alert("Item rejected")
+                btn.style.display = "none"
+            }
+            else if (data.success) {
 
                 alert("Item has been successfully created")
-            } else if (!data.success) {
+                 btn.style.display = "none"
+
+            }
+
+
+            else if (!data.success) {
                 alert("please try again")
             }
 
@@ -989,6 +1026,43 @@ const setTableFormSubCat = (data) => {
             input.value = element[mainData]
 
 
+            if (mainData == "itemStatus") {
+
+                input = document.createElement("select")
+                input.name = mainData
+                input.classList.add("bg-transparent", "text-blue-gray-700", "font-sans", "font-bold", "outline", "outline-0", "focus:outline-0", "disabled:bg-blue-gray-50", "disabled:border-0", "transition-all", "placeholder-shown:border", "placeholder-shown:border-blue-gray-200", "placeholder-shown:border-t-blue-gray-200", "border", "focus:border-2", "border-t-transparent", "focus:border-t-transparent", "text-sm", "px-5", "py-2.5", "rounded-[7px]", "border-blue-gray-200", "focus:border-gray-900")
+                input.value = element[mainData]
+
+
+                var option = document.createElement("option")
+                option.value = "SUBMIT"
+                option.innerText = "SUBMIT"
+                input.appendChild(option)
+                if (element[mainData] === "SUBMIT") option.selected = true;
+
+
+                var option2 = document.createElement("option")
+                option2.value = "inRunning"
+                option2.innerText = "inRunning"
+                input.appendChild(option2)
+                if (element[mainData] === "inRunning") option2.selected = true;
+
+
+                var option3 = document.createElement("option")
+                option3.value = "Reject"
+                option3.innerText = "Reject"
+                input.appendChild(option3)
+                if (element[mainData] === "Reject") option3.selected = true;
+
+                var option4 = document.createElement("option")
+                option4.value = "SAVE"
+                option4.innerText = "SAVE"
+                input.appendChild(option4)
+                if (element[mainData] === "SAVE") option4.selected = true;
+
+
+
+            }
 
 
 
@@ -1022,7 +1096,7 @@ const setTableFormSubCat = (data) => {
 
         tr.appendChild(td)
 
-        if (element.itemStatus != "inRunning") {
+        if (element.itemStatus != "inRunning" ) {
             tr.appendChild(btn)
         }
         document.getElementById("dataBodyTd").appendChild(tr);

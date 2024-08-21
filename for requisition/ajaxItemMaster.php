@@ -300,11 +300,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $fabric  =  isset($attr["fabric"]) ? $attr["fabric"] :   null;
         $piping  =  isset($attr["piping"]) ? $attr["piping"] :   null;
         $piping_color  =  isset($attr["piping_color"]) ? $attr["piping_color"] :   null;
-        $acrylic_diffuser  =  isset($attr["acrylic_diffuser"]) ? $attr["acrylic_diffuser"] :   null;
-        $gallery_heght  =  isset($attr["gallery_heght"]) ? $attr["gallery_heght"] :   null;
+        $acrylic_diffuser  =  isset($attr["acrylic_sheet"]) ? $attr["acrylic_sheet"] :   null;
+        $gallery_heght  =  isset($attr["gallery_height"]) ? $attr["gallery_height"] :   null;
         $sheet =  isset($attr["sheet"]) ? $attr["sheet"] :   null;
         $sheet_color  =  isset($attr["sheet_color"]) ? $attr["sheet_color"] :   null;
-        $powder_coating  =  isset($attr["powder_coating"]) ? $attr["powder_coating"] :   null;
+        $powder_coating  =  isset($attr["Frame"]) ? $attr["Frame"] :   null;
         $fabric_colour = isset($attr["fabric_colour"]) ? $attr["fabric_colour"] :   null;
         $colour_temparature = isset($attr["Colour_Temparature"]) ? $attr["Colour_Temparature"] :   null;
         $Dimmable = isset($attr["Dimmable"]) ? $attr["Dimmable"] :   null;
@@ -384,10 +384,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         fabric_colour,
         piping,
         piping_color,
-        acrylic_diffuser,
+        acrylic_sheet,
         gallery_heght,
         sheet_color,
-        powder_coating,
+        Frame,
         departement,
         Transparent,
         colour_temparature,
@@ -513,7 +513,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         $response["recordId"] = mysqli_insert_id($con);
         $response["ItemCode"] = $itemCode;
-        $response["shortDiscription"] =$Short_Description ;
+        $response["shortDiscription"] = $Short_Description;
         // if (isset($_FILES)) {
 
         //     $response["file"] = $_FILES;
@@ -748,8 +748,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $fabric  =  isset($attr["fabric"]) ? $attr["fabric"] :   null;
         $piping  =  isset($attr["piping"]) ? $attr["piping"] :   null;
         $piping_color  =  isset($attr["piping_color"]) ? $attr["piping_color"] :   null;
-        $acrylic_diffuser  =  isset($attr["acrylic_diffuser"]) ? $attr["acrylic_diffuser"] :   null;
-        $gallery_heght  =  isset($attr["gallery_heght"]) ? $attr["gallery_heght"] :   null;
+        $acrylic_sheet  =  isset($attr["acrylic_sheet"]) ? $attr["acrylic_diffuser"] :   null;
+        $gallery_heght  =  isset($attr["gallery_height"]) ? $attr["gallery_height"] :   null;
+        $gallery  =  isset($attr["gallery"]) ? $attr["gallery"] :   null;
+        $Gallery_type  =  isset($attr["Gallery_type"]) ? $attr["Gallery_type"] :   null;
         $sheet =  isset($attr["sheet"]) ? $attr["sheet"] :   null;
         $sheet_color  =  isset($attr["sheet_color"]) ? $attr["sheet_color"] :   null;
         $powder_coating  =  isset($attr["powder_coating"]) ? $attr["powder_coating"] :   null;
@@ -762,23 +764,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $Socket = isset($attr["Socket"]) ? $attr["Socket"] :   null;
         $Ink_type = isset($attr["Ink_type"]) ? $attr["Ink_type"] :   null;
         $Transparent = isset($attr["Transparent"]) ? $attr["Transparent"] :   null;
+        $piping_length = isset($attr["piping_length"]) ? $attr["piping_length"] :   null;
+        $Lining = isset($attr["Lining"]) ? $attr["Lining"] :   null;
+        $Lining_colour = isset($attr["Lining_colour"]) ? $attr["Lining_colour"] :   null;
 
         $departement = "departement";
 
         $createdBy = $_SESSION["username"];
         $createdDate = date("y-m-d");
 
-        $itemStatus  = (isset($attr["currentItemStatus"]));
-        ///
+        $itemStatus  = $attr["itemStatus"];
+        /// 
+        $itemId = $attr["S_No"];
 
 
 
         // $response["acceptes data"] = $attr;
 
         ////
+        $response["Status"] = $itemStatus;
 
+        if ($itemStatus == "inRunning") {
 
-        $sql = "INSERT into item_master_main (item_code,
+            $sql = "INSERT into item_master_main (item_code,
         Item_Category,
         Short_Description,
         subCatId,
@@ -832,8 +840,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         fabric_colour,
         piping,
         piping_color,
-        acrylic_diffuser,
+        piping_length,
+        Lining,
+        Lining_colour,
+        acrylic_sheet,
         gallery_heght,
+        gallery,
+        Gallery_type,
         sheet_color,
         powder_coating,
         departement,
@@ -903,8 +916,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         '$fabric_colour',
         '$piping',
         '$piping_color',
-        '$acrylic_diffuser',
+        '$piping_length',
+        '$Lining',
+        '$Lining_colour',
+        '$acrylic_sheet',
         '$gallery_heght',
+        '$gallery',
+        '$Gallery_type',
         '$sheet_color',
         '$powder_coating',
         '$departement',
@@ -928,42 +946,61 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-        $result = mysqli_query($con, $sql);
+            $result = mysqli_query($con, $sql);
 
 
-        if ($result) {
+            if ($result) {
 
 
-            $itemId = $attr["S_No"];
-
-
-
-
-            $sql = "update for_office.item_master_temp set itemStatus='inRunning' where S_No= $itemId;";
-
-
-            $result1 = mysqli_query($con, $sql);
+               
 
 
 
 
-            if ($result1) {
-                $response["success"] = true;
-                $response["message"] = "data inserted successfully";
-                
+                $sql = "update for_office.item_master_temp set itemStatus='inRunning' where S_No= $itemId;";
+
+
+                $result1 = mysqli_query($con, $sql);
+
+
+
+
+                if ($result1) {
+                    $response["success"] = true;
+                    $response["message"] = "data inserted successfully";
+                }
+            } else {
+                $response["success"] = "false";
             }
+            $response["success"] = true;
         } else {
-            $response["success"] = "false";
+            $response[] = "Item  hav been rejectd";
         }
+                if($itemStatus=="Reject"){
+
+                    
+                $sql = "update for_office.item_master_temp set itemStatus='$itemStatus' where S_No= $itemId;";
 
 
-        // $response["attr"] = $attr;
+                $result1 = mysqli_query($con, $sql);
+                $response["success"] = true;
+
+
+                if($result1){
+                    $response[] =  "reject Itemm has been success fully up dated";
+                }
+
+
+
+                }
+
+        $response["attr"] = $attr;
         // $response["sql"] = $sql;
 
 
         $response["itemMasterId"] = mysqli_insert_id($con);
-      
-        
+
+
 
 
 

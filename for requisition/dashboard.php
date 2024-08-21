@@ -49,7 +49,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 
-
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+}
 
 
 
@@ -105,21 +106,112 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-                    <br>
-                    
+            <br>
+
             <br>
 
 
             <?php
-            if ($_SESSION["role"] == "manager" || $role == "admin"){
+            if ($_SESSION["role"] == "manager" || $role == "admin") {
             ?>
-            <a type="button" href="mangerApprove.php" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">item request</a>
-                    <?php
+                <a type="button" href="mangerApprove.php" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">item request</a>
+            <?php
             }
             ?>
 
         </div>
 
+
+
+
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <h1>Last Item History</h1>
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            S .no
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Item code
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Category
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Short discription
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            creation date
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Status
+                        </th>
+
+                        <th scope="col" class="px-6 py-3">
+                            <span class="sr-only">Edit</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+
+                    <?php
+
+                    $username = $_SESSION["username"];
+
+                    $sql = "SELECT * FROM for_office.item_master_temp where createdBy='$username' ;";
+
+                    $result = mysqli_query($con, $sql);
+
+
+                    while ($row = mysqli_fetch_assoc($result)) {
+
+                    ?>
+
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <?php echo  $row["S_No"] ?>
+                            </th>
+                            <td class="px-6 py-4">
+                                <?php echo  $row["item_code"] ?>
+                            </td>
+                            <td class="px-6 py-4">
+
+                                <?php echo  $row["subCatId"] ?>
+                            </td>
+                            <td class="px-6 py-4">
+
+                                <?php echo  $row["Short_Description"] ?>
+                            </td>
+                            <td class="px-6 py-4">
+
+                                <?php echo  $row["createdDate"] ?>
+                            </td>
+                            <td class="px-6 py-4">
+
+                                <?php echo  $row["itemStatus"] ?>
+                            </td>
+                            <td class="px-6 py-4 text-right">
+                                <?php if ($row["itemStatus"]=="Reject") {
+                                ?>
+                                    <a href="updateRejectedItem.php?id=<?php echo  $row["item_code"] ?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+
+                                <?php
+
+
+                                }
+
+                                ?>
+                            </td>
+                        </tr>
+
+                    <?php } ?>
+
+
+                </tbody>
+            </table>
+        </div>
 
 
     </div>

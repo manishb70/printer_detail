@@ -30,6 +30,7 @@ include("../db.php");
     <div>
 
 
+        <a href="view last"></a>
 
 
 
@@ -47,23 +48,26 @@ include("../db.php");
                         <div class="w-full  bg-white dark:bg-gray-700 p-5 rounded-lg lg:rounded-l-none">
                             <h1 class="py-4 text-3xl font-bold text-center text-gray-800 dark:text-white">Item Creation Request Form</h1>
 
-                            <h1 id="recordId"
+                            <div class="flex justify-around	">
+                                <div>
 
-                                class="hidden text-2xl font-bold text-center text-gray-800 dark:text-white"
-                                style=" color:green;   text-align: left;"> Record ID : 1212 </h1>
-                            <h1
+                                    <h1 id="recordId"
 
-                                class="hidden text-2xl font-bold text-center text-gray-800 dark:text-white"
-                                id="Item_code"
-                                style="  color:green;  text-align: left;"> Item Code : 1212 </h1>
-                            <h1
+                                        class="hidden text-2xl font-bold text-center text-gray-800 dark:text-white"
+                                        style=" color:green;   text-align: left;"> Record ID : 1212 </h1>
+                                    <h1
 
-                                class="hidden text-2xl font-bold text-center text-gray-800 dark:text-white"
-                                id="short_discription"
-                                style="  color:green;  text-align: left;"> Item Code : 1212 </h1>
+                                        class="hidden text-2xl font-bold text-center text-gray-800 dark:text-white"
+                                        id="Item_code"
+                                        style="  color:green;  text-align: left;"> Item Code : 1212 </h1>
+                                    <h1
 
-                                <img class="float-right" style="display: none;" id="uploaded_file_path"  width="200px" src="./images/1724158171_Screenshot 2024-08-20 114403.png"  alt="">
-
+                                        class="hidden text-2xl font-bold text-center text-gray-800 dark:text-white"
+                                        id="short_discription"
+                                        style="  color:green;  text-align: left;"> Item Code : 1212 </h1>
+                                </div>
+                                <img class="float-right rounded-lg" style="display: none;" id="uploaded_file_path" width="200px" src="./images/1724158171_Screenshot 2024-08-20 114403.png" alt="">
+                            </div>
 
 
                             <!-- <form action="#" method="POST">
