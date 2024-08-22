@@ -98,6 +98,7 @@ if (isset($_POST["newRequisitionGenrate"])) {
     $newitemQuantity =  $_POST["quantity"];
     // $newItemNeedDate =  $_POST["newItemNeedDate"];
     $newItemUserRemarks =  $_POST["User_Remarks"];
+    $shortDiscription =  $_POST["shortDiscription"];
     $departMentId =  1;
     $departMentname =  "HR";
     // $departMentname =  $_POST["departmentName"];
@@ -108,8 +109,8 @@ if (isset($_POST["newRequisitionGenrate"])) {
 
 
 
-    $sql = "INSERT INTO requisition_table (created_by,created_date, department_name,department_id,item_name, item_code, quantity, user_remarks,record_id,project_id) 
-        VALUES ('$created_by', '$created_date', '$departMentname', $departMentId,'$NewItenName',$newItemId,$newitemQuantity,'$newItemUserRemarks',$recordId,$newProjectId)";
+    $sql = "INSERT INTO requisition_table (created_by,created_date, department_name,department_id,item_name, item_code, quantity, user_remarks,record_id,project_id,shortDiscription) 
+        VALUES ('$created_by', '$created_date', '$departMentname', $departMentId,'$NewItenName',$newItemId,$newitemQuantity,'$newItemUserRemarks',$recordId,$newProjectId,'$shortDiscription')";
 
 
 

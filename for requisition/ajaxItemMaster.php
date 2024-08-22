@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         $data = [];
 
-        $columns = "SELECT S_No,item_code,Item_Category,subCatId";
+        $columns = "SELECT S_No,Short_Description,item_code,Item_Category,subCatId";
 
         if (mysqli_num_rows($result) > 0) {
 
@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         $data = [];
 
-        $columns = "SELECT S_No,item_code,Item_Category,subCatId    ";
+        $columns = "SELECT S_No,item_code,Short_Description,Item_Category,subCatId    ";
 
         if (mysqli_num_rows($result) > 0) {
 
@@ -713,7 +713,7 @@ JOIN sub_category c ON a.subCatId  = c.subCatId where S_No=$id;";
 
         $data = [];
 
-        $columns = "SELECT S_No,item_code,Item_Category,catagory_name,a.subCatId,name as sub_cat_name";
+        $columns = "SELECT S_No,item_code,Short_Description,Item_Category,catagory_name,a.subCatId,name as sub_cat_name";
 
         if (mysqli_num_rows($result) > 0) {
 
