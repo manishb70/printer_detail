@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (isset($_POST["newGenrate"])) {
 
-                    
+
 
 
         if ($_POST["type"] == "newGenrate") {
@@ -135,12 +135,57 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
     }
+}
 
 
 
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
+
+    if (isset($_GET['itemCodeInfoForPr'])) {
+
+        include('db_connection.php');
+
+        $sql = "SELECT item_code FROM for_office.item_master_main;";
+
+        $result = mysqli_query($con, $sql);
+
+
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($result)) {
+
+            $data[]  = $row["item_code"];
+        }
+
+        echo json_encode($data);
+    }
+
+    else if(isset($_GET['getShortDiscriptionWithItemCode'])){
+
+        $item_Code = $_GET['itemcode'];
+
+
+        include('db_connection.php');
+
+        $sql = "SELECT Short_Description FROM for_office.item_master_main where item_code= '$item_Code';";
+
+        $result = mysqli_query($con, $sql);
+
+
+       
+
+       $row = mysqli_fetch_assoc($result) ;
+
+           $sDiscription  = $row["Short_Description"];
         
 
+        $respone["sDiscription"]=$sDiscription;
 
 
+        echo json_encode($respone);
+
+
+
+    }
 }

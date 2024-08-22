@@ -191,6 +191,13 @@ if (isset($_POST["newRequisitionGenrate"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.4/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <!-- <script src="https://code.jquery.com/jquery-3.7.1.js"></script> -->
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <!-- <script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"></script> -->
+    <script src="./js/jquery-ui1.14.0.js"></script>
 </head>
 
 <body>
@@ -213,7 +220,7 @@ if (isset($_POST["newRequisitionGenrate"])) {
                     <!-- Col -->
 
                     <!-- Col -->
-                    <div class="w-full  bg-white dark:bg-gray-700 p-5 rounded-lg lg:rounded-l-none">
+                    <div id="requisitionInputBox" class="w-full  bg-white dark:bg-gray-700 p-5 rounded-lg lg:rounded-l-none">
                         <h1 class="py-4 text-3xl font-bold text-center text-gray-800 dark:text-white">Requisition Request form</h1>
 
 
@@ -265,13 +272,16 @@ if (isset($_POST["newRequisitionGenrate"])) {
                                         <label class="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="lastName">
                                             Item_Name
                                         </label>
-                                        <input name="item_name" required class="w-full px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="firstName" type="text" placeholder="Item name" />
+                                        <input name="item_name" id="item_name" onchange="getShortDiscriptionAndSetTOInputField()" required class="w-full px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="firstName" type="text" placeholder="Item name" />
+
+
+
                                     </div>
-                                    <div class="md:ml-2">
+                                    <div id="shortDisDiv" class="md:ml-2 hidden">
                                         <label class="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="lastName">
                                             Short discription
                                         </label>
-                                        <input name="item_name" required class="w-full px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="firstName" type="text" placeholder="Short discription" />
+                                        <input name="shortDiscription" id="shortDiscription" required class="w-full px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="firstName" type="text" placeholder="Short discription" />
                                     </div>
 
                                     <div class="mb-4 ml-2">
@@ -410,10 +420,55 @@ if (isset($_POST["newRequisitionGenrate"])) {
 </body>
 
 
+<script>
+    $(function() {
+
+        var availableTags = [
+            "ActionScript",
+            "AppleScript",
+            "Asp",
+            "BASIC",
+            "C",
+            "C++",
+            "Clojure",
+            "COBOL",
+            "ColdFusion",
+            "Erlang",
+            "Fortran",
+            "Groovy",
+            "Haskell",
+            "Java",
+            "JavaScript",
+            "Lisp",
+            "Perl",
+            "PHP",
+            "Python",
+            "Ruby",
+            "Scala",
+            "Scheme"
+        ];
 
 
+        console.log(availableTags);
+        $.get("ajax.php", {
+            "itemCodeInfoForPr": "itemCodeInfoForPr"
+        }, function(data) {
+
+            availableTags = JSON.parse(data);
+
+            console.log(availableTags);
+            $("#item_name").autocomplete({
+                source: availableTags
+            });
+
+
+        })
+
+    });
+</script>
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
 <script src="./js/scripts.js"></script>
-<script src="./js/jquery.min.js"></script>
+<script src="./js/requisitionGen.js"></script>
+<!-- <script src="./js/jquery.min.js"></script> -->
 
 </html>
