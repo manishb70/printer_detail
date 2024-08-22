@@ -119,6 +119,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             }
             ?>
 
+            <a type="submit" href="./GRN/grn.php" class="py-2.5 px-5 me-2 mb-2 text-sm mt-5 font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">+ GRN Form</a>
+
         </div>
 
 
@@ -193,7 +195,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                                 <?php echo  $row["itemStatus"] ?>
                             </td>
                             <td class="px-6 py-4 text-right">
-                                <?php if ($row["itemStatus"]=="Reject") {
+                                <?php if ($row["itemStatus"] == "Reject") {
                                 ?>
                                     <a href="updateRejectedItem.php?id=<?php echo  $row["item_code"] ?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
 

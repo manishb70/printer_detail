@@ -19,6 +19,7 @@ const updateFieldDataSet = (data) => {
             console.log(data);
 
 
+            document.getElementById("rowItem").innerText =""
             data.tbody_data.forEach(element => {
 
                 Object.keys(element).forEach(mainData => {
