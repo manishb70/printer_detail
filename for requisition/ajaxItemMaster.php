@@ -723,8 +723,14 @@ JOIN sub_category c ON a.subCatId  = c.subCatId where S_No=$id;";
                 $columns .= " , " . $row["name"];
             }
             $columns .= " , " . "imagePath";
+        
+        
         }
 
+
+
+
+        
         $columns .= " , " . "itemStatus";
 
 
@@ -755,9 +761,26 @@ JOIN sub_category c ON a.subCatId  = c.subCatId where a.item_code ='$id';";
         }
 
 
+        $subId =  $subCatId;
 
 
-        // $response["theaders"] = $data;
+
+                $sql = "SELECT * FROM for_office.requireattributeforcatname where SubcatId = $subId;";
+
+                $result = mysqli_query($con,$sql);
+
+                $inputFields = [];
+
+
+
+
+                while($row = mysqli_fetch_assoc($result)){
+                    $inputFields[] = $row;
+                }
+
+
+
+        $response["inputFields"] = $inputFields;
 
         $response["tbody_data"] = $tbody_data;
 
