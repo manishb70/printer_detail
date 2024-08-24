@@ -65,14 +65,14 @@ const setLineRowDataForIssuerForPoGenrate = (event) => {
 
     $.get("phpAjax/requisitionAjax.php", data, function (response) {
         console.log(response.data);
-    
+
         response.data.forEach(element => {
             console.log(element);
-    
+
             // Create a new table row element
             let tr = document.createElement('tr');
             tr.className = "border-b border-blue-gray-200";
-    
+
             // Construct table cells as a string and set the inner HTML of the row
             tr.innerHTML = `
                 <td class="py-3 px-4">
@@ -81,22 +81,25 @@ const setLineRowDataForIssuerForPoGenrate = (event) => {
                             class="w-4 h-4 cursor-pointer text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                     </div>
                 </td>
-                <td class="py-3 px-4">${element.column1}</td>
-                <td class="py-3 px-4">${element.column2}</td>
-                <td class="py-3 px-4">${element.column3}</td>
+                <td class="py-3 px-4">${element.item_code}</td>
+                <td class="py-3 px-4">${element.shortDiscription}</td>
+                <td class="py-3 px-4">${element.quantity}</td>
                 <td class="py-3 px-4">
                     <input
                         class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
-                        placeholder="${element.placeholder1}" />
+                        placeholder="Come from Inventory" />
                 </td>
-                <td class="py-3 px-4">${element.column4}</td>
-                <td class="py-3 px-4">${element.column5}</td>
-                <td class="py-3 px-4">${element.column6}</td>
-                <td class="py-3 px-4">${element.column7}</td>
+                <td class="py-3 px-4">  <input
+                        class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                        placeholder="Come from Inventory" /></td>
+                <td class="py-3 px-4">${element.price}</td>
+                <td class="py-3 px-4">${element.total_price}</td>
+                <td class="py-3 px-4">${element.vendor}</td>
+                <td class="py-3 px-4">${element.project_id}</td>
                 <td class="py-3 px-4">
                     <input type="date"
                         class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
-                        placeholder="${element.datePlaceholder}" />
+                        placeholder="${element.date_hand_hover}" />
                 </td>
                 <td class="py-3 px-4">
                     <input
@@ -108,14 +111,16 @@ const setLineRowDataForIssuerForPoGenrate = (event) => {
                         class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
                         placeholder="${element.billToPlaceholder}" />
                 </td>
+                   <td class="py-3 px-4">${element.S_no}</td>
+                <td class="py-3 px-4">${element.S_no}</td>
             `;
-    
+
             // Append the row to the table body
             document.getElementById("project_id_Tbody").appendChild(tr);
         });
     }, "JSON");
-    
-    
+
+
 
 
 }

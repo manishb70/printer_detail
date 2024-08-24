@@ -53,6 +53,7 @@ if (isset($_POST["newRequisitionGenrate"])) {
         // $item_id =  $record_id.$_POST["item_name"] ;
         $item_id =  1;
         $user_remarks = $_POST["User_Remarks"];
+        $newNeedByDate = $_POST["newNeedByDate"];
         $department_id = 1;
         // $requisitionType = "SCH";
         // $requisitionId = 1
@@ -63,7 +64,7 @@ if (isset($_POST["newRequisitionGenrate"])) {
         // $record_id = $_SESSION["record_id"];
 
 
-        $sql = "INSERT INTO requisition_table (created_by,created_date, department_name,department_id,item_name, item_code, quantity, user_remarks,record_id,project_id) VALUES ('$created_by', '$created_date', '$department', $department_id,'$item_name', $item_id, $Quantity,'$user_remarks',$record_id,$project_id)";
+        $sql = "INSERT INTO requisition_table (created_by,created_date, department_name,department_id,item_name, item_code, quantity, user_remarks,record_id,project_id,date_hand_hover) VALUES ('$created_by', '$created_date', '$department', $department_id,'$item_name', $item_id, $Quantity,'$user_remarks',$record_id,$project_id,'$newNeedByDate')";
 
 
 
