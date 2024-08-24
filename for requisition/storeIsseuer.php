@@ -447,7 +447,7 @@ if (mysqli_num_rows($result) > 0) {
                                 </tr>
                             </thead>
                             <tbody id="project_id_Tbody" class="text-blue-gray-900">
-                       
+
                                 <tr class="border-b border-blue-gray-200">
                                     <td class="py-3  px-4">
 
@@ -469,24 +469,27 @@ if (mysqli_num_rows($result) > 0) {
                                     </td>
                                     <td class="py-3 px-4">
 
-                                
+
 
                                         <input
                                             class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
                                             placeholder="100" />
                                     </td>
                                     <td class="py-3 px-4">
-                                        500
+                                        Quantity for po
 
                                     </td>
                                     <td class="py-3 px-4">
-                                        Delhi
+                                        Unit price
                                     </td>
                                     <td class="py-3 px-4">
-                                        50
+                                        Total
                                     </td>
                                     <td class="py-3 px-4">
-                                        YES
+                                        vendore
+                                    </td>
+                                    <td class="py-3 px-4">
+                                        project id
                                     </td>
                                     <td class="py-3 px-4">
                                         <input type="date"

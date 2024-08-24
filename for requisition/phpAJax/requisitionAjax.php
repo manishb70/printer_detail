@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
 
-        $sql = "SELECT * FROM for_office.requisition_table  where record_id = 284";
+        $sql = "SELECT * FROM for_office.requisition_table  where record_id = $record_id";
 
 
 
