@@ -1,10 +1,10 @@
-const updateFieldDataSet = async (data) =>  {
+const updateFieldDataSet = async (data) => {
 
 
     var selected_id = document.getElementById("itecode_id").value
 
     let fieldInputs;
-    let itemData ;
+    let itemData;
 
 
     await $.ajax({
@@ -20,7 +20,7 @@ const updateFieldDataSet = async (data) =>  {
             // console.log(element);
 
             console.log("request success");
-            console.log(data);
+            // console.log(data);
 
             fieldInputs = data.inputFields
             itemData = data.tbody_data
@@ -142,34 +142,46 @@ const updateFieldDataSet = async (data) =>  {
     let inputs = document.getElementById("rowItem").querySelectorAll("input")
 
 
-        console.log(fieldInputs);
-        console.log(itemData);
+    // console.log(itemData);
 
 
 
-        inputs.forEach (attr =>{
-            console.log(attr);
-
-            itemData.forEach(element =>{
-
-                console.log(element);
-
-                if(attr.name == element){
-
-                    console.log("Yes This is ci");
-                }
+    // inputs.forEach(attr => {
+    //     console.log(attr.name);
 
 
 
-            })
+    // })
 
 
 
 
-        })
+    // console.log(fieldInputs);
+
+
+    // //  console.log(itemData);
+
+    fieldInputs.forEach(element => {
+
+
+        // console.log();
+
+        var inputName = element.name
 
 
 
+        console.log(inputName);
+
+        // console.log(itemData[0].item_code);
+
+        // console.log("Successs");
+
+
+
+
+    })
+
+    console.log(itemData);
 
 
 
