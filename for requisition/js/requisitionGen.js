@@ -12,7 +12,7 @@ function getShortDiscriptionAndSetTOInputField() {
     <span class="sr-only">Loading...</span>
 </div>`
 
- 
+
 
 
     $.get("ajax.php", {
@@ -21,10 +21,175 @@ function getShortDiscriptionAndSetTOInputField() {
     }, function (data) {
 
         // console.log(data);
-        console.log(data.sDiscription); 
+        console.log(data.sDiscription);
 
         $("#shortDisDiv").show();
         $("#shortDiscription").val(data.sDiscription)
+
+
+
+
+    }, "JSON")
+
+
+
+
+
+
+}
+
+
+
+
+console.log("HEllo from js ");
+
+
+const setLineRowDataForIssuerForPoGenrate = (event) => {
+
+    // recordId = element.getAttribute('data-id');
+
+    let recordId = event.target.getAttribute("record-id")
+
+
+
+
+
+    console.log(recordId);
+
+
+
+    let data = {
+        getLineItemFromRequisitionWithRecordId: "getLineItemFromRequisitionWithRecordId",
+        recordId: recordId
+    }
+
+
+    $.get("phpAjax/requisitionAjax.php", data, function (data) {
+        console.log(data.data);
+
+
+
+        data.data.forEach(element => {
+
+            console.log(element);
+
+
+
+            var tr = `  <tr class="border-b border-blue-gray-200">
+        <td class="py-3  px-4">
+
+
+            <div class="flex items-center mb-4">
+                <input id="default-checkbox" type="checkbox" value=""
+                    class="w-4 h-4 cursor-pointer text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+
+            </div>
+
+        </td>
+
+        <td class="py-3 px-4"> EL-HU-UH-UH-UH-UH-UH-UH-UH-UH</td>
+        <td class="py-3 px-4">BULB-HUH-UH-UH-UH-UH</td>
+        <td class="py-3 px-4">
+            100$
+        </td>
+        <td class="py-3 px-4">
+            <input
+                class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                placeholder="100" />
+        </td>
+        <td class="py-3 px-4">
+            $1000
+        </td>
+        <td class="py-3 px-4">
+            Delhi
+        </td>
+        <td class="py-3 px-4">
+            100
+        </td>
+        <td class="py-3 px-4">
+            No
+        </td>
+        <td class="py-3 px-4">
+            <input type="date"
+                class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                placeholder="ship to" />
+        </td>
+        <td class="py-3 px-4">
+            <input
+                class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                placeholder="ship to" />
+        </td>
+        <td class="py-3 px-4">
+            <input
+                class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                placeholder="bill to " />
+        </td>
+    </tr>`
+
+            document.getElementById("project_id_Tbody").appendChild(tr)
+
+
+
+        });
+
+
+        let tr = `  <tr class="border-b border-blue-gray-200">
+                                    <td class="py-3  px-4">
+
+
+                                        <div class="flex items-center mb-4">
+                                            <input id="default-checkbox" type="checkbox" value=""
+                                                class="w-4 h-4 cursor-pointer text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+
+                                        </div>
+
+                                    </td>
+
+                                    <td class="py-3 px-4"> EL-HU-UH-UH-UH-UH-UH-UH-UH-UH</td>
+                                    <td class="py-3 px-4">BULB-HUH-UH-UH-UH-UH</td>
+                                    <td class="py-3 px-4">
+                                        100$
+                                    </td>
+                                    <td class="py-3 px-4">
+                                        <input
+                                            class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                            placeholder="100" />
+                                    </td>
+                                    <td class="py-3 px-4">
+                                        $1000
+                                    </td>
+                                    <td class="py-3 px-4">
+                                        Delhi
+                                    </td>
+                                    <td class="py-3 px-4">
+                                        100
+                                    </td>
+                                    <td class="py-3 px-4">
+                                        No
+                                    </td>
+                                    <td class="py-3 px-4">
+                                        <input type="date"
+                                            class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                            placeholder="ship to" />
+                                    </td>
+                                    <td class="py-3 px-4">
+                                        <input
+                                            class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                            placeholder="ship to" />
+                                    </td>
+                                    <td class="py-3 px-4">
+                                        <input
+                                            class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                            placeholder="bill to " />
+                                    </td>
+                                </tr>`
+
+
+
+
+
+
+
 
 
 
