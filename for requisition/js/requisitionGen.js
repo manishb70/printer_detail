@@ -64,10 +64,14 @@ const setLineRowDataForIssuerForPoGenrate = (event) => {
     }
 
     $.get("phpAjax/requisitionAjax.php", data, function (response) {
+        console.log(response);
         console.log(response.data);
 
-        document.getElementById("project_id_Tbody").innerHTML=""
+        document.getElementById("project_id_Tbody").innerHTML = ""
 
+        let genratedPoIdIs = parseInt(response.genratedPoId)
+
+        $("#purchase_order_id").text(genratedPoIdIs)
         response.data.forEach(element => {
             console.log(element);
 
@@ -79,43 +83,117 @@ const setLineRowDataForIssuerForPoGenrate = (event) => {
             tr.innerHTML = `
                 <td class="py-3 px-4">
                     <div class="flex items-center mb-4">
-                        <input id="default-checkbox" type="checkbox" value=""
-                            class="w-4 h-4 cursor-pointer text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <input id="default-checkbox" type="checkbox"  rowId=${element.S_no} value=""
+                            class="w-4 h-4 cursor-pointer text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+
+                            onclick = "addItemsToPurchaseOrder(event)"
+                            >
                     </div>
                 </td>
-                <td class="py-3 px-4">${element.item_code}</td>
-                <td class="py-3 px-4">${element.shortDiscription}</td>
-                <td class="py-3 px-4">${element.quantity}</td>
+                <td class="py-3 px-4">
+
+                 <input
+                            
+                 name ="item_code"
+                 class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                        placeholder="Come from Inventory" value=${element.item_name} / >
+                
+                </td>
+                <td class="py-3 px-4">    <input
+                            
+                name ="short_discription"
+                class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                        placeholder="Come from Inventory" value=${element.shortDiscription} / ></td>
                 <td class="py-3 px-4">
                     <input
-                        class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                
+                    name ="item_quantity"
+                    class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                        placeholder="Come from Inventory" value=${element.quantity} /></td>
+                <td class="py-3 px-4">
+                    <input
+                                
+                    name ="stockinHand"
+                    class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
                         placeholder="Come from Inventory" />
                 </td>
                 <td class="py-3 px-4">  <input
-                        class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
-                        placeholder="Come from Inventory" /></td>
-                <td class="py-3 px-4">${element.price}</td>
-                <td class="py-3 px-4">${element.total_price}</td>
-                <td class="py-3 px-4">${element.vendor}</td>
-                <td class="py-3 px-4">${element.project_id}</td>
+                            
+                name = "quantity_for_po"
+                class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                        placeholder="Enter by issuer" /></td>
+                <td class="py-3 px-4">    <input
+                            
+                name = "unit_price"
+                class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                        placeholder="Come from Inventory" value=${element.price} /</td>
+                <td class="py-3 px-4">    <input
+                            
+                name = "total_price"
+                class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                        placeholder="Come from Inventory" value=${element.total_price} / ></td>
+                <td class="py-3 px-4"> 
+
+
+
+
+
+                <select name="vandor" class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"> 
+
+                        <option value="101">ABC</option>
+                        <option value="102">AAA</option>
+
+
+                
+                </select>
+
+
+                    
+                
+         
+                        
+                        
+                        </td>
+                <td class="py-3 px-4">    <input
+                            
+                name ="Vendor_site"
+                class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                        placeholder="Come from Inventory" value="vendor_site" / ></td>
+                <td class="py-3 px-4">    <input
+                            
+                name = "project_id"
+                class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                        placeholder="Come from Inventory" value=${element.project_id} / ></td>
                 <td class="py-3 px-4">
                     <input type="date"
-                        class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                
+                    name ="data_hand_over"
+                    class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
                         value="${element.date_hand_hover}" />
                         
                 </td>
                 <td class="py-3 px-4">
                     <input
-                        class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                
+                    name ="ship_address"
+                    class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
                         placeholder="Ship address" />
                 </td>
                 <td class="py-3 px-4">
                     <input
-                        class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                
+                    name = "bill_address"
+                    class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
                         placeholder="Bill address" />
                 </td>
-                   <td class="py-3 px-4">${element.S_no}</td>
-                <td class="py-3 px-4">${element.S_no}</td>
+                   <td class="py-3 px-4">   <input
+                                
+                    name = "po_number"
+                    class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                        placeholder="Bill address" 
+                        value="${genratedPoIdIs}"
+                        /></td>
+                <td class="py-3 px-4">Incomplete</td>
             `;
 
             // Append the row to the table body
@@ -123,6 +201,125 @@ const setLineRowDataForIssuerForPoGenrate = (event) => {
         });
     }, "JSON");
 
+
+
+
+}
+
+
+
+let checkedData = {};
+
+
+
+function addItemsToPurchaseOrder(event) {
+
+    console.log();
+
+    let status = event.target.checked
+
+    const tr = event.target.closest("tr");
+
+    let rowId = event.target.getAttribute("rowid")
+
+    if (status) {
+
+        console.log(rowId);
+
+        console.log(event.target.isChecked);
+
+        tr.style.filter = "brightness(0.5)"
+
+        const inputs = tr.querySelectorAll("input");
+        const select = tr.querySelectorAll("select");
+
+
+
+
+        let inputData = {}
+
+
+        inputs.forEach(input => {
+
+            inputData[input.name] = input.value;
+
+
+
+        });
+
+        // console.log(select);
+        select.forEach(input => {
+
+            inputData[input.name] = input.value;
+
+
+
+        });
+
+
+        checkedData[rowId] = inputData
+
+
+
+
+
+        // inputData["createPurchaseOrder"] = "createPurchaseOrder";
+
+
+        console.log(checkedData);
+
+        // $.ajax({
+        //     url: "phpAjax/requisitionAjax.php",
+        //     method: "POST",
+        //     data: inputData,
+        //     // dataType: "JSON",
+        //     success: function (response) {
+
+        //         console.log(response);
+
+        //     }
+        // });
+
+
+
+
+        let filteredDataByVendor = {}
+
+        let totalVendors = ["none"]
+
+
+
+        Object.keys(checkedData).forEach(element => {
+
+            let currentVendor = checkedData[element].vendor
+
+
+            totalVendors.push(currentVendor);
+
+
+
+        })
+
+
+        // Object.keys(checkedData).forEach(element => {
+
+
+
+        // })
+
+        console.log(totalVendors);
+
+
+
+
+
+    } else {
+        tr.style.filter = "none"
+
+
+
+        delete checkedData.rowId
+    }
 
 
 

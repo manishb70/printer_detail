@@ -406,8 +406,11 @@ if (mysqli_num_rows($result) > 0) {
                 <!-- Modal header -->
                 <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                        Purchase order
+                        Purchase order : <span id="purchase_order_id">200</span>
                     </h3>
+                    <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
+                         
+                    </h2>
                     <button type="button"
                         class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                         data-modal-toggle="purchase_order">
@@ -438,6 +441,7 @@ if (mysqli_num_rows($result) > 0) {
                                     <th class="py-3 px-4 text-left">Unit price</th>
                                     <th class="py-3 px-4 text-left">Total</th>
                                     <th class="py-3 px-4 text-left">Vendor</th>
+                                    <th class="py-3 px-4 text-left">Vendor site</th>
                                     <th class="py-3 px-4 text-left">Project id</th>
                                     <th class="py-3 px-4 text-left">Need by date</th>
                                     <th class="py-3 px-4 text-left">Ship to </th>
@@ -449,71 +453,7 @@ if (mysqli_num_rows($result) > 0) {
                             </thead>
                             <tbody id="project_id_Tbody" class="text-blue-gray-900">
 
-                                <tr class="border-b border-blue-gray-200">
-                                    <td class="py-3  px-4">
-
-
-                                        <div class="flex items-center mb-4">
-                                            <input id="default-checkbox" type="checkbox" value=""
-                                                class="w-4 h-4 cursor-pointer text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-
-                                        </div>
-
-                                    </td>
-
-                                    <td class="py-3 px-4"> EL-RG-RG-R-RG-JN-JH-HJ-HJ-HJ</td>
-                                    <td class="py-3 px-4">HOLDER-2-1-FUTU-EACH-WHIT</td>
-                                    <td class="py-3 px-4">
-
-                                        100
-
-                                    </td>
-                                    <td class="py-3 px-4">
-
-
-
-                                        <input
-                                            class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
-                                            placeholder="100" />
-                                    </td>
-                                    <td class="py-3 px-4">
-                                        Quantity for po
-
-                                    </td>
-                                    <td class="py-3 px-4">
-                                        Unit price
-                                    </td>
-                                    <td class="py-3 px-4">
-                                        Total
-                                    </td>
-                                    <td class="py-3 px-4">
-                                        vendore
-                                    </td>
-                                    <td class="py-3 px-4">
-                                        project id
-                                    </td>
-                                    <td class="py-3 px-4">
-                                        <input type="date"
-                                            class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
-                                            placeholder="ship to" />
-                                    </td>
-                                    <td class="py-3 px-4">
-                                        <input
-                                            class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
-                                            placeholder="ship to" />
-                                    </td>
-                                    <td class="py-3 px-4">
-                                        <input
-                                            class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
-                                            placeholder="bill to " />
-                                    </td>
-                                    <td class="py-3 px-4">
-                                        YES
-                                    </td>
-                                    <td class="py-3 px-4">
-                                        YES
-                                    </td>
-                                </tr>
+                               
 
 
                             </tbody>
