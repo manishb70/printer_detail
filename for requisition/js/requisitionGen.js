@@ -138,7 +138,7 @@ const setLineRowDataForIssuerForPoGenrate = (event) => {
 
 
 
-                <select name="vandor" class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"> 
+                <select name="vendor" class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"> 
 
                         <option value="101">ABC</option>
                         <option value="102">AAA</option>
@@ -208,17 +208,21 @@ const setLineRowDataForIssuerForPoGenrate = (event) => {
 
 
 
-let checkedData = {};
 
-
+// let currentVendore = 
 
 function addItemsToPurchaseOrder(event) {
+    let checkedData = {};
 
     console.log();
 
     let status = event.target.checked
 
     const tr = event.target.closest("tr");
+
+    // if(tr.querySelector("select"))
+
+
 
     let rowId = event.target.getAttribute("rowid")
 
@@ -232,6 +236,9 @@ function addItemsToPurchaseOrder(event) {
 
         const inputs = tr.querySelectorAll("input");
         const select = tr.querySelectorAll("select");
+        // const vendor = tr.querySelector("select").value;
+
+        // console.log(vendor);
 
 
 
@@ -247,7 +254,7 @@ function addItemsToPurchaseOrder(event) {
 
         });
 
-        // console.log(select);
+        console.log(select);
         select.forEach(input => {
 
             inputData[input.name] = input.value;
@@ -263,42 +270,42 @@ function addItemsToPurchaseOrder(event) {
 
 
 
-        // inputData["createPurchaseOrder"] = "createPurchaseOrder";
+        inputData["createPurchaseOrder"] = "createPurchaseOrder";
 
 
         console.log(checkedData);
 
-        // $.ajax({
-        //     url: "phpAjax/requisitionAjax.php",
-        //     method: "POST",
-        //     data: inputData,
-        //     // dataType: "JSON",
-        //     success: function (response) {
+        $.ajax({
+            url: "phpAjax/requisitionAjax.php",
+            method: "POST",
+            data: inputData,
+            // dataType: "JSON",
+            success: function (response) {
 
-        //         console.log(response);
+                console.log(response);
 
-        //     }
-        // });
-
-
-
-
-        let filteredDataByVendor = {}
-
-        let totalVendors = ["none"]
+            }
+        });
 
 
 
-        Object.keys(checkedData).forEach(element => {
 
-            let currentVendor = checkedData[element].vendor
+        // let filteredDataByVendor = {}
 
-
-            totalVendors.push(currentVendor);
+        // let totalVendors = ["none"]
 
 
 
-        })
+        // Object.keys(checkedData).forEach(element => {
+
+        //     let currentVendor = checkedData[element].vendor
+
+
+        //     totalVendors.push(currentVendor);
+
+
+
+        // })
 
 
         // Object.keys(checkedData).forEach(element => {
@@ -307,7 +314,7 @@ function addItemsToPurchaseOrder(event) {
 
         // })
 
-        console.log(totalVendors);
+        // console.log(totalVendors);
 
 
 
