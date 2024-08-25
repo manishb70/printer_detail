@@ -6,7 +6,7 @@
 $con = mysqli_connect(
     "localhost",
     "root",
-    "manish@123",
+    "Algo@123",
     "for_Office"
 );
 

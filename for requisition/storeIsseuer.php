@@ -14,7 +14,8 @@ if (!$isStoreIssuer) {
 }
 
 
-$sql = "select * from requisition_table";
+// $sql = "select * from requisition_table";
+$sql = "SELECT * FROM for_office.requisition_table ORDER BY S_no desc;";
 
 
 $result = mysqli_query($con, $sql);
