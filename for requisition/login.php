@@ -7,9 +7,23 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.4/dist/tailwind.min.css" rel="stylesheet">
     <title>Login page</title>
 </head>
+<style>
 
-<body>
+    .companyLogo{
+        position: fixed;
+        display: flex;
+        top: 80%;
+        left: 80%;
+    }
+</style>
 
+<body>  
+
+            
+<div class="companyLogo">
+    <p class="mr-1 font-bold"  style="margin-top:15%"> @Powered by.... &nbsp; </p>
+<img src="./logo/Algo2botsinfotech logo.jpg"  alt="" width="80px">
+</div>
 
     <div class="min-h-screen bg-gray-50 flex flex-wrap justify-center py-12 sm:px-6 lg:px-8">
         <div class="sm:mx-auto sm:w-full ">

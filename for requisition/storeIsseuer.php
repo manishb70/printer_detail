@@ -109,6 +109,10 @@ if (mysqli_num_rows($result) > 0) {
                 <th scope="col" class="px-6 py-3">
                     S_no
                 </th>
+                
+                <th scope="col" class="px-6 py-3">
+                    record number
+                </th>
                 <th scope="col" class="px-6 py-3">
                     created_by
                 </th>
@@ -118,15 +122,13 @@ if (mysqli_num_rows($result) > 0) {
                 <th scope="col" class="px-6 py-3">
                     department_name
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <!-- <th scope="col" class="px-6 py-3">
                     department_id
-                </th>
+                </th> -->
                 <th scope="col" class="px-6 py-3">
                     requisition_type
                 </th>
-                <th scope="col" class="px-6 py-3">
-                    requisition_id
-                </th>
+              
                 <th scope="col" class="px-6 py-3">
                     project_id
                 </th>
@@ -153,13 +155,17 @@ if (mysqli_num_rows($result) > 0) {
                     handover_over_by
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    status
+                   Req status
                 </th>
                 <th scope="col" class="px-6 py-3">
                     final_remarks
                 </th>
+                
                 <th scope="col" class="px-6 py-3">
-                    record id
+                    PO Status
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Po number
                 </th>
 
                 <th scope="col" class="px-6 py-3">
@@ -183,6 +189,10 @@ if (mysqli_num_rows($result) > 0) {
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         ' . ($isEditable ? "<input class='formInputData'  name='user_id' disabled style='max-width:80px' id=" . $row["S_no"] . "  margin-left:0' value=" . $row["S_no"] . ">" : $row["S_no"]) . '
                     </th>
+                      <td class="px-6 py-4">
+                       
+                         ' . ($isEditable ? "<input class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["record_id"] . ">" : $row["record_id"]) . '
+                    </td>
                     <td class=px-6 py-4">
                         ' . ($isEditable ? "<input class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500' name='name_of_company' disabled style='max-width:80px'  margin-left:0' value=" . $row["created_by"] . ">" : $row["created_by"]) . '
                     </td>
@@ -193,15 +203,11 @@ if (mysqli_num_rows($result) > 0) {
                     <td class="px-6 py-4">
                         ' . ($isEditable ? "<input class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500' name='department_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["department_name"] . ">" : $row["department_name"]) . '
                     </td>
-                    <td class="px-6 py-4">
-                        ' . ($isEditable ? "<input class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500' name='department_id' disabled style='max-width:80px'  margin-left:0' value=" . $row["department_id"] . ">" : $row["department_id"]) . '
-                    </td>
+                   
                     <td class="px-6 py-4">
                          ' . ($isEditable ? "<input class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500' id='requisition_type' name='requisition_type' disabled style='max-width:80px'  margin-left:0' value=" . $row["requisition_type"] . ">" : $row["requisition_type"]) . '
                     </td>
-                    <td class="px-6 py-4">
-                        ' . ($isEditable ? "<input  type='txt' class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500' name='requisition_id' disabled style='max-width:80px'  margin-left:0' value=" . $row["requisition_id"] . ">" : $row["requisition_id"]) . '
-                    </td>
+                    
                     <td class="px-6 py-4">
                        
                          ' . ($isEditable ? "<input class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500' name='project_id' disabled style='max-width:80px'  margin-left:0' value=" . $row["project_id"] . ">" : $row["project_id"]) . '
@@ -242,9 +248,14 @@ if (mysqli_num_rows($result) > 0) {
                        
                          ' . ($isEditable ? "<input class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500' id='final_remarks' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["final_remarks"] . ">" : $row["final_remarks"]) . '
                     </td>
+                  
                     <td class="px-6 py-4">
                        
-                         ' . ($isEditable ? "<input class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["record_id"] . ">" : $row["record_id"]) . '
+                         ' . ($isEditable ? "<input class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["po_status"] . ">" : $row["po_status"]) . '
+                    </td>
+                    <td class="px-6 py-4">
+                       
+                         ' . ($isEditable ? "<input class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500' name='bank_branch_name' disabled style='max-width:80px'  margin-left:0' value=" . $row["po_number"] . ">" : $row["po_number"]) . '
                     </td>
                 
                     <td class="px-4 py-4 text-right">
@@ -406,12 +417,12 @@ if (mysqli_num_rows($result) > 0) {
                 <!-- Modal header -->
                 <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                        Purchase order : <span id="purchase_order_id">200</span>
+                        Purchase order : <span id="purchase_order_id" po-id="">200</span>
                     </h3>
                     <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
-                         
+
                     </h2>
-                    <button type="button"
+                    <button type="button" id="purchseorderclosebtn"
                         class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                         data-modal-toggle="purchase_order">
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -453,26 +464,18 @@ if (mysqli_num_rows($result) > 0) {
                             </thead>
                             <tbody id="project_id_Tbody" class="text-blue-gray-900">
 
-                               
+
 
 
                             </tbody>
                         </table>
                         <div class="w-full pt-5 px-4 mb-8 mx-auto ">
 
-                            <button type="button"
-                            onclick="addReqiuisitionItemsToPurchaseLine(event)"
+                            <button type="button" onclick="addReqiuisitionItemsToPurchaseLine(event)"
                                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit</button>
                         </div>
                     </div>
                 </div>
-
-
-                <center>
-
-                </center>
-
-
             </div>
         </div>
     </div>

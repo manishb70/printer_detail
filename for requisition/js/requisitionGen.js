@@ -46,47 +46,67 @@ console.log("HEllo from js ");
 
 const setLineRowDataForIssuerForPoGenrate = (event) => {
 
+
+
     // recordId = element.getAttribute('data-id');
 
-    let recordId = event.target.getAttribute("record-id")
+    const userconfirm = confirm("Are you sure, you want to create purchase order ?")
+
+
+    if (userconfirm) {
+
+
+        let recordId = event.target.getAttribute("record-id")
 
 
 
 
 
-    console.log(recordId);
+        console.log(recordId);
 
 
 
-    let data = {
-        getLineItemFromRequisitionWithRecordId: "getLineItemFromRequisitionWithRecordId",
-        recordId: recordId
-    }
+        let data = {
+            getLineItemFromRequisitionWithRecordId: "getLineItemFromRequisitionWithRecordId",
+            recordId: recordId
+        }
 
-    $.get("phpAjax/requisitionAjax.php", data, function (response) {
-        console.log(response);
-        console.log(response.data);
+        $.get("phpAjax/requisitionAjax.php", data, function (response) {
+            console.log(response);
+            console.log(response.data);
 
-        document.getElementById("project_id_Tbody").innerHTML = ""
+            document.getElementById("project_id_Tbody").innerHTML = ""
 
-        let genratedPoIdIs = parseInt(response.genratedPoId)
+            let genratedPoIdIs = parseInt(response.genratedPoId)
 
-        $("#purchase_order_id").text(genratedPoIdIs)
-      
+            $("#purchase_order_id").text(genratedPoIdIs)
 
-        $("#purchase_order_id").attr("po-id", genratedPoIdIs);
-        response.data.forEach(element => {
-            console.log(element);
 
-            // Create a new table row element
-            let tr = document.createElement('tr');
-            tr.className = "border-b border-blue-gray-200";
+            $("#purchase_order_id").attr("po-id", genratedPoIdIs);
+            response.data.forEach(element => {
+                // console.log(element);
 
-            // Construct table cells as a string and set the inner HTML of the row
-            tr.innerHTML = `
+                // Create a new table row element
+                let tr = document.createElement('tr');
+
+                // console.log(element.po_status);
+
+
+                if (element.po_status == "GEN") {
+
+                    tr.style.filter = "brightness(0.5)"
+                    tr.style.filter = "opacity(0.5)";
+
+                }
+
+
+                tr.className = "border-b border-blue-gray-200";
+
+                // Construct table cells as a string and set the inner HTML of the row
+                tr.innerHTML = `
                 <td class="py-3 px-4">
                     <div class="flex items-center mb-4">
-                        <input id="default-checkbox" type="checkbox" name="checkbox"  rowId=${element.S_no} value=""
+                        <input id="default-checkbox" type="checkbox" name="checkbox" ${(element.po_status == "GEN") ? "disabled" : ""} rowId=${element.S_no} value=""
                             class="w-4 h-4 cursor-pointer text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
 
                             onclick = "addItemsToPurchaseOrder(event)"
@@ -191,21 +211,24 @@ const setLineRowDataForIssuerForPoGenrate = (event) => {
                 </td>
                    <td class="py-3 px-4">   <input
                                 
+                   disabled
                     name = "po_number"
                     class="peer h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
                         placeholder="Bill address" 
-                        value="${genratedPoIdIs}"
+                        value="${(element.po_status == "GEN") ? element.po_number : ""}"
                         /></td>
                 <td class="py-3 px-4">Incomplete</td>
             `;
 
-            // Append the row to the table body
-            document.getElementById("project_id_Tbody").appendChild(tr);
-        });
-    }, "JSON");
+                // Append the row to the table body
+                document.getElementById("project_id_Tbody").appendChild(tr);
+            });
+        }, "JSON");
 
 
-
+    }else{
+        $("#purchseorderclosebtn").click()
+    }
 
 }
 
@@ -345,6 +368,7 @@ function addItemsToPurchaseOrder(event) {
 function addReqiuisitionItemsToPurchaseLine(event) {
     // Find the closest <tbody> to the event target
 
+    let selectTedRows = []
     let checkedData = {}
     let checkedRow = {};
 
@@ -384,6 +408,7 @@ function addReqiuisitionItemsToPurchaseLine(event) {
 
         if (checkbox.checked) {
 
+            selectTedRows[index] = row;
 
 
 
@@ -418,27 +443,87 @@ function addReqiuisitionItemsToPurchaseLine(event) {
 
     console.log(checkedData);
 
+
+
+    let checkedRowItem = checkedData.checkedrow
+
+
     checkedData["addItemsToLineLable"] = "addItemsToLineLable";
     checkedData["po_number"] = $("#purchase_order_id").attr("po-id");
 
-    $.ajax({
-
-        url: "phpAjax/requisitionAjax.php",
-        method: "POST",
-        data: checkedData,
-        dataType: "JSON",
-        success: function (response) {
+    let vendor_are_same = true
 
 
 
-            console.log(response);
+    console.log(checkedRowItem);
+    Object.keys(checkedRowItem).forEach(element => {
+        console.log(checkedRowItem[element].vendor);
+
+        let currentVendor = checkedRowItem[element].vendor
+
+        Object.keys(checkedRowItem).forEach(element => {
 
 
-        }
-    });
+            if (currentVendor != checkedRowItem[element].vendor) {
+
+                vendor_are_same = false;
+
+
+            }
+
+
+        })
 
 
 
+    })
+
+    console.log(vendor_are_same);
+
+
+    if (vendor_are_same) {
+
+        $.ajax({
+
+            url: "phpAjax/requisitionAjax.php",
+            method: "POST",
+            data: checkedData,
+            dataType: "JSON",
+            success: function (response) {
+
+
+
+                console.log(response);
+
+                if (response.success) {
+                    alert(`Purchase Order success fully created for  ${Object.keys(checkedRow).length} items`)
+
+                    console.log(Object.keys(checkedRow).length);
+
+                    selectTedRows.forEach(element => {
+
+                        element.style.filter = "opacity(0.5)";
+
+                    })
+
+                    let checkInput = tbody.querySelectorAll("input[type='checkbox']")
+
+                    checkInput.forEach(check => {
+                        check.disabled = true
+
+                    })
+                }
+
+            }, error: function (error) {
+                console.log(error);
+
+            }
+        });
+
+
+    } else {
+        alert("please select same vendor")
+    }
 
 
 

@@ -311,7 +311,7 @@ if (isset($_POST["newRequisitionGenrate"])) {
                                         <label class="block mb-2 text-sm name font-bold text-gray-700 dark:text-white" for="firstName">
                                             Need by date
                                         </label>
-                                        <input type="date" name="department" class="w-full color-black  px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="firstName" type="txt" placeholder="Enter department" value="" />
+                                        <input type="date" name="needByDate" onchange="dateCantBeLessTHen(event)" id="needByDate" class="w-full color-black  px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="firstName" type="txt" placeholder="Enter department" value="" />
                                     </div>
                                 </div>
 
@@ -470,6 +470,26 @@ if (isset($_POST["newRequisitionGenrate"])) {
 
     });
 </script>
+
+
+<script>
+        const dateCantBeLessTHen = (event) => {
+            // Get the selected date from the input
+            const selectedDate = new Date(event.target.value);
+
+            // Get the current date and set the time to midnight
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            // Compare selected date with current date
+            if (selectedDate < today) {
+                alert("The selected date cannot be earlier than today's date.");
+                
+                // Optionally, clear the input value
+                event.target.value = "";
+            }
+        }
+    </script>
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
 <script src="./js/scripts.js"></script>
 <script src="./js/requisitionGen.js"></script>

@@ -391,14 +391,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </td>   
 
                     <td class="px-6 py-4 text-right">
-                         <a onclick ="enableItem(event,rowId' . $row["user_id"] . ')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                         <a onclick ="enableItem(event,rowId' . $row["user_id"] . ')" class="font-medium cursor-pointer text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                     <button id=rowId' . $row["user_id"] . ' name="update_data" class="hidden inline-flex mr-2 ml-20 items-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="">
                       Update</button>
                     </td>
 
 
                      <td class="px-6 py-4 text-right">
-                         <a onclick ="setRolesToSelectedUser(event)" userId=' . $row["user_id"] . ' data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user roles</a>
+                         <a onclick ="setRolesToSelectedUser(event)" userId=' . $row["user_id"] . ' data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="font-medium text-blue-600  cursor-pointer dark:text-blue-500 hover:underline">Edit user roles</a>
                     </td>
                 </tr>
                     </form>

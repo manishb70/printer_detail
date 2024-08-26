@@ -7,7 +7,7 @@ $isEditable = false;
 
 
 
-$sql = "select * from requisition_table";
+$sql = "SELECT * FROM for_office.requisition_table ORDER BY S_no desc;";
 
 
 
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     if (isset($_GET["search_query"])) {
         $query = $_GET["search_query"];
 
-        $sql = "SELECT * FROM  requisition_table  where department_name ='$query' or item_name ='$query' or status='$query'  or S_no ='$query'or department_id ='$$query%'or requisition_type ='$query'or quantity ='$query' or user_remarks ='$query' or price ='$query' or handover_over_by ='$query' or record_id ='$query'  ";
+        $sql = "SELECT * FROM  requisition_table  where department_name ='$query' or item_name ='$query' or status='$query'  or S_no ='$query'or department_id ='$query'or requisition_type ='$query'or quantity ='$query' or user_remarks ='$query' or price ='$query' or handover_over_by ='$query' or record_id ='$query' or shortDiscription ='$query'    ";
 
         $result = mysqli_query($con, $sql);
 

@@ -162,6 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
+
             // Prepare the SQL statement with placeholders
 
             $item_code = $_POST['item_code'];
@@ -243,6 +244,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
+        // $dataForInsert[0];
+        // $purchase_order_number = $dataForInsert[0]['po_number'];
+        // $bill_to = $dataForInsert[0]['bill_address'];
+        // $ship_address = $dataForInsert[0]['ship_address'];
+        // $Vendor_site = $dataForInsert[0]['Vendor_site'];
+        // $vendor_name = $dataForInsert[0]['vendor'];
+
+        // // Prepare the SQL statement with placeholders
+        // $stmt = $con->prepare("UPDATE `for_office`.`purchase_order_header` 
+        //     SET `supplier_name` = ?, `supplier_site_code` = ?, `bill_to_location` = ?, `shipTo` = ? 
+        //     WHERE `PO_number` = ?");
+
+        // // Bind parameters
+        // $stmt->bind_param('sssss', $vendor_name, $Vendor_site, $bill_to, $ship_address, $purchase_order_number);
+
+        // // Execute the statement
+        // $stmt->execute();
+        
+
 
 
 
@@ -267,7 +287,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $project_id = $value['project_id'];
             $data_hand_over = $value['data_hand_over'];
 
-                                
+
             // echo $unit_price."this is unit";
 
             // echo print_r($value);
@@ -286,7 +306,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             if ($reault) {
 
-                $response["message"] = "Purchase order success fully created";
+                
+                // $sql = "UPDATE `for_office`.`requisition_table` SET `po_status` = 'GEN' WHERE (`S_no` = $key);";
+                $sql = "UPDATE `for_office`.`requisition_table` SET `po_status` = 'GEN', `po_number` =  $po_number WHERE (`S_no` = $key);";
+                // $sql = "UPDATE `for_office`.`requisition_table` SET `po_status` = 'GEN', `po_number` = '0' WHERE (`S_no` = '$key');";
+
+                $result = mysqli_query($con,$sql);
+                
+                if($result){
+                    
+                    $response["message"] = "Purchase order success fully created";
+                    $response['success'] = true;
+                }else{
+                    
+                    $response["message"] = "something went wrong";
+                    $response['success'] = false;
+                }
 
 
             } else {
@@ -312,27 +347,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // $response['success'] = true;
         // // $response['data'] = $dataForInsert;
 
         // $response['request data'] = $insertableDataInObject['checkedrow'];
