@@ -72,6 +72,9 @@ const setLineRowDataForIssuerForPoGenrate = (event) => {
         let genratedPoIdIs = parseInt(response.genratedPoId)
 
         $("#purchase_order_id").text(genratedPoIdIs)
+      
+
+        $("#purchase_order_id").attr("po-id", genratedPoIdIs);
         response.data.forEach(element => {
             console.log(element);
 
@@ -83,7 +86,7 @@ const setLineRowDataForIssuerForPoGenrate = (event) => {
             tr.innerHTML = `
                 <td class="py-3 px-4">
                     <div class="flex items-center mb-4">
-                        <input id="default-checkbox" type="checkbox"  rowId=${element.S_no} value=""
+                        <input id="default-checkbox" type="checkbox" name="checkbox"  rowId=${element.S_no} value=""
                             class="w-4 h-4 cursor-pointer text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
 
                             onclick = "addItemsToPurchaseOrder(event)"
@@ -211,10 +214,13 @@ const setLineRowDataForIssuerForPoGenrate = (event) => {
 
 // let currentVendore = 
 
-function addItemsToPurchaseOrder(event) {
-    let checkedData = {};
+// let checkedData = []
 
-    console.log();
+
+function addItemsToPurchaseOrder(event) {
+    // let checkedData = {};
+
+    // console.log();
 
     let status = event.target.checked
 
@@ -224,68 +230,68 @@ function addItemsToPurchaseOrder(event) {
 
 
 
-    let rowId = event.target.getAttribute("rowid")
+    // let rowId = event.target.getAttribute("rowid")
 
     if (status) {
 
-        console.log(rowId);
+        // console.log(rowId);
 
-        console.log(event.target.isChecked);
+        // console.log(event.target.checked);
 
         tr.style.filter = "brightness(0.5)"
 
-        const inputs = tr.querySelectorAll("input");
-        const select = tr.querySelectorAll("select");
-        // const vendor = tr.querySelector("select").value;
+        // const inputs = tr.querySelectorAll("input");
+        // const select = tr.querySelectorAll("select");
+        // // const vendor = tr.querySelector("select").value;
 
-        // console.log(vendor);
-
-
-
-
-        let inputData = {}
-
-
-        inputs.forEach(input => {
-
-            inputData[input.name] = input.value;
-
-
-
-        });
-
-        console.log(select);
-        select.forEach(input => {
-
-            inputData[input.name] = input.value;
-
-
-
-        });
-
-
-        checkedData[rowId] = inputData
+        // // console.log(vendor);
 
 
 
 
+        // let inputData = {}
 
-        inputData["createPurchaseOrder"] = "createPurchaseOrder";
+
+        // inputs.forEach(input => {
+
+        //     inputData[input.name] = input.value;
 
 
-        console.log(checkedData);
 
-        $.ajax({
-            url: "phpAjax/requisitionAjax.php",
-            method: "POST",
-            data: inputData,
-            // dataType: "JSON",
-            success: function (response) {
+        // });
 
-                console.log(response);
+        // console.log(select);
+        // select.forEach(input => {
 
-            }
-        });
+        //     inputData[input.name] = input.value;
+
+
+
+        // });
+
+
+        // checkedData[rowId] = inputData
+
+
+
+
+
+        // inputData["createPurchaseOrder"] = "createPurchaseOrder";
+
+
+        // console.log(checkedData);
+
+        // $.ajax({
+        //     url: "phpAjax/requisitionAjax.php",
+        //     method: "POST",
+        //     data: inputData,
+        //     dataType: "JSON",
+        //     success: function (response) {
+
+        //         console.log(response);
+
+        //     }
+        // });
 
 
 
@@ -325,8 +331,114 @@ function addItemsToPurchaseOrder(event) {
 
 
 
-        delete checkedData.rowId
+        // delete checkedData.rowId
     }
+
+
+
+
+}
+
+
+
+
+function addReqiuisitionItemsToPurchaseLine(event) {
+    // Find the closest <tbody> to the event target
+
+    let checkedData = {}
+    let checkedRow = {};
+
+    const tbody = document.getElementById("project_id_Tbody")
+
+
+    const rowItems = tbody.querySelectorAll("tr");
+
+
+    // console.log(rowItems);
+
+
+
+
+    // rowItems.forEach(element =>{
+    //     console.log(element);
+    // })
+
+
+    rowItems.forEach((row, index) => {
+
+        //    const checkbox = row.querySelector("input['type=checkbox]'")
+
+        //     console.log(checkbox);
+
+
+
+        const checkbox = row.querySelector("input[type='checkbox']");
+
+        const sno = checkbox.getAttribute("rowid")
+
+        // console.log(checkbox);
+
+
+
+        //get checked data
+
+        if (checkbox.checked) {
+
+
+
+
+            let inputNameAndValue = {}
+            const inputs = row.querySelectorAll("input")
+            const select = row.querySelectorAll("select")
+
+            inputs.forEach(input => {
+
+
+
+                inputNameAndValue[input.name] = input.value
+            })
+            select.forEach(input => {
+                inputNameAndValue[input.name] = input.value
+            })
+
+
+
+
+
+
+            checkedRow[sno] = inputNameAndValue
+
+
+            // console.log(checkedRow);
+
+            checkedData["checkedrow"] = checkedRow
+        }
+        // console.log(inputs);
+    });
+
+    console.log(checkedData);
+
+    checkedData["addItemsToLineLable"] = "addItemsToLineLable";
+    checkedData["po_number"] = $("#purchase_order_id").attr("po-id");
+
+    $.ajax({
+
+        url: "phpAjax/requisitionAjax.php",
+        method: "POST",
+        data: checkedData,
+        dataType: "JSON",
+        success: function (response) {
+
+
+
+            console.log(response);
+
+
+        }
+    });
+
+
+
 
 
 

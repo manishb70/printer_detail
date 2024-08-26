@@ -124,6 +124,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+
+
     if (isset($_POST['createPurchaseOrder'])) {
 
         include('../db.php');
@@ -150,9 +153,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $response['id'] = mysqli_insert_id($con);
             $response['error'] = mysqli_error($con);
 
-            
-        // Close the statement
-        $stmt->close();
+
+            // Close the statement
+            $stmt->close();
 
 
 
@@ -227,6 +230,118 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Output the response as JSON
         echo json_encode($response);
+    } else if (isset($_POST['addItemsToLineLable'])) {
+        include('../db.php');
+        $insertableDataInObject = $_POST;
+
+        $dataForInsert = $_POST['checkedrow'];
+
+        $po_number = $insertableDataInObject['po_number'];
+
+
+
+
+
+
+
+
+
+
+        foreach ($dataForInsert as $key => $value) {
+
+
+
+            echo "\n";
+
+
+            // echo $value ;    
+
+
+
+            $item_code = $value['item_code'];
+            $shortDiscription = $value['short_discription'];
+            $req_quantity = $value['quantity_for_po'];
+            $unit_price = $value['unit_price'];
+            $total_price = $value['total_price'];
+            $data_hand_over = $value['data_hand_over'];
+            $project_id = $value['project_id'];
+            $data_hand_over = $value['data_hand_over'];
+
+                                
+            // echo $unit_price."this is unit";
+
+            // echo print_r($value);
+
+            $sql = "INSERT INTO `for_office`.`purchase_order_line` (`po_number`, `item_code`, `item_shortdiscription`, `unit_price`, `quantity`, `total_price`, `need_by_date`, `quantity_recevied`) 
+                VALUES ('$po_number', '$item_code', '$shortDiscription', '$unit_price', '$req_quantity', '$total_price', '$data_hand_over', '$req_quantity');";
+
+
+
+            // $response["sql"] = $sql;
+
+
+            $reault = mysqli_query($con, $sql);
+
+
+
+            if ($reault) {
+
+                $response["message"] = "Purchase order success fully created";
+
+
+            } else {
+                $response["message"] = "Something went wrong";
+                $response['error'] = mysqli_error($con);
+
+
+
+
+            }
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // $response['success'] = true;
+        // // $response['data'] = $dataForInsert;
+
+        // $response['request data'] = $insertableDataInObject['checkedrow'];
+        echo json_encode($response);
+
+
+
+
+
     }
 
 
