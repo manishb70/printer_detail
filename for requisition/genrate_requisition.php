@@ -119,7 +119,7 @@ if (isset($_POST["newRequisitionGenrate"])) {
 
 
 
-    if (mysqli_query($con, $sql)) {
+    if ($result1) {
 
         echo "success";
     } else {
@@ -281,7 +281,7 @@ if (isset($_POST["newRequisitionGenrate"])) {
 
 
                                     </div>
-                                    <div id="shortDisDiv" class="md:ml-2 hidden">
+                                    <div id="shortDisDiv" class="md:ml-2 ">
                                         <label class="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="lastName">
                                             Short discription
                                         </label>
@@ -380,7 +380,7 @@ if (isset($_POST["newRequisitionGenrate"])) {
                         <label class="block mb-2 text-sm name font-bold text-gray-700 dark:text-white" for="firstName">
                             Item name
                         </label>
-                        <input name="newItemName" required itemId="<?php echo 10; ?>" required id="NewItenName" class="w-full color-black  px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="newItemName" type="txt" placeholder="Item name" value="" />
+                        <input name="newItemName" id="item_name" required itemId="<?php echo 10; ?>" required id="NewItenName" class="w-full color-black  px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="newItemName" type="txt" placeholder="Item name" value="" />
                     </div>
 
                     <div class="mb-4 md:mr-2  md:mb-0">
