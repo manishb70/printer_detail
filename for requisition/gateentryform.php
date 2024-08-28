@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD']) {
                                 </label>
                                 <input type="text" <?php echo isset($_POST["gateentryform"]) ? "disabled" : ""; ?>
                                     name="invoice_number" id="text" placeholder="Enter PO number"
-                                    value="<?php echo isset($_POST["gateentryform"]) ? "disabled" : ""; ?>"
+                                    value="<?php echo isset($_POST["gateentryform"]) ? $_POST['invoice_number'] : ""; ?>"
                                     class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                             </div>
                         </div>
@@ -207,9 +207,10 @@ if ($_SERVER['REQUEST_METHOD']) {
 
 
                     <div class="flex justify-around">
-                        <button type="submit" name="gateentryform"   onclick="return handleSubmit();""
+                        <button type="submit" name="gateentryform" onclick="return handleSubmit();""
                             <?php echo isset($_POST["gateentryform"]) ? "disabled" : ""; ?>
-                            class="hover:shadow-form w-full bg-black rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none">
+                            class=" hover:shadow-form w-full bg-black rounded-md py-3 px-8 text-center text-base
+                            font-semibold text-white outline-none">
 
 
 
@@ -218,9 +219,9 @@ if ($_SERVER['REQUEST_METHOD']) {
 
 
                         <?php echo isset($_POST["gateentryform"]) ? '  <a  
-                        onclick="location.reload(); return false;"
+                        onclick="reloadPage()"
 
-                            class="hover:shadow-form w-full bg-black rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none">
+                            class="hover:shadow-form w-full bg-blue-300 rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none">
 
 
 
@@ -257,6 +258,14 @@ if ($_SERVER['REQUEST_METHOD']) {
             return false; // Prevent form submission
         }
     }
+
+  
+function reloadPage() {
+    // Reload the page from the server, bypassing the cache
+    location.replace("gateentryform.php");
+}
+
+
 </script>
 
 

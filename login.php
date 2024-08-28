@@ -2,6 +2,7 @@
 
 include("db.php");
 
+// header("location:for%20requisition/purchaseorder.php");
 
 
 

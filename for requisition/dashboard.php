@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-    echo  "fjri";
+    echo "fjri";
 }
 
 
@@ -82,16 +82,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         <div style=" margin-top: 2.75rem; margin-right:2rem" class="p-4 mt-3 mr-2 sm:ml-64">
 
 
-            <h1>Hello <?php echo $_SESSION["username"]  ?></h1>
+            <h1>Hello <?php echo $_SESSION["username"] ?></h1>
 
             <?php
 
             if ($_SESSION["role"] == "requisitionGen" || $role == "admin") {
 
-            ?>
+                ?>
 
                 <form action="" method="post">
-                    <button type="submit" class="py-2.5 px-5 me-2 mb-2 text-sm mt-5 font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">+ Genrate new record</button>
+                    <button type="submit"
+                        class="py-2.5 px-5 me-2 mb-2 text-sm mt-5 font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">+
+                        Genrate new record</button>
 
                 </form>
             <?php }
@@ -102,7 +104,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             <br>
 
 
-            <a type="button" href="requisition.php" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">view History</a>
+            <a type="button" href="requisition.php"
+                class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">view
+                History</a>
 
 
 
@@ -113,13 +117,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
             <?php
             if ($_SESSION["role"] == "manager" || $role == "admin") {
+                ?>
+                <a type="button" href="mangerApprove.php"
+                    class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">item
+                    request</a>
+                <?php
+            }
             ?>
-                <a type="button" href="mangerApprove.php" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">item request</a>
             <?php
+            if ($_SESSION["role"] == "admin" || $role == "admin") {
+                ?>
+                <a type="button" href="purchaseorder.php"
+                    class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">item
+                    PO History</a>
+                <?php
+            }
+            ?>
+            <?php
+            if ($_SESSION["role"] == "admin" || $role == "admin") {
+                ?>
+                <a type="button" href="gateentryform.php"
+                    class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">item
+                    Gate entry form</a>
+                <?php
             }
             ?>
 
-            <a type="submit" href="./GRN/grn.php" class="py-2.5 px-5 me-2 mb-2 text-sm mt-5 font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">+ GRN Form</a>
+            <a type="submit" href="./GRN/grn.php"
+                class="py-2.5 px-5 me-2 mb-2 text-sm mt-5 font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">+
+                GRN Form</a>
 
         </div>
 
@@ -169,37 +195,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
                     while ($row = mysqli_fetch_assoc($result)) {
 
-                    ?>
+                        ?>
 
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <tr
+                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                <?php echo  $row["S_No"] ?>
+                                <?php echo $row["S_No"] ?>
                             </th>
                             <td class="px-6 py-4">
-                                <?php echo  $row["item_code"] ?>
+                                <?php echo $row["item_code"] ?>
                             </td>
                             <td class="px-6 py-4">
 
-                                <?php echo  $row["subCatId"] ?>
+                                <?php echo $row["subCatId"] ?>
                             </td>
                             <td class="px-6 py-4">
 
-                                <?php echo  $row["Short_Description"] ?>
+                                <?php echo $row["Short_Description"] ?>
                             </td>
                             <td class="px-6 py-4">
 
-                                <?php echo  $row["createdDate"] ?>
+                                <?php echo $row["createdDate"] ?>
                             </td>
                             <td class="px-6 py-4">
 
-                                <?php echo  $row["itemStatus"] ?>
+                                <?php echo $row["itemStatus"] ?>
                             </td>
                             <td class="px-6 py-4 text-right">
                                 <?php if ($row["itemStatus"] == "Reject") {
-                                ?>
-                                    <a href="updateRejectedItem.php?id=<?php echo  $row["item_code"] ?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                    ?>
+                                    <a href="updateRejectedItem.php?id=<?php echo $row["item_code"] ?>"
+                                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
 
-                                <?php
+                                    <?php
 
 
                                 }
