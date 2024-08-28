@@ -23,6 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         $result = mysqli_query($con, $sql);
 
+        
+
 
         if  ($result) {
 
