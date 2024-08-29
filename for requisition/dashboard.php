@@ -83,10 +83,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
             <h1>Hello <?php echo $_SESSION["username"] ?></h1>
+            <h1>right <?php echo $_SESSION["admin_write"] ?></h1>
 
             <?php
 
-            if ($_SESSION["role"] == "requisitionGen" || $role == "admin") {
+            // if ($_SESSION["role"] == "requisitionGen" || $role == "admin") {
+            if ($_SESSION["store_genrate"] || $role == "admin") {
 
                 ?>
 
@@ -116,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
             <?php
-            if ($_SESSION["role"] == "manager" || $role == "admin") {
+            if ($_SESSION["store_isseuer"] || $role == "admin") {
                 ?>
                 <a type="button" href="mangerApprove.php"
                     class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">item
@@ -125,7 +127,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             }
             ?>
             <?php
-            if ($_SESSION["role"] == "admin" || $role == "admin") {
+            // if ($_SESSION["role"] == "admin" || $role == "admin") {
+            if ($_SESSION["admin_write"] ) {
                 ?>
                 <a type="button" href="purchaseorder.php"
                     class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">item
@@ -134,7 +137,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             }
             ?>
             <?php
-            if ($_SESSION["role"] == "admin" || $role == "admin") {
+            // if ($_SESSION["role"] == "admin" || $role == "admin") {
+            if ($_SESSION["admin_write"] || $role == "admin") {
                 ?>
                 <a type="button" href="gateentryform.php"
                     class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">item

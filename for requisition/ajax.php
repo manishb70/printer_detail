@@ -28,21 +28,65 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (mysqli_num_rows($result) > 0) {
 
 
-            echo  "user found<br>";
+            echo "user found<br>";
 
             $row = mysqli_fetch_assoc($result);
             if ($row["password"] == $password) {
                 // echo $row["mobile_number"];
 
-                header("location:dashboard.php");
+                // header("location:dashboard.php");
                 $respone["loggedIn"] = "true";
                 $respone["message"] = "success";
                 $_SESSION["username"] = $row["user_name"];
                 $_SESSION["user_id"] = $row["user_id"];
                 $_SESSION["role"] = $row["role"];
+                $user_id = $row["user_id"];
+
+
+                $sql = "SELECT * FROM for_office.admin_roles WHERE admin_id = $user_id;";
+
+                $result = mysqli_query($con, $sql);
+
+
+                $row = mysqli_fetch_assoc($result);
+
+                // Convert values to integers
+                $_SERVER["user_viewOnly"] = (int) $row["user_viewOnly"];
+                $_SERVER["user_write"] = (int) $row["user_write"];
+                $_SESSION["admin_viewOnly"] = (int) $row["admin_viewOnly"];
+                $_SESSION["admin_write"] = (int) $row["admin_write"];
+                $_SESSION["admin_write"] = (int) $row["admin_write"];
+                $_SESSION["store_manager"] = (int) $row["store_manager"];
+                $_SESSION["store_isseuer"] = (int) $row["store_isseuer"];
+                $_SESSION["store_genrate"] = (int) $row["store_genrate"];
+
+                $yes = $_SERVER["user_viewOnly"];
+                // $user_write = (int) $row["user_write"];
+                // $admin_viewOnly = (int) $row["admin_viewOnly"];
+                // $admin_write = (int) $row["admin_write"];
+                // $store_manager = (int) $row["store_manager"];
+                // $store_isseuer = (int) $row["store_isseuer"];
+                // $store_genrate = (int) $row["store_genrate"];
+
+                // echo "<script>alert(")</script>"
+
+                // Display the values
+                header("location:dashboard.php");
+
+
+
+
+
+
+
+
+
+
+
+
             } else {
 
-                echo  "Password not match";
+                echo "Password not match";
                 header("location:login.php");
             }
             $respone["loggedIn"] = "False";
@@ -103,7 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $created_date = date("y-m-d");
             $department = "SCH";
             $item_name = "BULB";
-            $item_id =  2;
+            $item_id = 2;
             $user_remarks = "need";
             $department_id = 1;
             $requisitionType = "SCH";
@@ -155,13 +199,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         while ($row = mysqli_fetch_assoc($result)) {
 
-            $data[]  = $row["item_code"];
+            $data[] = $row["item_code"];
         }
 
         echo json_encode($data);
-    }
-
-    else if(isset($_GET['getShortDiscriptionWithItemCode'])){
+    } else if (isset($_GET['getShortDiscriptionWithItemCode'])) {
 
         $item_Code = $_GET['itemcode'];
 
@@ -173,14 +215,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $result = mysqli_query($con, $sql);
 
 
-       
 
-       $row = mysqli_fetch_assoc($result) ;
 
-           $sDiscription  = $row["Short_Description"];
-        
+        $row = mysqli_fetch_assoc($result);
 
-        $respone["sDiscription"]=$sDiscription;
+        $sDiscription = $row["Short_Description"];
+
+
+        $respone["sDiscription"] = $sDiscription;
 
 
         echo json_encode($respone);

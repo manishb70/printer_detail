@@ -65,7 +65,8 @@ $role =  $_SESSION["role"];
 
                     if (isset($_SESSION["newRecordId"])) {
 
-                        if ($role == "requisitionGen") {
+                        // if ($role == "requisitionGen") {
+                        if ($_SESSION["store_genrate"]) {
                     ?>
                             <li>
                                 <a href="./genrate_requisition.php" class="block py-2 px-3 text-gray-900  rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Generate Requistition</a>
@@ -77,7 +78,7 @@ $role =  $_SESSION["role"];
                     ?>
 
                     <?php
-                    if (($role == "admin")) {
+                    if (($_SESSION["admin_viewOnly"] || $_SESSION["admin_write"] || $role == "admin")) {
                     ?>
 
                         <li>
@@ -95,7 +96,7 @@ $role =  $_SESSION["role"];
 
                     <?php
 
-                    if ($role == "manager" || $role == "admin") {
+                    if ($_SESSION["store_manager"] || $role == "admin") {
 
                     ?>
                         <li>
@@ -106,7 +107,8 @@ $role =  $_SESSION["role"];
 
                     <?php
 
-                    if ($role == "storeIssuer" || $role == "admin") {
+                    // if ($role == "storeIssuer" || $role == "admin") {
+                    if ($_SESSION["store_isseuer"] || $role == "admin") {
 
                     ?>
 
