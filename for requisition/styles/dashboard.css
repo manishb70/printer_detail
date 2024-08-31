@@ -1,0 +1,10 @@
+.custom-main-dash {
+  display: flex;
+
+  justify-content: space-between;
+}
+
+.datachart{
+  width: 20rem;
+  height: 15rem;        
+}

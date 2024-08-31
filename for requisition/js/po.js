@@ -13,10 +13,9 @@ const getfulldataofponumber = (event) => {
       console.log(data);
 
       if (data.success) {
+        $("#purchaseOrderLineDetails").html("");
 
-        $("#purchaseOrderLineDetails").html("")
-
-        data.data.forEach((element,index) => {
+        data.data.forEach((element, index) => {
           console.log(element);
 
           let tr = document.createElement("tr");
@@ -66,4 +65,61 @@ const getfulldataofponumber = (event) => {
     },
     "JSON"
   );
+};
+
+const purchaseOrderDirect = () => {
+  let trows = document.getElementById("poCreteTbody").querySelectorAll("tr");
+
+  let po_number = document.getElementById("po_number").value;
+
+  console.log(po_number);
+  let inputData = {};
+
+  let postInputData = {};
+
+  postInputData["createDirectPurchaseOrder"] = "createDirectPurchaseOrder";
+
+  trows.forEach((element, index) => {
+    let inputNameValue = {};
+
+    let inputs = element.querySelectorAll("input");
+
+    inputs.forEach((input) => {
+      inputNameValue[input.name] = input.value;
+    });
+
+    inputData[index] = inputNameValue;
+  });
+
+  postInputData["inputsData"] = inputData;
+  postInputData["po_number"] = po_number;
+
+  console.log(postInputData);
+
+  $.post(
+    "phpAjax/ajaxPurchaseOrder.php",
+    postInputData,
+    function (data) {
+      console.log(data);
+
+      if (data.success) {
+        alert("Data succefully insetrted");
+
+        trows.forEach((element, index) => {
+          let inputs = element.querySelectorAll("input");
+
+          inputs.forEach((input) => {
+            input.disabled = true;
+          });
+        });
+      } else {
+        alert("Please try again");
+      }
+
+      document.getElementsByTagName("button").disabled=true;
+    },
+    "json"
+  );
+
+  console.log(inputData);
 };

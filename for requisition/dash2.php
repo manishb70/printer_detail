@@ -86,8 +86,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         <div style=" background-color: #FF9874; min-height:100vh;"
             class="p-4 whitespace-nowrap 	m-4 flex flex-col rounded">
 
-
-            <h1 class="font-medium text-2xl"> Forms .</h1>
+            <h1>Hello <?php echo $_SESSION["username"] ?></h1>
+            <h1>right <?php echo $_SESSION["admin_write"] ?></h1>
 
             <hr>
 
@@ -110,10 +110,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             ?>
 
 
+
+
             <a type="button" href="requisition.php"
                 class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">view
                 History</a>
-
 
 
 
@@ -150,61 +151,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             ?>
 
             <a type="submit" href="./GRN/index.php"
-                class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">+
+                class="py-2.5 px-5 me-2 mb-2 text-sm mt-5 font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">+
                 GRN Form</a>
 
 
-            <?php
+                <?php
             // if ($_SESSION["role"] == "admin" || $role == "admin") {
             if ($_SESSION["admin_write"] || $role == "admin") {
                 ?>
-                <a type="submit" href="./users_form.php"
-                    class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">+
-                    Users </a>
-
+            <a type="submit" href="./users_form.php"
+                class="py-2.5 px-5 me-2 mb-2 text-sm mt-5 font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">+
+                Users </a>
 
                 <?php
             }
             ?>
-            <a type="submit" href="./itemAdd.php"
-                class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                +item creation </a>
 
-
-            <a type="submit" href="./userCreate.php"
-                class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                Create user </a>
-
-            <a type="submit" href="./createPo.php"
-                class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                Create Direct PO  </a>
-
-
-                <a type="submit" href="./CustomerForm.php"
-                class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                 Customer Form  </a>
-
-
-                <a type="submit" href="./moveOrder.php"
-                class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-               MOve order form </a>
-
-
-               <a type="submit" href="./createBom.php"
-                class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                Create BOM Form  </a>
-               <a type="submit" href="./searchBom.php"
-                class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                Search BOM   </a>
-
-
-                <a type="submit" href="./supplierForm.php"
-                class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                Sipplier form  </a>
-
-                <a type="submit" href="./createUserForm.php"
-                class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                User form  </a>
         </div>
 
 
@@ -219,7 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
             <div class="h-full w-full  flex mx-auto  justify-around flex-wrap ">
-                <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="purchase_order"></div>
+                <div class="datachart bg-gray-100 "  style="width:26rem; height:17rem" id="purchase_order"></div>
                 <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="item_requests"></div>
                 <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="pr_requests"></div>
                 <!-- <div class="datachart" style="width:26rem; height:17rem" id="Sales_order"></div>
@@ -242,7 +204,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     <hr>
 
-<!-- 
+
     <div class=" overflow-x-auto shadow-md sm:rounded-lg">
         <h1>Last Item History</h1>
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -332,7 +294,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
             </tbody>
         </table>
-    </div> -->
+    </div>
 
 
 

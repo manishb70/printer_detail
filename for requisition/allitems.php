@@ -1,5 +1,6 @@
 <?php
 include("../db.php");
+include("./navForLogged.php");
 
 
 
@@ -67,7 +68,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     <?php
 
 
-    include("./navForLogged.php");
 
 
 
