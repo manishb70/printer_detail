@@ -1,28 +1,58 @@
-
 <?php
 session_start();
+include("./navForLogged.php");
 
 include("./db.php");
 
 
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
-$user=$_SESSION['username'];
-$currentDateTime = date('Y-m-d H:i:s');
-$sql = "INSERT INTO `for_office`.`purchase_order_header` (`createdBy`, `created_date`) VALUES ('$user', '$currentDateTime');";
-
-
-$result = mysqli_query($con,$sql);
-
-
-if($result){
-
-    $po_number=mysqli_insert_id($con);
+    $user = $_SESSION['username'];
+    $currentDateTime = date('Y-m-d H:i:s');
+    $vendor_code = $_POST['vendore_code'];
+    $vendore_name = $_POST['vendore_name'];
+    $vendore_site_code = $_POST['vendore_site_code'];
+    $ship_to = $_POST['ship_to'];
+    $bill_to = $_POST['bill_to'];
+    $payment_term = $_POST['payment_term'];
 
 
 
+
+
+
+    // $sql = "INSERT INTO `for_office`.`purchase_order_header` (`createdBy`, `created_date`) VALUES ('$user', '$currentDateTime');";
+
+    $sql = "INSERT INTO `for_office`.`purchase_order_header` (`vendore_code`, `supplier_name`, `supplier_site_code`, `payment_term`, `bill_to_location`, `shipTo`, `createdBy`, `created_date`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
+
+
+    $stmt = $con->prepare($sql);
+
+    $stmt->bind_param("ssssssss", $vendor_code, $vendore_name, $vendore_site_code, $payment_term, $bill_to, $ship_to, $user, $currentDateTime);
+
+
+
+
+
+
+
+    if ($stmt->execute()) {
+        $result = $stmt->get_result();
+        echo "SUccess";
+
+        $po_number = $con->insert_id;
+
+        echo $po_number;
+
+
+    } else {
+
+        echo $stmt->error;
+    }
 }
+
 
 
 
@@ -41,7 +71,7 @@ if($result){
 <!DOCTYPE html>
 <html lang="en">
 
-<input type="email" id="input-email-label" class="" placeholder="you@site.com">
+
 
 <head>
     <meta charset="UTF-8">
@@ -53,62 +83,65 @@ if($result){
 <body>
     <div id="create_section" class="mt-5 bg-gray-100 border border-gray-900 p-5 rounded-lg mx-5">
         <h1 class="text-center underline text-3xl mb-3 font-bold">Create PO Form</h1>
-        <form class="w-full border border-gray-500 p-3 rounded-md">
-            <div class="flex flex-wrap justify-between">
+        <form method="POST" class="w-full border border-gray-500 p-3 rounded-md">
+            <div class="flex flex-wrap m-2 gap-20 ">
                 <div>
                     <label for="email"
                         class="block  mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">PO
                         Number : </label>
-                    <input id="po_number" type="text"
-                            
-                    value="<?php echo $po_number   ?>"
-                    disabled
-                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                    <input id="po_number" type="text" value="<?php if (isset($po_number)) {
+                        echo $po_number;
+                    } ?>" disabled
+                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
 
-                            
+
                 </div>
+
                 <div class="">
-                    <label class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Supplier
-                        Code : </label>
-                    <input type="text"
+                    <label class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Vendore
+                        code : </label>
+                    <input type="text" name="vendore_code" required
                         class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                 </div>
                 <div class="">
-                    <label class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Supplier
+                    <label class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Vendor
                         Name : </label>
-                    <input type="text"
+                    <input type="text" name="vendore_name" required
                         class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+
                 </div>
                 <div class="">
-                    <label class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Supplier
+                    <label class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Vendor
                         Site Code : </label>
-                    <input type="text"
+                    <input type="text" name="vendore_site_code" required
                         class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                 </div>
                 <div class="">
                     <label class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Buyer :
                     </label>
-                    <input type="text"
+                    <input type="text" required
                         class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+
+
                 </div>
                 <div class="">
                     <label class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Note To
                         Supplier : </label>
-                    <input type="text"
+                    <input type="text" required
                         class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                 </div>
             </div>
-            <div class="flex flex-wrap items-start  xl:w-4/6 justify-between mt-3">
+            <div class="flex flex-wrap m-2 gap-20">
                 <div class="">
                     <label class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Ship to :
                     </label>
-                    <input type="date"
+                    <input type="txt" name="ship_to" required
                         class="w-40 rounded-md border text-xs border-gray-500 bg-white pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                 </div>
                 <div class="">
                     <label class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Bill to :
                     </label>
-                    <input type="date"
+                    <input type="txt" name="bill_to" required
                         class="w-40 rounded-md border text-xs border-gray-500 bg-white pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                 </div>
                 <div class="">
@@ -118,11 +151,15 @@ if($result){
                         class="w-40 rounded-md border text-xs border-gray-500 bg-white pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                 </div>
                 <div class="">
-                    <label class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Finance
+                    <label class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Payment
                         Term : </label>
-                    <input type="number"
+                    <input type="txt" name="payment_term"
                         class="w-40 rounded-md border text-xs border-gray-500 bg-white pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                 </div>
+
+                <button type="text"
+                    class="w-20  bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 whitespace-nowrap font-medium text-white  rounded-md  py-2 text-center me-2 mb-2  dark:border-blue-500 dark:text-blue-500 hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 ">Create
+                    Po</button>
             </div>
         </form>
 
@@ -320,7 +357,7 @@ if($result){
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y      divide-gray-200" id="poCreteTbody">
-                                    <tr class="hover:bg-gray-600">
+                                    <tr class="hover:bg-gray-600" >
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
                                             <input type="txt" id="input-email-label"
                                                 class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
@@ -363,8 +400,9 @@ if($result){
                                 </tbody>
                             </table>
 
-                            <a href="#_" onclick="addRowItem()"
-                                class="relative inline-block px-4 py-2 font-medium group">
+                            <a href="#_" disabled="disabled" onclick="<?php if (isset($po_number)) {
+                                echo 'addRowItem()';
+                            } ?>" class="relative inline-block px-4 py-2 font-medium group">
                                 <span
                                     class="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
                                 <span
@@ -382,12 +420,37 @@ if($result){
             <button type="text"
                 class="text-white border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs px-5 py-2.5 text-center me-2 mb-2 font-bold dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 ">Clear
                 Form</button>
-            <button type="text"
+
+
+
+            <!-- this button is for create direct po fressh inert query -->
+            <button type="text" onclick="purchaseOrderDirect()" id="po-save-btn"
                 class="text-white border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs px-5 py-2.5 text-center me-2 mb-2 font-bold dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 ">Save</button>
 
-            <button type="text" onclick="purchaseOrderDirect()"
-                class="text-white border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs px-5 py-2.5 text-center me-2 mb-2 font-bold dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">
-                Submit</button>
+
+            <button type="text" onclick="updatePurchaseOrderSave()" id="po-update-save-btn"
+
+                class="text-white hidden border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs px-5 py-2.5 text-center me-2 mb-2 font-bold dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 ">update Save</button>
+
+
+
+            <!-- this button is for create direct po fressh inert query -->
+
+            <?php if (isset($po_number)) {
+
+                ?>
+
+                <button type="text" onclick="purchaseOrderDirect()" id="po-submit-btn"
+                    class="text-white border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs px-5 py-2.5 text-center me-2 mb-2 font-bold dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">
+
+
+                    Submit</button>
+
+
+                <?php
+
+            } ?>
+
         </div>
     </div>
 </body>
