@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $item_name = $value['item_name'];
             $unit_Price = $value['unit_Price'];
             $Qty = $value['Qty'];
-            $total_price = 7;
+            $total_price = $value['unit_Price'];
             $need_by_date = $value['need_by_date'];
             $saleOrderNumber = $value['saleOrderNumber'];
 

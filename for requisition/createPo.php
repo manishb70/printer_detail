@@ -100,20 +100,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="">
                     <label class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Vendore
                         code : </label>
-                    <input type="text" name="vendore_code" required
+                    <input type="text" name="vendore_code" required value="<?php if (isset($po_number)) {
+                        echo $vendor_code;
+                    } ?>"
                         class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                 </div>
                 <div class="">
                     <label class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Vendor
                         Name : </label>
-                    <input type="text" name="vendore_name" required
+                    <input type="text" name="vendore_name" required value="<?php if (isset($po_number)) {
+                        echo $vendore_name;
+                    } ?>"
                         class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
 
                 </div>
                 <div class="">
                     <label class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Vendor
                         Site Code : </label>
-                    <input type="text" name="vendore_site_code" required
+                    <input type="text" name="vendore_site_code" required value="<?php if (isset($po_number)) {
+                        echo $vendore_site_code;
+                    } ?>"
                         class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                 </div>
                 <div class="">
@@ -127,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="">
                     <label class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Note To
                         Supplier : </label>
-                    <input type="text" required
+                    <input type="text" required value=""
                         class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                 </div>
             </div>
@@ -135,25 +141,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="">
                     <label class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Ship to :
                     </label>
-                    <input type="txt" name="ship_to" required
+                    <input type="txt" name="ship_to" required value="<?php if (isset($po_number)) {
+                        echo $ship_to;
+                    } ?>"
                         class="w-40 rounded-md border text-xs border-gray-500 bg-white pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                 </div>
                 <div class="">
                     <label class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Bill to :
                     </label>
-                    <input type="txt" name="bill_to" required
+                    <input type="txt" name="bill_to" required value="<?php if (isset($po_number)) {
+                        echo $bill_to;
+                    } ?>"
                         class="w-40 rounded-md border text-xs border-gray-500 bg-white pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                 </div>
                 <div class="">
                     <label class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Total :
                     </label>
-                    <input type="number"
+                    <input type="number" id="po_total"
                         class="w-40 rounded-md border text-xs border-gray-500 bg-white pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                 </div>
                 <div class="">
                     <label class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Payment
                         Term : </label>
-                    <input type="txt" name="payment_term"
+                    <input type="txt" name="payment_term" value="<?php if (isset($po_number)) {
+                        echo $payment_term;
+                    } ?>"
                         class="w-40 rounded-md border text-xs border-gray-500 bg-white pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                 </div>
 
@@ -348,6 +360,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                             class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">Qty
                                         </th>
                                         <th scope="col"
+                                            class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">Total
+                                        </th>
+                                        <th scope="col"
                                             class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">Need
                                             by date</th>
                                         <th scope="col"
@@ -357,7 +372,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y      divide-gray-200" id="poCreteTbody">
-                                    <tr class="hover:bg-gray-600" >
+                                    <tr class="hover:bg-gray-600">
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
                                             <input type="txt" id="input-email-label"
                                                 class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
@@ -374,14 +389,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                 placeholder="Item name">
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                                            <input type="txt" id="input-email-label"
+                                            <input type="number" id="input-email-label"
                                                 class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                                                name="unit_Price" placeholder="Unit price">
+                                                name="unit_Price" onchange="setTotal(event)" placeholder="Unit price">
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                                            <input type="txt" id="input-email-label" name="Qty"
+                                            <input type="number" id="input-email-label" name="Qty"
                                                 class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                                                placeholder="Quantity">
+                                                onchange="setTotal(event)" placeholder="Quantity">
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                            <input type="number" id="input-email-label" name="total_price"
+                                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                placeholder="Total">
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
                                             <input type="date" id="input-email-label" name="need_by_date"
@@ -429,8 +449,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
             <button type="text" onclick="updatePurchaseOrderSave()" id="po-update-save-btn"
-
-                class="text-white hidden border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs px-5 py-2.5 text-center me-2 mb-2 font-bold dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 ">update Save</button>
+                class="text-white hidden border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs px-5 py-2.5 text-center me-2 mb-2 font-bold dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 ">update
+                Save</button>
 
 
 
@@ -465,6 +485,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
+
+
+
+    const setTotal = (event) => {
+
+        let unitPrice = event.target.closest("tr").querySelector('input[name="unit_Price"]').value
+        let qty = event.target.closest("tr").querySelector('input[name="Qty"]').value
+
+
+
+        console.log(unitPrice * qty);
+
+        event.target.closest("tr").querySelector('input[name="total_price"]').value = unitPrice * qty
+
+        setAmountToMainHeader();
+
+    }
+
+
+
+
     const addRowItem = () => {
 
 
@@ -495,14 +536,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                 placeholder="Item name">
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                                            <input type="txt" id="input-email-label"
+                                            <input type="number" id="input-email-label"
                                                 class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                                 name="unit_Price" placeholder="Unit price">
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                                            <input type="txt" id="input-email-label" name="Qty"
+                                            <input type="number" id="input-email-label" name="Qty"
                                                 class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                onchange="setTotal(event)"
                                                 placeholder="Quantity">
+                                        </td>
+                                           <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                            <input type="number" id="input-email-label" name="total_price"
+                                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                onchange="setTotal(event)"
+                                                placeholder="Total">
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
                                             <input type="date" id="input-email-label" name="need_by_date"
@@ -529,6 +577,44 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
+    const setAmountToMainHeader = () => {
+
+
+        let trows = document.getElementById("poCreteTbody").querySelectorAll("tr")
+
+
+        console.log(trows);
+
+        let total_amount =0;
+
+        trows.forEach(Element => {
+
+
+            console.log(Element);
+
+            let unitPrice = Element.querySelector('input[name="unit_Price"]').value
+            let qty = Element.querySelector('input[name="Qty"]').value
+                                
+
+            let total = unitPrice * qty
+
+
+            total_amount+=total
+
+
+            // console.log(total);
+
+        })
+
+
+        $("#po_total").val(total_amount)
+
+    
+
+
+
+
+    }
 
 
 
