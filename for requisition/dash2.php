@@ -84,14 +84,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     <div class=" custom-main-dash     " style="">
 
         <div style=" background-color: #FF9874; min-height:100vh;"
-            class="p-4 whitespace-nowrap 	m-4 flex flex-col rounded">
+            class="p-4 whitespace-nowrap gap-2 	m-4 flex flex-col rounded">
 
-            <h1>Hello <?php echo $_SESSION["username"] ?></h1>
-            <h1>right <?php echo $_SESSION["admin_write"] ?></h1>
+
+            <h1 class="font-medium text-2xl"> Forms .</h1>
 
             <hr>
 
-            <?php
+
+            <!-- <?php
 
             // if ($_SESSION["role"] == "requisitionGen" || $role == "admin") {
             if ($_SESSION["store_genrate"] || $role == "admin") {
@@ -100,8 +101,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
                 <form action="" method="post">
                     <button type="submit"
-                        class="py-2.5 px-5 me-2 mb-2 text-sm mt-5 font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">+
-                        Genrate new record</button>
+                        class="py-2.5 px-5 me-2 mb-2 text-sm mt-5 font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                        Requisition Request Creation Form</button>
 
                 </form>
             <?php }
@@ -110,11 +111,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             ?>
 
 
-
-
             <a type="button" href="requisition.php"
-                class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">view
-                History</a>
+                class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Requisition
+                Request Creation Detail Report</a>
+
 
 
 
@@ -124,8 +124,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             if ($_SESSION["store_isseuer"] || $role == "admin") {
                 ?>
                 <a type="button" href="mangerApprove.php"
-                    class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">item
-                    request</a>
+                    class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Item
+                    Request Creation Report</a>
                 <?php
             }
             ?>
@@ -134,8 +134,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             if ($_SESSION["admin_write"]) {
                 ?>
                 <a type="button" href="purchaseorder.php"
-                    class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">item
-                    PO History</a>
+                    class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">PO
+                    Summary History</a>
                 <?php
             }
             ?>
@@ -144,29 +144,671 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             if ($_SESSION["admin_write"] || $role == "admin") {
                 ?>
                 <a type="button" href="gateentryform.php"
-                    class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">item
-                    Gate entry form</a>
+                    class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Gate
+                    Entry Creation Form</a>
                 <?php
             }
             ?>
 
             <a type="submit" href="./GRN/index.php"
-                class="py-2.5 px-5 me-2 mb-2 text-sm mt-5 font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">+
-                GRN Form</a>
+                class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">GRN
+                Creation Form</a>
 
 
-                <?php
+            <?php
             // if ($_SESSION["role"] == "admin" || $role == "admin") {
             if ($_SESSION["admin_write"] || $role == "admin") {
                 ?>
-            <a type="submit" href="./users_form.php"
-                class="py-2.5 px-5 me-2 mb-2 text-sm mt-5 font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">+
-                Users </a>
+                <a type="submit" href="./users_form.php"
+                    class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                    User Master Creation Report </a>
+
 
                 <?php
             }
             ?>
+            <a type="submit" href="./itemAdd.php"
+                class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                Item Request Creation Form </a>
 
+
+            <a type="submit" href="./userCreate.php"
+                class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                User Master Creation Form </a>
+
+            <a type="submit" href="./createPo.php"
+                class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                Purchase Order Creation Form </a>
+
+
+            <a type="submit" href="./CustomerForm.php"
+                class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                Customer Creation Form </a>
+
+
+            <a type="submit" href="./moveOrder.php"
+                class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                Move Order Creation Form </a>
+
+
+            <a type="submit" href="./createBom.php"
+                class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                Bom Creatation Form </a>
+            <a type="submit" href="./searchBom.php"
+                class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                BOM Searh Form </a>
+
+
+            <a type="submit" href="./supplierForm.php"
+                class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                Supplier Creation Form </a> -->
+
+
+
+            <!-- UserBlis -->
+
+            <button id="userMasterHoverBtn" data-dropdown-toggle="userMasterHover" data-dropdown-trigger="hover"
+                class="text-white bg-blue-700 flex justify-between hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                type="button">USER <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 4 4 4-4" />
+                </svg>
+            </button>
+
+            <!-- Dropdown menu -->
+            <div id="userMasterHover"
+                class="z-10 hidden  bg-white divide-y divide-gray-100 rounded-lg shadow  dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="userMasterHoverBtn">
+                    <li>
+                        <a type="submit" href="./userCreate.php"
+                            class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                            User Master Creation Form </a>
+                    </li>
+                    <li>
+
+                        <?php
+                        // if ($_SESSION["role"] == "admin" || $role == "admin") {
+                        if ($_SESSION["admin_write"] || $role == "admin") {
+                            ?>
+                            <a type="submit" href="./users_form.php"
+                                class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                                User Master Creation Report </a>
+
+
+                            <?php
+                        }
+                        ?>
+
+                    </li>
+
+                </ul>
+            </div>
+
+
+
+
+            <!-- item Master -->
+
+            <button id="itemMasterHoverbtn" data-dropdown-toggle="itemMasterHOver" data-dropdown-trigger="hover"
+                class="text-white bg-blue-700 flex justify-between hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                type="button">Item Master <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 4 4 4-4" />
+                </svg>
+            </button>
+
+            <!-- Dropdown menu -->
+            <div id="itemMasterHOver"
+                 style="left:20%;     margin-left: 6%; " class="z-10 hidden w-fullt bg-white     w-auto divide-y divide-gray-100 rounded-lg shadow  dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="itemMasterHoverbtn">
+                    <a type="submit" href="./itemAdd.php"
+                        class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                        Item Request Creation Form </a>
+
+                    <li>
+                        <?php
+                        if ($_SESSION["store_isseuer"] || $role == "admin") {
+                            ?>
+                            <a type="button" href="mangerApprove.php"
+                                class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Item
+                                Request Creation Report</a>
+                            <?php
+                        }
+                        ?>
+                    </li>
+
+                    <li>
+
+
+                        <a type="button" href="allitems.php"
+                            class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Item
+                            master view</a>
+
+
+                    </li>
+                </ul>
+            </div>
+
+
+
+            <!-- Bom Master -->
+
+            <button id="bomMasterHoverBtn" data-dropdown-toggle="bomMasterHover" data-dropdown-trigger="hover"
+                class="text-white bg-blue-700 flex justify-between hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                type="button">Bom Master <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 4 4 4-4" />
+                </svg>
+            </button>
+
+            <!-- Dropdown menu -->
+            <div id="bomMasterHover"
+                 style="left:20%;     margin-left: 6%; " class="z-10 hidden w-fullt bg-white     w-auto divide-y divide-gray-100 rounded-lg shadow  dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="bomMasterHoverBtn">
+                    <li>
+                        <a type="submit" href="./searchBom.php"
+                            class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                            BOM Searh Form </a>
+                    </li>
+                    <li>
+                        <a type="submit" href="./createBom.php"
+                            class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                            Bom Creatation Form </a>
+                    </li>
+
+
+                </ul>
+            </div>
+
+
+
+
+
+
+            <!-- SUpplier master  -->
+
+            <button id="SupplierMasterHoverBtn" data-dropdown-toggle="supplierMasterhover" data-dropdown-trigger="hover"
+                class="text-white bg-blue-700 flex justify-between hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                type="button">Supplier Master <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 4 4 4-4" />
+                </svg>
+            </button>
+
+            <!-- Dropdown menu -->
+            <div id="supplierMasterhover"
+                 style="left:20%;     margin-left: 6%; " class="z-10 hidden w-fullt bg-white     divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="SupplierMasterHoverBtn">
+                    <li>
+                        <a type="submit" href="./supplierForm.php"
+                            class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                            Supplier Creation Form </a>
+                    </li>
+
+                </ul>
+            </div>
+
+
+
+
+
+            <!-- Asl master -->
+
+            <button id="asHoverMasterBtn" data-dropdown-toggle="aslMasterHover" data-dropdown-trigger="hover"
+                class="text-white bg-blue-700 flex justify-between hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                type="button">ASL Master <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 4 4 4-4" />
+                </svg>
+            </button>
+
+            <!-- Dropdown menu -->
+            <div id="aslMasterHover"
+                 style="left:20%;     margin-left: 6%; " class="z-10 hidden w-fullt bg-white     w-auto divide-y divide-gray-100 rounded-lg shadow  dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="asHoverMasterBtn">
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 m-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">item
+                            master</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 m-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 m-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 m-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign
+                            out</a>
+                    </li>
+                </ul>
+            </div>
+
+
+
+            <!-- customer master -->
+            <button id="CustomerMasterHoverBtn" data-dropdown-toggle="customerMasterHover" data-dropdown-trigger="hover"
+                class="text-white bg-blue-700 flex justify-between hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                type="button">Customer Master <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 4 4 4-4" />
+                </svg>
+            </button>
+
+            <!-- Dropdown menu -->
+            <div id="customerMasterHover"
+                 style="left:20%;     margin-left: 6%; " class="z-10 hidden w-fullt bg-white     w-auto divide-y divide-gray-100 rounded-lg shadow  dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="CustomerMasterHoverBtn">
+                    <li>
+                        <a type="submit" href="./CustomerForm.php"
+                            class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                            Customer Creation Form </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 m-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 m-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 m-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign
+                            out</a>
+                    </li>
+                </ul>
+            </div>
+
+
+
+
+            <!-- inventory Master -->
+
+
+
+            <button id="inventoryMsterHoverBtn" data-dropdown-toggle="inventoryMasterHover"
+                data-dropdown-trigger="hover"
+                class="text-white bg-blue-700 flex justify-between hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                type="button">Inventory Master <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 4 4 4-4" />
+                </svg>
+            </button>
+
+            <!-- Dropdown menu -->
+            <div id="inventoryMasterHover"
+                 style="left:20%;     margin-left: 6%; " class="z-10 hidden w-fullt bg-white     w-auto divide-y divide-gray-100 rounded-lg shadow  dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="inventoryMsterHoverBtn">
+                    <a type="submit" href="./GRN/index.php"
+                        class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">GRN
+                        Creation Form</a>
+                    <li>
+                        <a type="submit" href="./moveOrder.php"
+                            class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                            Move Order Creation Form </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 m-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 m-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign
+                            out</a>
+                    </li>
+                </ul>
+            </div>
+
+
+
+
+            <!-- Gate Entry Master -->
+
+
+            <button id="gateEntryFormHoverBtn" data-dropdown-toggle="gateEntryHover" data-dropdown-trigger="hover"
+                class="text-white bg-blue-700 flex justify-between hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                type="button">Gate Entry Master <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 4 4 4-4" />
+                    </>
+            </button>
+
+            <!-- Dropdown menu -->
+            <div id="gateEntryHover"
+                 style="left:20%;     margin-left: 6%; " class="z-10 hidden w-fullt bg-white     w-auto divide-y divide-gray-100 rounded-lg shadow  dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="gateEntryFormHoverBtn">
+                    <li>
+                        <?php
+                        // if ($_SESSION["role"] == "admin" || $role == "admin") {
+                        if ($_SESSION["admin_write"] || $role == "admin") {
+                            ?>
+                            <a type="button" href="gateentryform.php"
+                                class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Gate
+                                Entry Creation Form</a>
+                            <?php
+                        }
+                        ?>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 m-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 m-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 m-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign
+                            out</a>
+                    </li>
+                </ul>
+            </div>
+
+
+            <!-- entry exit from -->
+
+            <button id="gateExitFormBtn" data-dropdown-toggle="GateExitHover" data-dropdown-trigger="hover"
+                class="text-white bg-blue-700 flex justify-between hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                type="button">Gate Exit <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 4 4 4-4" />
+                </svg>
+            </button>
+
+            <!-- Dropdown menu -->
+            <div id="GateExitHover"
+                 style="left:20%;     margin-left: 6%; " class="z-10 hidden w-fullt bg-white     w-auto divide-y divide-gray-100 rounded-lg shadow  dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="gateExitFormBtn">
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 m-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">item
+                            master</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 m-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 m-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 m-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign
+                            out</a>
+                    </li>
+                </ul>
+            </div>
+
+
+
+
+
+            <!-- WarehouseMaster -->
+
+
+            <button id="wareHuserMasterBtn" data-dropdown-toggle="gateHouseMasterHover" data-dropdown-trigger="hover"
+                class="text-white bg-blue-700 flex justify-between hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                type="button">Warehouse master <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 4 4 4-4" />
+                </svg>
+            </button>
+
+            <!-- Dropdown menu -->
+            <div id="gateHouseMasterHover"
+                 style="left:20%;     margin-left: 6%; " class="z-10 hidden w-fullt bg-white     w-auto divide-y divide-gray-100 rounded-lg shadow  dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="wareHuserMasterBtn">
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 m-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">item
+                            master</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 m-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 m-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 m-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign
+                            out</a>
+                    </li>
+                </ul>
+            </div>
+
+
+
+
+
+
+
+
+            <!-- HR and Admin -->
+
+            <button id="hrAdminHoverBtn" data-dropdown-toggle="hrAdminHover" data-dropdown-trigger="hover"
+                class="text-white bg-blue-700 flex justify-between hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                type="button">Item Master <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 4 4 4-4" />
+                </svg>
+            </button>
+
+            <!-- Dropdown menu -->
+            <div id="hrAdminHover"
+                 style="left:20%;     margin-left: 6%; " class="z-10 hidden w-fullt bg-white     w-auto divide-y divide-gray-100 rounded-lg shadow  dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="hrAdminHoverBtn">
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 m-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">item
+                            master</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 m-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 m-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 m-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign
+                            out</a>
+                    </li>
+                </ul>
+            </div>
+
+
+
+
+            <!-- sales master -->
+
+
+            <button id="salesMasterHoverBtn" data-dropdown-toggle="salesMasterHover" data-dropdown-trigger="hover"
+                class="text-white bg-blue-700 flex justify-between hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                type="button">Item Master <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 4 4 4-4" />
+                </svg>
+            </button>
+
+            <!-- Dropdown menu -->
+            <div id="salesMasterHover"
+                 style="left:20%;     margin-left: 6%; " class="z-10 hidden w-fullt bg-white     w-auto divide-y divide-gray-100 rounded-lg shadow  dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="salesMasterHoverBtn">
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 m-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">item
+                            master</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 m-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 m-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 m-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign
+                            out</a>
+                    </li>
+                </ul>
+            </div>
+
+
+
+
+
+            <!-- purhase  -->
+
+
+
+
+
+            <button id="purchaseHoverBtn" data-dropdown-toggle="purchaseHover" data-dropdown-trigger="hover"
+                class="text-white bg-blue-700 flex justify-between hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                type="button">Purchase <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 4 4 4-4" />
+                </svg>
+            </button>
+
+            <!-- Dropdown menu -->
+            <div id="purchaseHover"
+                 style="left:20%;     margin-left: 6%; " class="z-10 hidden w-fullt bg-white     w-auto divide-y divide-gray-100 rounded-lg shadow  dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="purchaseHoverBtn">
+                    <li>
+                        <a type="submit" href="./createPo.php"
+                            class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                            Purchase Order Creation Form </a>
+                    </li>
+                    <li>
+                        <?php
+                        // if ($_SESSION["role"] == "admin" || $role == "admin") {
+                        if ($_SESSION["admin_write"]) {
+                            ?>
+                            <a type="button" href="purchaseorder.php"
+                                class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">PO
+                                Summary History</a>
+                            <?php
+                        }
+                        ?>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 m-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 m-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign
+                            out</a>
+                    </li>
+                </ul>
+            </div>
+
+
+
+
+
+
+            <!-- purchase-rewuisition -->
+
+
+
+
+            <button id="prHoverBtn" data-dropdown-toggle="prHover" data-dropdown-trigger="hover"
+                class="text-white bg-blue-700 flex justify-between hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                type="button">Purchase requisition <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 4 4 4-4" />
+                </svg>
+            </button>
+
+            <!-- Dropdown menu -->
+            <div id="prHover"
+                 style="left:20%;     margin-left: 6%; " class="z-10 hidden w-fullt bg-white     w-auto divide-y divide-gray-100 rounded-lg shadow  dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="prHoverBtn">
+                    <li>
+                        <?php
+
+                        // if ($_SESSION["role"] == "requisitionGen" || $role == "admin") {
+                        if ($_SESSION["store_genrate"] || $role == "admin") {
+
+                            ?>
+
+                            <form action="" method="post">
+                                <button type="submit"
+                                    class="py-2.5 px-5 me-2 mb-2 text-sm mt-5 font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                                    Requisition Request Creation Form</button>
+
+                            </form>
+                        <?php }
+
+
+                        ?>
+
+                    </li>
+                    <li>
+
+                        <a type="button" href="requisition.php"
+                            class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Requisition
+                            Request Creation Detail Report</a>
+
+                    </li>
+                    <li>
+
+                        <?php
+                        if ($_SESSION["store_isseuer"] || $role == "admin") {
+                            ?>
+                            <a type="button" href="mangerApprove.php"
+                                class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Item
+                                Request Creation Report</a>
+                            <?php
+                        }
+                        ?>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-4 py-2 m-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign
+                            out</a>
+                    </li>
+                </ul>
+            </div>
+
+
+
+
+
+
+            <!-- 
+                <a type="submit" href="./createUserForm.php"
+                class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                User form  </a> -->
         </div>
 
 
@@ -181,7 +823,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
             <div class="h-full w-full  flex mx-auto  justify-around flex-wrap ">
-                <div class="datachart bg-gray-100 "  style="width:26rem; height:17rem" id="purchase_order"></div>
+                <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="purchase_order"></div>
                 <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="item_requests"></div>
                 <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="pr_requests"></div>
                 <!-- <div class="datachart" style="width:26rem; height:17rem" id="Sales_order"></div>
@@ -204,7 +846,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     <hr>
 
-
+    <!-- 
     <div class=" overflow-x-auto shadow-md sm:rounded-lg">
         <h1>Last Item History</h1>
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -294,7 +936,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
             </tbody>
         </table>
-    </div>
+    </div> -->
 
 
 

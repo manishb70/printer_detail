@@ -157,7 +157,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="">
                     <label class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Total :
                     </label>
-                    <input type="number" id="po_total"
+                    <input type="number" id="po_total" disabled
                         class="w-40 rounded-md border text-xs border-gray-500 bg-white pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                 </div>
                 <div class="">
@@ -175,6 +175,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </form>
 
+        <?php
+
+if (isset($po_number)) {
+
+    ?>
         <div class="mt-6">
             <!-- <form class="w-full border p-3 border-gray-500 rounded-md">
                 <div class="flex flex-wrap items-center justify-between">
@@ -399,7 +404,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                 onchange="setTotal(event)" placeholder="Quantity">
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                                            <input type="number" id="input-email-label" name="total_price"
+                                            <input type="number" id="input-email-label" name="total_price" disabled
                                                 class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                                 placeholder="Total">
                                         </td>
@@ -436,42 +441,50 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         </div>
 
-        <div class="w-full mt-5 flex flex-wrap justify-around">
-            <button type="text"
-                class="text-white border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs px-5 py-2.5 text-center me-2 mb-2 font-bold dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 ">Clear
-                Form</button>
+
+
+      
+
+            <div class="w-full mt-5 flex flex-wrap justify-around">
+                <button type="text"
+                    class="text-white border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs px-5 py-2.5 text-center me-2 mb-2 font-bold dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 ">Clear
+                    Form</button>
 
 
 
-            <!-- this button is for create direct po fressh inert query -->
-            <button type="text" onclick="purchaseOrderDirect()" id="po-save-btn"
-                class="text-white border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs px-5 py-2.5 text-center me-2 mb-2 font-bold dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 ">Save</button>
+                <!-- this button is for create direct po fressh inert query -->
+                <button type="text" onclick="purchaseOrderDirect()" id="po-save-btn"
+                    class="text-white border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs px-5 py-2.5 text-center me-2 mb-2 font-bold dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 ">Save</button>
 
 
-            <button type="text" onclick="updatePurchaseOrderSave()" id="po-update-save-btn"
-                class="text-white hidden border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs px-5 py-2.5 text-center me-2 mb-2 font-bold dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 ">update
-                Save</button>
+                <button type="text" onclick="updatePurchaseOrderSave()" id="po-update-save-btn"
+                    class="text-white hidden border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs px-5 py-2.5 text-center me-2 mb-2 font-bold dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 ">update
+                    Save</button>
 
 
 
-            <!-- this button is for create direct po fressh inert query -->
+                <!-- this button is for create direct po fressh inert query -->
 
-            <?php if (isset($po_number)) {
+                <?php if (isset($po_number)) {
 
-                ?>
+                    ?>
 
-                <button type="text" onclick="purchaseOrderDirect()" id="po-submit-btn"
-                    class="text-white border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs px-5 py-2.5 text-center me-2 mb-2 font-bold dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">
-
-
-                    Submit</button>
+                    <button type="text" onclick="purchaseOrderDirect()" id="po-submit-btn"
+                        class="text-white border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs px-5 py-2.5 text-center me-2 mb-2 font-bold dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">
 
 
-                <?php
+                        Submit</button>
 
-            } ?>
 
-        </div>
+                    <?php
+
+                } ?>
+
+            </div>
+        <?php } ?>
+
+
+
     </div>
 </body>
 
@@ -548,6 +561,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         </td>
                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
                                             <input type="number" id="input-email-label" name="total_price"
+                                            disabled
                                                 class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                                 onchange="setTotal(event)"
                                                 placeholder="Total">
@@ -585,7 +599,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         console.log(trows);
 
-        let total_amount =0;
+        let total_amount = 0;
 
         trows.forEach(Element => {
 
@@ -594,12 +608,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             let unitPrice = Element.querySelector('input[name="unit_Price"]').value
             let qty = Element.querySelector('input[name="Qty"]').value
-                                
+
 
             let total = unitPrice * qty
 
 
-            total_amount+=total
+            total_amount += total
 
 
             // console.log(total);
@@ -609,7 +623,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $("#po_total").val(total_amount)
 
-    
+
 
 
 
