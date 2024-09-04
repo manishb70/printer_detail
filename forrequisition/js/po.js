@@ -327,7 +327,7 @@ const submiDataRejectToPo = () => {
 
 
 
-        alert(`${checkedData.length} is Accepetd !` )
+        alert(`${checkedData.length} is Rejected !` )
 
 
 

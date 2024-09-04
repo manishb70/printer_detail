@@ -95,7 +95,7 @@
                             class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                     </div>
 
-                    
+                        
                 </div>
             </div>
 

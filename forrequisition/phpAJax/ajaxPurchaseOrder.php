@@ -321,7 +321,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if($_POST['updatePoStatus']=='create'){
 
-            $status = "Order_created";
+            $status = "Approved";
         }else{
             
             $status = "Reject";

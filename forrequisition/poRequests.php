@@ -51,7 +51,7 @@ $i = 1;
 </head>
 
 
-<body class=" poppins-regular " >
+<body class=" poppins-regular ">
     <!-- <div style="width:90%" class=" m-auto background-{#FF8A8A}">
         <h1 class="text-center underline text-3xl font-medium m-2">GRN Form</h1>
         <div class="w-2/6 mt-5 flex justify-between">
@@ -65,23 +65,25 @@ $i = 1;
 
     <div id="create_section" class="border bg-gray-100 border-gray-900 p-5 rounded-lg">
         <h1
-            class="mb-4 text-4xl text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+            class="mb-2 text-xl text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-1xl lg:text-6xl dark:text-white">
             PO Reqeuets</h1>
         <div class=" border border-gray-300 p-3 rounded-md">
             <div class="flex flex-wrap">
                 <div>
                     <label for="email"
-                        class="block w-40 mb-2 font-medium text-xs font-medium text-gray-900 dark:text-white" > Total
+                        class="block w-40 mb-2 font-medium text-xs font-medium text-gray-900 dark:text-white"> Total
                         Row : </label>
-                    <input type="text" disabled name="po_number" id="po_number" value="<?php echo mysqli_num_rows($result) ?>"
+                    <input type="text" disabled name="po_number" id="po_number"
+                        value="<?php echo mysqli_num_rows($result) ?>"
                         class="w-40 rounded-md border text-xs border-[#e0e0e0] bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
 
 
                 </div>
                 <div class="ml-20">
                     <label for="password"
-                        class="block  w-40 mb-2 font-medium text-xs font-medium text-gray-900 dark:text-white">Current date and time : </label>
-                        <?php  echo date('Y-m-d h:i:s')  ?>
+                        class="block  w-40 mb-2 font-medium text-xs font-medium text-gray-900 dark:text-white">Current
+                        date and time : </label>
+                    <?php echo date('Y-m-d h:i:s') ?>
                 </div>
                 <!-- <button type="text" onclick="searchPoInGrnFor()"
                     class="text-white border border-blue-700 bg-blue-800 focus:ring-4 mb-3 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs px-5 py-2.5 text-center me-2 mb-2 font-medium dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">Search
@@ -129,12 +131,12 @@ $i = 1;
                 <div class="flex flex-col">
                     <div class="-m-1.5 overflow-x-auto">
                         <div class="p-1.5 min-w-full inline-block align-middle">
-                            <div style="        height: 60vh;    overflow: auto;" class="overflow-hidden">
+                            <div style="        height: 50vh;    overflow: auto;" class="overflow-hidden">
 
-                                <table class="min-w-full m-auto whitespace-nowrap mx-auto divide-y divide-gray-200">
+                                <table class="min-w-full 	shadow-2xl m-auto whitespace-nowrap mx-auto divide-y divide-gray-200">
 
-                                    <thead>
-                                        <tr>
+                                    <thead >
+                                        <tr >
                                             <th scope="col"
                                                 class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
                                             </th>
@@ -176,7 +178,7 @@ $i = 1;
 
                                         </tr>
                                     </thead>
-                                    <tbody class="divide-y      divide-gray-200" id="poGrnBody">
+                                    <tbody class="divide-y   shadow-inner    divide-gray-200" id="poGrnBody">
 
 
                                         <?php
@@ -185,7 +187,7 @@ $i = 1;
                                         while ($row = mysqli_fetch_assoc($result)) {
                                             ?>
 
-                                            <tr class="hover:bg-gray-600">
+                                            <tr class="hover:bg-gray-600 ">
 
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
                                                     <input id="default-checkbox" type="checkbox" value="" name="checkbox"
@@ -323,24 +325,22 @@ $i = 1;
         </div>
 
 
-       
+
         <div data-dialog-backdrop="dialog" data-dialog-backdrop-close="true"
             class="pointer-events-none fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 opacity-0 backdrop-blur-sm transition-opacity duration-300">
             <div data-dialog="dialog"
                 class="relative m-4 w-2/5 min-w-[40%] max-w-[40%] rounded-lg bg-white font-sans text-base font-light leading-relaxed text-blue-gray-500 antialiased shadow-2xl">
                 <div
                     class="flex items-center p-4 font-sans text-2xl antialiased font-semibold leading-snug shrink-0 text-blue-gray-900">
-                   Are you want to Reject ?...
+                    Are you want to Reject ?...
                 </div>
-              
+
                 <div class="flex flex-wrap items-center justify-end p-4 shrink-0 text-blue-gray-500">
                     <button data-ripple-dark="true" data-dialog-close="true"
                         class="px-6 py-3 mr-1 font-sans text-xs font-bold text-red-500 uppercase transition-all rounded-lg middle none center hover:bg-red-500/10 active:bg-red-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
                         Cancel
                     </button>
-                    <button data-ripple-light="true" data-dialog-close="true"
-
-                    onclick="submiDataRejectToPo()"
+                    <button data-ripple-light="true" data-dialog-close="true" onclick="submiDataRejectToPo()"
                         class="middle none center rounded-lg bg-gradient-to-tr from-green-600 to-green-400 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
                         Confirm
                     </button>
@@ -351,21 +351,18 @@ $i = 1;
 
 
         <div class="w-full mt-5 flex justify-around">
-            <button onclick="reciveTable()" type="text"
-                class="text-white border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs px-5 py-2.5 text-center me-2 mb-2 font-medium dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 ">Recieved</button>
+           
             <div>
                 <button data-ripple-light="true" data-dialog-target="dialog-lg"
                     class="select-none rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
                     Accept
                 </button>
                 <button data-ripple-light="true" data-dialog-target="dialog"
-            class="select-none rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
-            Reject
-        </button>
+                    class="select-none rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                    Reject
+                </button>
             </div>
-            <button type="text"
-                class="text-white border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs px-5 py-2.5 text-center me-2 mb-2 font-medium dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 x">
-                Delivered</button>
+          
         </div>
     </div>
 
