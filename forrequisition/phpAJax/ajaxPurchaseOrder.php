@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 
 
 
@@ -174,7 +174,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         include('../db.php');
 
 
-        $newGenRated =[];
+        $newGenRated = [];
         $inputs_data = $_POST['inputsData'];
         $po_number = $_POST['po_number'];
 
@@ -293,8 +293,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
         $response['newGenRated'] = $newGenRated;
-        
-        
+
+
 
         $response['data'] = $inputs_data;
 
@@ -304,7 +304,71 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     }
 
+
+
+
+
+
+
+    if (isset($_POST['updatePoStatus'])) {
+
+
+
+        include("../db.php");
+
+
+        $checkedData = $_POST['checkedData'];
+
+        if($_POST['updatePoStatus']=='create'){
+
+            $status = "Order_created";
+        }else{
+            
+            $status = "Reject";
+        }
+
+        $current_user = $_SESSION['username'];
+        $dateTime = date('Y-m-d H:i:s');
+       
+
+
+        foreach ($checkedData as $key => $value) {
+
+            $stmt = $con->prepare("UPDATE `for_office`.`purchase_order_header` SET `status` = '$status', `updated_by` = ?, `updated_date` = ? WHERE (`PO_number` = ?);");
+
+
+            $stmt->bind_param("ssi", $current_user,$dateTime,$value);
+
+
+            if ($stmt->execute()) {
+
+
+
+                $response['success'] = true;
+            } else {
+
+
+                $response['error'] = $stmt->error;
+            }
+
+        }
+
+
+        $response['checkedData'] = $checkedData;
+
+
+
+        echo json_encode($response);
+
+
+    }
+
+
+
 }
+
+
+
 
 
 

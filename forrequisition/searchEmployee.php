@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.4/dist/tailwind.min.css" rel="stylesheet">
-    <title>Create Employee Form</title>
+    <title>Search Employee Form</title>
 </head>
 
 <body>
-    <div id="create_section" class="mt-5 border border-gray-900 p-5 rounded-lg mx-5">
-        <h1 class="text-center underline text-3xl mb-3 font-bold">Create Employee Form</h1>
+    <div id="search_section" class="mt-5 border border-gray-900 p-5 rounded-lg mx-5">
+        <h1 class="text-center underline text-3xl mb-3 font-bold">Search Employee Form</h1>
         <div class="block md:flex gap-x-4">
             <fieldset class="w-full border border-gray-500 p-4 rounded-md">
                 <legend class="font-bold text-sm">Employee Information</legend>
@@ -84,13 +84,13 @@
                                 <input type="text" name="emp_pan_card"  placeholder="Enter Pan Card"
                                     class="w-40 rounded-md border mb-3 text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                             </div>
-                            <div class="">
+                            <!-- <div class="">
                                 <label
                                     class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Choose
                                     Image : </label>
                                 <input type="file" name="emp_image" accept="image/*" onchange="previewImage(event)"
                                     class="w-40 border-none text-xs border-gray-500 bg-white text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
-                            </div>
+                            </div> -->
                         </div>
 
 
@@ -210,21 +210,16 @@
                             <input type="date" name="date_of_leaving"
                                 class="w-40 rounded-md border text-xs border-gray-500 bg-white pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                             <input type="file" name="date_of_leaving_file"
-                                class="w-40 border-none text-xs border-gray-500 bg-white text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                class="w-40 border-none text-xs border-gray-500 bg-white    text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                         </div>
                     </div>
             </fieldset>
         </div>
 
         <div class="w-full mt-5 flex justify-center gap-x-5">
-            <button type="text"
-                class="w-28 text-white border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs py-2.5 text-center me-2 mb-2 font-bold dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 ">Save</button>
-            <!-- <button type="text"
-                class="w-28 text-white border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs  py-2.5 text-center me-2 mb-2 font-bold dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 ">Save</button> -->
             <div>
-                <button type="submit"
-                    class="w-28 text-white border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs py-2.5 text-center me-2 font-bold dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 ">Submit
-                    Now</button>
+                <button type="text"
+                    class="w-28 text-white border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs py-2.5 text-center me-2 font-bold dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 ">Serach</button>
             </div>
         </div>
     </div>

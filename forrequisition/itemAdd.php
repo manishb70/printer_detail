@@ -1,5 +1,5 @@
 <?php
-include("../db.php");
+include("./db.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +8,7 @@ include("../db.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.4/dist/tailwind.min.css" rel="stylesheet">
-    <title>Document</title>
+    <title>Add item</title>
 </head>
 
 <body class="mt-3"

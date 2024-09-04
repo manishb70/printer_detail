@@ -1,8 +1,6 @@
 $(document).ready(function () {
   function loadPie(divId, title, data_pie) {
-
     google.charts.load("current", { packages: ["corechart"] });
-
 
     function dataChart() {
       var data = google.visualization.arrayToDataTable(data_pie);
@@ -16,7 +14,6 @@ $(document).ready(function () {
         pieSliceTextStyle: {
           color: "white",
         },
-        
       };
 
       var chart = new google.visualization.PieChart(
@@ -51,11 +48,7 @@ $(document).ready(function () {
     google.charts.setOnLoadCallback(drawChart1);
   }
 
-
-
-
-  function setDataOfPie(data,title,divId) {
-    
+  async function setDataOfPie(data, title, divId) {
     let arrForPie = [["name", "value"]];
 
     Object.keys(data).forEach((Element) => {
@@ -63,32 +56,26 @@ $(document).ready(function () {
       arrForPie.push(arr);
     });
 
-    loadPie(divId, title, arrForPie);
+ await   loadPie(divId, title, arrForPie);
   }
-
 
   $.get(
     "./phpAjax/dashboardAjax.php",
     {
-        pieChartData: "pieChartData",
-      },
+      pieChartData: "pieChartData",
+    },
     async function (data) {
       console.log(data);
 
       let purchase_order = data.purchaseOrder.Indexes;
-      let itemrequest = data.itemrequest.Indexes  
-      let requisition_table = data.requisition_table.Indexes  
-
+      let itemrequest = data.itemrequest.Indexes;
+      let requisition_table = data.requisition_table.Indexes;
 
       //   console.log(purchase_order);
 
-
-
-     await setDataOfPie(requisition_table,"PR Requests","pr_requests")
-await      setDataOfPie(purchase_order,"Purchase Order","purchase_order")
-     await setDataOfPie(itemrequest,"Item Request","item_requests")
-        
-
+      await setDataOfPie(requisition_table, "PR Requests", "pr_requests");
+      await setDataOfPie(purchase_order, "Purchase Order", "purchase_order");
+      await setDataOfPie(itemrequest, "Item Request", "item_requests");
     },
     "json"
   );

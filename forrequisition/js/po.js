@@ -83,11 +83,9 @@ const purchaseOrderDirect = () => {
     let inputNameValue = {};
     let inputs = element.querySelectorAll("input");
 
-
-    element.setAttribute("id",`line${index}`)
+    element.setAttribute("id", `line${index}`);
 
     inputNameValue["line_id"] = `line${index}`;
-
 
     inputs.forEach((input) => {
       inputNameValue[input.name] = input.value;
@@ -108,36 +106,20 @@ const purchaseOrderDirect = () => {
       console.log(data);
 
       if (data.success) {
-
         let setDataToTr = data.lineSetData;
 
-              console.log(setDataToTr);
+        console.log(setDataToTr);
 
-
-        Object.keys(setDataToTr).forEach(element =>{
+        Object.keys(setDataToTr).forEach((element) => {
           console.log(element);
 
-          $(`#${element}`).attr("line-id",setDataToTr[element])
-
-        })
-
-        
-
-
-
+          $(`#${element}`).attr("line-id", setDataToTr[element]);
+        });
 
         alert("Data succefully insetrted");
 
-
-
-
-
-
-
         // trows.forEach((element, index) => {
         //   let inputs = element.querySelectorAll("input");
-
-         
 
         //   inputs.forEach((input) => {
         //     input.disabled = true;
@@ -174,21 +156,16 @@ const updatePurchaseOrderSave = () => {
 
     let inputs = element.querySelectorAll("input");
 
+    if (!element.hasAttribute("line-id")) {
+      $(element).attr("id", `line${index}`);
 
-    if(!element.hasAttribute("line-id")){
-
-      $(element).attr("id",`line${index}`)
-
-      inputNameValue['line_main_id']=`line${index}`;
-
+      inputNameValue["line_main_id"] = `line${index}`;
     }
-
 
     inputs.forEach((input) => {
       inputNameValue[input.name] = input.value;
     });
     inputNameValue["line_id"] = $(element).attr("line-id");
-
 
     inputData[index] = inputNameValue;
   });
@@ -204,22 +181,15 @@ const updatePurchaseOrderSave = () => {
     function (data) {
       console.log(data);
 
-
-
-      Object.keys(data.newGenRated).forEach(element=>{
-        $(`#${element}`).attr("line-id",data.newGenRated[element])
-        
-      })
-
-
+      Object.keys(data.newGenRated).forEach((element) => {
+        $(`#${element}`).attr("line-id", data.newGenRated[element]);
+      });
 
       if (data.success) {
         alert("Data succefully updated");
 
         // trows.forEach((element, index) => {
         //   let inputs = element.querySelectorAll("input");
-
-          
 
         //   // inputs.forEach((input) => {
         //   //   input.disabled = true;
@@ -234,9 +204,170 @@ const updatePurchaseOrderSave = () => {
       $("#po-update-save-btn").fadeIn(1000);
     },
     "json"
-  ).fail(function(error) {
-  console.log(error.responseText);
-});
+  ).fail(function (error) {
+    console.log(error.responseText);
+  });
 
   console.log(inputData);
+};
+
+
+
+
+const submiDataConfirmToPo = () => {
+  let trows = document.getElementById("poGrnBody").querySelectorAll("tr");
+
+  let data = {};
+
+  let checkedData = [];
+
+  trows.forEach((row) => {
+    let checkbox = row.querySelector("input[name='checkbox']");
+
+    if (checkbox.checked) {
+      console.log(row);
+
+      checkedData.push($(checkbox).attr("P-id"));
+    }
+  });
+
+  data["updatePoStatus"] = "create";
+  data["checkedData"] = checkedData;
+
+  $.post(
+    "phpAjax/ajaxPurchaseOrder.php",
+    data,
+    function (data) {
+
+      console.log(data);
+
+
+
+      if(data.success){
+
+
+
+        alert(`${checkedData.length} is Accepetd !` )
+
+
+
+        trows.forEach((row) => {
+          let checkbox = row.querySelector("input[name='checkbox']");
+
+      
+          if (checkbox.checked) {
+            row.style.filter="opacity(0.2);"
+
+            row.classList.add("bg-green-100")
+
+            $(checkbox).hide()
+
+            checkbox.checked = false
+
+            checkbox.disabled = true;
+          }
+        });
+
+
+
+
+
+
+
+
+      }else{
+        alert("Something went wrong please try again or reload")
+      }
+
+
+
+
+    },
+    "JSON"
+  ).fail((error) => {
+    console.log(error.responseText);
+  });
+
+  console.log(checkedData);
+};
+
+
+
+
+const submiDataRejectToPo = () => {
+  let trows = document.getElementById("poGrnBody").querySelectorAll("tr");
+
+  let data = {};
+
+  let checkedData = [];
+
+  trows.forEach((row) => {
+    let checkbox = row.querySelector("input[name='checkbox']");
+
+    if (checkbox.checked) {
+      console.log(row);
+
+      checkedData.push($(checkbox).attr("P-id"));
+    }
+  });
+
+  data["updatePoStatus"] = "reject";
+  data["checkedData"] = checkedData;
+
+  $.post(
+    "phpAjax/ajaxPurchaseOrder.php",
+    data,
+    function (data) {
+
+      console.log(data);
+
+
+
+      if(data.success){
+
+
+
+        alert(`${checkedData.length} is Accepetd !` )
+
+
+
+        trows.forEach((row) => {
+          let checkbox = row.querySelector("input[name='checkbox']");
+
+      
+          if (checkbox.checked) {
+            row.style.filter="opacity(0.2);"
+
+            row.classList.add("bg-red-100")
+
+            
+            
+            checkbox.checked = false
+            $(checkbox).hide()
+            
+            checkbox.disabled = true;
+          }
+        });
+
+
+
+
+
+
+
+
+      }else{
+        alert("Something went wrong please try again or reload")
+      }
+
+
+
+
+    },
+    "JSON"
+  ).fail((error) => {
+    console.log(error.responseText);
+  });
+
+  console.log(checkedData);
 };

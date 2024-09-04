@@ -1,4 +1,4 @@
-    <?php
+<?php
 
 
 
@@ -130,7 +130,122 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-        echo  json_encode($response);
+        echo json_encode($response);
         // echo  "hellow";
     }
+
+
+}
+
+
+
+
+
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+
+
+
+    if (isset($_GET['getDataForGrnPo'])) {
+
+
+        include('../../db.php');
+
+
+
+        $po_number = $_GET['po_number'];
+
+
+
+
+
+        $sql = "SELECT * FROM for_office.purchase_order_line a JOIN purchase_order_header b ON a.po_number = b.PO_number where a.PO_number =  $po_number;";
+
+
+
+
+        $result = mysqli_query($con, $sql);
+
+
+
+        if ($result) {
+
+
+
+            $data = [];
+
+
+            while ($row = mysqli_fetch_assoc($result)) {
+
+
+                $data[] = $row;
+
+
+                $response['sucess'] = true;
+
+            }
+
+
+            $response['data'] = $data;
+
+
+            $response['success'] = true;
+            $response['message'] = "data suucess fully fetch";
+
+
+
+
+        } else {
+
+
+            $response['success'] = false;
+
+        }
+
+
+
+
+
+
+        $response['return id'] = $po_number;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        echo json_encode($response);
+
+
+
+
+
+
+
+
+
+    }
+
+
+
 }

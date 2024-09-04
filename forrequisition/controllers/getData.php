@@ -1,6 +1,15 @@
 <?php
 
 
+// include("./db.php");
+
+
+
+
+
+
+
+
 function StatusAndValue($tableNAme,  $statusColumnName)
 {
     include("../db.php");
@@ -11,13 +20,6 @@ function StatusAndValue($tableNAme,  $statusColumnName)
 
 
     $result = mysqli_query($con, $query);
-
-
-
-
-
-
-
 
 
 

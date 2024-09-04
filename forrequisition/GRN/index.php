@@ -1,3 +1,42 @@
+<?php
+
+
+if($_SERVER['REQUEST_METHOD']=='POST'){
+
+include('../db.php');
+
+
+$sql = "SELECT * FROM for_office.purchase_order_line where po_number = 478;";
+
+            
+    
+
+
+    $result = mysqli_query($con, $sql);
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+?>
+
+
 <!DOCTYPE htmltext <html lang="en">
 
 <head>
@@ -28,7 +67,7 @@
                         <label for="email"
                             class="block w-40 mb-2 font-medium text-xs font-medium text-gray-900 dark:text-white">PO
                             Number : </label>
-                        <input type="text" name="email" id="email"
+                        <input type="text" name="po_number" id="po_number"
                             class="w-40 rounded-md border text-xs border-[#e0e0e0] bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                     </div>
                     <div class="ml-20">
@@ -38,7 +77,7 @@
                         <input type="text" name="email" id="email"
                             class="w-40 rounded-md border text-xs border-[#e0e0e0] bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                     </div>
-                    <button type="text"
+                    <button type="text" onclick="searchPoInGrnFor()"
                         class="text-white border border-blue-700 bg-blue-800 focus:ring-4 mb-3 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs px-5 py-2.5 text-center me-2 mb-2 font-medium dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">Search
                         GRN</button>
                 </div>
@@ -51,7 +90,7 @@
                                     class="block w-40 mb-2 font-medium text-xs font-medium text-gray-900 dark:text-white">Vendor
                                     Name :
                                 </label>
-                                <input type="text" name="email" id="email"
+                                <input type="text" name="po_vendor_name" id="po_vendor_name" disabled
                                     class="w-40 rounded-md border text-xs border-[#e0e0e0] bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                             </div>
                             <div class="ml-20">
@@ -59,7 +98,7 @@
                                     class="block  w-40 mb-2 font-medium text-xs font-medium text-gray-900 dark:text-white">Ship
                                     to :
                                 </label>
-                                <input type="text" name="email" id="email"
+                                <input type="text" name="shipTo" id="shipTo" disabled
                                     class="w-40 rounded-md border text-xs border-[#e0e0e0] bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                             </div>
                             <div class="ml-20">
@@ -67,7 +106,7 @@
                                     class="block  w-40 mb-2 font-medium text-xs font-medium text-gray-900 dark:text-white">Bill
                                     to :
                                 </label>
-                                <input type="text" name="email" id="email"
+                                <input type="text" name="bill_to" id="bill_to" disabled
                                     class="w-40 rounded-md border text-xs border-[#e0e0e0] bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                             </div>
                         </div>
@@ -94,29 +133,220 @@
 
 
                         <div class="flex flex-col">
-                            <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-                                <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                            <div class="-m-1.5 overflow-x-auto">
+                                <div class="p-1.5 min-w-full inline-block align-middle">
                                     <div class="overflow-hidden">
-                                        <table
-                                            class="min-w-full text-left text-sm font-light text-surface dark:text-white">
-                                            <thead class="border-b border-neutral-200 font-medium dark:border-white/10">
+
+                                        <table class="min-w-full whitespace-nowrap mx-auto divide-y divide-gray-200">
+
+                                            <thead>
                                                 <tr>
-                                                    <th scope="col" class="px-6 py-4">#</th>
-                                                    <th scope="col" class="px-6 py-4">First</th>
-                                                    <th scope="col" class="px-6 py-4">Last</th>
-                                                    <th scope="col" class="px-6 py-4">Handle</th>
+                                                    <th scope="col"
+                                                        class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
+                                                    </th>
+                                                    <th scope="col"
+                                                        class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
+                                                        S.no</th>
+                                                    <th scope="col"
+                                                        class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
+                                                        Item Code</th>
+                                                    <th scope="col"
+                                                        class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
+                                                        Item name</th>
+                                                    <th scope="col"
+                                                        class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">
+                                                        Unit
+                                                        price</th>
+                                                    <th scope="col"
+                                                        class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">
+                                                        Balnce
+                                                    </th>
+                                                    <th scope="col"
+                                                        class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">
+                                                        Total
+                                                    </th>
+                                                    <th scope="col"
+                                                        class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">
+                                                        Status</th>
+
+
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr class="border-b border-neutral-200 dark:border-white/10">
-                                                    <td class="whitespace-nowrap px-6 py-4 font-medium">1</td>
-                                                    <td class="whitespace-nowrap px-6 py-4">Mark</td>
-                                                    <td class="whitespace-nowrap px-6 py-4">Otto</td>
-                                                    <td class="whitespace-nowrap px-6 py-4">@mdo</td>
+                                            <tbody class="divide-y      divide-gray-200" id="poGrnBody">
+
+                            
+
+
+                                                <tr class="hover:bg-gray-600" con-id="001">
+
+                                                    <td
+                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                        <input id="default-checkbox" type="checkbox" value=""
+                                                            onchange="setLineTableToLine(event)"
+                                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                    </td>
+                                                    <td
+                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                        <input type="txt" id="input-email-label"
+                                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                            placeholder=1 value="${index}" disabled>
+                                                    </td>
+                                                    <td
+                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                        <input type="txt" id="input-email-label" name="item_code"
+                                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                            placeholder="item_code" value="${row.item_code}">
+                                                    </td>
+                                                    <td
+                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                        <input type="txt" id="input-email-label" name="item_name"
+                                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                            placeholder="Item name"
+                                                            value="${row.item_shortdiscription}">
+                                                    </td>
+                                                    <td
+                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                        <input type="number" id="input-email-label"
+                                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                            name="unit_Price" onchange="setTotal(event)"
+                                                            placeholder="Unit price" value="${row.unit_price}">
+                                                    </td>
+                                                    <td
+                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                        <input type="number" id="input-email-label" name="Qty"
+                                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:
+                                                inter-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                            onchange="setTotal(event)" placeholder="Quantity"
+                                                            value="${row.balance}">
+                                                    </td>
+                                                    <td
+                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                        <input type="number" id="input-email-label" name="total_price"
+                                                            disabled
+                                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                            placeholder="Total">
+                                                    </td>
+                                                    <td
+                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                        <input type="txt" id="input-email-label" name="need_by_date"
+                                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                            placeholder="need_by_date" value="inProcess">
+                                                    </td>
+
+
+
+
+
+                                                    <table style="width:90%" align="right"
+                                                        class=" whitespace-nowrap hidden  mx-auto divide-y divide-gray-200"
+                                                        id="001">
+                                                        <thead>
+                                                            <tr id="001">
+                                                                <th scope="col"
+                                                                    class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
+                                                                </th>
+                                                                <th scope="col"
+                                                                    class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
+                                                                    S.no</th>
+                                                                <th scope="col"
+                                                                    class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
+                                                                    Item Code</th>
+                                                                <th scope="col"
+                                                                    class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
+                                                                    Item name</th>
+                                                                <th scope="col"
+                                                                    class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">
+                                                                    Unit
+                                                                    price</th>
+                                                                <th scope="col"
+                                                                    class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">
+                                                                    Balnce
+                                                                </th>
+                                                                <th scope="col"
+                                                                    class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">
+                                                                    Total
+                                                                </th>
+                                                                <th scope="col"
+                                                                    class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">
+                                                                    Status</th>
+
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="divide-y   divide-gray-200" id=grnLineTable">
+                                                            <tr class="hover:bg-gray-600">
+
+                                                                <td
+                                                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                    <input id="default-checkbox" type="checkbox"
+                                                                        value=""
+                                                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                                </td>
+                                                                <td
+                                                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                    <input type="txt" id="input-email-label"
+                                                                        class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                        placeholder=1 value="${index}" disabled>
+                                                                </td>
+                                                                <td
+                                                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                    <input type="txt" id="input-email-label"
+                                                                        name="item_code"
+                                                                        class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                        placeholder="item_code"
+                                                                        value="${row.item_code}">
+                                                                </td>
+                                                                <td
+                                                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                    <input type="txt" id="input-email-label"
+                                                                        name="item_name"
+                                                                        class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                        placeholder="Item name"
+                                                                        value="${row.item_shortdiscription}">
+                                                                </td>
+                                                                <td
+                                                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                    <input type="number" id="input-email-label"
+                                                                        class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                        name="unit_Price" onchange="setTotal(event)"
+                                                                        placeholder="Unit price"
+                                                                        value="${row.unit_price}">
+                                                                </td>
+                                                                <td
+                                                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                    <input type="number" id="input-email-label"
+                                                                        name="Qty"
+                                                                        class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:
+                                                inter-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                        onchange="setTotal(event)"
+                                                                        placeholder="Quantity" value="${row.balance}">
+                                                                </td>
+                                                                <td
+                                                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                    <input type="number" id="input-email-label"
+                                                                        name="total_price" disabled
+                                                                        class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                        placeholder="Total">
+                                                                </td>
+                                                                <td
+                                                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                    <input type="txt" id="input-email-label"
+                                                                        name="need_by_date"
+                                                                        class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                        placeholder="need_by_date">
+                                                                </td>
+
+
+                                                            </tr>
+
+
+                                                        </tbody>
+                                                    </table>
                                                 </tr>
-                                              
                                             </tbody>
                                         </table>
+
+
                                     </div>
                                 </div>
                             </div>
@@ -136,7 +366,7 @@
                 </div>
 
                 <div class="w-full mt-5 flex justify-around">
-                    <button onclick="received()" type="text"
+                    <button onclick="reciveTable()" type="text"
                         class="text-white border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs px-5 py-2.5 text-center me-2 mb-2 font-medium dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 ">Recieved</button>
                     <div>
                         <button type="text" onclick="accept()"
@@ -445,6 +675,8 @@
     </div>
 
     <script src="./js/script.js"></script>
+    <script src="./js/grn.js"></script>
+    <script src="../js/jquery-3.7.1.min.js"></script>
 </body>
 
 </html>
