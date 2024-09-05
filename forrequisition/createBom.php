@@ -85,6 +85,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.4/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="./js/jquery-3.7.1.min.js"></script>
+
+
+
     <title>Create PO Form</title>
 </head>
 
@@ -96,7 +104,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="flex flex-wrap m-2 gap-10 ">
                     <div>
                         <label for="email"
-                            class="block  mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">New BOM :
+                            class="block  mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Record
+                            number :
                         </label>
                         <input id="bom_id" type="text" value="<?php if (isset($product_id)) {
                             echo $product_id;
@@ -110,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <label class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">item
                             name
                             : </label>
-                        <input type="text" name="item_name" required value="<?php if (isset($item_name)) {
+                        <input type="text" name="item_name" onchange="setBomImage()" id="item_name" required value="<?php if (isset($item_name)) {
                             echo $item_name;
                         } ?>"
                             class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
@@ -121,6 +130,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             : </label>
                         <input type="text" name="revision" required value="<?php if (isset($revision)) {
                             echo $revision;
+                        } else {
+                            echo 0;
                         } ?>"
                             class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
 
@@ -147,14 +158,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
                     <div class="">
                         <label
-                            class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Organizing
-                            Mapping :
+                            class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Organisation
+                            mapping :
                         </label>
-                        <input type="text" required
-                        value="<?php if (isset($organizin_mapping)) {
+                        <input type="text" required value="<?php if (isset($organizin_mapping)) {
                             echo $organizin_mapping;
-                        } ?>"
-                        name="organizin_mapping"
+                        } ?>" name="organizin_mapping"
                             class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
 
 
@@ -171,13 +180,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="">
                         <label class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Ware
                             house location : </label>
-                        <input type="text" required 
-
-                        value="<?php if (isset($warehouse_location)) {
+                        <input type="text" required value="<?php if (isset($warehouse_location)) {
                             echo $warehouse_location;
-                        } ?>"
-                        
-                        name="warehouse_location"
+                        } ?>" name="warehouse_location"
                             class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                     </div>
                     <button type="text"
@@ -190,7 +195,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 <div class="flex border-2 flex-wrap m-2 gap-20">
 
-                    <img src="" alt="please uplaod" width="300px">
+                    <img src="" id="bomMainImg" alt="please uplaod" width="300px">
 
                 </div>
 
@@ -248,7 +253,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                     placeholder="Process Seq">
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                                                <input type="txt" id="input-email-label" name="item_code"
+                                                <input type="txt" name="" id="input-email-label" name="item_code"
                                                     class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                                     placeholder="Item code">
                                             </td>
@@ -306,7 +311,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     class="text-white border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs px-5 py-2.5 text-center me-2 mb-2 font-bold dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 ">Submit</button>
 
 
-            
+
 
 
                 <!-- this button is for create direct po fressh inert query -->
@@ -424,7 +429,135 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <script src="./js/jquery.min.js"></script>
 <script src="./js/bom.js"></script>
 
+<script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.7.1.js"></script> -->
+<!-- <script src="./js/jquery-3.7.1.min.js"></script> -->
+
+<script>
+    $(function () {
+
+        var availableTags = [
+            "ActionScript",
+            "AppleScript",
+            "Asp",
+            "BASIC",
+            "C",
+            "C++",
+            "Clojure",
+            "COBOL",
+            "ColdFusion",
+            "Erlang",
+            "Fortran",
+            "Groovy",
+            "Haskell",
+            "Java",
+            "JavaScript",
+            "Lisp",
+            "Perl",
+            "PHP",
+            "Python",
+            "Ruby",
+            "Scala",
+            "Scheme"
+        ];
 
 
+        console.log(availableTags);
+        $.get("ajax.php", {
+            "itemCodeInfoForPr": "itemCodeInfoForPr"
+        }, function (data) {
+
+            availableTags = JSON.parse(data);
+
+            console.log(availableTags);
+            $("input[name='item_name']").autocomplete({
+                source: availableTags
+            });
+
+
+
+            
+            $("input[name='Item_name']").autocomplete({
+                source: availableTags
+            });
+
+
+            $("input[name='item_code']").autocomplete({
+                source: availableTags
+            });
+
+
+        })
+
+    });
+</script>
+
+
+<script>
+
+
+
+    const setBomImage = () => {
+
+
+
+
+
+
+
+
+        let item_code = $("#item_name").val()
+
+
+        let data = {
+            item_code: item_code,
+            getImgName: "getImgName"
+
+        }
+
+        $.get("ajax.php", data, function (data) {
+
+            console.log(data);
+
+
+
+
+            if(data.success){
+
+
+                
+                
+                $("#bomMainImg").attr("src", `images/${data.imgpath}`);
+
+
+
+            }
+
+
+
+
+        },"JSON").fail(error=>{
+            console.log(error.responseText);
+        })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+
+
+
+</script>
 
 </html>

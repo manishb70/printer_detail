@@ -5,7 +5,7 @@ include("./navForLogged.php");
 include('./db.php');
 
 
-$sql = "SELECT * FROM for_office.purchase_order_header  where status = 'inProcess' or 1=1  order by PO_number DESC; ";
+$sql = "SELECT * FROM for_office.purchase_order_header  where status = 'inProcess'  order by PO_number DESC; ";
 
 
 
@@ -66,7 +66,7 @@ $i = 1;
     <div id="create_section" class="border bg-gray-100 border-gray-900 p-5 rounded-lg">
         <h1
             class="mb-2 text-xl text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-1xl lg:text-6xl dark:text-white">
-            PO Reqeuets</h1>
+            PO Requests</h1>
         <div class=" border border-gray-300 p-3 rounded-md">
             <div class="flex flex-wrap">
                 <div>

@@ -195,7 +195,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
             <a type="submit" href="./createBom.php"
                 class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                Bom Creatation Form </a>
+                Bom Creation Form </a>
             <a type="submit" href="./searchBom.php"
                 class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
                 BOM Searh Form </a>
@@ -233,6 +233,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
                Search Epmloyee
             </a>
+            <a type="submit" href="./saleOrderForm.php"
+                class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+               Sale order form
+            </a>
             <!-- 
                 <a type="submit" href="./createUserForm.php"
                 class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
@@ -254,6 +258,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="purchase_order"></div>
                 <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="item_requests"></div>
                 <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="pr_requests"></div>
+                <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="requisition_request"></div>
                 <!-- <div class="datachart" style="width:26rem; height:17rem" id="Sales_order"></div>
                 <div class="datachart" style="width:26rem; height:17rem" id="GRN"></div>
                 <div class="datachart" style="width:26rem; height:17rem" id="po_tatreport"></div> -->

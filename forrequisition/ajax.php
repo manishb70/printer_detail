@@ -230,4 +230,65 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
     }
+
+
+
+    if (isset($_GET["getImgName"])) {
+
+
+        include("./db.php");
+
+        $item_code = $_GET["item_code"];
+
+
+        $sql = "SELECT imagePath FROM for_office.item_master_main where item_code = '$item_code' ; ";
+
+
+        $result = mysqli_query($con, $sql);
+
+
+        if ($result) {
+
+
+
+            $row = mysqli_fetch_assoc($result);
+            $imagePath = $row['imagePath'];
+
+
+            $respone['success'] = true;
+            $respone['imgpath'] = $imagePath;
+
+        } else {
+
+            $respone['success'] = false;
+            $respone['message'] = 'Something went wrong';
+            $respone['error'] = mysqli_error( $con);
+            $respone['sql_error'] = $sql;
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        echo json_encode($respone);
+
+
+
+
+    }
+
+
+
 }

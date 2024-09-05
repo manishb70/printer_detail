@@ -30,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 $columns .= " , " . $row["name"];
             }
             $columns .= " , " . "imagePath";
+            $columns .= " , " . "item_type";
         }
 
         $columns .= " , " . "itemStatus";
@@ -103,6 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 $columns .= " , " . $row["name"];
             }
             $columns .= " , " . "imagePath";
+            $columns .= " , " . "item_type";
         }
 
         // $columns .= " , " . "itemStatus";
@@ -253,7 +255,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $si_unit  = isset($attr["SI_unit"]) ? $attr["SI_unit"] : null;
         $material = isset($attr["Material"]) ? $attr["Material"] : null;
         $Design = isset($attr["Design"]) ? $attr["Design"] : null;
-        $Finish_type = isset($attr["Finish_type"]) ? $attr["Finish_type"] : null;
+        $Finish_type = isset($attr["finish_type"]) ? $attr["finish_type"] : null;
         $Half_Full_Thread = isset($attr["Half_Full_Thread"]) ? $attr["Half_Full_Thread"] : null; // need t o cheng with attrbute 5
         $Holder_Thread = isset($attr["Holder_Thread"]) ? $attr["Holder_Thread"] : null;
         $Holder_type = isset($attr["Holder_type"]) ? $attr["Holder_type"] : null;
@@ -313,6 +315,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $Collar = isset($attr["Collar"]) ? $attr["Collar"] :   null;
         $Socket = isset($attr["Socket"]) ? $attr["Socket"] :   null;
         $Ink_type = isset($attr["Ink_type"]) ? $attr["Ink_type"] :   null;
+        // $Finish_type = isset($attr["Finish_type"]) ? $attr["Finish_type"] :   null;
         $Transparent = isset($attr["Transparent"]) ? $attr["Transparent"] :   null;
 
         $departement = "departement";
@@ -338,7 +341,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         SI_unit,
         material,
         Design,
-        Finish_type,
+        item_type,
         Half_Full_Thread,
         Holder_Thread,
         Holder_type,
@@ -829,7 +832,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $si_unit  = isset($attr["SI_unit"]) ? $attr["SI_unit"] : null;
         $material = isset($attr["Material"]) ? $attr["Material"] : null;
         $Design = isset($attr["Design"]) ? $attr["Design"] : null;
-        $Finish_type = isset($attr["Finish_type"]) ? $attr["Finish_type"] : null;
+        $Finish_type = isset($attr["item_type"]) ? $attr["item_type"] : null;
         $Half_Full_Thread = isset($attr["Half_Full_Thread"]) ? $attr["Half_Full_Thread"] : null; // need t o cheng with attrbute 5
         $Holder_Thread = isset($attr["Holder_Thread"]) ? $attr["Holder_Thread"] : null;
         $Holder_type = isset($attr["Holder_type"]) ? $attr["Holder_type"] : null;
@@ -913,7 +916,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ////
         $response["Status"] = $itemStatus;
 
-        if ($itemStatus == "inRunning") {
+        if ($itemStatus == "Approve") {
 
             $sql = "INSERT into item_master_main (item_code,
         Item_Category,
@@ -923,7 +926,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         SI_unit,
         material,
         Design,
-        Finish_type,
+        item_type,
         Half_Full_Thread,
         Holder_Thread,
         Holder_type,
@@ -1086,7 +1089,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-                $sql = "update for_office.item_master_temp set itemStatus='inRunning' where S_No= $itemId;";
+                $sql = "update for_office.item_master_temp set itemStatus='Approve' where S_No= $itemId;";
 
 
                 $result1 = mysqli_query($con, $sql);

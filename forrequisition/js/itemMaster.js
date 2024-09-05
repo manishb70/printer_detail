@@ -190,9 +190,37 @@ const addSubCatFields = (data) => {
 
 
 
+                let select02 = document.createElement("select")
+                select02.name = "finish_type"
+                select02.classList.add( "px-3", "py-2", "text-sm", "leading-tight", "text-gray-700", "dark:text-white", "border", "rounded", "shadow", "appearance-none", "focus:outline-none", "focus:shadow-outline");
 
 
 
+
+                select02.style.minWidth = "10rem"
+                select02.classList.add("cursor-pointer")
+                select02.required = true
+                select02.style.cursor = "pointer"
+
+
+
+
+            select02.innerHTML  = `
+        
+        
+
+            <option selected hidden disabled>Select</option>
+            <option value="finish_good">Finish good</option>
+            <option value="row_item"> Raw item </option>`
+
+
+
+
+
+
+            
+
+            
 
         let attr = document.createElement("div");
         attr.classList.add("mb-4", "hidden", "mt-4", "transition-all", "border-2-black-600", "md:flex-wrap", "flex", "flex-wrap")
@@ -200,7 +228,7 @@ const addSubCatFields = (data) => {
 
 
         attr.appendChild(fileInput)
-
+        attr.appendChild(select02)
 
         mainBox.appendChild(h1)
         mainBox.appendChild(btn)
@@ -424,6 +452,21 @@ const addSubCatFields = (data) => {
             // attr.classList.add()
         })
 
+
+
+        var div = document.createElement("div")
+            div.classList.add("mb-4", "md:mr-2", "max-w-1", "md:mb-0")
+
+
+            var lable = document.createElement("lable")
+            lable.classList.add("block", "mb-2", "text-sm", "name", "cursor-auto", "font-bold", "text-gray-700", "dark:text-white")
+            lable.innerText = "Item type";
+
+
+
+        div.appendChild(lable)
+        div.appendChild(select02)
+        attr.appendChild(div)
         mainBox.appendChild(attr)
 
 
@@ -1042,10 +1085,10 @@ const setTableFormSubCat = (data) => {
 
 
                 var option2 = document.createElement("option")
-                option2.value = "inRunning"
-                option2.innerText = "inRunning"
+                option2.value = "Approve"
+                option2.innerText = "Approve"
                 input.appendChild(option2)
-                if (element[mainData] === "inRunning") option2.selected = true;
+                if (element[mainData] === "Approve") option2.selected = true;
 
 
                 var option3 = document.createElement("option")
@@ -1096,7 +1139,7 @@ const setTableFormSubCat = (data) => {
 
         tr.appendChild(td)
 
-        if (element.itemStatus != "inRunning" ) {
+        if (element.itemStatus != "Approve`" ) {
             tr.appendChild(btn)
         }
         document.getElementById("dataBodyTd").appendChild(tr);
@@ -1228,7 +1271,7 @@ const setTableFormSubCatSearch = (data) => {
 
         tr.appendChild(td)
 
-        if (element.itemStatus != "inRunning") {
+        if (element.itemStatus != "Approve`") {
 
             td2.appendChild(btn)
         }
