@@ -59,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION["store_manager"] = (int) $row["store_manager"];
                 $_SESSION["store_isseuer"] = (int) $row["store_isseuer"];
                 $_SESSION["store_genrate"] = (int) $row["store_genrate"];
+                $_SESSION["PO_appover"] = (int) $row["PO_appover"];
 
                 $yes = $_SERVER["user_viewOnly"];
                 // $user_write = (int) $row["user_write"];

@@ -193,6 +193,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $store_manager = isset($_POST["store_manager"]) ? 1 : 0;
             $store_issue = isset($_POST["store_isseuer"]) ? 1 : 0;
             $store_genrate = isset($_POST["genrateStoreRequest"]) ? 1 : 0;
+            $PO_appover = isset($_POST["PO_approver"]) ? 1 : 0;
             // $sql_for_role = "INSERT INTO admin_roles (
             //     admin_id, 
             //     user_viewOnly, 
@@ -225,7 +226,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-            $sql_for_role = "UPDATE admin_roles SET user_viewOnly = $userviewOnly, user_write = $user_write, admin_viewOnly = $admin_viewOnly, admin_write = $admin_write, user_write_start_date = '$user_write_start_date', user_write_end_date = '$user_write_end_date', user_view_start_date = '$user_view_start_date', user_view_end_date = '$user_view_end_date', admin_write_start_date = '$admin_write_start_date', admin_write_end_date = '$admin_write_end_date', admin_view_start_date = '$admin_view_start_date', store_manager='$store_manager', store_genrate='$store_genrate', store_isseuer='$store_issue',admin_view_end_date = '$admin_view_end_date' WHERE admin_id = $admin_id";
+            $sql_for_role = "UPDATE admin_roles SET user_viewOnly = $userviewOnly, user_write = $user_write, admin_viewOnly = $admin_viewOnly, admin_write = $admin_write, user_write_start_date = '$user_write_start_date', user_write_end_date = '$user_write_end_date', user_view_start_date = '$user_view_start_date', user_view_end_date = '$user_view_end_date', admin_write_start_date = '$admin_write_start_date', admin_write_end_date = '$admin_write_end_date', admin_view_start_date = '$admin_view_start_date', store_manager='$store_manager', store_genrate='$store_genrate', store_isseuer='$store_issue',admin_view_end_date = '$admin_view_end_date'   ,PO_appover = $PO_appover  WHERE admin_id = $admin_id";
 
 
 
@@ -853,6 +854,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                             <td class=px-6 py-4">
                                                 <div class="flex items-center mb-4">
                                                     <input id="store_isseuer" type="checkbox" name="store_isseuer" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                </div>
+                                            </td>
+                                            <td class=px-6 py-4">
+                                                <input type="date" name="user_view_start_date" value="2000-01-01">
+                                            </td>
+                                            <td class="px-6 py-4">
+
+                                                <input type="date" name="user_view_end_date" value="2000-01-01">
+                                            </td>
+
+
+                                        </tr>
+
+                                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+
+                                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                               
+
+                                            </th>
+
+                                            <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                Po Approver
+                                            </td>
+                                            <td class=px-6 py-4">
+                                                <div class="flex items-center mb-4">
+                                                    <input id="PO_approver" type="checkbox" name="PO_approver" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                                 </div>
                                             </td>
                                             <td class=px-6 py-4">

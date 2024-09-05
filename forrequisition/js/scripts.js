@@ -467,6 +467,7 @@ const setRolesToSelectedUser = (event) => {
                     let store_isseuer =  parseInt(userRoles.store_isseuer);
                     let store_manager = parseInt( userRoles.store_manager);
                     let admin_write  =  parseInt(userRoles.admin_write );
+                    let po_approver  =  parseInt(userRoles.PO_appover );
 
                     console.log(userView);
 
@@ -517,6 +518,14 @@ const setRolesToSelectedUser = (event) => {
                         document.getElementById("store_manager").checked=true
                     }else{
                         document.getElementById("store_manager").checked=false
+                    } 
+
+                    console.log(po_approver);
+
+                    if(po_approver){
+                        document.getElementById("PO_approver").checked=true
+                    }else{
+                        document.getElementById("PO_approver").checked=false
                     } 
 
 

@@ -94,9 +94,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             <?php
 
             // if ($_SESSION["role"] == "requisitionGen" || $role == "admin") {
-            if ($_SESSION["store_genrate"] || $role == "admin") {
+            if ($_SESSION["store_genrate"] ||  ($_SESSION["store_genrate"]   || $role == "admin") {
 
                 ?>
+
+
+
+
+
+
 
                 <form action="" method="post">
                     <button type="submit"
@@ -152,10 +158,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             <a type="submit" href="./GRN/index.php"
                 class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">GRN
                 Creation Form</a>
-            <a type="submit" href="./poRequests.php"
-                class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                PO Request approval</a>
 
+
+
+            <?php
+            // if ($_SESSION["role"] == "admin" || $role == "admin") {
+            if ($_SESSION["PO_appover"] || $role == "admin") {
+                ?>
+
+
+
+                <a type="submit" href="./poRequests.php"
+                    class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                    PO Request approval</a>
+
+
+
+                <?php
+            }
+            ?>
 
             <?php
             // if ($_SESSION["role"] == "admin" || $role == "admin") {
@@ -178,11 +199,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
                 User Master Creation Form </a>
 
+
+              
+         
+
+
             <a type="submit" href="./createPo.php"
                 class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
                 Purchase Order Creation Form </a>
 
 
+                        
             <a type="submit" href="./CustomerForm.php"
                 class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
                 Customer Creation Form </a>
@@ -223,19 +250,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             </a>
             <a type="submit" href="./searchCreation.php"
                 class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-               Search Customer
+                Search Customer
             </a>
             <a type="submit" href="./createEmployee.php"
                 class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-               Create Employee
+                Create Employee
             </a>
             <a type="submit" href="./searchEmployee.php"
                 class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-               Search Epmloyee
+                Search Epmloyee
             </a>
             <a type="submit" href="./saleOrderForm.php"
                 class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-               Sale order form
+                Sale order form
             </a>
             <!-- 
                 <a type="submit" href="./createUserForm.php"
