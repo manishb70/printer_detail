@@ -54,12 +54,221 @@ function searchPoInGrnFor() {
       alert("Data Successfully fetch");
 
       let tbody = $("#poGrnBody");
-      tbody.innerHTML = "";
-      tbody.innerText = "";
+      // tbody.innerHTML = "";
+      // tbody.innerText = "";
 
-      $(tbody).text("");
+      // $(tbody).text("");
 
       let rowData = data.data;
+
+      let lineTable = `   
+                                                    <td class="hover:bg-gray-600 " colspan="8">
+                                                        <table
+                                                        align="right"                                                            
+                                                        style="width:80%;"
+                                                        class=" whitespace-nowrap mx-auto divide-y divide-gray-200">
+                                                            
+
+                                                            <thead>
+                                                                <tr>
+                                                                    <th scope="col"
+                                                                        class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
+                                                                    </th>
+                                                                    <th scope="col"
+                                                                        class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
+                                                                        S.no</th>
+                                                                    <th scope="col"
+                                                                        class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
+                                                                        Item Code</th>
+                                                                    <th scope="col"
+                                                                        class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
+                                                                        Item name</th>
+                                                                    <th scope="col"
+                                                                        class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">
+                                                                        Unit
+                                                                        price</th>
+                                                                    <th scope="col"
+                                                                        class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">
+                                                                        Balnce
+                                                                    </th>
+                                                                    <th scope="col"
+                                                                        class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">
+                                                                        Total
+                                                                    </th>
+                                                                    <th scope="col"
+                                                                        class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">
+                                                                        Status</th>
+
+
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="divide-y      divide-gray-200" id="lineTbody">
+
+
+
+
+
+
+                                                                <tr class="hover:bg-gray-600" con-id="001">
+
+                                                                    <td
+                                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                        <input id="default-checkbox" type="checkbox"
+                                                                            value=""
+                                                                            onchange="setLineTableToLine(event)"
+                                                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                                    </td>
+                                                                    <td
+                                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                        <input type="txt" id="input-email-label"
+                                                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                            placeholder=1 value="" disabled>
+                                                                    </td>
+                                                                    <td
+                                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                        <input type="txt" id="input-email-label"
+                                                                            name="item_code"
+                                                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                            placeholder="item_code">
+                                                                    </td>
+                                                                    <td
+                                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                        <input type="txt" id="input-email-label"
+                                                                            name="item_name"
+                                                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                            placeholder="Item name">
+                                                                    </td>
+                                                                    <td
+                                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                        <input type="number" id="input-email-label"
+                                                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                            name="unit_Price" placeholder="Unit price"
+                                                                            value="">
+                                                                    </td>
+                                                                    <td
+                                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                        <input type="number" id="input-email-label"
+                                                                            name="Qty"
+                                                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:
+    inter-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                            placeholder="Quantity"
+                                                                            value="">
+                                                                    </td>
+                                                                    <td
+                                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                        <input type="number" id="input-email-label"
+                                                                            name="total_price" disabled
+                                                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                            placeholder="Total">
+                                                                    </td>
+                                                                    <td
+                                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                        <input type="txt" id="input-email-label"
+                                                                            name="need_by_date"
+                                                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                            placeholder="need_by_date"
+                                                                            value="inProcess">
+                                                                    </td>
+
+
+
+
+
+                                                                </tr>
+
+
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+
+`;
+
+      $(tbody).append(lineTable);
+
+      let lineTbody = document.getElementById("lineTbody");
+
+      lineTbody.innerHTML = `
+
+
+                                                                      
+
+
+
+
+
+                                                                <tr class="hover:bg-gray-600" con-id="001">
+
+                                                                    <td
+                                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                        <input id="default-checkbox" type="checkbox"
+                                                                            value=""
+                                                                            onchange="setLineTableToLine(event)"
+                                                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                                    </td>
+                                                                    <td
+                                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                        <input type="txt" id="input-email-label"
+                                                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                            placeholder=1 value="" disabled>
+                                                                    </td>
+                                                                    <td
+                                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                        <input type="txt" id="input-email-label"
+                                                                            name="item_code"
+                                                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                            placeholder="item_code">
+                                                                    </td>
+                                                                    <td
+                                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                        <input type="txt" id="input-email-label"
+                                                                            name="item_name"
+                                                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                            placeholder="Item name">
+                                                                    </td>
+                                                                    <td
+                                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                        <input type="number" id="input-email-label"
+                                                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                            name="unit_Price" placeholder="Unit price"
+                                                                            value="">
+                                                                    </td>
+                                                                    <td
+                                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                        <input type="number" id="input-email-label"
+                                                                            name="Qty"
+                                                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:
+    inter-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                            placeholder="Quantity"
+                                                                            value="">
+                                                                    </td>
+                                                                    <td
+                                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                        <input type="number" id="input-email-label"
+                                                                            name="total_price" disabled
+                                                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                            placeholder="Total">
+                                                                    </td>
+                                                                    <td
+                                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                        <input type="txt" id="input-email-label"
+                                                                            name="need_by_date"
+                                                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                            placeholder="need_by_date"
+                                                                            value="inProcess">
+                                                                    </td>
+
+
+
+
+
+                                                                </tr>
+
+
+      
+      
+      
+      
+      `;
 
       $("#po_vendor_name").val(rowData[0].supplier_name);
       $("#shipTo").val(rowData[0].shipTo);
@@ -67,88 +276,92 @@ function searchPoInGrnFor() {
 
       console.log(rowData);
 
+      $(lineTbody).html("");
+
       rowData.forEach((row, index) => {
         console.log(row);
         console.log(row.status);
 
         index++;
-       // Create a new <tr> element
-let tr = document.createElement("tr");
-tr.classList.add("hover:bg-gray-600");
-tr.setAttribute("con-id", index);
+        let tr = document.createElement("tr");
+        tr.classList.add("hover:bg-gray-600");
 
-// Define the inner table
-let innerTable = `
-    <table class="min-w-full divide-y divide-gray-200">
-        <thead class="bg-gray-50">
-            <tr>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Header 1</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Header 2</th>
-            </tr>
-        </thead>
-        <tbody class="bg-white divide-y divide-gray-200">
-            <tr>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">Subitem 1</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">Subitem 2</td>
-            </tr>
-            <tr>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">Subitem 3</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">Subitem 4</td>
-            </tr>
-        </tbody>
-    </table>
+        tr.innerHTML = `   
+
+
+                                                                <tr class="hover:bg-gray-600" con-id="001">
+
+                                                                    <td
+                                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                        <input id="default-checkbox" type="checkbox"
+                                                                            value=""
+                                                                            onchange="setLineTableToLine(event)"
+                                                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                                    </td>
+                                                                    <td
+                                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                        <input type="txt" id="input-email-label"
+                                                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                            placeholder=1 value="" disabled>
+                                                                    </td>
+                                                                    <td
+                                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                        <input type="txt" id="input-email-label"
+                                                                            name="item_code"
+                                                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                            placeholder="item_code">
+                                                                    </td>
+                                                                    <td
+                                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                        <input type="txt" id="input-email-label"
+                                                                            name="item_name"
+                                                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                            placeholder="Item name">
+                                                                    </td>
+                                                                    <td
+                                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                        <input type="number" id="input-email-label"
+                                                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                            name="unit_Price" placeholder="Unit price"
+                                                                            value="">
+                                                                    </td>
+                                                                    <td
+                                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                        <input type="number" id="input-email-label"
+                                                                            name="Qty"
+                                                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:
+    inter-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                            placeholder="Quantity"
+                                                                            value="">
+                                                                    </td>
+                                                                    <td
+                                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                        <input type="number" id="input-email-label"
+                                                                            name="total_price" disabled
+                                                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                            placeholder="Total">
+                                                                    </td>
+                                                                    <td
+                                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                        <input type="txt" id="input-email-label"
+                                                                            name="need_by_date"
+                                                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                            placeholder="need_by_date"
+                                                                            value="inProcess">
+                                                                    </td>
+
+
+
+
+
+                                                                </tr>
+
 `;
 
-// Create a <td> to hold the nested table
-let nestedTd = `<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">${innerTable}</td>`;
-
-// Set the inner HTML of the <tr> element
-tr.innerHTML = `
-    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-        <input id="default-checkbox" type="checkbox" value="" onchange="setLineTableToLine(event)"
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-    </td>
-    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-        <input type="text" id="input-email-label" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-            placeholder="1" value="${index}" disabled>
-    </td>
-    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-        <input type="text" id="input-email-label" name="item_code"
-            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-            placeholder="item_code" value="${row.item_code}">
-    </td>
-    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-        <input type="text" id="input-email-label" name="item_name"
-            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-            placeholder="Item name" value="${row.item_shortdiscription}">
-    </td>
-    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-        <input type="number" id="input-email-label" name="unit_Price" onchange="setTotal(event)"
-            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-            placeholder="Unit price" value="${row.unit_price}">
-    </td>
-    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-        <input type="number" id="input-email-label" name="Qty" onchange="setTotal(event)"
-            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-            placeholder="Quantity" value="${row.balance}">
-    </td>
-    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-        <input type="number" id="input-email-label" name="total_price" disabled
-            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-            placeholder="Total">
-    </td>
-    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-        <input type="text" id="input-email-label" name="need_by_date"
-            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-            placeholder="need_by_date" value="inProcess">
-    </td>
-    ${nestedTd}  <!-- Insert the nested table here -->
-`;
-
-// Append the new row to the table body
-$(tbody).append(tr);
-
+        $(lineTbody).append(tr);
       });
+
+      // $(tbody).append(lineTable)
     } else if (!data.success) {
       alert("Data not found ");
 
@@ -161,9 +374,11 @@ $(tbody).append(tr);
   });
 }
 
+lastRowId = "";
+
 const setLineTableToLine = (event) => {
   if (event.target.checked == 1) {
-    let childTableId = $($(event.target).closest("tr")).attr("con-id");
+    let childTableId = $($(event.target).closest("tr")).attr("con-row-id");
     console.log(childTableId);
 
     $(`#${selectedRow}`).hide();
@@ -172,6 +387,412 @@ const setLineTableToLine = (event) => {
   }
 };
 
-function reciveTable() {
-  $(`#${selectedRow}`).show();
+const trAdderForTbody = (
+  sno,
+  tbody_id,
+  item_code,
+  itemname,
+  unitprice,
+  total,
+  balance,
+  status,
+  po_lineid,
+  recQty,
+  totalQty
+) => {
+  let tbody = document.getElementById(tbody_id);
+
+  let tr = document.createElement("tr");
+  tr.setAttribute("line-id", po_lineid);
+
+  tr.innerHTML = `
+
+                  
+      
+
+
+   
+                                                                        <td
+                                                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                            <input id="default-checkbox" onclick="selectChildTable(event)" type="checkbox"
+                                                                              
+                                                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                                        </td>
+                                                                        <td
+                                                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                            <input type="txt" id="input-email-label"
+                                                                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                                placeholder=1   value="${sno}" disabled>
+                                                                        </td>
+                                                                        <td
+                                                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                            <input type="txt" id="input-email-label"
+                                                                                name="item_code"
+                                                                                value="${item_code}"
+                                                                                disabled
+                                                                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                                placeholder="item_code">
+                                                                        </td>
+                                                                        <td
+                                                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                            <input type="txt" id="input-email-label"
+                                                                                name="item_name"
+                                                                                value="${itemname}"
+                                                                                class="py-3 w-full px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                                placeholder="Item name" disabled>
+                                                                        </td>
+                                                                        <td
+                                                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                            <input type="number" id="input-email-label"
+                                                                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                                name="unit_Price" disabled placeholder="Unit price"
+                                                                                value="${unitprice}"
+                                                                                >
+                                                                        </td>
+                                                                        <td
+                                                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                            <input type="number" id="input-email-label"
+                                                                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                                name="total_qty" disabled placeholder="Unit price"
+                                                                                value="${totalQty}"
+                                                                                >
+                                                                        </td>
+                                                                        <td
+                                                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                            <input type="number" id="input-email-label"
+                                                                                name="balance_qty"
+                                                                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:
+    inter-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                                placeholder="Quantity" disabled value="${balance}">
+                                                                        </td>
+                                                                        <td
+                                                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                            <input type="number" id="input-email-label"
+                                                                                name="recieved_qty" 
+                                                                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                                value="${recQty}"
+                                                                                placeholder="Recieved QTY">
+                                                                        </td>
+                                                                        <td
+                                                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                            <input type="number" id="input-email-label"
+                                                                                name="total_price" disabled
+                                                                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                                placeholder="Total"
+                                                                                value=${total}
+                                                                                >
+                                                                        </td>
+                                                                        <td
+                                                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                            <input type="txt" id="input-email-label"
+                                                                                name="status"
+                                                                                disabled
+                                                                                class="py-3 px-4 block min-w-auto border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                                placeholder="status" value="${status}">
+                                                                        </td>
+
+
+
+
+
+      
+      
+      
+      
+      
+      
+      
+      
+      `;
+
+  $(tbody).append(tr);
+
+  console.log(tbody);
+};
+
+function reciveTable(event) {
+  if (window.confirm("are you sure")) {
+    let currentTr = $(`tr[con-row-id='${selectedRow}']`)[0];
+
+    console.log(currentTr);
+
+    let item_code = currentTr.querySelector("input[name='item_code']").value;
+    let item_name = currentTr.querySelector("input[name='item_name']").value;
+    let recieved_qty = currentTr.querySelector(
+      "input[name='recieved_qty']"
+    ).value;
+    let unit_Price = currentTr.querySelector("input[name='unit_Price']").value;
+    let balance = currentTr.querySelector("input[name='balance_qty']").value;
+    let total_price = currentTr.querySelector(
+      "input[name='total_price']"
+    ).value;
+    let grnNumber = $("#grn_numberGen").val();
+    let po_lineid = $(currentTr).attr("line-id");
+    let childTbodyId = `tbodyLine${po_lineid}`;
+
+    let isValidField = true;
+
+    if (recieved_qty < 1) {
+      isValidField = false;
+    }
+
+
+    
+  if (recieved_qty > balance) {
+    isValidField = false;
+  }
+
+    if (isValidField) {
+      let data = {
+        setGrnLineRow: "setGrnLineRow",
+        item_code: item_code,
+        grnNumber: grnNumber,
+        recieved_qty: recieved_qty,
+        po_lineid: po_lineid,
+      };
+
+      // console.log(data);
+
+      $.post(
+        "ajax/ajaxGrn.php",
+        data,
+        function (data) {
+          console.log(data);
+
+          if (data.success) {
+            alert(`${recieved_qty} items is Accepted`);
+
+            let rowTable = $(`tr[line-row-id=${selectedRow}`)[0];
+
+            console.log(data.status);
+
+            trAdderForTbody(
+              1.1,
+              childTbodyId,
+              item_code,
+              item_name,
+              unit_Price,
+              total_price,
+              recieved_qty,
+              data.status,
+              po_lineid,
+              null,
+              balance
+            );
+
+            // rowTable.classList.remove("hidden")  ;
+            // $(rowTable).fadeIn(1000);
+
+            $(rowTable).fadeIn(1000);
+            selectedRow = null;
+          }
+        },
+        "json"
+      ).fail((error) => {
+        console.log(error.responseText);
+      });
+    } else {
+      alert("Something went wrong");
+    }
+  }
 }
+
+const genRateGrn = () => {
+  let po_number = $("#po_number").val();
+  let vendor_name = $("#po_vendor_name").val();
+
+  let data = {
+    createGrn: "createGrn",
+    po_number: po_number,
+    vendor_name: vendor_name,
+  };
+
+  // console.log(data);
+
+  $.post(
+    "ajax/ajaxGrn.php",
+    data,
+    function (response) {
+      console.log(response);
+
+      if (response.success) {
+        $("#grn-area").fadeIn();
+
+        // $(selector)
+        $("#grn_numberGen").val(response.grn_id);
+        $("#grn-create-btn").fadeOut(2000);
+      }
+    },
+    "json"
+  );
+};
+
+let rowSelect = null;
+
+const selectChildTable = (event) => {
+  console.log(rowSelect);
+  rowSelect = event.target.closest("tr");
+
+  console.log(rowSelect);
+};
+
+const AcceptDataToGrnLine = () => {
+  console.log(rowSelect);
+
+  let item_code = rowSelect.querySelector("input[name='item_code']").value;
+  let item_name = rowSelect.querySelector("input[name='item_name']").value;
+  let po_lineid = $(rowSelect).attr("line-id");
+  let unit_Price = rowSelect.querySelector("input[name='unit_Price']").value;
+  let total_qty = rowSelect.querySelector("input[name='total_qty']").value;
+  let recieved_qty = rowSelect.querySelector(
+    "input[name='recieved_qty']"
+  ).value;
+  let balance = rowSelect.querySelector("input[name='balance_qty']").value;
+  let total_price = rowSelect.querySelector("input[name='total_price']").value;
+  let grnNumber = $("#grn_numberGen").val();
+  let childTbodyId = `tbodyLine${po_lineid}`;
+
+  let inputs = rowSelect.querySelectorAll("input");
+
+  let isValidField = true;
+
+  if (recieved_qty < 1) {
+    isValidField = false;
+  }
+
+  if (recieved_qty > balance) {
+    isValidField = false;
+  }
+  if (isValidField) {
+    let data = {
+      acceptData: "acceptData",
+      item_code: item_code,
+      item_name: item_name,
+      unit_Price: unit_Price,
+      recieved_qty: recieved_qty,
+      balance: balance,
+      total_price: total_price,
+      grnNumber: grnNumber,
+      po_lineid: po_lineid,
+    };
+
+    console.log(data);
+
+    $.post(
+      "ajax/ajaxGrn.php",
+      data,
+      function (data) {
+        console.log(data);
+
+        if (data.success) {
+          alert(`${recieved_qty} items is Accepted`);
+
+          trAdderForTbody(
+            1.2,
+            childTbodyId,
+            item_code,
+            item_name,
+            unit_Price,
+            total_price,
+            recieved_qty,
+            data.status,
+            po_lineid,
+            null,
+            total_qty
+          );
+        }
+      },
+      "json"
+    ).fail((error) => {
+      console.log(error);
+    });
+  } else {
+    alert("Something went wrong");
+  }
+  // console.log(item_code);
+  // console.log(item_name);
+  // console.log(unit_Price);
+  // console.log(balance);
+  // console.log(total_price);
+  // console.log(recieved_qty);
+};
+
+const deliverdItemToGrn = () => {
+  console.log(rowSelect);
+
+  let item_code = rowSelect.querySelector("input[name='item_code']").value;
+  let item_name = rowSelect.querySelector("input[name='item_name']").value;
+  let po_lineid = $(rowSelect).attr("line-id");
+  let unit_Price = rowSelect.querySelector("input[name='unit_Price']").value;
+  let recieved_qty = rowSelect.querySelector(
+    "input[name='recieved_qty']"
+  ).value;
+  let balance = rowSelect.querySelector("input[name='balance_qty']").value;
+  let total_price = rowSelect.querySelector("input[name='total_price']").value;
+  let grnNumber = $("#grn_numberGen").val();
+  let childTbodyId = `tbodyLine${po_lineid}`;
+
+  let inputs = rowSelect.querySelectorAll("input");
+
+  let isValidField = true;
+
+  if (recieved_qty < 1) {
+    isValidField = false;
+  }
+
+  if (isValidField) {
+    let data = {
+      rejectData: "rejectData",
+      item_code: item_code,
+      item_name: item_name,
+      unit_Price: unit_Price,
+      recieved_qty: recieved_qty,
+      balance: balance,
+      total_price: total_price,
+      grnNumber: grnNumber,
+      po_lineid: po_lineid,
+    };
+
+    console.log(data);
+
+    $.post(
+      "ajax/ajaxGrn.php",
+      data,
+      function (data) {
+        console.log(data);
+
+        if (data.success) {
+          alert(`${recieved_qty} items is rejected`);
+
+
+
+          $("#rtv-btn").fadeIn(2000);
+
+
+          trAdderForTbody(
+            1.3,
+            childTbodyId,
+            item_code,
+            item_name,
+            unit_Price,
+            total_price,
+            recieved_qty,
+            data.status,
+            po_lineid
+          );
+        }
+      },
+      "json"
+    ).fail((error) => {
+      console.log(error);
+    });
+  } else {
+    alert("Please fill the all details");
+  }
+  // console.log(item_code);
+  // console.log(item_name);
+  // console.log(unit_Price);
+  // console.log(balance);
+  // console.log(total_price);
+  // console.log(recieved_qty);
+};

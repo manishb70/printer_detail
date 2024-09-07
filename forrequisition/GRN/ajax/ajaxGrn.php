@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 
 
 
@@ -135,6 +135,356 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
 
+
+
+
+
+
+    if (isset($_POST['createGrn'])) {
+
+        include('../../db.php');
+
+        $po_number = $_POST['po_number'];
+        $vendor_name = $_POST['vendor_name'];
+        $warehouse_code = 1;
+
+
+
+
+
+
+
+
+        $sql_grn = "INSERT INTO `for_office`.`grn_goods_receipt_header` (`warehouse_code`, `purchase_order_id`, `vendor_name`) 
+    VALUES ( '$warehouse_code', '$po_number', '$vendor_name');";
+
+
+
+        $resultGrn = mysqli_query($con, $sql_grn);
+
+
+
+        // echo $resultGrn;
+
+        if ($resultGrn) {
+
+
+
+
+            $response['success'] = true;
+
+
+            $grn_id = mysqli_insert_id($con);
+
+            $response['grn_id'] = $grn_id;
+
+
+        } else {
+            $response['success'] = false;
+            $response['error'] = mysqli_error($con);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // $response['vendor_name'] = $vendor_name;
+        // $response['po_number'] = $po_number;
+
+
+
+
+
+        echo json_encode($response);
+
+
+
+    }
+
+
+    if (isset($_POST['setGrnLineRow'])) {
+
+
+        include('../../db.php');
+
+
+        $item_code = $_POST['item_code'];
+        $grnNumber = $_POST['grnNumber'];
+        $recQty = $_POST['recieved_qty'];
+        $po_lineid = $_POST['po_lineid'];
+        $current_user = $_SESSION['username'];
+        $current_date = date('Y-m-d H:i:s');
+
+        $query = "INSERT INTO `for_office`.`grn_line_items` (`grn_head_id`, `item_code`, `created_by`, `updated_by`, `po_line_id`) VALUES (?, ?, ?, ?, ?)";
+
+        $stmt = $con->prepare($query);
+        $stmt->bind_param("sssss", $grnNumber, $item_code, $current_user, $current_user, $po_lineid);
+
+
+
+
+        if ($stmt->execute()) {
+
+
+            $response['success'] = true;
+
+
+
+
+            $lineId = mysqli_insert_id($con);
+            // $response['data'] = $_POST;
+            // $response['message'] = 'Data insreted succeefully';
+            $response['insertId'] = $stmt->insert_id;
+
+
+
+
+
+            $status = "received";
+
+            $query = "INSERT INTO `for_office`.`grn_sub_line_status` (`grn_head_id`, `po_line_id`, `recQty`, `status`, `createdBy`, `createdDate`, `item_code`) VALUES (?, ?, ? , ?, ?, ?, ?);";
+
+
+
+            $stmt = $con->prepare($query);
+
+
+
+
+            $stmt->bind_param("sssssss", $grnNumber, $lineId, $recQty, $status, $current_user, $current_date, $item_code);
+
+
+
+
+            if ($stmt->execute()) {
+
+
+
+                $response["success"] = true;
+                $response['data'] = $_POST;
+                $response['message'] = 'Item Recieved succeefully';
+                $response['status'] = $status;
+
+
+            } else {
+                $response['success'] = false;
+            }
+
+        } else {
+            $response['success'] = false;
+            $response['error'] = $stmt->error;
+        }
+
+
+
+        echo json_encode($response);
+
+
+
+
+
+    }
+
+
+    if (isset($_POST['acceptData'])) {
+
+
+
+        include('../../db.php');
+
+
+        $item_code = $_POST['item_code'];
+        $grnNumber = $_POST['grnNumber'];
+        $po_lineid = $_POST['po_lineid'];
+        $recQty = $_POST['recieved_qty'];
+        $total = $_POST['total_price'];
+        $current_user = $_SESSION['username'];
+        $current_date = date('Y-m-d H:i:s');
+
+        $query = "INSERT INTO `for_office`.`grn_line_items` (`grn_head_id`, `item_code`, `created_by`, `updated_by`, `po_line_id`) VALUES (?, ?, ?, ?, ?)";
+
+        $stmt = $con->prepare($query);
+        $stmt->bind_param("sssss", $grnNumber, $item_code, $current_user, $current_user, $po_lineid);
+
+
+
+        if ($stmt->execute()) {
+
+
+            $response['success'] = true;
+
+
+
+
+            $lineId = mysqli_insert_id($con);
+            // $response['data'] = $_POST;
+            // $response['message'] = 'Data insreted succeefully';
+            $response['insertId'] = $stmt->insert_id;
+
+
+
+
+
+            $status = "Accepted";
+
+            $query = "INSERT INTO `for_office`.`grn_sub_line_status` (`grn_head_id`, `po_line_id`, `recQty`, `status`, `createdBy`, `createdDate`, `item_code`) VALUES (?, ?, ? , ?, ?, ?, ?);";
+
+
+
+
+            $stmt = $con->prepare($query);
+
+
+
+
+            $stmt->bind_param("sssssss", $grnNumber, $lineId, $recQty, $status, $current_user, $current_date, $item_code);
+
+
+
+
+            if ($stmt->execute()) {
+
+
+
+                $response["success"] = true;
+                // $response['data'] = $_POST;
+                $response['message'] = 'Item Accepted succeefully';
+                $response['status'] = $status;
+
+
+            } else {
+                $response['success'] = false;
+            }
+
+        } else {
+            $response['success'] = false;
+            $response['error'] = $stmt->error;
+        }
+
+
+
+
+
+        $response['success'] = true;
+
+
+        $response['message'] = $_POST;
+
+
+
+        echo json_encode($response);
+
+
+
+    }
+
+    if (isset($_POST['rejectData'])) {
+
+
+
+        include('../../db.php');
+
+
+        $item_code = $_POST['item_code'];
+        $grnNumber = $_POST['grnNumber'];
+        $po_lineid = $_POST['po_lineid'];
+        $recQty = $_POST['recieved_qty'];
+        $total = $_POST['total_price'];
+        $current_user = $_SESSION['username'];
+        $current_date = date('Y-m-d H:i:s');
+
+        $query = "INSERT INTO `for_office`.`grn_line_items` (`grn_head_id`, `item_code`, `created_by`, `updated_by`, `po_line_id`) VALUES (?, ?, ?, ?, ?)";
+
+        $stmt = $con->prepare($query);
+        $stmt->bind_param("sssss", $grnNumber, $item_code, $current_user, $current_user, $po_lineid);
+
+
+
+        if ($stmt->execute()) {
+
+
+            $response['success'] = true;
+
+
+
+
+            $lineId = mysqli_insert_id($con);
+            // $response['data'] = $_POST;
+            // $response['message'] = 'Data insreted succeefully';
+            $response['insertId'] = $stmt->insert_id;
+
+
+
+
+
+            $status = "Rejected";
+
+            $query = "INSERT INTO `for_office`.`grn_sub_line_status` (`grn_head_id`, `po_line_id`, `recQty`, `status`, `createdBy`, `createdDate`, `item_code`) VALUES (?, ?, ? , ?, ?, ?, ?);";
+
+
+
+
+            $stmt = $con->prepare($query);
+
+
+
+
+            $stmt->bind_param("sssssss", $grnNumber, $lineId, $recQty, $status, $current_user, $current_date, $item_code);
+
+
+
+
+            if ($stmt->execute()) {
+
+
+
+                $response["success"] = true;
+                // $response['data'] = $_POST;
+                $response['message'] = 'Item Accepted succeefully';
+                $response['status'] = $status;
+
+
+            } else {
+                $response['success'] = false;
+            }
+
+        } else {
+            $response['success'] = false;
+            $response['error'] = $stmt->error;
+        }
+
+
+
+
+
+        $response['success'] = true;
+
+
+        $response['message'] = $_POST;
+
+
+
+        echo json_encode($response);
+
+
+
+    }
+
+
+
 }
 
 
@@ -245,6 +595,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
     }
+
+
+
+
 
 
 

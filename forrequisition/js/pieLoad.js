@@ -2,8 +2,8 @@ $(document).ready(function () {
   function loadPie(divId, title, data_pie) {
     google.charts.load("current", { packages: ["corechart"] });
 
-    function dataChart() {
-      var data = google.visualization.arrayToDataTable(data_pie);
+    async function dataChart() {
+      var data =  await google.visualization.arrayToDataTable(data_pie);
 
       //   console.log(data);
 
@@ -25,7 +25,7 @@ $(document).ready(function () {
     google.charts.setOnLoadCallback(dataChart);
 
     function drawChart1() {
-      var data = google.visualization.arrayToDataTable([
+      var data =    google.visualization.arrayToDataTable([
         ["Task", "Hours per Day"],
         ["Work", 51],
         ["Eat", 2],
@@ -38,8 +38,8 @@ $(document).ready(function () {
         title: "My Daily Activities",
         // is3D: true,
       };
-
-      var chart = new google.visualization.PieChart(
+        await
+       var chart = new  google.visualization.PieChart(
         document.getElementById("piechart2")
       );
       chart.draw(data, options);
@@ -56,7 +56,7 @@ $(document).ready(function () {
       arrForPie.push(arr);
     });
 
- await   loadPie(divId, title, arrForPie);
+    await loadPie(divId, title, arrForPie);
   }
 
   $.get(

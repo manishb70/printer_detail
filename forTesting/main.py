@@ -30,7 +30,7 @@ def main():
     # Database connection details
     config = {
         'user': 'root',
-        'password': 'manish@123',
+        'password': 'Algo@123',
         'host': 'localhost',
         'database': 'for_office',
     }
