@@ -469,7 +469,7 @@ if (isset($po_number)) {
 
                     ?>
 
-                    <button type="text" onclick="purchaseOrderDirect()" id="po-submit-btn"
+                    <button type="text" onclick="hideSelf(event)" id="po-submit-btn"
                         class="text-white border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs px-5 py-2.5 text-center me-2 mb-2 font-bold dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">
 
 

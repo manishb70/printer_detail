@@ -13,7 +13,7 @@
 <!-- Background COlor style="background-color: #F7EFE5;" -->
 
 <body>
-    <h1 class="text-center text-3xl mb-5 mt-2 font-bold underline">Sales Order Form</h1>
+    <h1 class="text-center text-3xl mb-5 mt-2 font-bold underline">Lead Genration form</h1>
     <form action="#">
         <div class="max-w-7xl m-auto flex px-10 gap-x-7">
             <fieldset class="w-1/6 p-5 border-2 rounded-md border-gray-900" style="border-color: #674188;">

@@ -624,7 +624,9 @@ const genRateGrn = () => {
 
         // $(selector)
         $("#grn_numberGen").val(response.grn_id);
-        $("#grn-create-btn").fadeOut(2000);
+        $("#grn-create-btn").slideToggle(1000);
+        // $("#grn-area-table").fadeIn(2000);
+        $("#grn-area-table").slideToggle(2000);
       }
     },
     "json"
@@ -669,9 +671,9 @@ const AcceptDataToGrnLine = () => {
   console.log(`Rec ${recieved_qty}`);
   console.log(`Balance ${balance}`);
 
-  if (recieved_qty > balance) {
-    isValidField = false;
-  }
+  // if (recieved_qty > balance) {
+  //   isValidField = false;
+  // }
   if (isValidField) {
     let data = {
       acceptData: "acceptData",
@@ -709,6 +711,8 @@ const AcceptDataToGrnLine = () => {
             null,
             total_qty
           );
+        
+        rowSelect=null
         }
       },
       "json"
@@ -886,3 +890,11 @@ const deliverdItemToGrn = () => {
   // console.log(total_price);
   // console.log(recieved_qty);
 };
+
+
+
+
+
+
+
+

@@ -375,3 +375,19 @@ const submiDataRejectToPo = () => {
 
   console.log(checkedData);
 };
+
+
+
+
+
+
+
+function hideSelf(event) {
+
+
+$("button").fadeOut(1000)
+
+  
+  $(event.target).fadeOut(1000)
+
+  }

@@ -31,7 +31,7 @@ const setRequireFieldsFromCategory = () => {
 
 
         }, error: function (error) {
-            console.log(('error; ' + eval(error)))
+            console.log(error)
         }
 
 
@@ -322,7 +322,7 @@ const addSubCatFields = (data) => {
 
 
                     }, error: function (error) {
-                        console.log('error; ' + eval(error))
+                        console.log(error)
                     }
 
 

@@ -57,7 +57,7 @@ let received_txt = `<div class="flex flex-wrap items-center mt-3 border-black bo
                             <input type="text" name="email" id="email" placeholder="Received" disabled
                             class="w-20 rounded-md border text-xs border-[#e0e0e0] bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md placeholder-black::placeholder" />
                         </div>
-                    </div>`
+                    </div>`;
 
 let reject_txt = `<div class="flex flex-wrap items-center mt-3 border-black border-t pt-2">
                         <div>
@@ -95,7 +95,7 @@ let reject_txt = `<div class="flex flex-wrap items-center mt-3 border-black bord
                             <input type="text" name="email" id="email" placeholder="Rejected" disabled
                             class="w-20 rounded-md border text-xs border-[#e0e0e0] bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md placeholder-black::placeholder" />
                         </div>
-                    </div>`
+                    </div>`;
 
 let accept_txt = `<div class="flex flex-wrap items-center mt-3 border-black border-t pt-2">
                                             <div>
@@ -133,95 +133,63 @@ let accept_txt = `<div class="flex flex-wrap items-center mt-3 border-black bord
                                                 <input type="text" name="email" id="email" placeholder="Accepted" disabled
                                                 class="w-20 rounded-md border text-xs border-[#e0e0e0] bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md placeholder-black::placeholder" />
                                             </div>
-                                        </div>`
-
+                                        </div>`;
 
 function received() {
-    let checkbox = document.getElementById('link-checkbox');
-    let recieved_div = document.getElementById('recieved_div');
+  let checkbox = document.getElementById("link-checkbox");
+  let recieved_div = document.getElementById("recieved_div");
 
-    if (checkbox.checked) {
-        recieved_div.innerHTML += received_txt;
-    } else {
-        console.log("without check");
-    }
+  if (checkbox.checked) {
+    recieved_div.innerHTML += received_txt;
+  } else {
+    console.log("without check");
+  }
 
-    console.log("finish");
+  console.log("finish");
 }
 
 function accept() {
-    let checkbox = document.getElementById('link-checkbox');
-    let accept_div = document.getElementById('accept_div');
+  let checkbox = document.getElementById("link-checkbox");
+  let accept_div = document.getElementById("accept_div");
 
-    if (checkbox.checked) {
-        accept_div.innerHTML += accept_txt;
-    } else {
-        console.log("without check");
-    }
+  if (checkbox.checked) {
+    accept_div.innerHTML += accept_txt;
+  } else {
+    console.log("without check");
+  }
 
-    console.log("finish");
+  console.log("finish");
 }
 
 function reject() {
-    let checkbox = document.getElementById('link-checkbox');
-    let reject_div = document.getElementById('reject_div');
+  let checkbox = document.getElementById("link-checkbox");
+  let reject_div = document.getElementById("reject_div");
 
-    if (checkbox.checked) {
-        reject_div.innerHTML += reject_txt;
-    } else {
-        console.log("without check");
-    }
+  if (checkbox.checked) {
+    reject_div.innerHTML += reject_txt;
+  } else {
+    console.log("without check");
+  }
 
-    console.log("finish");
+  console.log("finish");
 }
-
-
-
 
 function create_section() {
+  let x = document.getElementById("create_section");
 
-    let x = document.getElementById('create_section')
 
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "block";
-    }
+//   $("#create_section").slideUp(1000)
 
-    var y = document.getElementById("view_section");
-    if (y.style.display === "none") {
-        y.style.display = "none";
-    } else {
-        y.style.display = "none";
-    }
+
+  
+  $("#view_section").slideUp(1000)
+  $("#create_section").slideDown(1000)
 }
+
 
 
 function view_section() {
-
-    let x = document.getElementById('create_section')
-
-    if (x.style.display === "none") {
-        x.style.display = "none";
-    } else {
-        x.style.display = "none";
-    }
-
-    var y = document.getElementById("view_section");
-    if (y.style.display === "none") {
-        y.style.display = "block";
-    } else {
-        y.style.display = "block";
-    }
+  
+    $("#view_section").slideDown(1000)  
+    $("#create_section").slideUp(1000)
 }
-
-
-
-
-
-
-
-
-
-
-

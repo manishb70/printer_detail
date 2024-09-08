@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             // if ($_SESSION["role"] == "requisitionGen" || $role == "admin") {
             if ($_SESSION["store_genrate"] || $role == "admin") {
 
-                ?>
+            ?>
 
                 <form action="" method="post">
                     <button type="submit"
@@ -121,31 +121,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
             <?php
             if ($_SESSION["store_isseuer"] || $role == "admin") {
-                ?>
+            ?>
                 <a type="button" href="mangerApprove.php"
                     class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Item
                     Request Creation Report</a>
-                <?php
+            <?php
             }
             ?>
             <?php
             // if ($_SESSION["role"] == "admin" || $role == "admin") {
             if ($_SESSION["admin_write"]) {
-                ?>
+            ?>
                 <a type="button" href="purchaseorder.php"
                     class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">PO
                     Summary History</a>
-                <?php
+            <?php
             }
             ?>
             <?php
             // if ($_SESSION["role"] == "admin" || $role == "admin") {
             if ($_SESSION["admin_write"] || $role == "admin") {
-                ?>
+            ?>
                 <a type="button" href="gateentryform.php"
                     class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Gate
                     Entry Creation Form</a>
-                <?php
+            <?php
             }
             ?>
 
@@ -158,7 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             <?php
             // if ($_SESSION["role"] == "admin" || $role == "admin") {
             if ($_SESSION["PO_appover"] || $role == "admin") {
-                ?>
+            ?>
 
 
 
@@ -168,20 +168,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
 
-                <?php
+            <?php
             }
             ?>
 
             <?php
             // if ($_SESSION["role"] == "admin" || $role == "admin") {
             if ($_SESSION["admin_write"] || $role == "admin") {
-                ?>
+            ?>
                 <a type="submit" href="./users_form.php"
                     class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
                     User Master Creation Report </a>
 
 
-                <?php
+            <?php
             }
             ?>
             <a type="submit" href="./itemAdd.php"
@@ -193,7 +193,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
                 User Master Creation Form </a>
 
-                            
+
 
             <a type="submit" href="./createPo.php"
                 class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
@@ -255,6 +255,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
                 Sale order form
             </a>
+            <a type="submit" href="./grnReport.php"
+                class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                Grn Report
+            </a>
             <!-- 
                 <a type="submit" href="./createUserForm.php"
                 class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
@@ -272,12 +276,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
 
-           <div class="h-full w-full  flex mx-auto  justify-around flex-wrap ">
-               <a href="./purchaseorder.php"> <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="purchase_order"></div></a>
-                <a href="./mangerApprove.php"><div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="item_requests"></div></a>
-                <a href="./requisition.php"><div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="pr_requests"></div></a>
-                <a href="./grnReport.php"><div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="GRN_status"></div></a>
-                <a href="./grnReport.php"><div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="testChart"></div></a>
+            <div class="h-full w-full  flex mx-auto  justify-around flex-wrap ">
+                <a href="./purchaseorder.php">
+                    <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="purchase_order"></div>
+                </a>
+                <a href="./mangerApprove.php">
+                    <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="item_requests"></div>
+                </a>
+                <a href="./requisition.php">
+                    <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="pr_requests"></div>
+                </a>
+                <a href="./grnReport.php">
+                    <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="GRN_status"></div>
+                </a>
+                <!-- <a href="./grnReport.php">
+                    <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="testChart"></div>
+                </a> -->
                 <!-- <div class="datachart" style="width:26rem; height:17rem" id="Sales_order"></div>
                 <div class="datachart" style="width:26rem; height:17rem" id="GRN"></div>
                 <div class="datachart" style="width:26rem; height:17rem" id="po_tatreport"></div> -->
@@ -342,7 +356,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
                 while ($row = mysqli_fetch_assoc($result)) {
 
-                    ?>
+                ?>
 
                     <tr
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -370,7 +384,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                         </td>
                         <td class="px-6 py-4 text-right">
                             <?php if ($row["itemStatus"] == "Reject") {
-                                ?>
+                            ?>
                                 <a href="updateRejectedItem.php?id=<?php echo $row["item_code"] ?>"
                                     class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
 
@@ -379,7 +393,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
                             }
 
-                            ?>
+                                ?>
                         </td>
                     </tr>
 
@@ -402,30 +416,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 <script src="./js/jquery.min.js"></script>
 <script src="./js/pieLoad.js"></script>
 
-
+<!-- 
 <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
+    google.charts.load('current', {
+        'packages': ['corechart']
+    });
+    google.charts.setOnLoadCallback(drawChart);
 
-      function drawChart() {
+    function drawChart() {
 
         var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Work',     11],
-          ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7]
+            ['Task', 'Hours per Day'],
+            ['Work', 11],
+            ['Eat', 2],
+            ['Commute', 2],
+            ['Watch TV', 2],
+            ['Sleep', 7]
         ]);
 
         var options = {
-          title: 'My Daily Activities'
+            title: 'My Daily Activities',
+            is3D:true,
+            chartArea: {
+                left: 25    ,
+                top: 25,
+                width: '100%',
+                height: '100%'
+            }
+
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('testChart'));
 
         chart.draw(data, options);
-      }
-    </script>
+    }
+</script> -->
 
 </html>

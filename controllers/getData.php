@@ -1,14 +1,6 @@
 <?php
 
 
-// include("./db.php");
-// include('./dbconnection/db.php');
-
-
-
-
-
-
 
 
 function StatusAndValue($tableNAme,  $statusColumnName)
@@ -41,14 +33,13 @@ function StatusAndValue($tableNAme,  $statusColumnName)
 
 
             $data[] = $row[$statusColumnName];
-
         }
-            
+
 
         $totalIndex = count($data);
 
 
-        $filteredArray = array_filter($data, function($value) {
+        $filteredArray = array_filter($data, function ($value) {
             return is_string($value) || is_int($value);
         });
 
@@ -67,24 +58,5 @@ function StatusAndValue($tableNAme,  $statusColumnName)
 
 
         return json_encode(mysqli_error($con));
-
     }
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-?>

@@ -10,7 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         $selectedSubCatId = $_GET['selectedSubCatId'];
 
-        // include("db.php");
+        include("db.php");
+        include('./dbconnection/db.php');
         include('./dbconnection/db.php');
 
         $sql = "SELECT * FROM for_office.requireattributeforcatname where SubcatId=$selectedSubCatId";
@@ -84,7 +85,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         $selectedSubCatId = $_GET['selectedSubCatId'];
 
-        // include("db.php");
+        include("db.php");
+        include('./dbconnection/db.php');
         include('./dbconnection/db.php');
 
         $sql = "SELECT * FROM for_office.requireattributeforcatname where SubcatId=$selectedSubCatId";
@@ -161,7 +163,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         $catId = $_GET['catId'];
 
-        include("db.php");
+        // include("db.php");
+        include('./dbconnection/db.php');
 
 
         // $sql = "SELECT * FROM requireattributeforcatname where catId= $catId  ";
@@ -239,7 +242,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     // this is the temp data sent request
     if (isset($_GET["itemMasterSave"])) {
 
-        include("./db.php");
+        // include("./db.php");
+        include('./dbconnection/db.php');
 
         $attr  = $_GET["attrData"];;
 
@@ -537,7 +541,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     } else if ((isset($_GET["getOptionAttr"]))) {
 
 
-        include("./db.php");
+        // include("./db.php");
+        include('./dbconnection/db.php');
 
 
         $attrId = $_GET["attr_id"];
@@ -582,7 +587,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     else if ((isset($_GET["searchDataInitemTampTable"]))) {
 
 
-        include("./db.php");
+        // include("./db.php");
+        include('./dbconnection/db.php');
 
         $id = $_GET['searchData'];
 
@@ -686,7 +692,8 @@ JOIN sub_category c ON a.subCatId  = c.subCatId where S_No=$id;";
     else if ((isset($_GET["getItemWithItemCodeForUpdate"]))) {
 
 
-        include("./db.php");
+        // include("./db.php");
+        include('./dbconnection/db.php');
 
         $id = $_GET['selected_item_code'];
 
@@ -815,7 +822,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (isset($_POST["submitDataTOItemMaster"])) {
 
-        include("db.php");
+        // include("db.php");
+        include('./dbconnection/db.php');
 
 
 
