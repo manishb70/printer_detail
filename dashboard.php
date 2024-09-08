@@ -272,11 +272,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
 
-            <div class="h-full w-full  flex mx-auto  justify-around flex-wrap ">
-                <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="purchase_order"></div>
-                <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="item_requests"></div>
-                <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="pr_requests"></div>
-                <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="requisition_request"></div>
+           <div class="h-full w-full  flex mx-auto  justify-around flex-wrap ">
+               <a href="./purchaseorder.php"> <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="purchase_order"></div></a>
+                <a href="./mangerApprove.php"><div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="item_requests"></div></a>
+                <a href="./requisition.php"><div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="pr_requests"></div></a>
+                <a href="./grnReport.php"><div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="GRN_status"></div></a>
+                <a href="./grnReport.php"><div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="testChart"></div></a>
                 <!-- <div class="datachart" style="width:26rem; height:17rem" id="Sales_order"></div>
                 <div class="datachart" style="width:26rem; height:17rem" id="GRN"></div>
                 <div class="datachart" style="width:26rem; height:17rem" id="po_tatreport"></div> -->
@@ -400,5 +401,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 <script src="./js/scripts.js"></script>
 <script src="./js/jquery.min.js"></script>
 <script src="./js/pieLoad.js"></script>
+
+
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Work',     11],
+          ['Eat',      2],
+          ['Commute',  2],
+          ['Watch TV', 2],
+          ['Sleep',    7]
+        ]);
+
+        var options = {
+          title: 'My Daily Activities'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('testChart'));
+
+        chart.draw(data, options);
+      }
+    </script>
 
 </html>

@@ -36,6 +36,8 @@ function grnDataInsert() {
         alert("Something went wrong");
       }
     },
+  }).fail((error) => {
+    console.log(error.responseText);
   });
 }
 
@@ -458,7 +460,7 @@ const trAdderForTbody = (
                                                                                 >
                                                                         </td>
                                                                         <td
-                                                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                            class="px-6 py-4 min-w-10 whitespace-nowrap text-sm font-medium text-gray-800">
                                                                             <input type="number" id="input-email-label"
                                                                                 name="balance_qty"
                                                                                 class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:
@@ -601,6 +603,8 @@ const genRateGrn = () => {
   let po_number = $("#po_number").val();
   let vendor_name = $("#po_vendor_name").val();
 
+  console.log("hello");
+
   let data = {
     createGrn: "createGrn",
     po_number: po_number,
@@ -624,7 +628,9 @@ const genRateGrn = () => {
       }
     },
     "json"
-  );
+  ).fail(error=>{
+    console.log(error.responseText);
+  })
 };
 
 let rowSelect = null;
@@ -659,6 +665,9 @@ const AcceptDataToGrnLine = () => {
   if (recieved_qty < 1) {
     isValidField = false;
   }
+
+  console.log(`Rec ${recieved_qty}`);
+  console.log(`Balance ${balance}`);
 
   if (recieved_qty > balance) {
     isValidField = false;
@@ -717,7 +726,7 @@ const AcceptDataToGrnLine = () => {
   // console.log(recieved_qty);
 };
 
-const deliverdItemToGrn = () => {
+const rejectToGrn = () => {
   console.log(rowSelect);
 
   let item_code = rowSelect.querySelector("input[name='item_code']").value;
@@ -774,6 +783,87 @@ const deliverdItemToGrn = () => {
             childTbodyId,
             item_code,
             item_name,
+            unit_Price,
+            total_price,
+            recieved_qty,
+            data.status,
+            po_lineid
+          );
+        }
+      },
+      "json"
+    ).fail((error) => {
+      console.log(error);
+    });
+  } else {
+    alert("Please fill the all details");
+  }
+  // console.log(item_code);
+  // console.log(item_name);
+  // console.log(unit_Price);
+  // console.log(balance);
+  // console.log(total_price);
+  // console.log(recieved_qty);
+};
+const deliverdItemToGrn = () => {
+  console.log(rowSelect);
+
+  let item_code = rowSelect.querySelector("input[name='item_code']").value;
+  let item_name = rowSelect.querySelector("input[name='item_name']").value;
+  let po_lineid = $(rowSelect).attr("line-id");
+  let unit_Price = rowSelect.querySelector("input[name='unit_Price']").value;
+  let recieved_qty = rowSelect.querySelector(
+    "input[name='recieved_qty']"
+  ).value;
+  let balance = rowSelect.querySelector("input[name='balance_qty']").value;
+  let total_price = rowSelect.querySelector("input[name='total_price']").value;
+  let grnNumber = $("#grn_numberGen").val();
+  let childTbodyId = `tbodyLine${po_lineid}`;
+
+  let inputs = rowSelect.querySelectorAll("input");
+
+  let isValidField = true;
+
+  if (recieved_qty < 1) {
+    isValidField = false;
+  }
+
+  if (isValidField) {
+    let data = {
+      DeleiverdGrn: "DeleiverdGrn",
+      item_code: item_code,
+      item_name: item_name,
+      unit_Price: unit_Price,
+      recieved_qty: recieved_qty,
+      balance: balance,
+      total_price: total_price,
+      grnNumber: grnNumber,
+      po_lineid: po_lineid,
+    };
+
+    console.log(data);
+
+    $.post(
+      "ajax/ajaxGrn.php",
+      data,
+      function (data) {
+        console.log(data);
+
+        if (data.success) {
+          alert(`${recieved_qty} items is Deliverd`);
+
+
+
+          $("#rtv-btn").fadeIn(2000);
+
+          console.log(unit_Price);
+
+
+          trAdderForTbody(
+            1.3,
+            childTbodyId,
+            item_code,
+            item_name,  
             unit_Price,
             total_price,
             recieved_qty,

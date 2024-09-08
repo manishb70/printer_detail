@@ -64,21 +64,28 @@ $(document).ready(function () {
     {
       pieChartData: "pieChartData",
     },
-    async function (data) {
+    async function (data) { 
       console.log(data);
 
       let purchase_order = data.purchaseOrder.Indexes;
       let itemrequest = data.itemrequest.Indexes;
       let requisition_table = data.requisition_table.Indexes;
+      let grnStatus = data.grnStatus.Indexes;
 
       //   console.log(purchase_order);
 
       await setDataOfPie(requisition_table, "PR Requests", "pr_requests");
       await setDataOfPie(purchase_order, "Purchase Order", "purchase_order");
       await setDataOfPie(itemrequest, "Item Request", "item_requests");
+      await setDataOfPie(grnStatus, "GRN status", "GRN_status");
     },
     "json"
   ).fail(error=>{
     console.log(error);
   })
 });
+
+
+
+
+

@@ -13,6 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // include('../../dconnection/db.php');
         include('../../db.php');
+        include('../dbconnection/db.php');
+        include('../dbconnection/db.php');
         // $response["data"] = $_POST;
 
 
@@ -142,7 +144,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (isset($_POST['createGrn'])) {
 
-        include('../../db.php');
+        // include('../../db.php');
+        // include('.../dbconnection/db.php');
+        include('../../dbconnection/db.php');
 
         $po_number = $_POST['po_number'];
         $vendor_name = $_POST['vendor_name'];
@@ -218,7 +222,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['setGrnLineRow'])) {
 
 
-        include('../../db.php');
+        // include('../../db.php');
+        // include('../dbconnection/db.php');
+        // include('../dbconnection/db.php');
+        include('../../dbconnection/db.php');
 
 
         $item_code = $_POST['item_code'];
@@ -303,7 +310,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-        include('../../db.php');
+        // include('../../db.php');
+        // include('../dbconnection/db.php');
+        include('../../dbconnection/db.php');
 
 
         $item_code = $_POST['item_code'];
@@ -395,7 +404,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-        include('../../db.php');
+        // include('../../db.php');
+        // include('../dbconnection/db.php');
+        include('../../dbconnection/db.php');
 
 
         $item_code = $_POST['item_code'];
@@ -482,6 +493,99 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
     }
+    if (isset($_POST['DeleiverdGrn'])) {
+
+
+
+        // include('../../db.php');
+        // include('../dbconnection/db.php');
+        include('../../dbconnection/db.php');
+
+
+        $item_code = $_POST['item_code'];
+        $grnNumber = $_POST['grnNumber'];
+        $po_lineid = $_POST['po_lineid'];
+        $recQty = $_POST['recieved_qty'];
+        $total = $_POST['total_price'];
+        $current_user = $_SESSION['username'];
+        $current_date = date('Y-m-d H:i:s');
+
+        $query = "INSERT INTO `for_office`.`grn_line_items` (`grn_head_id`, `item_code`, `created_by`, `updated_by`, `po_line_id`) VALUES (?, ?, ?, ?, ?)";
+
+        $stmt = $con->prepare($query);
+        $stmt->bind_param("sssss", $grnNumber, $item_code, $current_user, $current_user, $po_lineid);
+
+
+
+        if ($stmt->execute()) {
+
+
+            $response['success'] = true;
+
+
+
+
+            $lineId = mysqli_insert_id($con);
+            // $response['data'] = $_POST;
+            // $response['message'] = 'Data insreted succeefully';
+            $response['insertId'] = $stmt->insert_id;
+
+
+
+
+
+            $status = "Delivered";
+
+            $query = "INSERT INTO `for_office`.`grn_sub_line_status` (`grn_head_id`, `po_line_id`, `recQty`, `status`, `createdBy`, `createdDate`, `item_code`) VALUES (?, ?, ? , ?, ?, ?, ?);";
+
+
+
+
+            $stmt = $con->prepare($query);
+
+
+
+
+            $stmt->bind_param("sssssss", $grnNumber, $lineId, $recQty, $status, $current_user, $current_date, $item_code);
+
+
+
+
+            if ($stmt->execute()) {
+
+
+
+                $response["success"] = true;
+                // $response['data'] = $_POST;
+                $response['message'] = 'Item Accepted succeefully';
+                $response['status'] = $status;
+
+
+            } else {
+                $response['success'] = false;
+            }
+
+        } else {
+            $response['success'] = false;
+            $response['error'] = $stmt->error;
+        }
+
+
+
+
+
+        $response['success'] = true;
+
+
+        $response['message'] = $_POST;
+
+
+
+        echo json_encode($response);
+
+
+
+    }
 
 
 
@@ -498,7 +602,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if (isset($_GET['getDataForGrnPo'])) {
 
 
-        include('../../db.php');
+        // include('../../db.php');
+        // include('../dbconnection/db.php');
+        include('../../dbconnection/db.php');
 
 
 

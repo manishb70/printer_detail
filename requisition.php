@@ -1,7 +1,8 @@
 <?php
 
 session_start();
-include("../db.php");
+// include("../db.php");
+include('./dbconnection/db.php');
 
 
 
@@ -95,12 +96,19 @@ if (mysqli_num_rows($result) > 0) {
                 </svg>Search
             </button>
         </form>
-
+        
+        <button onclick="exportTableToCSV('table.csv')" type="button" class="flex items-center justify-center  bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                                <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+                                </svg>
+                                Export to CSV
+                            </button>
     </div>
-
+    
+    
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg ">
-        <table class=" text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"">
+        <table id="dataTablePr" class=" text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"">
 
 
             <thead class=" text-xs bg-blue-300 text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -489,6 +497,40 @@ if (mysqli_num_rows($result) > 0) {
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
 <script src="./js/scripts.js"></script>
 <script src="./js/jquery.min.js"></script>
+
+<script>
+    function exportTableToCSV(filename) {
+        const table = document.getElementById('dataTablePr');
+        let csvContent = '';
+
+        // Extract table headers
+        const headers = Array.from(table.querySelectorAll('thead th'))
+            .map(th => th.innerText)
+            .join(',');
+        csvContent += headers + '\n';
+
+        // Extract table rows
+        const rows = table.querySelectorAll('tbody tr');
+        rows.forEach(row => {
+            const cells = Array.from(row.querySelectorAll('td'))
+                .map(td => td.innerText)
+                .join(',');
+            csvContent += cells + '\n';
+        });
+
+        // Create a Blob and trigger a download
+        const blob = new Blob([csvContent], {
+            type: 'text/csv;charset=utf-8;'
+        });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', filename);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+</script>
 
 
 </html>

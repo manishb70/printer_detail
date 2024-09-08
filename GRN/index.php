@@ -1,8 +1,8 @@
 <?php
 
-include('../db.php');
-
-
+// include('../db.php');
+// include('../dbconnection/db.php');
+include('../dbconnection/db.php');
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -512,10 +512,11 @@ WHERE a.PO_number = $po_number;   ";
                     <div>
                         <button type="text" onclick="AcceptDataToGrnLine()"
                             class="text-white border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs px-5 py-2.5 text-center me-2 font-medium dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 ">Accept</button>
-                        <button type="text" onclick="deliverdItemToGrn()"
+                        <button type="text" onclick="rejectToGrn()"
                             class="text-white border ml-4 border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs px-5 py-2.5 text-center me-2 font-medium dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 ">Reject</button>
                     </div>
                     <button type="text"
+                    onclick="deliverdItemToGrn()"
                         class="text-white border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs px-5 py-2.5 text-center me-2 mb-2 font-medium dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 x">
                         Delivered</button>
                     <button type="text"
