@@ -10,8 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         $selectedSubCatId = $_GET['selectedSubCatId'];
 
-        include("db.php");
-        include('./dbconnection/db.php');
+        // include("db.php");
+        // include('./dbconnection/db.php');
         include('./dbconnection/db.php');
 
         $sql = "SELECT * FROM for_office.requireattributeforcatname where SubcatId=$selectedSubCatId";
@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         $selectedSubCatId = $_GET['selectedSubCatId'];
 
-        include("db.php");
+        // include("db.php");
         include('./dbconnection/db.php');
         include('./dbconnection/db.php');
 

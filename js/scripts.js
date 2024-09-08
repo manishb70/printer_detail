@@ -118,6 +118,8 @@ const updateDataUser = (event) => {
             console.log(data);
             // currentRow.fadeOut(1000)
             window.location.reload();
+        },error:error=>{
+            console.log(error);
         }
 
 

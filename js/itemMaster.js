@@ -1453,6 +1453,8 @@ const setDataToAllItemview = async () => {
 
 
 
+        },error:error=>{
+            console.log(error);
         }
     })
 

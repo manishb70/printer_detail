@@ -1,5 +1,6 @@
 <?php
-include("../db.php");
+// include("../db.php");
+include("./dbconnection/db.php");
 include("./navForLogged.php");
 
 
@@ -61,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 </head>
 
 <body
-    style=" margin-top:8rem;"
+    style=""
     class="font-sans ">
 
 
@@ -77,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
 
-        <div class="flex justify-between  mb-4 ">
+        <div class="flex justify-between MT-20 mt-20 mb-4 ">
 
             <div class="flex items-center  mb-4  max-w-lg mx-auto">
 
