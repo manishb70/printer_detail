@@ -400,12 +400,14 @@ const trAdderForTbody = (
   status,
   po_lineid,
   recQty,
-  totalQty
+  totalQty,
+  grn_line_id
 ) => {
   let tbody = document.getElementById(tbody_id);
 
   let tr = document.createElement("tr");
   tr.setAttribute("line-id", po_lineid);
+  tr.setAttribute("grn-line-id", grn_line_id);
 
   tr.innerHTML = `
 
@@ -531,6 +533,7 @@ function reciveTable(event) {
     let grnNumber = $("#grn_numberGen").val();
     let po_lineid = $(currentTr).attr("line-id");
     let childTbodyId = `tbodyLine${po_lineid}`;
+    let po_number = $("#po_number").val()
 
     let isValidField = true;
 
@@ -539,11 +542,6 @@ function reciveTable(event) {
     }
 
 
-    
-  if (recieved_qty > balance) {
-    isValidField = false;
-  }
-
     if (isValidField) {
       let data = {
         setGrnLineRow: "setGrnLineRow",
@@ -551,6 +549,7 @@ function reciveTable(event) {
         grnNumber: grnNumber,
         recieved_qty: recieved_qty,
         po_lineid: po_lineid,
+        po_number:po_number
       };
 
       // console.log(data);
@@ -566,7 +565,12 @@ function reciveTable(event) {
 
             let rowTable = $(`tr[line-row-id=${selectedRow}`)[0];
 
+
+            let grn_line_id = data.insertId 
+
             console.log(data.status);
+
+            console.log(grn_line_id);
 
             trAdderForTbody(
               1.1,
@@ -579,7 +583,8 @@ function reciveTable(event) {
               data.status,
               po_lineid,
               null,
-              balance
+              balance,
+              grn_line_id
             );
 
             // rowTable.classList.remove("hidden")  ;
@@ -646,10 +651,12 @@ const selectChildTable = (event) => {
 
 const AcceptDataToGrnLine = () => {
   console.log(rowSelect);
+  
 
   let item_code = rowSelect.querySelector("input[name='item_code']").value;
   let item_name = rowSelect.querySelector("input[name='item_name']").value;
   let po_lineid = $(rowSelect).attr("line-id");
+  let grn_line_id = $(rowSelect).attr("grn-line-id");
   let unit_Price = rowSelect.querySelector("input[name='unit_Price']").value;
   let total_qty = rowSelect.querySelector("input[name='total_qty']").value;
   let recieved_qty = rowSelect.querySelector(
@@ -685,6 +692,7 @@ const AcceptDataToGrnLine = () => {
       total_price: total_price,
       grnNumber: grnNumber,
       po_lineid: po_lineid,
+      grn_line_id:grn_line_id
     };
 
     console.log(data);
@@ -709,7 +717,8 @@ const AcceptDataToGrnLine = () => {
             data.status,
             po_lineid,
             null,
-            total_qty
+            total_qty,
+            grn_line_id
           );
         
         rowSelect=null
@@ -741,6 +750,7 @@ const rejectToGrn = () => {
     "input[name='recieved_qty']"
   ).value;
   let balance = rowSelect.querySelector("input[name='balance_qty']").value;
+  let grn_line_id = $(rowSelect).attr("grn-line-id");
   let total_price = rowSelect.querySelector("input[name='total_price']").value;
   let grnNumber = $("#grn_numberGen").val();
   let childTbodyId = `tbodyLine${po_lineid}`;
@@ -759,14 +769,19 @@ const rejectToGrn = () => {
       item_code: item_code,
       item_name: item_name,
       unit_Price: unit_Price,
+      grn_line_id:grn_line_id,
       recieved_qty: recieved_qty,
       balance: balance,
       total_price: total_price,
       grnNumber: grnNumber,
-      po_lineid: po_lineid,
+      po_lineid: po_lineid
     };
 
     console.log(data);
+
+    console.log(grn_line_id);
+
+
 
     $.post(
       "ajax/ajaxGrn.php",
@@ -791,7 +806,11 @@ const rejectToGrn = () => {
             total_price,
             recieved_qty,
             data.status,
-            po_lineid
+            po_lineid,
+            null,
+            total_price,
+            grn_line_id
+          
           );
         }
       },
@@ -815,11 +834,13 @@ const deliverdItemToGrn = () => {
   let item_code = rowSelect.querySelector("input[name='item_code']").value;
   let item_name = rowSelect.querySelector("input[name='item_name']").value;
   let po_lineid = $(rowSelect).attr("line-id");
+  
   let unit_Price = rowSelect.querySelector("input[name='unit_Price']").value;
   let recieved_qty = rowSelect.querySelector(
     "input[name='recieved_qty']"
   ).value;
   let balance = rowSelect.querySelector("input[name='balance_qty']").value;
+  let grn_line_id = $(rowSelect).attr("grn-line-id");
   let total_price = rowSelect.querySelector("input[name='total_price']").value;
   let grnNumber = $("#grn_numberGen").val();
   let childTbodyId = `tbodyLine${po_lineid}`;
@@ -843,6 +864,7 @@ const deliverdItemToGrn = () => {
       total_price: total_price,
       grnNumber: grnNumber,
       po_lineid: po_lineid,
+      grn_line_id:grn_line_id
     };
 
     console.log(data);
@@ -872,7 +894,10 @@ const deliverdItemToGrn = () => {
             total_price,
             recieved_qty,
             data.status,
-            po_lineid
+            po_lineid,
+            null,
+            total_price,
+            grn_line_id
           );
         }
       },

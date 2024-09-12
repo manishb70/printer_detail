@@ -16,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $itemMasterRequets = StatusAndValue("item_master_temp",  "itemStatus");
         $requisition_table = StatusAndValue("requisition_table",  "status");
         $grnStatus = StatusAndValue("grn_sub_line_status",  "status");
+        $Lead_status = StatusAndValue("create_query_form",  "status");
 
 
 
@@ -29,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
         $response['requisition_table'] = $requisition_table;
+        $response['Lead_status'] = $Lead_status;
         $response['itemrequest'] = $itemMasterRequets;
         $response['purchaseOrder'] = $purchaseOrder;
         $response['grnStatus'] = $grnStatus;

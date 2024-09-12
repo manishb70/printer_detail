@@ -17,6 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $ship_to = $_POST['ship_to'];
     $bill_to = $_POST['bill_to'];
     $payment_term = $_POST['payment_term'];
+    $note_to_supplier = $_POST['note_to_supplier'];
+
+
 
 
 
@@ -25,12 +28,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // $sql = "INSERT INTO `for_office`.`purchase_order_header` (`createdBy`, `created_date`) VALUES ('$user', '$currentDateTime');";
 
-    $sql = "INSERT INTO `for_office`.`purchase_order_header` (`vendore_code`, `supplier_name`, `supplier_site_code`, `payment_term`, `bill_to_location`, `shipTo`, `createdBy`, `created_date`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO `for_office`.`purchase_order_header` (`vendore_code`, `supplier_name`, `supplier_site_code`, `payment_term`, `bill_to_location`, `shipTo`, `createdBy`, `created_date`, `remarks_nots`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?,?)";
 
 
     $stmt = $con->prepare($sql);
 
-    $stmt->bind_param("ssssssss", $vendor_code, $vendore_name, $vendore_site_code, $payment_term, $bill_to, $ship_to, $user, $currentDateTime);
+    $stmt->bind_param("sssssssss", $vendor_code, $vendore_name, $vendore_site_code, $payment_term, $bill_to, $ship_to, $user, $currentDateTime , $remarks_nots);
 
 
 
@@ -133,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="">
                     <label class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Note To
                         Supplier : </label>
-                    <input type="text" required value=""
+                    <input type="text" required value="" name="note_to_supplier"
                         class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                 </div>
             </div>

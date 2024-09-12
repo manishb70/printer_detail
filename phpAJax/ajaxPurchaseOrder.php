@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if (isset($_GET['getLineDataByPoNumber'])) {
 
         // include('../db.php');
-        include('./dbconnection/db.php');
+        include('../dbconnection/db.php');
 
         $ponumber = $_GET['po_id'];
         $response['ponumber is '] = $ponumber;
@@ -103,12 +103,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-            $query = "INSERT INTO `for_office`.`purchase_order_line` (`po_number`, `item_code`, `item_shortdiscription`, `unit_price`, `quantity`, `total_price`, `need_by_date`) 
-        VALUES (?, ?, ?, ?, ?, ?, ?);";
+            $query = "INSERT INTO `for_office`.`purchase_order_line` (`po_number`, `item_code`, `item_shortdiscription`, `unit_price`, `quantity`, `total_price`, `need_by_date` , `balance`) 
+        VALUES (?, ?, ?, ?, ?, ?, ?,?);";
 
 
             $stmt = $con->prepare($query);
-            $stmt->bind_param("sssssss", $po_number, $item_code, $item_name, $unit_Price, $Qty, $total_price, $need_by_date);
+            $stmt->bind_param("ssssssss", $po_number, $item_code, $item_name, $unit_Price, $Qty, $total_price, $need_by_date,$Qty);
 
 
 
@@ -117,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $setLineIdToRelAtedTrId[$line_id] = $con->insert_id;
 
                 $response["success"] = true;
-                $response["message"] = "Data seccuss fukky insteretd";
+                $response["message"] = "Data successfully inserted";
 
 
 
@@ -189,9 +189,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $line_id = isset($value['line_id']) ? $value['line_id'] : null;
             $item_code = $value['item_code'];
             $item_name = $value['item_name'];
-            $unit_Price = $value['unit_Price'];
-            $Qty = $value['Qty'];
-            $total_price = 7;
+            $unit_Price = (int) $value['unit_Price'];
+            $Qty = (int) $value['Qty'];
+            $total_price = $unit_Price*$Qty;
             $need_by_date = $value['need_by_date'];
             $saleOrderNumber = $value['saleOrderNumber'];
 
@@ -213,13 +213,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // VALUES (?, ?, ?, ?, ?, ?, ?);";
 
 
-                $query = "UPDATE `for_office`.`purchase_order_line` SET `item_code` = ?, `item_shortdiscription` = ?, `unit_price` = ?, `quantity` = ?, `total_price` = ?, `need_by_date` = ? WHERE (`id` = ?);";
+                $query = "UPDATE `for_office`.`purchase_order_line` SET `item_code` = ?, `item_shortdiscription` = ?, `unit_price` = ?, `quantity` = ?, `total_price` = ?, `need_by_date` = ? , `balance` = ? WHERE (`id` = ?);";
 
 
 
 
                 $stmt = $con->prepare($query);
-                $stmt->bind_param("ssssssi", $item_code, $item_name, $unit_Price, $Qty, $total_price, $need_by_date, $line_id);
+                $stmt->bind_param("sssssssi", $item_code, $item_name, $unit_Price, $Qty, $total_price, $need_by_date, $Qty , $line_id);
 
                 $reault = $stmt->execute();
 
@@ -258,12 +258,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 $line_id = $value['line_main_id'];
 
-                $query = "INSERT INTO `for_office`.`purchase_order_line` (`po_number`, `item_code`, `item_shortdiscription`, `unit_price`, `quantity`, `total_price`, `need_by_date`) 
-            VALUES (?, ?, ?, ?, ?, ?, ?);";
+                $query = "INSERT INTO `for_office`.`purchase_order_line` (`po_number`, `item_code`, `item_shortdiscription`, `unit_price`, `quantity`, `total_price`, `need_by_date` , `balance`) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 
 
                 $stmt = $con->prepare($query);
-                $stmt->bind_param("sssssss", $po_number, $item_code, $item_name, $unit_Price, $Qty, $total_price, $need_by_date);
+                $stmt->bind_param("ssssssss", $po_number, $item_code, $item_name, $unit_Price, $Qty, $total_price, $need_by_date,$Qty);
 
                 if ($stmt->execute()) {
 

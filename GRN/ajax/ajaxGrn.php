@@ -181,8 +181,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $grn_id = mysqli_insert_id($con);
 
             $response['grn_id'] = $grn_id;
-
-
         } else {
             $response['success'] = false;
             $response['error'] = mysqli_error($con);
@@ -212,10 +210,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
+
         echo json_encode($response);
-
-
-
     }
 
 
@@ -232,13 +228,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $grnNumber = $_POST['grnNumber'];
         $recQty = $_POST['recieved_qty'];
         $po_lineid = $_POST['po_lineid'];
+        $po_number = $_POST['po_number'];
         $current_user = $_SESSION['username'];
         $current_date = date('Y-m-d H:i:s');
 
-        $query = "INSERT INTO `for_office`.`grn_line_items` (`grn_head_id`, `item_code`, `created_by`, `updated_by`, `po_line_id`) VALUES (?, ?, ?, ?, ?)";
+        $query = "INSERT INTO `for_office`.`grn_line_items` (`grn_head_id`, `item_code`, `created_by`, `updated_by`, `po_line_id`,`po_number`) VALUES (?, ?, ?, ?, ? ,?)";
 
         $stmt = $con->prepare($query);
-        $stmt->bind_param("sssss", $grnNumber, $item_code, $current_user, $current_user, $po_lineid);
+        $stmt->bind_param("ssssss", $grnNumber, $item_code, $current_user, $current_user, $po_lineid, $po_number);
 
 
 
@@ -262,7 +259,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $status = "received";
 
-            $query = "INSERT INTO `for_office`.`grn_sub_line_status` (`grn_head_id`, `po_line_id`, `recQty`, `status`, `createdBy`, `createdDate`, `item_code`) VALUES (?, ?, ? , ?, ?, ?, ?);";
+            $query = "INSERT INTO `for_office`.`grn_sub_line_status` (`grn_head_id`, `grn_line_id`, `recQty`, `status`, `createdBy`, `createdDate`, `item_code`) VALUES (?, ?, ? , ?, ?, ?, ?);";
 
 
 
@@ -284,12 +281,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $response['data'] = $_POST;
                 $response['message'] = 'Item Recieved succeefully';
                 $response['status'] = $status;
-
-
             } else {
                 $response['success'] = false;
             }
-
         } else {
             $response['success'] = false;
             $response['error'] = $stmt->error;
@@ -298,11 +292,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
         echo json_encode($response);
-
-
-
-
-
     }
 
 
@@ -319,6 +308,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $grnNumber = $_POST['grnNumber'];
         $po_lineid = $_POST['po_lineid'];
         $recQty = $_POST['recieved_qty'];
+        $grn_line_id = $_POST['grn_line_id'];
         $total = $_POST['total_price'];
         $current_user = $_SESSION['username'];
         $current_date = date('Y-m-d H:i:s');
@@ -330,58 +320,55 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
+        // if ($stmt->execute()) {
+
+
+        $response['success'] = true;
+
+
+
+
+        $lineId = mysqli_insert_id($con);
+        // $response['data'] = $_POST;
+        // $response['message'] = 'Data insreted succeefully';
+        $response['insertId'] = $stmt->insert_id;
+
+
+
+
+
+        $status = "Accepted";
+
+        $query = "INSERT INTO `for_office`.`grn_sub_line_status` (`grn_head_id`, `grn_line_id`, `recQty`, `status`, `createdBy`, `createdDate`, `item_code`) VALUES (?, ?, ? , ?, ?, ?, ?);";
+
+
+
+
+        $stmt = $con->prepare($query);
+
+
+
+
+        $stmt->bind_param("sssssss", $grnNumber, $grn_line_id, $recQty, $status, $current_user, $current_date, $item_code);
+
+
+
+
         if ($stmt->execute()) {
 
 
-            $response['success'] = true;
 
-
-
-
-            $lineId = mysqli_insert_id($con);
+            $response["success"] = true;
             // $response['data'] = $_POST;
-            // $response['message'] = 'Data insreted succeefully';
-            $response['insertId'] = $stmt->insert_id;
-
-
-
-
-
-            $status = "Accepted";
-
-            $query = "INSERT INTO `for_office`.`grn_sub_line_status` (`grn_head_id`, `po_line_id`, `recQty`, `status`, `createdBy`, `createdDate`, `item_code`) VALUES (?, ?, ? , ?, ?, ?, ?);";
-
-
-
-
-            $stmt = $con->prepare($query);
-
-
-
-
-            $stmt->bind_param("sssssss", $grnNumber, $lineId, $recQty, $status, $current_user, $current_date, $item_code);
-
-
-
-
-            if ($stmt->execute()) {
-
-
-
-                $response["success"] = true;
-                // $response['data'] = $_POST;
-                $response['message'] = 'Item Accepted succeefully';
-                $response['status'] = $status;
-
-
-            } else {
-                $response['success'] = false;
-            }
-
+            $response['message'] = 'Item Accepted succeefully';
+            $response['status'] = $status;
         } else {
+            $response['success'] = false;
             $response['success'] = false;
             $response['error'] = $stmt->error;
         }
+        // } else {
+        // }
 
 
 
@@ -395,9 +382,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
         echo json_encode($response);
-
-
-
     }
 
     if (isset($_POST['rejectData'])) {
@@ -412,6 +396,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $item_code = $_POST['item_code'];
         $grnNumber = $_POST['grnNumber'];
         $po_lineid = $_POST['po_lineid'];
+        $grn_line_id = $_POST['grn_line_id'];
         $recQty = $_POST['recieved_qty'];
         $total = $_POST['total_price'];
         $current_user = $_SESSION['username'];
@@ -424,58 +409,55 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
+        // if ($stmt->execute()) {
+
+
+        $response['success'] = true;
+
+
+
+
+        $lineId = mysqli_insert_id($con);
+        // $response['data'] = $_POST;
+        // $response['message'] = 'Data insreted succeefully';
+        $response['insertId'] = $stmt->insert_id;
+
+
+
+
+
+        $status = "Rejected";
+
+        $query = "INSERT INTO `for_office`.`grn_sub_line_status` (`grn_head_id`, `grn_line_id`, `recQty`, `status`, `createdBy`, `createdDate`, `item_code`) VALUES (?, ?, ? , ?, ?, ?, ?);";
+
+
+
+
+        $stmt = $con->prepare($query);
+
+
+
+
+        $stmt->bind_param("sssssss", $grnNumber, $grn_line_id, $recQty, $status, $current_user, $current_date, $item_code);
+
+
+
+
         if ($stmt->execute()) {
 
 
-            $response['success'] = true;
 
-
-
-
-            $lineId = mysqli_insert_id($con);
+            $response["success"] = true;
             // $response['data'] = $_POST;
-            // $response['message'] = 'Data insreted succeefully';
-            $response['insertId'] = $stmt->insert_id;
-
-
-
-
-
-            $status = "Rejected";
-
-            $query = "INSERT INTO `for_office`.`grn_sub_line_status` (`grn_head_id`, `po_line_id`, `recQty`, `status`, `createdBy`, `createdDate`, `item_code`) VALUES (?, ?, ? , ?, ?, ?, ?);";
-
-
-
-
-            $stmt = $con->prepare($query);
-
-
-
-
-            $stmt->bind_param("sssssss", $grnNumber, $lineId, $recQty, $status, $current_user, $current_date, $item_code);
-
-
-
-
-            if ($stmt->execute()) {
-
-
-
-                $response["success"] = true;
-                // $response['data'] = $_POST;
-                $response['message'] = 'Item Accepted succeefully';
-                $response['status'] = $status;
-
-
-            } else {
-                $response['success'] = false;
-            }
-
+            $response['message'] = 'Item Accepted succeefully';
+            $response['status'] = $status;
         } else {
             $response['success'] = false;
             $response['error'] = $stmt->error;
+            $response['success'] = false;
         }
+        // } else {
+        // }
 
 
 
@@ -489,11 +471,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
         echo json_encode($response);
-
-
-
     }
     if (isset($_POST['DeleiverdGrn'])) {
+
 
 
 
@@ -505,6 +485,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $item_code = $_POST['item_code'];
         $grnNumber = $_POST['grnNumber'];
         $po_lineid = $_POST['po_lineid'];
+        $grn_line_id = $_POST['grn_line_id'];
         $recQty = $_POST['recieved_qty'];
         $total = $_POST['total_price'];
         $current_user = $_SESSION['username'];
@@ -517,58 +498,107 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
+        // if ($stmt->execute()) {
+
+
+
+
+
+
+        $response['success'] = true;
+
+
+
+
+
+
+        $lineId = mysqli_insert_id($con);
+        // $response['data'] = $_POST;
+        // $response['message'] = 'Data insreted succeefully';
+
+
+
+
+        // $response['insertId'] = $stmt->insert_id;
+
+        $status = "Delivered";
+
+        $query = "INSERT INTO `for_office`.`grn_sub_line_status` (`grn_head_id`, `grn_line_id`, `recQty`, `status`, `createdBy`, `createdDate`, `item_code`) VALUES (?, ?, ? , ?, ?, ?, ?);";
+
+
+
+
+        $stmt = $con->prepare($query);
+
+
+
+
+        $stmt->bind_param("sssssss", $grnNumber, $grn_line_id, $recQty, $status, $current_user, $current_date, $item_code);
+
+
+
+
         if ($stmt->execute()) {
 
 
-            $response['success'] = true;
+            $sql2 = "SELECT balance FROM for_office.purchase_order_line where id = $po_lineid;";
 
 
 
 
-            $lineId = mysqli_insert_id($con);
-            // $response['data'] = $_POST;
-            // $response['message'] = 'Data insreted succeefully';
-            $response['insertId'] = $stmt->insert_id;
+            $result2 = mysqli_query($con, $sql2);
+
+
+            if ($result2) {
+
+                $row2 = mysqli_fetch_assoc($result2);
+
+                $realBalance = $row2['balance'];
 
 
 
 
 
-            $status = "Delivered";
-
-            $query = "INSERT INTO `for_office`.`grn_sub_line_status` (`grn_head_id`, `po_line_id`, `recQty`, `status`, `createdBy`, `createdDate`, `item_code`) VALUES (?, ?, ? , ?, ?, ?, ?);";
 
 
 
 
-            $stmt = $con->prepare($query);
 
 
 
 
-            $stmt->bind_param("sssssss", $grnNumber, $lineId, $recQty, $status, $current_user, $current_date, $item_code);
+                $updateBalance = $realBalance - $recQty;
 
 
+                $sql_forUpdateBalace  = "UPDATE `for_office`.`purchase_order_line` SET `balance` = '$updateBalance' WHERE (`id` = '$po_lineid');";
 
 
-            if ($stmt->execute()) {
+                $result_forUpdateBalace = mysqli_query($con, $sql_forUpdateBalace);
 
 
+                if ($result_forUpdateBalace) {
 
-                $response["success"] = true;
-                // $response['data'] = $_POST;
-                $response['message'] = 'Item Accepted succeefully';
-                $response['status'] = $status;
-
-
-            } else {
-                $response['success'] = false;
+                    $response['updateBalance'] = $updateBalance;
+                    $response['message_for_balance'] = "Balace has bee updated";
+                    $response['query updaye'] = $sql_forUpdateBalace;
+                }
             }
 
+
+
+
+            $response["success"] = true;
+            // $response['data'] = $_POST;
+            $response['message'] = 'Item Accepted succeefully';
+            $response['status'] = $status;
+            $response['line_id'] = $po_lineid;
         } else {
+            $response['success'] = false;
             $response['success'] = false;
             $response['error'] = $stmt->error;
         }
+        // } else {
+        // }
 
 
 
@@ -582,13 +612,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
         echo json_encode($response);
-
-
-
     }
-
-
-
 }
 
 
@@ -637,7 +661,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
                 $response['sucess'] = true;
-
             }
 
 
@@ -646,15 +669,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
             $response['success'] = true;
             $response['message'] = "data suucess fully fetch";
-
-
-
-
         } else {
 
 
             $response['success'] = false;
-
         }
 
 
@@ -691,21 +709,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
         echo json_encode($response);
-
-
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
 }

@@ -175,13 +175,7 @@ function reject() {
 }
 
 function create_section() {
-  let x = document.getElementById("create_section");
 
-
-//   $("#create_section").slideUp(1000)
-
-
-  
   $("#view_section").slideUp(1000)
   $("#create_section").slideDown(1000)
 }

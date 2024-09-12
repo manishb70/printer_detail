@@ -14,6 +14,8 @@ $(document).ready(function () {
         pieSliceTextStyle: {
           color: "white",
         },
+        'width':500,
+        'height':400,
       };
 
       var chart = new google.visualization.PieChart(
@@ -71,6 +73,7 @@ $(document).ready(function () {
       let itemrequest = data.itemrequest.Indexes;
       let requisition_table = data.requisition_table.Indexes;
       let grnStatus = data.grnStatus.Indexes;
+      let Lead_status = data.Lead_status.Indexes;
 
       //   console.log(purchase_order);
 
@@ -78,6 +81,7 @@ $(document).ready(function () {
       await setDataOfPie(purchase_order, "Purchase Order", "purchase_order");
       await setDataOfPie(itemrequest, "Item Request", "item_requests");
       await setDataOfPie(grnStatus, "GRN status", "GRN_status");
+      await setDataOfPie(Lead_status, "Lead Status", "Lead_status_box");
     },
     "json"
   ).fail(error=>{
