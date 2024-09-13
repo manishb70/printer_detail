@@ -1,5 +1,8 @@
+<?php include('./navForLogged.php')  ?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,89 +11,97 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Query Information</title>
 </head>
+
 <body>
     <div class="mx-10 mt-4">
         <h1 class="text-3xl font-bold  underline text-center">Create Query Form</h1>
         <form action="./phpAjax/leadGenAjax.php" method="post">
-        <fieldset class="border-2 border-gray-300 p-5 rounded-lg">
-            <legend class="font-bold">Query Information</legend>
-            <div class="flex flex-wrap gap-x-32">
-                <div>
-                    <label for="created_by" class="block mb-2 text-sm font-bold text-gray-900">Lead genrate by : </label>
-                    <input type="text" name="created_by" class="border mb-4 border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5" placeholder="" required />
+            <fieldset class="border-2 border-gray-300 p-5 rounded-lg">
+                <legend class="font-bold">Query Information</legend>
+                <div class="flex flex-wrap gap-x-32">
+                    <div>
+                        <label for="created_by" class="block mb-2 text-sm font-bold text-gray-900">Lead genrate by : </label>
+                        <input type="text" name="created_by" class="border mb-4 border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5" placeholder="" required />
+                    </div>
+                    <div>
+                        <label for="created_lead" class="block mb-2 text-sm font-bold text-gray-900">Created Lead : </label>
+                        <input type="text" name="created_lead" class="border mb-4 border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5" placeholder="" required />
+                    </div>
+                    <div>
+                        <label for="record_no" class="block mb-2 text-sm font-bold text-gray-900">Record Number : </label>
+                        <input type="text" name="record_no" class="border mb-4 border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5" placeholder="" />
+                    </div>
+                    <div>
+                        <label for="contact_person_details" class="block mb-2 text-sm font-bold text-gray-900">Contact Person Deatils : </label>
+                        <input type="text" name="contact_person_details" class="border mb-4 border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5" placeholder="" required />
+                    </div>
+                    <div>
+                        <label for="lead_source" class="block mb-2 text-sm font-bold text-gray-900">Lead Source : </label>
+                        <select id="countries" name="lead_source" class=" border mb-4 border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5">
+                            <option selected>Choose Lead</option>
+                            <option value="Email">Email</option>
+                            <option value="Direct-other">Direct-other</option>
+                            <option value="References">References</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="lead_type" class="block mb-2 text-sm font-bold text-gray-900">Lead Type : </label>
+                        <select id="countries" name="lead_type" class=" border mb-4 border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5">
+                            <option selected>Choose Lead Type</option>
+                            <option value="Dealer">Dealer</option>
+                            <option value="Distributor">Distributor</option>
+                            <option value="Retailer">Retailer</option>
+                            <option value="Individual">Individual</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="assigned_to" class="block mb-2 text-sm font-bold text-gray-900">Assigned To : </label>
+                        <input type="text" name="assigned_to" class="border mb-4 border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5" placeholder="" required />
+                    </div>
+                    <div>
+                        <label for="query_received_date" class="block mb-2 text-sm font-bold text-gray-900">Query Received Date : </label>
+                        <input type="date" name="query_received_date" class="border mb-4 border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5" placeholder="" required />
+                    </div>
+                    <div>
+                        <label for="query_start_date" class="block mb-2 text-sm font-bold text-gray-900">Query Start Date : </label>
+                        <input type="date" name="query_start_date" class="border mb-4 border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5" placeholder="" required />
+                    </div>
+                    <div>
+                        <label for="query_end_date" class="block mb-2 text-sm font-bold text-gray-900">Query End Date : </label>
+                        <input type="date" name="query_end_date" class="border mb-4 border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5" placeholder="" required />
+                    </div>
+                    <div>
+                        <label for="follow_up" class="block mb-2 text-sm font-bold text-gray-900">Follow Up : </label>
+                        <input type="text" name="follow_up" class="border mb-4 border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5" placeholder="" required />
+                    </div>
+                    <div>
+                        <label for="re_query" class="block mb-2 text-sm font-bold text-gray-900">Re-query : </label>
+                        <select id="countries" name="re_query" class=" border mb-4 border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5">
+                            <option selected>Choose one</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="re_query_closure_date" class="block mb-2 text-sm font-bold text-gray-900">Re-query closure Date : </label>
+                        <input type="date" name="re_query_closure_date" class="border mb-4 border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5" placeholder="" required />
+                    </div>
+                    <div>
+                        <label for="re_query_end_date" class="block mb-2 text-sm font-bold text-gray-900">Re-query End Date : </label>
+                        <input type="date" name="re_query_end_date" class="border mb-4 border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5" placeholder="" required />
+                    </div>
+                    <div>
+                    <label for="followup_reminder_frequency" name="followup_reminder_frequency" class="block mb-2 text-sm font-bold text-gray-900">Query Reminder (In days) : </label>
+                    <input type="number" name="followup_reminder_frequency" class="border mb-4 border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5" placeholder="" required />
+                 </div>  <div>
+                    <label for="assigned_to" class="block mb-2 text-sm font-bold text-gray-900">No of times : </label>
+                    <input type="number" name="no_of_times" id="no_of_times" class="border mb-4 border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5" placeholder="" required />
+                 </div>
                 </div>
                 <div>
-                    <label for="created_lead" class="block mb-2 text-sm font-bold text-gray-900">Created Lead : </label>
-                    <input type="text" name="created_lead" class="border mb-4 border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5" placeholder="" required />
+                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Save Now</button>
                 </div>
-                <div>
-                    <label for="record_no" class="block mb-2 text-sm font-bold text-gray-900">Record  Number : </label>
-                    <input type="text" name="record_no" class="border mb-4 border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5" placeholder="" />
-                </div>
-                <div>
-                    <label for="contact_person_details" class="block mb-2 text-sm font-bold text-gray-900">Contact Person Deatils : </label>
-                    <input type="text" name="contact_person_details" class="border mb-4 border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5" placeholder="" required />
-                </div>
-                <div>
-                    <label for="lead_source" class="block mb-2 text-sm font-bold text-gray-900">Lead Source : </label>
-                    <select id="countries" name="lead_source" class=" border mb-4 border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5">
-                        <option selected>Choose Lead</option>
-                        <option value="Email">Email</option>
-                        <option value="Direct-other">Direct-other</option>
-                        <option value="References">References</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="lead_type" class="block mb-2 text-sm font-bold text-gray-900">Lead Type : </label>
-                    <select id="countries" name="lead_type" class=" border mb-4 border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5">
-                        <option selected>Choose Lead Type</option>
-                        <option value="Dealer">Dealer</option>
-                        <option value="Distributor">Distributor</option>
-                        <option value="Retailer">Retailer</option>
-                        <option value="Individual">Individual</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="assigned_to" class="block mb-2 text-sm font-bold text-gray-900">Assigned To : </label>
-                    <input type="text" name="assigned_to" class="border mb-4 border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5" placeholder="" required />
-                 </div>
-                <div>
-                    <label for="query_received_date" class="block mb-2 text-sm font-bold text-gray-900">Query Received Date : </label>
-                    <input type="date" name="query_received_date" class="border mb-4 border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5" placeholder="" required />
-                 </div>
-                <div>
-                    <label for="query_start_date" class="block mb-2 text-sm font-bold text-gray-900">Query Start Date : </label>
-                    <input type="date" name="query_start_date" class="border mb-4 border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5" placeholder="" required />
-                 </div>
-                <div>
-                    <label for="query_end_date" class="block mb-2 text-sm font-bold text-gray-900">Query End Date : </label>
-                    <input type="date" name="query_end_date" class="border mb-4 border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5" placeholder="" required />
-                 </div>
-                <div>
-                    <label for="follow_up" class="block mb-2 text-sm font-bold text-gray-900">Follow Up : </label>
-                    <input type="text" name="follow_up" class="border mb-4 border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5" placeholder="" required />
-                 </div>
-                <div>
-                    <label for="re_query" class="block mb-2 text-sm font-bold text-gray-900">Re-query : </label>
-                    <select id="countries" name="re_query" class=" border mb-4 border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5">
-                        <option selected>Choose one</option>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                    </select>
-                 </div>
-                 <div>
-                    <label for="re_query_closure_date" class="block mb-2 text-sm font-bold text-gray-900">Re-query closure Date : </label>
-                    <input type="date" name="re_query_closure_date" class="border mb-4 border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5" placeholder="" required />
-                 </div>
-                 <div>
-                    <label for="re_query_end_date" class="block mb-2 text-sm font-bold text-gray-900">Re-query End Date : </label>
-                    <input type="date" name="re_query_end_date" class="border mb-4 border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5" placeholder="" required />
-                 </div>
-                </div>
-                <div>
-                   <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Save Now</button>
-               </div>
-        </fieldset>
+            </fieldset>
         </form>
         <fieldset class="p-5 border-2 rounded-md border-gray-300">
             <legend class="font-bold">Item Information</legend>
@@ -136,7 +147,7 @@
                                 class="w-36 rounded-md border text-xs border-gray-500 bg-white text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
                                 style="border-color: #C8A1E0;" /><br>
                         </div>
-                      
+
                         <div>
 
                             <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
@@ -160,11 +171,11 @@
                                 style="border-color: #C8A1E0;" /><br>
                         </div>
                         <div>
-                            <button 
-                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                            type="button">
-                            Create SO
-                        </button>
+                            <button
+                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                type="button">
+                                Create SO
+                            </button>
                         </div>
                     </div>
                     <!-- <div class="mt-3">
@@ -235,7 +246,7 @@
                                         type="button">if Ship another address </button>
                                 </div>
 
-                                
+
                                 <div class="w-28 h-24 border border-gray-900 rounded-md">
                                     <img class="w-28 h-24 rounded-md" src="./images.png" alt="image preview">
                                 </div>
@@ -253,14 +264,14 @@
                                         style="border-color: #C8A1E0;" /><br>
                                 </div>
 
-                                
-                        <div>
-                            <button 
-                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                            type="button">
-                            Create SO
-                        </button>
-                        </div>
+
+                                <div>
+                                    <button
+                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                        type="button">
+                                        Create SO
+                                    </button>
+                                </div>
                             </div><br>
                         </div>
 
@@ -358,491 +369,491 @@
         </fieldset>
 
         <div id="extralarge-modal" tabindex="-1"
-        class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative w-full max-w-7xl max-h-full">
-            <!-- Modal content -->
-            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                <!-- Modal header -->
-                <div
-                    class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                    <h3 class="text-xl font-medium text-gray-900 dark:text-white">
-                        BOM Form
-                    </h3>
-                    <button type="button"
-                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                        data-modal-hide="extralarge-modal">
-                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 14 14">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                        </svg>
-                        <span class="sr-only">Close modal</span>
-                    </button>
-                </div>
-                <!-- Modal body -->
-                <div class="p-4 md:p-5 space-y-4">
-                    <div class="flex gap-x-4">
-                        <form class="w-full p-3">
-                            <div class="border border-gray-500 p-3 rounded-md">
-                                <div class="flex gap-x-9 flex-wrap">
+            class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative w-full max-w-7xl max-h-full">
+                <!-- Modal content -->
+                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <!-- Modal header -->
+                    <div
+                        class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                        <h3 class="text-xl font-medium text-gray-900 dark:text-white">
+                            BOM Form
+                        </h3>
+                        <button type="button"
+                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            data-modal-hide="extralarge-modal">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="p-4 md:p-5 space-y-4">
+                        <div class="flex gap-x-4">
+                            <form class="w-full p-3">
+                                <div class="border border-gray-500 p-3 rounded-md">
+                                    <div class="flex gap-x-9 flex-wrap">
 
-                                    <div>
-                                        <label for=""
-                                            class="block  mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">New
-                                            BOM
+                                        <div>
+                                            <label for=""
+                                                class="block  mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">New
+                                                BOM
+                                                :
+                                            </label>
+                                            <input type="text" name="new_bom"
+                                                class="w-40 rounded-md mb-3 border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                                style="border-color: #C8A1E0;" />
+                                        </div>
+                                        <div class="">
+                                            <label
+                                                class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Item
+                                                Name : </label>
+                                            <input type="text" name="bom_item_name"
+                                                class="w-40 rounded-md mb-3  border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                                style="border-color: #C8A1E0;" />
+                                        </div>
+                                        <div class="">
+                                            <label
+                                                class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Revison
+                                                : </label>
+                                            <input type="text" name="bom_revision"
+                                                class="w-40 rounded-md mb-3  border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                                style="border-color: #C8A1E0;" />
+                                        </div>
+                                        <div class="">
+                                            <label
+                                                class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Percentage:
+                                            </label>
+                                            <input type="text" name="bom_percentage"
+                                                class="w-40 rounded-md mb-3  border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                                style="border-color: #C8A1E0;" />
+                                        </div>
+                                        <div class="">
+                                            <label
+                                                class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Products
+                                                :
+                                            </label>
+                                            <input type="text" name="bom_products"
+                                                class="w-40 rounded-md mb-3  border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                                style="border-color: #C8A1E0;" />
+                                        </div>
+                                        <div class="">
+                                            <label
+                                                class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Created
+                                                Date : </label>
+                                            <input type="date" name="bom_created_date"
+                                                class="w-40 rounded-md mb-3  border text-xs border-gray-500 bg-white pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                                style="border-color: #C8A1E0;" />
+                                        </div>
+                                        <div class="">
+                                            <label
+                                                class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Created
+                                                By :
+                                            </label>
+                                            <input type="text" name="bom_created_by"
+                                                class="w-40 rounded-md mb-3  border text-xs border-gray-500 bg-white pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                                style="border-color: #C8A1E0;" />
+                                        </div>
+                                        <div class="">
+                                            <label
+                                                class="block  mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Organization
+                                                Mapping : </label>
+                                            <input type="text" name="bom_organization_mapping"
+                                                class="w-40 rounded-md mb-3 border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                                style="border-color: #C8A1E0;" />
+                                        </div>
+                                        <div class="">
+                                            <label
+                                                class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Warehouse
+                                                Location : </label>
+                                            <input type="text" name="bom_warehouse_location"
+                                                class="w-40 rounded-md mb-3 border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                                style="border-color: #C8A1E0;" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="w-40 h-40 border border-gray-900 rounded-md ml-4">
+                                <img class="w-40 h-40" id="preview" alt="Item image">
+                            </div>
+                        </div>
+
+                        <div class="mt-6">
+                            <form class="w-full border p-3 border-gray-500 rounded-md">
+                                <div class="flex flex-wrap items-center justify-between">
+                                    <div class="ml-2">
+                                        <label
+                                            class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Item
+                                            Seq
                                             :
                                         </label>
-                                        <input type="text" name="new_bom"
-                                            class="w-40 rounded-md mb-3 border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                        <input type="text" name="bom_item_seq" id=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
                                             style="border-color: #C8A1E0;" />
                                     </div>
-                                    <div class="">
+                                    <div class="ml-2">
                                         <label
-                                            class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Item
-                                            Name : </label>
-                                        <input type="text" name="bom_item_name"
-                                            class="w-40 rounded-md mb-3  border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                            style="border-color: #C8A1E0;" />
-                                    </div>
-                                    <div class="">
-                                        <label
-                                            class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Revison
-                                            : </label>
-                                        <input type="text" name="bom_revision"
-                                            class="w-40 rounded-md mb-3  border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                            style="border-color: #C8A1E0;" />
-                                    </div>
-                                    <div class="">
-                                        <label
-                                            class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Percentage:
+                                            class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Process
+                                            Seq:
                                         </label>
-                                        <input type="text" name="bom_percentage"
-                                            class="w-40 rounded-md mb-3  border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                        <input type="text" name="bom_proccess_seq" id=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
                                             style="border-color: #C8A1E0;" />
                                     </div>
-                                    <div class="">
+                                    <div class="ml-2">
                                         <label
-                                            class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Products
+                                            class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Item
+                                            code :
+                                        </label>
+                                        <input type="text" name="bom_item_code" id=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                            style="border-color: #C8A1E0;" />
+                                    </div>
+                                    <div class="ml-2">
+                                        <label
+                                            class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">
+                                            Item Name :
+                                        </label>
+                                        <input type="text" name="bom_item_name" id=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                            style="border-color: #C8A1E0;" />
+                                    </div>
+                                    <div class="ml-2">
+                                        <label
+                                            class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Qty
                                             :
                                         </label>
-                                        <input type="text" name="bom_products"
-                                            class="w-40 rounded-md mb-3  border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                        <input type="text" name="bom_qty" id=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
                                             style="border-color: #C8A1E0;" />
                                     </div>
-                                    <div class="">
+                                    <div class="ml-2">
                                         <label
-                                            class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Created
-                                            Date : </label>
-                                        <input type="date" name="bom_created_date"
-                                            class="w-40 rounded-md mb-3  border text-xs border-gray-500 bg-white pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                            style="border-color: #C8A1E0;" />
-                                    </div>
-                                    <div class="">
-                                        <label
-                                            class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Created
-                                            By :
+                                            class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Percentage
+                                            :
                                         </label>
-                                        <input type="text" name="bom_created_by"
-                                            class="w-40 rounded-md mb-3  border text-xs border-gray-500 bg-white pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                            style="border-color: #C8A1E0;" />
-                                    </div>
-                                    <div class="">
-                                        <label
-                                            class="block  mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Organization
-                                            Mapping : </label>
-                                        <input type="text" name="bom_organization_mapping"
-                                            class="w-40 rounded-md mb-3 border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                            style="border-color: #C8A1E0;" />
-                                    </div>
-                                    <div class="">
-                                        <label
-                                            class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Warehouse
-                                            Location : </label>
-                                        <input type="text" name="bom_warehouse_location"
-                                            class="w-40 rounded-md mb-3 border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                        <input type="number" name="bom_item_percentage" id=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
                                             style="border-color: #C8A1E0;" />
                                     </div>
                                 </div>
-                            </div>
-                        </form>
-                        <div class="w-40 h-40 border border-gray-900 rounded-md ml-4">
-                            <img class="w-40 h-40" id="preview" alt="Item image">
+                                <div
+                                    class="flex flex-wrap items-center border-gray-500 justify-between border-t mt-2">
+                                    <div class="ml-2 mt-2">
+                                        <input type="text" name="" id=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                            style="border-color: #C8A1E0;" />
+                                    </div>
+                                    <div class="ml-2 mt-2">
+                                        <input type="text" name="" id=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                            style="border-color: #C8A1E0;" />
+                                    </div>
+                                    <div class="ml-2 mt-2">
+                                        <input type="text" name="" id=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                            style="border-color: #C8A1E0;" />
+                                    </div>
+                                    <div class="ml-2 mt-2">
+                                        <input type="text" name="" id=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                            style="border-color: #C8A1E0;" />
+                                    </div>
+                                    <div class="ml-2 mt-2">
+                                        <input type="text" name="" id=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                            style="border-color: #C8A1E0;" />
+                                    </div>
+                                    <div class="ml-2 mt-2">
+                                        <input type="number" name="" id=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                            style="border-color: #C8A1E0;" />
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex flex-wrap items-center border-gray-500 justify-between border-t mt-2">
+                                    <div class="ml-2 mt-2">
+                                        <input type="text" name="" id=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                            style="border-color: #C8A1E0;" />
+                                    </div>
+                                    <div class="ml-2 mt-2">
+                                        <input type="text" name="" id=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                            style="border-color: #C8A1E0;" />
+                                    </div>
+                                    <div class="ml-2 mt-2">
+                                        <input type="text" name="" id=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                            style="border-color: #C8A1E0;" />
+                                    </div>
+                                    <div class="ml-2 mt-2">
+                                        <input type="text" name="" id=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                            style="border-color: #C8A1E0;" />
+                                    </div>
+                                    <div class="ml-2 mt-2">
+                                        <input type="text" name="" id=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                            style="border-color: #C8A1E0;" />
+                                    </div>
+                                    <div class="ml-2 mt-2">
+                                        <input type="number" name="" id=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                            style="border-color: #C8A1E0;" />
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex flex-wrap items-center border-gray-500 justify-between border-t mt-2">
+                                    <div class="ml-2 mt-2">
+                                        <input type="text" name="" id=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                            style="border-color: #C8A1E0;" />
+                                    </div>
+                                    <div class="ml-2 mt-2">
+                                        <input type="text" name="" id=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                            style="border-color: #C8A1E0;" />
+                                    </div>
+                                    <div class="ml-2 mt-2">
+                                        <input type="text" name="" id=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                            style="border-color: #C8A1E0;" />
+                                    </div>
+                                    <div class="ml-2 mt-2">
+                                        <input type="text" name="" id=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                            style="border-color: #C8A1E0;" />
+                                    </div>
+                                    <div class="ml-2 mt-2">
+                                        <input type="text" name="" id=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                            style="border-color: #C8A1E0;" />
+                                    </div>
+                                    <div class="ml-2 mt-2">
+                                        <input type="number" name="" id=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                            style="border-color: #C8A1E0;" />
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
-
-                    <div class="mt-6">
-                        <form class="w-full border p-3 border-gray-500 rounded-md">
-                            <div class="flex flex-wrap items-center justify-between">
-                                <div class="ml-2">
-                                    <label
-                                        class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Item
-                                        Seq
-                                        :
-                                    </label>
-                                    <input type="text" name="bom_item_seq" id=""
-                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        style="border-color: #C8A1E0;" />
-                                </div>
-                                <div class="ml-2">
-                                    <label
-                                        class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Process
-                                        Seq:
-                                    </label>
-                                    <input type="text" name="bom_proccess_seq" id=""
-                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        style="border-color: #C8A1E0;" />
-                                </div>
-                                <div class="ml-2">
-                                    <label
-                                        class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Item
-                                        code :
-                                    </label>
-                                    <input type="text" name="bom_item_code" id=""
-                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        style="border-color: #C8A1E0;" />
-                                </div>
-                                <div class="ml-2">
-                                    <label
-                                        class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">
-                                        Item Name :
-                                    </label>
-                                    <input type="text" name="bom_item_name" id=""
-                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        style="border-color: #C8A1E0;" />
-                                </div>
-                                <div class="ml-2">
-                                    <label
-                                        class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Qty
-                                        :
-                                    </label>
-                                    <input type="text" name="bom_qty" id=""
-                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        style="border-color: #C8A1E0;" />
-                                </div>
-                                <div class="ml-2">
-                                    <label
-                                        class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Percentage
-                                        :
-                                    </label>
-                                    <input type="number" name="bom_item_percentage" id=""
-                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        style="border-color: #C8A1E0;" />
-                                </div>
-                            </div>
-                            <div
-                                class="flex flex-wrap items-center border-gray-500 justify-between border-t mt-2">
-                                <div class="ml-2 mt-2">
-                                    <input type="text" name="" id=""
-                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        style="border-color: #C8A1E0;" />
-                                </div>
-                                <div class="ml-2 mt-2">
-                                    <input type="text" name="" id=""
-                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        style="border-color: #C8A1E0;" />
-                                </div>
-                                <div class="ml-2 mt-2">
-                                    <input type="text" name="" id=""
-                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        style="border-color: #C8A1E0;" />
-                                </div>
-                                <div class="ml-2 mt-2">
-                                    <input type="text" name="" id=""
-                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        style="border-color: #C8A1E0;" />
-                                </div>
-                                <div class="ml-2 mt-2">
-                                    <input type="text" name="" id=""
-                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        style="border-color: #C8A1E0;" />
-                                </div>
-                                <div class="ml-2 mt-2">
-                                    <input type="number" name="" id=""
-                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        style="border-color: #C8A1E0;" />
-                                </div>
-                            </div>
-                            <div
-                                class="flex flex-wrap items-center border-gray-500 justify-between border-t mt-2">
-                                <div class="ml-2 mt-2">
-                                    <input type="text" name="" id=""
-                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        style="border-color: #C8A1E0;" />
-                                </div>
-                                <div class="ml-2 mt-2">
-                                    <input type="text" name="" id=""
-                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        style="border-color: #C8A1E0;" />
-                                </div>
-                                <div class="ml-2 mt-2">
-                                    <input type="text" name="" id=""
-                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        style="border-color: #C8A1E0;" />
-                                </div>
-                                <div class="ml-2 mt-2">
-                                    <input type="text" name="" id=""
-                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        style="border-color: #C8A1E0;" />
-                                </div>
-                                <div class="ml-2 mt-2">
-                                    <input type="text" name="" id=""
-                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        style="border-color: #C8A1E0;" />
-                                </div>
-                                <div class="ml-2 mt-2">
-                                    <input type="number" name="" id=""
-                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        style="border-color: #C8A1E0;" />
-                                </div>
-                            </div>
-                            <div
-                                class="flex flex-wrap items-center border-gray-500 justify-between border-t mt-2">
-                                <div class="ml-2 mt-2">
-                                    <input type="text" name="" id=""
-                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        style="border-color: #C8A1E0;" />
-                                </div>
-                                <div class="ml-2 mt-2">
-                                    <input type="text" name="" id=""
-                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        style="border-color: #C8A1E0;" />
-                                </div>
-                                <div class="ml-2 mt-2">
-                                    <input type="text" name="" id=""
-                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        style="border-color: #C8A1E0;" />
-                                </div>
-                                <div class="ml-2 mt-2">
-                                    <input type="text" name="" id=""
-                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        style="border-color: #C8A1E0;" />
-                                </div>
-                                <div class="ml-2 mt-2">
-                                    <input type="text" name="" id=""
-                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        style="border-color: #C8A1E0;" />
-                                </div>
-                                <div class="ml-2 mt-2">
-                                    <input type="number" name="" id=""
-                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        style="border-color: #C8A1E0;" />
-                                </div>
-                            </div>
-                        </form>
+                    <!-- Modal footer -->
+                    <div
+                        class="flex items-center p-4 md:p-5 space-x-3 rtl:space-x-reverse border-t border-gray-200 rounded-b dark:border-gray-600">
+                        <button data-modal-hide="extralarge-modal" type="button"
+                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save
+                            Changes</button>
+                        <button data-modal-hide="extralarge-modal" type="button"
+                            class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Decline</button>
                     </div>
-                </div>
-                <!-- Modal footer -->
-                <div
-                    class="flex items-center p-4 md:p-5 space-x-3 rtl:space-x-reverse border-t border-gray-200 rounded-b dark:border-gray-600">
-                    <button data-modal-hide="extralarge-modal" type="button"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save
-                        Changes</button>
-                    <button data-modal-hide="extralarge-modal" type="button"
-                        class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Decline</button>
                 </div>
             </div>
         </div>
-    </div>
 
 
-<div class="relative overflow-x-auto mt-4 mb-5">
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 border border-gray-700 ">
-        <thead class="text-xs text-gray-700 whitespace-nowrap uppercase bg-gray-50 border-b border-gray-900">
-            <tr>
-                
-                <th scope="col" class="px-6 py-3">
-                    Created By
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Created Lead
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Record Number
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Contact Person Deatils
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Lead Source
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Lead Type
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Assigned To
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Query Received Date 
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Query Start Date
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Query End Date
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Follow Up 
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Re-query
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Re-query closure Date
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Re-query End Date
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="bg-white border-b dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                    admin
-                </th>
-                <td class="px-6 py-4">
-                    user
-                </td>
-                <td class="px-6 py-4">
-                    101
-                </td>
-                <td class="px-6 py-4">
-                    92345654321
-                </td>
-                <td class="px-6 py-4">
-                    xyz
-                </td>
-                <td class="px-6 py-4">
-                    abc
-                </td>
-                <td class="px-6 py-4">
-                    abh
-                </td>
-                <td class="px-6 py-4">
-                    22/02/2021
-                </td>
-                <td class="px-6 py-4">
-                    22/02/2022
-                </td>
-                <td class="px-6 py-4">
-                    22/02/2023
-                </td>
-                <td class="px-6 py-4">
-                    asdf
-                </td>
-                <td class="px-6 py-4">
-                    Yes
-                </td>
-                <td class="px-6 py-4">
-                    22/02/2025
-                </td>
-                <td class="px-6 py-4">
-                    20/02/2025
-                </td>
-                
-            </tr>
-        </tbody>
-    </table>
+        <div class="relative overflow-x-auto mt-4 mb-5">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 border border-gray-700 ">
+                <thead class="text-xs text-gray-700 whitespace-nowrap uppercase bg-gray-50 border-b border-gray-900">
+                    <tr>
 
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 border border-gray-700  my-5">
-        <thead class="pt-5 border-b border-gray-900">
-            <tr class="text-xs text-gray-700 whitespace-nowrap uppercase bg-gray-50 ">
-                <th scope="col" class="px-6 py-3"></th>
-                    
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Serial No
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Item Name
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Item Qty
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Rate
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Total
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Image Preview
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    SO Number
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Creadted By
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="bg-white border-b dark:border-gray-700">
-                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                    <input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">
-                </td>
-                <td scope="row" class="px-6 py-4 ">
-                    101
-                </td>
-                <td class="px-6 py-4">
-                    bulb
-                </td>
-                <td class="px-6 py-4">
-                    40
-                </td>
-                <td class="px-6 py-4">
-                    3000
-                </td>
-                <td class="px-6 py-4">
-                    320000
-                </td>
-                <td class="px-6 py-4">
-                    image
-                </td>
-                <td class="px-6 py-4">
-                    132
-                </td>
-                <td class="px-6 py-4">
-                    asdf
-                </td>
-            </tr>
-            <tr class="bg-white border-b dark:border-gray-700">
-                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                    <input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">
-                </td>
-                <td scope="row" class="px-6 py-4">
-                    102
-                </td>
-                <td class="px-6 py-4">
-                    wire
-                </td>
-                <td class="px-6 py-4">
-                    30
-                </td>
-                <td class="px-6 py-4">
-                    4000
-                </td>
-                <td class="px-6 py-4">
-                    420000
-                </td>
-                <td class="px-6 py-4">
-                    image
-                </td>
-                <td class="px-6 py-4">
-                    170
-                </td>
-                <td class="px-6 py-4">
-                    jkl
-                </td>
-            </tr>
-        </tbody>
+                        <th scope="col" class="px-6 py-3">
+                            Created By
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Created Lead
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Record Number
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Contact Person Deatils
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Lead Source
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Lead Type
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Assigned To
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Query Received Date
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Query Start Date
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Query End Date
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Follow Up
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Re-query
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Re-query closure Date
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Re-query End Date
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="bg-white border-b dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            admin
+                        </th>
+                        <td class="px-6 py-4">
+                            user
+                        </td>
+                        <td class="px-6 py-4">
+                            101
+                        </td>
+                        <td class="px-6 py-4">
+                            92345654321
+                        </td>
+                        <td class="px-6 py-4">
+                            xyz
+                        </td>
+                        <td class="px-6 py-4">
+                            abc
+                        </td>
+                        <td class="px-6 py-4">
+                            abh
+                        </td>
+                        <td class="px-6 py-4">
+                            22/02/2021
+                        </td>
+                        <td class="px-6 py-4">
+                            22/02/2022
+                        </td>
+                        <td class="px-6 py-4">
+                            22/02/2023
+                        </td>
+                        <td class="px-6 py-4">
+                            asdf
+                        </td>
+                        <td class="px-6 py-4">
+                            Yes
+                        </td>
+                        <td class="px-6 py-4">
+                            22/02/2025
+                        </td>
+                        <td class="px-6 py-4">
+                            20/02/2025
+                        </td>
 
-    </table>
-</div>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 border border-gray-700  my-5">
+                <thead class="pt-5 border-b border-gray-900">
+                    <tr class="text-xs text-gray-700 whitespace-nowrap uppercase bg-gray-50 ">
+                        <th scope="col" class="px-6 py-3"></th>
+
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Serial No
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Item Name
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Item Qty
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Rate
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Total
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Image Preview
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            SO Number
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Creadted By
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="bg-white border-b dark:border-gray-700">
+                        <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            <input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">
+                        </td>
+                        <td scope="row" class="px-6 py-4 ">
+                            101
+                        </td>
+                        <td class="px-6 py-4">
+                            bulb
+                        </td>
+                        <td class="px-6 py-4">
+                            40
+                        </td>
+                        <td class="px-6 py-4">
+                            3000
+                        </td>
+                        <td class="px-6 py-4">
+                            320000
+                        </td>
+                        <td class="px-6 py-4">
+                            image
+                        </td>
+                        <td class="px-6 py-4">
+                            132
+                        </td>
+                        <td class="px-6 py-4">
+                            asdf
+                        </td>
+                    </tr>
+                    <tr class="bg-white border-b dark:border-gray-700">
+                        <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            <input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">
+                        </td>
+                        <td scope="row" class="px-6 py-4">
+                            102
+                        </td>
+                        <td class="px-6 py-4">
+                            wire
+                        </td>
+                        <td class="px-6 py-4">
+                            30
+                        </td>
+                        <td class="px-6 py-4">
+                            4000
+                        </td>
+                        <td class="px-6 py-4">
+                            420000
+                        </td>
+                        <td class="px-6 py-4">
+                            image
+                        </td>
+                        <td class="px-6 py-4">
+                            170
+                        </td>
+                        <td class="px-6 py-4">
+                            jkl
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
 
 
-<center>
-    <button type="button" class="text-white bg-blue-600 hover:bg-blue-700  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none ">Submit Now</button>
-</center>
+        <center>
+            <button type="button" class="text-white bg-blue-600 hover:bg-blue-700  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none ">Submit Now</button>
+        </center>
 
     </div>
 
@@ -857,13 +868,13 @@
 
 
     <script>
-let count = 1;
+        let count = 1;
 
-function finish_field() {
-    let y = document.getElementById("finish_field");
+        function finish_field() {
+            let y = document.getElementById("finish_field");
 
-    if (y) {
-        let x = `
+            if (y) {
+                let x = `
         <div id="finish_field_${count}" class="flex flex-wrap items-center border gap-x-5 border-gray-900 w-full p-2 rounded-lg mt-2">
 
             <div>
@@ -930,20 +941,20 @@ function finish_field() {
                         </div>
         </div>`;
 
-        y.innerHTML += x;
+                y.innerHTML += x;
 
-        count++;
-    } else {
-        console.error("Element with ID 'finish_field' not found.");
-    }
-}
-
-        
+                count++;
+            } else {
+                console.error("Element with ID 'finish_field' not found.");
+            }
+        }
 
 
 
 
-        document.getElementById('remove_btn').addEventListener('click', function () {
+
+
+        document.getElementById('remove_btn').addEventListener('click', function() {
             var finish_field = document.getElementById('finish_field');
 
             // Remove the last child of the container
@@ -954,10 +965,10 @@ function finish_field() {
 
 
         function raw_field() {
-    let y = document.getElementById("raw_field");
+            let y = document.getElementById("raw_field");
 
-    if (y) {
-        let x = `
+            if (y) {
+                let x = `
         <div id="raw_field_${count}" class="flex flex-wrap items-center border gap-x-5 border-gray-900 w-full p-2 rounded-lg mt-2">
 
             <div>
@@ -1028,15 +1039,15 @@ function finish_field() {
                         </div>
         </div>`;
 
-        y.innerHTML += x;
+                y.innerHTML += x;
 
-        count++;
-    } else {
-        console.error("Element with ID 'finish_field' not found.");
-    }
-}
+                count++;
+            } else {
+                console.error("Element with ID 'finish_field' not found.");
+            }
+        }
 
-        document.getElementById('raw_remove').addEventListener('click', function () {
+        document.getElementById('raw_remove').addEventListener('click', function() {
             var raw_field = document.getElementById('raw_field');
 
             // Remove the last child of the container
@@ -1054,8 +1065,7 @@ function finish_field() {
             x.style.display = "block";
 
         }
-
-
     </script>
 </body>
+
 </html>

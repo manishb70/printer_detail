@@ -13,7 +13,7 @@
 
         $result = mysqli_query($con,$sql);
 
-
+            include("./navForLogged.php");
 
 
 
@@ -74,6 +74,12 @@
                         Follow Up 
                     </th>
                     <th scope="col" class="px-6 py-3">
+                        Reminder Frequency ( day wise )
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                    No of times
+                    </th>
+                    <th scope="col" class="px-6 py-3">
                         Re-query
                     </th>
                     <th scope="col" class="px-6 py-3">
@@ -81,6 +87,9 @@
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Re-query End Date
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Status
                     </th>
                 </tr>
             </thead>
@@ -135,6 +144,13 @@
                         <?php echo  $row['follow_up'] ?>
                     </td>
                     <td class="px-6 py-4">
+                        Day in 
+                        <?php echo  $row['followup_reminder_frequency'] ?>
+                    </td>
+                    <td class="px-6 py-4">
+                        <?php echo  $row['no_of_times'] ?>
+                    </td>
+                    <td class="px-6 py-4">
                         <?php echo  $row['re_query'] ?>
                     </td>
                     <td class="px-6 py-4">
@@ -142,6 +158,9 @@
                     </td>
                     <td class="px-6 py-4">
                         <?php echo  $row['re_query_end_date'] ?>
+                    </td>
+                    <td class="px-6 py-4">
+                        <?php echo  $row['status'] ?>
                     </td>
                     
                 </tr>

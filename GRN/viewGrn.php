@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
 
 
-    $sql = "SELECT * FROM for_office.grn_goods_receipt_header a JOIN purchase_order_header b ON a.purchase_order_id=b.PO_number where purchase_order_id = $po_number;";
+    $sql = "SELECT * FROM for_office.grn_line_items a JOIN  purchase_order_line b ON a.po_number=b.po_number and a.po_line_id=b.id  where a.po_number = $po_number;";
 
 
 
@@ -191,10 +191,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </form>
                 </div>
 
-                <button type="text" onclick="genRateGrn()"
+                <!-- <button type="text" onclick="genRateGrn()"
                 id="grn-create-btn"
                     class="text-white border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs px-5 py-2.5 text-center me-2 mb-2 font-medium dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 ">Genrate
-                    GRN</button>
+                    GRN</button> -->
                 <hr>
                 <div id="grn-area-table" class="  mt-5 mb-5">
                     <form class="w-full border p-3 border-gray-300 rounded-md">
@@ -270,7 +270,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                 ?>
 
 
-                                                    <tr class="hover:bg-gray-600" PO-id="<?php echo $row['PO_number']; ?>"
+                                                    <tr class="hover:bg-gray-600" PO-id="<?php echo $row['po_number']; ?>"
                                                         line-id="<?php echo $row['id']; ?>"
                                                         con-row-id="PO-<?php echo $row['id']; ?>">
 
@@ -289,7 +289,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                         <td
                                                             class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
                                                             <input type="txt" id="input-email-label" name="item_code"
-                                                                value="<?php echo $row['a.item_code'] ?>"
+                                                                value="<?php echo $row['item_code'] ?>"
                                                                 class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                                                 placeholder="item_code">
                                                         </td>
@@ -585,7 +585,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 </div>
     <script src="./js/script.js"></script>
-    <script src="./js/grn.js"></script>
+    <script src="./js/Viewgrn.js"></script>
     <script src="../js/jquery-3.7.1.min.js"></script>
 </body>
 
