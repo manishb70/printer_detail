@@ -11,13 +11,88 @@
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <title>Create User Form</title>
+    <title>Create User Forms</title>
 </head>
 
 <body>
-    <div id="create_section" class="mt-3 border border-gray-900 p-5 rounded-lg mx-5">
+    <div>
+        <?php
+
+
+
+
+
+
+        session_start();
+
+        if (!isset($_SESSION["username"])) {
+
+
+
+
+            header("location:login.php");
+
+
+
+
+        }
+
+
+
+
+        ?>
+
+
+        <nav class="bg-white dark:bg-gray-900  w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
+            <div class="max-w-screen-xl flex flex-wrap items-center justify-around mx-auto p-4">
+                <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
+
+                </a>
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+                    Hello! <?php echo $_SESSION["username"] ?></span>
+                <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                    <a href="../logout.php" type="button"
+                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Logout</a>
+                    <button data-collapse-toggle="navbar-sticky" type="button"
+                        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                        aria-controls="navbar-sticky" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 17 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M1 1h15M1 7h15M1 13h15" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+                    <ul
+                        class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                        <li>
+                            <a href="../testdash.php"
+                                class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
+                                aria-current="page">Home</a>
+                            <!-- </li>
+                <li>
+                    <a href="#"
+                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Services</a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
+                </li> -->
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div id="create_section" class="mt-3 border border-gray-900 p-5 rounded-lg mx-10">
         <h1 class="text-center underline text-3xl mb-3 font-bold">Create User Form</h1>
-        <form action="./phpAjax/createdUserAjax.php" method="post">
+        <form action="create_action.php" method="post">
             <div class="flex gap-x-20 border border-gray-500 p-5 rounded-md flex-wrap justify-center">
                 <div class="">
                     <div class="flex gap-x-20 flex-wrap">
@@ -33,7 +108,7 @@
                             <label
                                 class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Passowrd
                                 : </label>
-                            <input type="text" name="password"
+                            <input type="text" name="user_password"
                                 class="w-40 rounded-md border text-xs border-gray-500 mb-3 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                         </div>
                     </div>
@@ -55,20 +130,6 @@
                                 class="w-40 rounded-md border text-xs border-gray-500 mb-3 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                         </div>
                     </div>
-                    <div class="flex gap-x-20 flex-wrap">
-                        <div class="">
-                            <label class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">
-                                Effective From Date : </label>
-                            <input type="date" name="effective_from_date"
-                                class="w-40 rounded-md border text-xs border-gray-500 mb-3 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
-                        </div>
-                        <div class="">
-                            <label class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">
-                                Effective To Date : </label>
-                            <input type="date" name="effective_to_date"
-                                class="w-40 rounded-md border text-xs border-gray-500 mb-3 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
-                        </div>
-                    </div>
                 </div>
 
 
@@ -76,11 +137,12 @@
                 <div>
                     <div class="flex gap-x-20 flex-wrap">
                         <div class="">
-                            <label class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Person
+                            <label
+                                class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Membership
                                 Id
                                 :
                             </label>
-                            <input type="text" name="peron_id"
+                            <input type="text" name="membership_id"
                                 class="w-40 rounded-md border text-xs border-gray-500 mb-3 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                         </div>
                         <div class="">
@@ -95,18 +157,15 @@
 
                     <div class="flex gap-x-20 flex-wrap">
                         <div class="">
-                            <label
-                                class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Customer
-                                : </label>
-                            <input type="text" name="customer"
+                            <label class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">
+                                Effective From Date : </label>
+                            <input type="date" name="effective_from_date"
                                 class="w-40 rounded-md border text-xs border-gray-500 mb-3 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                         </div>
-
                         <div class="">
-                            <label
-                                class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Supplier
-                                : </label>
-                            <input type="text" name="supplier"
+                            <label class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">
+                                Effective To Date : </label>
+                            <input type="date" name="effective_to_date"
                                 class="w-40 rounded-md border text-xs border-gray-500 mb-3 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                         </div>
                     </div>
@@ -205,7 +264,6 @@
                             </div>
                         </div> -->
 
-
                         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                 <thead
@@ -229,19 +287,19 @@
                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                         <th scope="row"
                                             class="px-10 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            User View
+                                            User Creation Form
                                         </th>
                                         <td class="px-10 py-4">
-                                            <input name="user_view" type="checkbox" value=""
+                                            <input name="user_creation" type="checkbox" value=""
                                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
 
                                         </td>
                                         <td class="px-10 py-4">
-                                            <input type="date" name="user_view_from_date"
+                                            <input type="date" name="user_creation_from_date"
                                                 class="w-40 rounded-md text-xs bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                         </td>
                                         <td class="px-10 py-4">
-                                            <input type="date" name="user_view_to_date"
+                                            <input type="date" name="user_creation_to_date"
                                                 class="w-40 rounded-md text-xs bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                         </td>
 
@@ -249,121 +307,101 @@
                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                         <th scope="row"
                                             class="px-10 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            User Edit
+                                            User Search Form
                                         </th>
                                         <td class="px-10 py-4">
-                                            <input name="user_edit" type="checkbox"  value=""
+                                            <input name="user_search" type="checkbox" value=""
                                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
 
                                         </td>
                                         <td class="px-10 py-4">
-                                            <input type="date" name="user_edit_from_date"
+                                            <input type="date" name="user_search_from_date"
                                                 class="w-40 rounded-md text-xs bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                         </td>
                                         <td class="px-10 py-4">
-                                            <input type="date" name="user_edit_to_date"
+                                            <input type="date" name="user_search_to_date"
                                                 class="w-40 rounded-md text-xs bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                         </td>
                                     </tr>
-                                    <tr class="bg-white dark:bg-gray-800">
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                         <th scope="row"
                                             class="px-10 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            Admin View
+                                            User Report
                                         </th>
                                         <td class="px-10 py-4">
-                                            <input name="admin_view" type="checkbox" value=""
+                                            <input name="user_report" type="checkbox" value=""
                                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
 
                                         </td>
                                         <td class="px-10 py-4">
-                                            <input type="date" name="admin_view_from_date"
+                                            <input type="date" name="user_report_from_date"
                                                 class="w-40 rounded-md text-xs bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                         </td>
                                         <td class="px-10 py-4">
-                                            <input type="date" name="admin_view_to_date"
+                                            <input type="date" name="user_report_to_date"
                                                 class="w-40 rounded-md text-xs bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                         </td>
                                     </tr>
-                                    <tr class="bg-white dark:bg-gray-800">
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                         <th scope="row"
                                             class="px-10 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            Admin Write
+                                            Daily Transaction Creation
                                         </th>
                                         <td class="px-10 py-4">
-                                            <input name="admin_write" type="checkbox" value=""
+                                            <input name="transaction_creation" type="checkbox" value=""
                                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
 
                                         </td>
                                         <td class="px-10 py-4">
-                                            <input type="date" name="admin_write_from_date"
+                                            <input type="date" name="transaction_creation_from_date"
                                                 class="w-40 rounded-md text-xs bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                         </td>
                                         <td class="px-10 py-4">
-                                            <input type="date" name="admin_write_to_date"
+                                            <input type="date" name="transaction_creation_to_date"
                                                 class="w-40 rounded-md text-xs bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                         </td>
                                     </tr>
-                                    <tr class="bg-white dark:bg-gray-800">
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                         <th scope="row"
                                             class="px-10 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            Store Request Genrate
+                                            Daily Transaction Search
                                         </th>
                                         <td class="px-10 py-4">
-                                            <input name="store_request" type="checkbox" value=""
+                                            <input name="transaction_search" type="checkbox" value=""
                                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
 
                                         </td>
                                         <td class="px-10 py-4">
-                                            <input type="date" name="store_request_from_date"
+                                            <input type="date" name="transaction_search_from_date"
                                                 class="w-40 rounded-md text-xs bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                         </td>
                                         <td class="px-10 py-4">
-                                            <input type="date" name="store_request_to_date"
+                                            <input type="date" name="transaction_search_to_date"
                                                 class="w-40 rounded-md text-xs bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                         </td>
                                     </tr>
-                                    <tr class="bg-white dark:bg-gray-800">
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                         <th scope="row"
                                             class="px-10 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            Store Manager
+                                            Daily Transaction Report
                                         </th>
                                         <td class="px-10 py-4">
-                                            <input name="store_manager" type="checkbox" value=""
+                                            <input name="transaction_report" type="checkbox" value=""
                                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
 
                                         </td>
                                         <td class="px-10 py-4">
-                                            <input type="date" name="store_manager_from_date"
+                                            <input type="date" name="transaction_report_from_date"
                                                 class="w-40 rounded-md text-xs bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                         </td>
                                         <td class="px-10 py-4">
-                                            <input type="date" name="store_manager_to_date"
-                                                class="w-40 rounded-md text-xs bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
-                                        </td>
-                                    </tr>
-                                    <tr class="bg-white dark:bg-gray-800">
-                                        <th scope="row"
-                                            class="px-10 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            Store Issuer
-                                        </th>
-                                        <td class="px-10 py-4">
-                                            <input name="store_issuer" type="checkbox" value=""
-                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:outline-none dark:bg-gray-700 dark:border-gray-600">
-
-                                        </td>
-                                        <td class="px-10 py-4">
-                                            <input type="date" name="store_issuer_from_date"
-                                                class="w-40 rounded-md text-xs bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
-                                        </td>
-                                        <td class="px-10 py-4">
-                                            <input type="date" name="store_issuer_to_date"
+                                            <input type="date" name="transaction_report_to_date"
                                                 class="w-40 rounded-md text-xs bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-
 
 
                     </div>
@@ -415,7 +453,7 @@
 
 
 
-    <script src="./js/createdUser.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>

@@ -32,14 +32,14 @@
                         <label
                             class="w-40 inline-block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Passowrd
                             : </label>
-                        <input type="text"
+                        <input type="text" name="password"
                             class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                     </div>
                     <div class="">
                         <label
                             class="w-40 inline-block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Description
                             : </label>
-                        <input type="text"
+                        <input type="text" name="description"
                             class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                     </div>
                     <div class="">
@@ -47,7 +47,7 @@
                             class="w-40 inline-block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Status
                             :
                         </label>
-                        <input type="text"
+                        <input type="text" name="status"
                             class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                     </div>
                     <div class="">
@@ -55,7 +55,7 @@
                             class="w-40 inline-block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Person
                             :
                         </label>
-                        <input type="text"
+                        <input type="text" name="person"
                             class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                         <label
                             class="w-40 inline-block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Customer
                             : </label>
-                        <input type="text"
+                        <input type="text" name="customer"
                             class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                     </div>
 
@@ -72,28 +72,28 @@
                         <label
                             class="w-40 inline-block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Supplier
                             : </label>
-                        <input type="text"
+                        <input type="text" name="supplier"
                             class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                     </div>
                     <div class="">
                         <label
                             class="w-40 inline-block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Email
                             : </label>
-                        <input type="text"
+                        <input type="text" name="email"
                             class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                     </div>
                     <div class="">
                         <label
                             class="w-40 inline-block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">
                             Effective From Date : </label>
-                        <input type="date"
+                        <input type="date" name="effective_from_date"
                             class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                     </div>
                     <div class="">
                         <label
                             class="w-40 inline-block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">
                             Effective To Date : </label>
-                        <input type="date"
+                        <input type="date" name="effective_to_date"
                             class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                     </div>
                 </div>
@@ -109,7 +109,7 @@
                 <label
                     class="w-14 inline-block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">
                     Days : </label>
-                <input type="text"
+                <input type="text" name="number"
                     class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
             </div>
 
@@ -151,7 +151,7 @@
                             <label
                                 class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Responsibilites
                                 : </label>
-                            <input type="text"
+                            <input type="text" name="responsibilites"
                                 class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                         </div>
 
@@ -159,7 +159,7 @@
                             <label
                                 class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Description
                                 : </label>
-                            <input type="text"
+                            <input type="text" name="description"
                                 class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                         </div>
                         <div class="">
@@ -167,26 +167,26 @@
                                 class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Security
                                 Group
                                 : </label>
-                            <input type="text"
+                            <input type="text" name="secuirty_group"
                                 class="rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                         </div>
                         <div class="">
                             <label
                                 class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">
                                 Effective From Date : </label>
-                            <input type="date"
+                            <input type="date" name="effective_from_date"
                                 class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                         </div>
                         <div class="">
                             <label
                                 class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">
                                 Effective To Date : </label>
-                            <input type="date"
+                            <input type="date" name="effective_to_date"
                                 class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                         </div>
                     </div>
                 </div>
-                <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="styled-dashboard" role="tabpanel"
+                <!-- <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="styled-dashboard" role="tabpanel"
                     aria-labelledby="dashboard-tab">
                     <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong
                             class="font-medium text-gray-800 dark:text-white">Dashboard tab's associated
@@ -194,7 +194,7 @@
                         Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript
                         swaps
                         classes to control the content visibility and styling.</p>
-                </div>
+                </div> -->
             </div>
         </div>
 

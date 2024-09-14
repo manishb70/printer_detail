@@ -32,7 +32,7 @@
                     <div class="">
                         <label class="w-40 block mb-1 font-bold text-xs font-medium text-gray-900 dark:text-white">User
                             Name: </label>
-                        <input type="text" name="user_name"
+                        <input type="text" name="username"
                             class="w-40 rounded-md border mb-3 text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
                             style="border-color: #C8A1E0;" />
                     </div>
@@ -47,7 +47,7 @@
                         <label class="w-40 block mb-1 font-bold text-xs font-medium text-gray-900 dark:text-white">User
                             Phone Number:
                         </label>
-                        <input type="text" name="user_phone_no"
+                        <input type="text" name="user_phone_number"
                             class="w-40 rounded-md border  mb-3 text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
                             style="border-color: #C8A1E0;" />
                     </div>
@@ -238,7 +238,7 @@
                                                     <label for="name"
                                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">User
                                                         Phone Number : </label>
-                                                    <input type="text" name="user_phone_no" id=""
+                                                    <input type="number" name="user_phone_no" id=""
                                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                         required="">
                                                 </div>
@@ -573,7 +573,7 @@
                             class=" w-40 block mb-1 font-bold text-xs font-medium text-gray-900 dark:text-white">Installation
                             is required :
                         </label>
-                        <input type="text" name="installation_required"
+                        <input type="text" name="installation_is_required"
                             class="w-40 rounded-md border mb-3 text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
                             style="border-color: #C8A1E0;" />
                     </div>
@@ -590,7 +590,7 @@
                             class="w-40 block mb-1 font-bold text-xs font-medium text-gray-900 dark:text-white">Tentative
                             Installation
                             : </label>
-                        <input type="text" name="tentative_installation"
+                        <input type="text" name="tntative_installation"
                             class="w-40 rounded-md border  mb-3 text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
                             style="border-color: #C8A1E0;" />
                     </div>
@@ -602,7 +602,7 @@
                     <div class="flex justify-between items-center flex-wrap">
                         <div class="">
                             <div class="flex gap-x-10 flex-wrap">
-                                <div>
+                                <!-- <div>
                                     <label for=""
                                         class=" w-40 inline-block mb-1 font-bold text-xs font-medium text-gray-900 dark:text-white">Followup
                                         :
@@ -610,7 +610,7 @@
                                     <input type="text" name="followup"
                                         class="w-40 rounded-md border mb-3 text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
                                         style="border-color: #C8A1E0;" />
-                                </div>
+                                </div> -->
 
 
                                 <div>
@@ -623,16 +623,16 @@
                                         style="border-color: #C8A1E0;" />
                                 </div>
 
-                            </div>
-                            <div class="flex gap-x-10 flex-wrap">
-                                <div class="">
-                                    <label
-                                        class="w-40 inline-block mb-1 font-bold text-xs font-medium text-gray-900 dark:text-white">Quotation
-                                        shared date :
-                                    </label>
-                                    <input type="date" name="quotation_shared_date"
-                                        class="w-40 rounded-md border  mb-3 text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        style="border-color: #C8A1E0;" />
+                                <div class="flex gap-x-10 flex-wrap">
+                                    <div class="">
+                                        <label
+                                            class="w-40 inline-block mb-1 font-bold text-xs font-medium text-gray-900 dark:text-white">Quotation
+                                            shared date :
+                                        </label>
+                                        <input type="date" name="quotation_shared_date"
+                                            class="w-40 rounded-md border  mb-3 text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                            style="border-color: #C8A1E0;" />
+                                    </div>
                                 </div>
 
                                 <div class="">
@@ -658,10 +658,16 @@
                                 </div> -->
 
                             </div>
+
+                            <div>
+                                <input type="radio" name="name" id="" class=""><label class="pl-2 text-sm">Standard</label>
+                                <input type="radio" name="name" id="" class="ml-5 "><label class="pl-2 text-sm">Customize</label>
+                                <input type="radio" name="name" id="" class="ml-5 "><label class="pl-2 text-sm">Semi Customize</label>
+                            </div>
                         </div>
                     </div>
                 </fieldset>
-                <fieldset class=" p-5 border-2 rounded-md border-gray-900" style="border-color: #674188;">
+                <!-- <fieldset class=" p-5 border-2 rounded-md border-gray-900" style="border-color: #674188;">
                     <legend class="font-bold">Query Information</legend>
                     <div class="flex justify-between items-center flex-wrap">
                         <div class="">
@@ -747,11 +753,11 @@
                             </div>
                         </div>
                     </div>
-                </fieldset>
+                </fieldset> -->
             </div>
         </div>
         <div class="max-w-7xl m-auto flex px-10 gap-x-7 mt-5">
-            <fieldset class="w-1/6 p-5 border-2 rounded-md border-gray-900" style="border-color: #674188;">
+            <fieldset class="w-1/6 p-5 border-2 rounded-md border-gray-900" style="border-color: #674188; display: none">
                 <legend class="font-bold">Project Information</legend>
                 <div class="">
                     <div>
@@ -767,7 +773,7 @@
                 </div>
             </fieldset>
             <div class="w-5/6">
-                <fieldset class=" p-5 border-2 rounded-md border-gray-900" style="border-color: #674188;">
+                <fieldset class=" p-5 border-2 rounded-md border-gray-900" style="border-color: #674188; display: none;">
                     <legend class="font-bold">Project Status</legend>
                     <div class="flex justify-between items-center flex-wrap">
                         <div class="">
@@ -2043,7 +2049,7 @@
         </div>
         <div
             class="flex items-center justify-center p-4 md:p-5 space-x-3 rtl:space-x-reverse border-t border-gray-200 rounded-b dark:border-gray-600">
-            <button data-modal-hide="extralarge-modal" type="button"
+            <button data-modal-hide="extralarge-modal" id="saleOrderSavebtn" type="button"
                 class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Save</button>
             <button data-modal-hide="extralarge-modal" type="submit"
                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit
@@ -2051,6 +2057,7 @@
         </div>
     </form>
 
+</body>
     <script>
         let x = ` <div
                             class="flex flex-wrap items-center border gap-x-5 border-gray-900 w-full p-2 rounded-lg mt-2">
@@ -2094,13 +2101,14 @@
                                 <img class="w-28 h-24 rounded-md" src="./images.png" alt="image preview">
                             </div>
                         </div>`
+
         function finish_field() {
             let y = document.getElementById("finish_field")
 
             y.innerHTML += x;
         }
 
-        document.getElementById('remove_btn').addEventListener('click', function () {
+        document.getElementById('remove_btn').addEventListener('click', function() {
             var finish_field = document.getElementById('finish_field');
 
             // Remove the last child of the container
@@ -2116,7 +2124,7 @@
             y.innerHTML += x;
         }
 
-        document.getElementById('raw_remove').addEventListener('click', function () {
+        document.getElementById('raw_remove').addEventListener('click', function() {
             var raw_field = document.getElementById('raw_field');
 
             // Remove the last child of the container
@@ -2134,9 +2142,9 @@
             x.style.display = "block";
 
         }
-
-
     </script>
-</body>
+
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <script src="./js/sale_order.js"></script>
 
 </html>

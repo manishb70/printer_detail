@@ -515,7 +515,7 @@ const trAdderForTbody = (
 };
 
 function reciveTable(event) {
-  if (window.confirm("are you sure")) {
+  
     let currentTr = $(`tr[con-row-id='${selectedRow}']`)[0];
 
     console.log(currentTr);
@@ -558,7 +558,7 @@ function reciveTable(event) {
     //       console.log(data);
 
     //       if (data.success) {
-            alert(`${recieved_qty} items is Accepted`);
+            // alert(`${recieved_qty} items is Accepted`);
 
             let rowTable = $(`tr[line-row-id=${selectedRow}`)[0];
 
@@ -585,7 +585,7 @@ function reciveTable(event) {
     //         );
 
     //         // rowTable.classList.remove("hidden")  ;
-            $(rowTable).fadeIn(1000);
+            $(rowTable).slideToggle(2000);
 
     //         $(rowTable).fadeIn(1000);
     //         selectedRow = null;
@@ -598,7 +598,7 @@ function reciveTable(event) {
     } else {
       alert("Something went wrong");
     }
-  }
+  
 }
 
 const genRateGrn = () => {

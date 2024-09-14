@@ -24,14 +24,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // JOIN purchase_order_line b
     // ON a.PO_number = b.po_number
     // WHERE a.PO_number = $po_number;   ";
-    
-
-
-    $sql = "SELECT * FROM for_office.grn_line_items a JOIN  purchase_order_line b ON a.po_number=b.po_number and a.po_line_id=b.id  where a.po_number = $po_number;";
 
 
 
-       echo $sql;
+    // $sql = "SELECT * FROM for_office.grn_line_items a JOIN  purchase_order_line b ON a.po_number=b.po_number and a.po_line_id=b.id  where a.po_number = $po_number;";
+    //     $sql = "SELECT a.*,b.item_shortdiscription,b.unit_price,b.balance,
+    // b.total_price FROM for_office.grn_line_items a JOIN  purchase_order_line b ON a.po_number=b.po_number and a.po_line_id=b.id  where a.po_number = $po_number;";
+
+    $sql = "SELECT a.*,b.item_shortdiscription,b.unit_price,b.balance, b.total_price,b.id as grn_line_id,c.status,c.recQty 
+FROM for_office.grn_line_items  a JOIN purchase_order_line b ON a.po_number=b.po_number and a.po_line_id=b.id 
+JOIN grn_sub_line_status c ON a.id = c.grn_line_id 
+  where a.po_number = $po_number and c.status = 'received';";
+
+
+
+    echo $sql;
 
 
 
@@ -57,9 +64,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $vendor_name = $row['supplier_name'];
         $warehouse_code = 1;
         $po_number;
-        
-    }else{
-        echo  " ".mysqli_error( $con);
+    } else {
+        echo  " " . mysqli_error($con);
     }
 }
 
@@ -262,7 +268,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                                                 while ($row = mysqli_fetch_assoc($result)) {
 
-
+                                                        
+                                                    $total = $row['unit_price']*$row['recQty'];
 
 
 
@@ -270,7 +277,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                 ?>
 
 
-                                                    <tr class="hover:bg-gray-600" PO-id="<?php echo $row['po_number']; ?>"
+                                                    <tr class="hover:bg-gray-600" grn-line-id="<?php echo $row['id']; ?>" PO-id="<?php echo $row['po_number']; ?>"
                                                         line-id="<?php echo $row['id']; ?>"
                                                         con-row-id="PO-<?php echo $row['id']; ?>">
 
@@ -315,13 +322,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                                 placeholder="Quantity" value="<?php echo $row['balance'] ?>">
                                                         </td>
 
+
+
+
+
                                                         <td
                                                                             class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
                                                                             <input type="number" id="input-email-label"
                                                                                 name="recieved_qty" 
                                                                                 class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                                                                                value="${recQty}"
-                                                                                placeholder="Recieved QTY">
+                                                                                value="<?php echo $row['recQty'] ?>"
+                                                                                placeholder="<?php echo $row['recQty'] ?>">
                                                                         </td>
 
 
@@ -329,7 +340,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                         <td
                                                             class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
                                                             <input type="number" id="input-email-label" name="total_price"
-                                                                disabled value="<?php echo $row['total_price'] ?>"
+                                                                disabled value="<?php echo $total;?>"
                                                                 class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                                                 placeholder="Total">
                                                         </td>
@@ -337,7 +348,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                             class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
                                                             <input type="txt" id="input-email-label" name="need_by_date"
                                                                 class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                                                                placeholder="need_by_date" value="inProcess">
+                                                                placeholder="need_by_date" value="<?php echo $row['status'] ?>">
                                                         </td>
 
 
@@ -353,6 +364,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
                                                                 <thead>
+
+                                                                
+
                                                                     <tr>
                                                                         <th scope="col"
                                                                             class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
@@ -360,6 +374,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                                         <th scope="col"
                                                                             class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
                                                                             S.no</th>
+                                                                        <th scope="col"
+                                                                            class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
+                                                                            PO number </th>
                                                                         <th scope="col"
                                                                             class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
                                                                             Item Code</th>
@@ -395,82 +412,135 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                                 <tbody class="  divide-gray-200"
                                                                     id="tbodyLine<?php echo $row['id'] ?>">
 
+                                                                        <?php
+
+                                                                        $grnLineId = $row['id'];
+
+                                                                        $sql = "SELECT * FROM for_office.grn_sub_line_status where grn_line_id = $grnLineId ;";
+
+
+                                                                        $result1 = mysqli_query($con, $sql);
+
+                                                                        $j = 0;
+                                                                        while ($row1 = mysqli_fetch_assoc($result1)) {
+
+                                                                            $j++;
+
+
+
+                                                                        ?>
 
 
 
 
 
-                                                                    <!-- <tr class="hover:bg-gray-600" con-id="001">
+                                                                     <tr class="hover:bg-gray-600" line-id="<?php  echo $row['po_line_id'];  ?>" grn-line-id=<?php  echo $row['id'];  ?> >
 
-                                                                            <td
-                                                                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                                                                                <input id="default-checkbox" type="checkbox"
-                                                                                    value="1"
-                                                                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                                                            </td>
-                                                                            <td
-                                                                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                                                                                <input type="txt" id="input-email-label"
-                                                                                    class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                                                                                    placeholder=1 value="" disabled>
-                                                                            </td>
-                                                                            <td
-                                                                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                                                                                <input type="txt" id="input-email-label"
-                                                                                    name="item_code"
-                                                                                    class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                                                                                    placeholder="item_code">
-                                                                            </td>
-                                                                            <td
-                                                                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                                                                                <input type="txt" id="input-email-label"
-                                                                                    name="item_name"
-                                                                                    class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                                                                                    placeholder="Item name">
-                                                                            </td>
-                                                                            <td
-                                                                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                                                                                <input type="number" id="input-email-label"
-                                                                                    class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                                                                                    name="unit_Price" placeholder="Unit price"
-                                                                                    value="${row.unit_price}">
-                                                                            </td>
-                                                                            <td
-                                                                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                                                                                <input type="number" id="input-email-label"
-                                                                                    name="Qty"
-                                                                                    class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:
-        inter-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                                                                                    placeholder="Quantity" value="${row.balance}">
-                                                                            </td>
-                                                                            <td
-                                                                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                                                                                <input type="number" id="input-email-label"
-                                                                                    name="total_price" disabled
-                                                                                    class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                                                                                    placeholder="Recieved QTY">
-                                                                            </td>
-                                                                            <td
-                                                                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                                                                                <input type="number" id="input-email-label"
-                                                                                    name="total_price" disabled
-                                                                                    class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                                                                                    placeholder="Total">
-                                                                            </td>
-                                                                            <td
-                                                                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                                                                                <input type="txt" id="input-email-label"
-                                                                                    name="need_by_date"
-                                                                                    class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                                                                                    placeholder="need_by_date" value="inProcess">
-                                                                            </td>
+                                                                   
+
+                                                                           <td
+                                                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                            <input id="default-checkbox" onclick="selectChildTable(event)" type="checkbox"
+                                                                              
+                                                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                                        </td>
+                                                                        <td
+                                                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                            <input type="txt" id="input-email-label"
+                                                                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                                placeholder=1   value="<?php echo $j; ?>" disabled>
+                                                                        </td>
+                                                                        <td
+                                                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                            <input type="txt" id="input-email-label"
+                                                                                name="item_code"
+                                                                                value="<?php echo $row['po_number']; ?>"
+                                                                                disabled
+                                                                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                                placeholder="item_code">
+                                                                        <td
+                                                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                            <input type="txt" id="input-email-label"
+                                                                                name="item_code"
+                                                                                value="<?php echo $row['item_code']; ?>"
+                                                                                disabled
+                                                                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                                placeholder="item_code">
+                                                                        </td>   
+                                                                        <td
+                                                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                            <input type="txt" id="input-email-label"
+                                                                                name="item_name"
+                                                                                value="<?php echo $row['item_shortdiscription'] ?>"
+                                                                                class="py-3 w-full px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                                placeholder="Item name" disabled>
+                                                                        </td>
+                                                                        <td
+                                                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                            <input type="number" id="input-email-label"
+                                                                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                                name="unit_Price" disabled placeholder="Unit price"
+                                                                                value="<?php echo $row['unit_price'] ?>"
+                                                                                >
+                                                                        </td>
+                                                                        <td
+                                                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                            <input type="number" id="input-email-label"
+                                                                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                                name="total_qty" disabled placeholder="Unit price"
+                                                                                value="total qty"
+                                                                                >
+                                                                        </td>
+                                                                        <td
+                                                                            class="px-6 py-4 min-w-10 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                            <input type="number" id="input-email-label"
+                                                                                name="balance_qty"
+                                                                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:
+    inter-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                                placeholder="Quantity" disabled value="${balance}">
+                                                                        </td>
+                                                                        <td
+                                                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                            <input type="number" id="input-email-label"
+                                                                                name="recieved_qty" 
+                                                                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                                value="<?php echo $row1['recQty']; ?>"
+                                                                                placeholder="Recieved QTY">
+                                                                        </td>
+                                                                        <td
+                                                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                            <input type="number" id="input-email-label"
+                                                                                name="total_price" disabled
+                                                                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                                placeholder="Total"
+                                                                                value=${total}
+                                                                                >
+                                                                        </td>
+                                                                        <td
+                                                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                                            <input type="txt" id="input-email-label"
+                                                                                name="status"
+                                                                                disabled
+                                                                                class="py-3 px-4 block min-w-auto border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                                placeholder="status" value="<?php echo $row1['status']; ?>">
+                                                                        </td>
 
 
 
 
 
-                                                                        </tr> -->
+      
 
+
+
+
+                                                                        </tr>
+
+                                                                        <?php
+
+                                                                        }
+
+                                                                        ?>
 
                                                                 </tbody>
                                                             </table>
@@ -510,7 +580,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 <div class="w-full mt-5 flex justify-around" id="status-btn-area">
                     <button onclick="reciveTable(event)" type="text"
-                        class="text-white border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs px-5 py-2.5 text-center me-2 mb-2 font-medium dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 ">Recieved</button>
+                        class="text-white border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs px-5 py-2.5 text-center me-2 mb-2 font-medium dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 "> Show status</button>
                     <div>
                         <button type="text" onclick="AcceptDataToGrnLine()"
                             class="text-white border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs px-5 py-2.5 text-center me-2 font-medium dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 ">Accept</button>

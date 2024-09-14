@@ -104,10 +104,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             // if ($_SESSION["role"] == "requisitionGen" || $role == "admin") {
 
 
+            if ($role !== 'txnFormAccess') {
 
             if ($role !== 'leadGenTest') {
 
 
+                
 
 
                 if ($_SESSION["store_genrate"] || $role == "admin") {
@@ -277,6 +279,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                     class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
                     Grn Report
                 </a>
+                
 
 
             <?php
@@ -292,6 +295,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
                 Query Reports
             </a>
+
+                <?php } 
+                
+                
+                if ($role !== 'leadGenTest') {
+
+
+                ?>
+
+
+
+
+
+
+            <a type="submit" href="./txnCreation.php"
+                    class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                    Daily transaction
+                </a>
+
+                <?php  
+
+                }
+?>
+
+
             <!-- 
                 <a type="submit" href="./createUserForm.php"
                 class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
@@ -302,7 +330,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
 
-        <div class="forPieCHart flex mx-auto  bg-gray-100 flex-wrap " style="">
+        <div class="forPieCHart w-full flex mx-auto   flex-wrap " style="">
 
 
             <h1 class="w-full shadow-md mb-2  h-10 text-xl font-medium text-center ">Management Dashboard</h1>
@@ -313,18 +341,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 <a href="./query_report.php">
                     <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="Lead_status_box"></div>
                 </a>
-                <a href="./purchaseorder.php">
-                    <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="purchase_order"></div>
-                </a>
-                <a href="./mangerApprove.php">
-                    <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="item_requests"></div>
-                </a>
-                <a href="./requisition.php">
-                    <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="pr_requests"></div>
-                </a>
-                <a href="./grnReport.php">
-                    <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="GRN_status"></div>
-                </a>
+
+                <?php if ($role !== 'leadGenTest') {
+                ?>
+                    <a href="./purchaseorder.php">
+                        <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="purchase_order"></div>
+                    </a>
+                    <a href="./mangerApprove.php">
+                        <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="item_requests"></div>
+                    </a>
+                    <a href="./requisition.php">
+                        <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="pr_requests"></div>
+                    </a>
+                    <a href="./grnReport.php">
+                        <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="GRN_status"></div>
+                    </a>
+                    
+                        <!-- <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="daily_txn_book"></div> -->
+                    
+
+
+                <?php }  ?>
+
 
 
                 <!-- <a href="./grnReport.php">
