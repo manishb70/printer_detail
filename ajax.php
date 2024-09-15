@@ -189,7 +189,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     if (isset($_GET['itemCodeInfoForPr'])) {
 
-        include('db_connection.php');
+        include('./dbconnection/db.php');
 
         $sql = "SELECT item_code FROM for_office.item_master_main;";
 
@@ -237,7 +237,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if (isset($_GET["getImgName"])) {
 
 
-        include("./db.php");
+        // include("./db.php");
+        include("./dbconnection/db.php");
 
         $item_code = $_GET["item_code"];
 

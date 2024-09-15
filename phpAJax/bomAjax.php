@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $user = $_SESSION['username'];
                     $datetime = date('Y-m-d');
                     $item_code = $value['item_code'];
-                    $Item_name = $value['Item_name'];
+                    $item_name = $value['Item_name'];
                     $percentage = $value['percentage'];
                     $Qty = $value['Qty'];
                     $process_seq = $value['process_seq'];

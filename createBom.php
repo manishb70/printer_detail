@@ -2,7 +2,7 @@
 session_start();
 include("./navForLogged.php");
 
-include("./db.php");
+include("./dbconnection/db.php");
 
 
 
@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-    // $item_code = $_POST['item_code'];
+    $item_code = $_POST['item_code'];
     $item_name = $_POST['item_name'];
     $percentage = $_POST['percentage'];
     $warehouse_location = $_POST['warehouse_location'];
@@ -32,13 +32,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // $sql = "INSERT INTO `for_office`.`purchase_order_header` (`createdBy`, `created_date`) VALUES ('$user', '$currentDateTime');";
 
-    $sql = "INSERT INTO `for_office`.`bom_hedar_detail` ( `item_name`, `percentage`, `wharehouse_`, `created_by`, `created_date`) 
+    $sql = "INSERT INTO `for_office`.`bom_hedar_detail` ( `item_name`,`item_code`, `percentage`, `wharehouse_`, `created_by`, `created_date`) 
     VALUES (?, ?, ?, ?, ?);";
 
 
     $stmt = $con->prepare($sql);
 
-    $stmt->bind_param("sssss", $item_name, $percentage, $warehouse_location, $user, $currentDateTime);
+    $stmt->bind_param("ssssss",$item_code, $item_name, $percentage, $warehouse_location, $user, $currentDateTime);
 
 
 
@@ -173,6 +173,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             Upload image :
                         </label>
                         <input type="file" required
+
+                        id="uploadImageItem"
+                        onchange="setUploadedImage (event)"
                             class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3  text-[#6B7280]  outline-none focus:border-[#6A64F1] focus:shadow-md" />
 
 
@@ -253,7 +256,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                     placeholder="Process Seq">
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                                                <input type="txt" name="" id="input-email-label" name="item_code"
+                                                <input type="txt" name="item_code" id="input-email-label" name="item_code"
                                                     class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                                     placeholder="Item code">
                                             </td>
@@ -497,48 +500,79 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
+
+
+function setUploadedImage (event) { 
+
+    
+
+
+    const file = event.target.files[0]; 
+            
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const imagePreview = document.getElementById('bomMainImg');
+                    imagePreview.src = e.target.result; 
+                };
+                
+                reader.readAsDataURL(file); 
+            } else {
+                alert('Please select a valid image file.');
+            }
+
+
+
+
+
+ }
+
+
+
     const setBomImage = () => {
 
 
 
 
 
+        console.log("image selected");
 
 
 
-        let item_code = $("#item_name").val()
+        // let item_code = $("#item_name").val()
 
 
-        let data = {
-            item_code: item_code,
-            getImgName: "getImgName"
+        // let data = {
+        //     item_code: item_code,
+        //     getImgName: "getImgName"
 
-        }
+        // }
 
-        $.get("ajax.php", data, function (data) {
+        // $.get("ajax.php", data, function (data) {
 
-            console.log(data);
-
-
+        //     console.log(data);
 
 
-            if(data.success){
+
+
+        //     if(data.success){
 
 
                 
                 
-                $("#bomMainImg").attr("src", `images/${data.imgpath}`);
+        //         $("#bomMainImg").attr("src", `images/${data.imgpath}`);
 
 
 
-            }
+        //     }
 
 
 
 
-        },"JSON").fail(error=>{
-            console.log(error.responseText);
-        })
+        // },"JSON").fail(error=>{
+        //     console.log(error.responseText);
+        // })
 
 
 
