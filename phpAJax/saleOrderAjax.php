@@ -59,7 +59,34 @@ VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?);";
         // Execute the statement
         if ($stmt->execute()) {
 
+                    
+
+            $itemData = $_POST['inItems'];
+            $response['item data'] = $itemData;
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
+            
+            
+            
             $response['success'] = true;
+
+
+
+
+
 
             $response['message'] = 'successfully data inserted';
             $response['insert_id'] = $con->insert_id;
@@ -161,6 +188,64 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         echo json_encode($response);
     }
+    if (isset($_GET['getRowItem'])) {
+
+
+
+
+        $search_query = $_GET['searchQuery'];
+
+
+
+        $sql = "SELECT * FROM for_office.item_master_main where Short_Description like '%$search_query%'  or item_code like '%$search_query%' order by S_No DESC " ;
+
+        $result  = mysqli_query($con, $sql);
+
+
+
+
+        if (mysqli_num_rows($result) > 0) {
+            $response['success'] =  true;
+
+            $data = [];
+
+
+
+            while ($row = mysqli_fetch_assoc($result)) {
+
+
+
+
+
+                $data[] = $row;
+            }
+
+
+
+
+
+            $response['bom_data'] = $data;
+        } else {
+            $response['success'] = false;
+            $response['message'] = mysqli_error($con);
+        }
+
+
+
+
+
+
+
+
+        $response['message'] = 'Acepted sucss fyllu';
+
+
+
+
+
+
+        echo json_encode($response);
+    }
 
 
 
@@ -210,18 +295,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         }
 
 
+        $response['message'] = 'Acepted success fully';
 
 
+        echo json_encode($response);
+    }
+    if (isset($_GET['getIBomItemOnlyDataRow'])) {
+
+        $search_id = $_GET['search_id'];
 
 
+        $sql = "SELECT * FROM for_office.item_master_main where S_No = $search_id ;";
+        $result  = mysqli_query($con, $sql);
+
+
+        if (mysqli_num_rows($result) > 0) {
+            $response['success'] =  true;
+
+            $data = [];
+
+            while ($row = mysqli_fetch_assoc($result)) {
+
+                $data[] = $row;
+            }
+
+
+            $response['bom_data'] = $data;
+        } else {
+            $response['success'] = false;
+            $response['message'] = mysqli_error($con);
+        }
 
 
         $response['message'] = 'Acepted sucss fyllu';
-
-
-
-
-
 
         echo json_encode($response);
     }

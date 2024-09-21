@@ -1183,6 +1183,41 @@ INSERT INTO `itemmasterheader` VALUES (1,'itemMasterItemcCodeGen',1,NULL,NULL,1,
 UNLOCK TABLES;
 
 --
+-- Table structure for table `lead_details_header_form`
+--
+
+DROP TABLE IF EXISTS `lead_details_header_form`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `lead_details_header_form` (
+  `record_no` int NOT NULL AUTO_INCREMENT,
+  `created_by` varchar(45) DEFAULT NULL,
+  `created_date` varchar(45) DEFAULT NULL,
+  `form_status` varchar(45) NOT NULL DEFAULT 'SAVE',
+  `lead_source` varchar(45) DEFAULT NULL,
+  `ref_By` varchar(45) DEFAULT NULL,
+  `ref_phone_no` varchar(45) DEFAULT NULL,
+  `lead_type` varchar(45) DEFAULT NULL,
+  `contact_person_name` varchar(45) DEFAULT NULL,
+  `contact_person_phone_no` varchar(45) DEFAULT NULL,
+  `contact_person_email` varchar(45) DEFAULT NULL,
+  `contact_person_address` varchar(45) DEFAULT NULL,
+  `lead_received_date` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`record_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lead_details_header_form`
+--
+
+LOCK TABLES `lead_details_header_form` WRITE;
+/*!40000 ALTER TABLE `lead_details_header_form` DISABLE KEYS */;
+INSERT INTO `lead_details_header_form` VALUES (1,'','2024-09-15 14:21:50','','','','','','','','','',''),(2,'','2024-09-15 14:26:22','','','','','','','','','',''),(3,'','2024-09-15 14:26:39','','','','','','','','','',''),(4,'','2024-09-15 14:27:40','','','','','','','','','',''),(5,'','2024-09-15 14:28:04','','','','','','','','','',''),(6,'','2024-09-15 14:29:06','','Email','','','Dealer','awd','asd','asdasd','asd','2024-09-11'),(7,'','2024-09-15 14:32:06','','Direct-other','','','Retailer','sd','asd','asd','ad','2024-09-09'),(8,'','2024-09-15 14:33:00','','Email','','','Distributor','zs','as','asas','as','2024-09-25'),(9,'','2024-09-15 14:34:38','','Direct-other','','','Distributor','asdf','kjxchkjsd','asdasd','asd','2024-09-24'),(10,'','2024-09-15 14:36:32','','Direct-other','','','Distributor','asdfg','sdfg','asdf','sdf','2024-09-27'),(11,'','2024-09-15 14:38:01','','References','sdfgh','sdfg','Dealer','sdf','sdf','sdfg','sdf','2024-09-26'),(12,'','2024-09-15 14:38:11','','References','sdfgh','sdfg','Dealer','sdf','sdf','sdfg','sdf','2024-09-26'),(13,'','2024-09-15 14:39:13','','References','sdfgh','sdfg','Dealer','sdf','sdf','sdfg','sdf','2024-09-26'),(14,'','2024-09-15 14:39:33','','Direct-other','asd','asdf','Retailer','sd','sdf','d','fdf','2024-10-03'),(15,'','2024-09-15 14:41:00','','References','sdf','sdfg','Retailer','asdf','asdf','asdf','asdf','2024-10-02'),(16,'','2024-09-15 14:42:54','','','','','','','','','',''),(17,'','2024-09-15 14:43:32','','Direct-other','asdf','asd','Retailer','asdf','asd','asdf','asdf','2024-09-26'),(18,'','2024-09-15 14:45:24','','Direct-other','QWERT','QWER','Distributor','QWE','QWEq','weqw','e','2024-10-09'),(19,'','2024-09-15 14:55:43','SAVE','Direct_other','asd','asdf','Distributor','asdf','asd','asd','asd','2024-09-25'),(20,'','2024-09-15 14:57:25','SAVE','Email','asdf','asdf','Retailer','asd','asd','asd','asd','2024-09-18'),(21,'','2024-09-15 15:02:18','SAVE','References','asd','asdf','Distributor','asdf','asd','asd','asd','2024-09-27'),(22,'LTESTUSER1','2024-09-15 15:04:02','SAVE','References','asd','asdf','Distributor','asdf','asd','asd','asd','2024-09-27'),(23,'admin','2024-09-15 17:54:55','SAVE','References','jhu','ih','Choose Lead Type','uihi','uhiuhuihiuh','ih','hi','2024-02-02');
+/*!40000 ALTER TABLE `lead_details_header_form` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `location`
 --
 
@@ -1415,7 +1450,7 @@ CREATE TABLE `sale_order_header` (
   `created_by` varchar(45) DEFAULT 'inProcess',
   `created_date` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1424,7 +1459,7 @@ CREATE TABLE `sale_order_header` (
 
 LOCK TABLES `sale_order_header` WRITE;
 /*!40000 ALTER TABLE `sale_order_header` DISABLE KEYS */;
-INSERT INTO `sale_order_header` VALUES (1,'','',9,'','','2024-09-19','','','2024-09-04','',NULL,'inProcess',NULL),(2,'hello user','',90090,'','yes','2024-03-01','yes','0999','2025-04-02','SO order creation',NULL,'inProcess',NULL),(3,'hello user','',90090,'','yes','2024-03-01','yes','0999','2025-04-02','SO order creation',NULL,'inProcess',NULL),(4,'hello user','',90090,'','yes','2024-03-01','yes','0999','2025-04-02','SO order creation',NULL,'inProcess',NULL),(5,'hello user','',90090,'','yes','2024-03-01','yes','0999','2025-04-02','SO order creation',NULL,'admin','2024-09-14 17:03:12'),(6,'','',0,'','','2024-10-03','','','2024-09-26','',NULL,'admin','2024-09-14 17:32:43');
+INSERT INTO `sale_order_header` VALUES (1,'','',9,'','','2024-09-19','','','2024-09-04','',NULL,'inProcess',NULL),(2,'hello user','',90090,'','yes','2024-03-01','yes','0999','2025-04-02','SO order creation',NULL,'inProcess',NULL),(3,'hello user','',90090,'','yes','2024-03-01','yes','0999','2025-04-02','SO order creation',NULL,'inProcess',NULL),(4,'hello user','',90090,'','yes','2024-03-01','yes','0999','2025-04-02','SO order creation',NULL,'inProcess',NULL),(5,'hello user','',90090,'','yes','2024-03-01','yes','0999','2025-04-02','SO order creation',NULL,'admin','2024-09-14 17:03:12'),(6,'','',0,'','','2024-10-03','','','2024-09-26','',NULL,'admin','2024-09-14 17:32:43'),(7,'ni','',98,'','','2024-09-19','yes','ko','2026-11-17','',NULL,'admin','2024-09-15 22:38:59'),(8,'ni','',98,'','','2024-09-19','yes','ko','2026-11-17','',NULL,'admin','2024-09-15 22:41:44'),(9,'89','',898,'','','2026-03-02','yes','987','2025-02-02','lkj',NULL,'admin','2024-09-15 22:43:04'),(10,'89','',898,'','','2026-03-02','yes','987','2025-02-02','lkj',NULL,'admin','2024-09-15 22:43:14');
 /*!40000 ALTER TABLE `sale_order_header` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1446,6 +1481,8 @@ CREATE TABLE `sale_order_items_lines` (
   `total` int DEFAULT NULL,
   `shipping_address` varchar(200) DEFAULT NULL,
   `item_image_path` varchar(45) DEFAULT NULL,
+  `item_type` varchar(45) DEFAULT NULL,
+  `finish_head_id` varchar(45) DEFAULT NULL,
   `status` varchar(45) DEFAULT NULL,
   `update_by` varchar(45) DEFAULT NULL,
   `updated_date` varchar(45) DEFAULT NULL,
@@ -1801,4 +1838,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-09-15 18:36:50
+-- Dump completed on 2024-09-16  2:14:45

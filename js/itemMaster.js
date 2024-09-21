@@ -584,7 +584,6 @@ const submitItemInfoToDb = async () => {
 
     let itemFilePath = "";
 
-
     let fileItem = document.getElementById(selectedSubCat).querySelector('[name="itemImage"]');
 
     if (fileItem && fileItem.files.length > 0) {

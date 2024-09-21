@@ -110,7 +110,7 @@
 
 
                             <div class="relative flex flex-col w-full h-full  text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
-                                <table class="w-full text-left table-auto min-w-max">
+                                <table class="w-full hidden text-left table-auto min-w-max">
                                     <thead>
                                         <tr class="border-b border-slate-300 bg-slate-50">
                                             <th class="p-4 text-sm font-normal leading-none text-slate-500">S.no</th>
@@ -176,7 +176,7 @@
 
                                     </tbody>
                                 </table>
-                            </div>
+                                </div>
 
 
 
@@ -231,6 +231,91 @@
                         <div>
                             <input type="radio" name="goods" onclick="radio_btn()">
                             <span class="text-xs font-bold">Raw Material</span>
+                            <div class="max-w-[720px] mx-auto">
+
+
+
+<div class="relative flex flex-col w-full h-full  text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
+    <table class="w-full hidden  text-left table-auto min-w-max">
+        <thead>
+            <tr class="border-b border-slate-300 bg-slate-50">
+                <th class="p-4 text-sm font-normal leading-none text-slate-500">S.no</th>
+                <th class="p-4 text-sm font-normal leading-none text-slate-500">item name</th>
+                <th class="p-4 text-sm font-normal leading-none text-slate-500">item code</th>
+                <th class="p-4 text-sm font-normal leading-none text-slate-500">Rate</th>
+                <th class="p-4 text-sm font-normal leading-none text-slate-500">item Qty</th>
+                <th class="p-4 text-sm font-normal leading-none text-slate-500">Total price</th>
+                <th class="p-4 text-sm font-normal leading-none text-slate-500">Product</th>
+                <th class="p-4 text-sm font-normal leading-none text-slate-500"></th>   
+            </tr>
+        </thead>
+        <tbody id="row_items_body">
+            <!-- <tr class="hover:bg-slate-50">
+
+                <td class="p-4 border-b border-slate-200 py-5">
+                    <p class="block font-semibold text-sm text-slate-800">1</p>
+                </td>
+
+                <td class="p-4 border-b border-slate-200 py-5">
+                    <p class="text-sm text-slate-500">chandler</p>
+                </td>
+                <td class="p-4 border-b border-slate-200 py-5">
+                    <p class="text-sm text-slate-500">item <code></code></p>
+                </td>
+                <td class="p-4 border-b border-slate-200 py-5">
+
+                    <p class="text-sm text-slate-500">1000₹</p>
+                </td>
+                <td class="p-4 border-b border-slate-200 py-5">
+                    <input type="number" name="item_total"
+                        class="w-28 rounded-md border text-xs border-gray-500 bg-white py-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                        style="border-color: #C8A1E0;" />
+                </td>
+                <td class="p-4 border-b border-slate-200 py-5">
+
+                    <p class="text-sm text-slate-500">200</p>
+                </td>
+                <td class="p-4 border-b border-slate-200 py-5">
+                    <img src="https://demos.creative-tim.com/corporate-ui-dashboard-pro/assets/img/kam-idris-_HqHX3LBN18-unsplash.jpg" alt="Product 1" class="w-16 h-16 object-cover rounded" />
+                </td>
+
+
+
+                <td class="p-4 border-b border-slate-200 py-5">
+                    <button type="button" class="text-slate-500 hover:text-slate-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </td>
+
+                <td class="p-4 border-b border-slate-200 py-5">
+                    <button data-modal-target="extralarge-modal" data-modal-toggle="extralarge-modal"
+                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        type="button">
+                        Bom
+                    </button>
+                </td>
+            </tr> -->
+
+
+
+        </tbody>
+    </table>
+    </div>
+
+    <div class="mt-2">
+                                <button
+                                    onclick="setItemsForAddInItemsRow('__')"
+                                    data-dialog-target="dialog-row"
+                                    class="rounded-md cursor-pointer bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-black transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
+                                    Add item
+                                </button>
+
+
+                            </div>
+
+</div>
                         </div>
 
                         <div class="border border-gray-900 w-full p-2 rounded-lg mt-2" id="raw_section"
@@ -276,8 +361,7 @@
                                     <img class="w-28 h-24 rounded-md" src="./images.png" alt="image preview">
                                 </div>
                             </div><br>
-                        </div>
-
+                        </div
 
                         <!-- Main modal -->
                         <div id="crud-modal" tabindex="-1" aria-hidden="true"
@@ -2169,7 +2253,7 @@
                     <div class="w-full ">
                         <div class="bg-white shadow-md rounded-lg px-3 py-2 mb-4">
                             <div class="block text-gray-700 text-lg font-semibold py-2 px-2">
-                                Items list
+                               Finsh Items list
                             </div>
                             <div class="flex items-center bg-gray-200 rounded-md">
                                 <div class="pl-2">
@@ -2337,9 +2421,189 @@
     </div>
 
 
+<!-- second dilog for row items -->
+
+
+<div
+        data-dialog-backdrop="dialog-row"
+        data-dialog-backdrop-close="true"
+        class="pointer-events-none fixed inset-0 z-[999] grid  w-screen place-items-center bg-black bg-opacity-60 opacity-0 backdrop-blur-sm transition-opacity duration-300">
+        <div
+            style="min-width:50% ;"
+            data-dialog="dialog-row"
+            class="relative m-4 p-4  min-w-[40%] max-w-[40%] rounded-lg bg-white shadow-sm">
+            <!-- component -->
+            <div class="w-full  mx-auto px-6">
+                <div class="flex  justify-center p-4 px-3 py-10">
+                    <div class="w-full ">
+                        <div class="bg-white shadow-md rounded-lg px-3 py-2 mb-4">
+                            <div class="block text-gray-700 text-lg font-semibold py-2 px-2">
+                                Row Items list
+                            </div>
+                            <div class="flex items-center bg-gray-200 rounded-md">
+                                <div class="pl-2">
+                                    <svg class="fill-current text-gray-500 w-6 h-6" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24">    
+                                        <path class="heroicon-ui"
+                                            d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" />
+                                    </svg>
+                                </div>
+                                <input          
+                                id="search_input_item_row"
+                                onchange=""
+                                
+                                    class="w-full rounded-md bg-gray-200 text-gray-700 leading-tight focus:outline-none py-2 px-2"
+                                    id="search" type="text" placeholder="Search teams or members">
+                            </div>
+                            <div class="max-w-[720px] mx-auto">
 
 
 
+                                <div style="max-height: 400px;" class="relative flex flex-col w-full  overflow-auto text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
+                                
+                                    <table class="w-full    text-left table-auto min-w-max text-slate-800">
+                                        <thead>
+                                            <tr class="text-slate-500 border-b border-slate-300 bg-slate-50">
+                                                <th class="p-4">
+                                                    <p class="text-sm leading-none font-normal">
+                                                        S.NO
+                                                    </p>
+                                                </th>
+                                                <th class="p-4">
+                                                    <p class="text-sm leading-none font-normal">
+                                                        Item code
+                                                    </p>
+                                                </th>
+                                                <th class="p-4">
+                                                    <p class="text-sm leading-none font-normal">
+                                                        Item name
+                                                    </p>
+                                                </th>
+                                                <th class="p-4">
+                                                    <p class="text-sm leading-none font-normal">
+                                                        Price
+                                                    </p>
+                                                </th>
+                                               
+
+                                                <th class="p-4">
+                                                    <p></p>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="serchItemBoxRow">
+                                            <tr class="hover:bg-slate-50">
+                                                <td class="p-4">
+                                                    <p class="text-sm font-bold">
+                                                        1
+                                                    </p>
+                                                </td>
+                                                <td class="p-4">
+                                                    <p class="text-sm">
+                                                        Item code
+                                                    </p>
+                                                </td>
+                                                <td class="p-4">
+                                                    <p class="text-sm">
+                                                        Item name
+                                                    </p>
+                                                </td>
+                                                <td class="p-4">
+                                                    <p class="text-sm">
+                                                        Warehouse
+                                                    </p>
+                                                </td>
+                                                <td class="p-4">
+                                                    <p class="text-sm">
+                                                        Image
+                                                    </p>
+                                                </td>
+
+                                                <td class="p-4">
+                                                    <a href="#" class="text-sm font-semibold ">
+                                                        Edit
+                                                    </a>
+                                                </td>
+                                            </tr>
+
+                                            <tr class="hover:bg-slate-50">
+                                                <td class="p-4">
+                                                    <p class="text-sm font-bold">
+                                                        1
+                                                    </p>
+                                                </td>
+                                                <td class="p-4">
+                                                    <p class="text-sm">
+                                                        Item name
+                                                    </p>
+                                                </td>
+                                                <td class="p-4">
+                                                    <p class="text-sm">
+                                                        price
+                                                    </p>
+                                                </td>
+                                                <td class="p-4">
+                                                    <p class="text-sm">
+                                                        item image
+                                                    </p>
+                                                </td>
+
+                                                <td class="p-4">
+                                                    <a href="#" class="text-sm font-semibold ">
+                                                        Add
+                                                    </a>
+                                                </td>
+                                            </tr>
+
+                                            <tr class="hover:bg-slate-50">
+                                                <td class="p-4">
+                                                    <p class="text-sm font-bold">
+                                                        2
+                                                    </p>
+                                                </td>
+                                                <td class="p-4">
+                                                    <p class="text-sm">
+                                                        Item name
+                                                    </p>
+                                                </td>
+                                                <td class="p-4">
+                                                    <p class="text-sm">
+                                                        price
+                                                    </p>
+                                                </td>
+                                                <td class="p-4">
+                                                    <p class="text-sm">
+                                                        item image
+                                                    </p>
+                                                </td>
+
+                                                <td class="p-4">
+                                                    <a href="#" class="text-sm font-semibold ">
+                                                        Add
+                                                    </a>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex    shrink-0 flex-wrap items-center pt-4 justify-end">
+                
+                <button data-dialog-close="true" class="rounded-md bg-green-600 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-green-700 focus:shadow-none active:bg-green-700 hover:bg-green-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
 
 
 
