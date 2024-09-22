@@ -40,6 +40,8 @@
 
 
 
+
+ <input checked id="checked-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
     <div class="flex justify-between">
 
 
@@ -180,7 +182,7 @@
                         </div>
                         <div class="flex flex-col gap-2 shrink-0 sm:flex-row">
 
-                            <button data-dialog-target="dialog-md"
+                            <button id="addMoreAttrubite-btn" data-dialog-target="dialog-md"
                                 class="flex select-none items-center gap-3 rounded-lg bg-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                                 type="button">
                                 +
@@ -306,10 +308,10 @@
                 <div class="flex">
 
 
-                    <select id="requiredFieldsArea" class="py-2   px-4  block   bg-gray-100 border-2 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
-                        <option selected="">Select the attribute</option>
+                    <select id="requiredFieldsArea" class="py-2  cursor-pointer  px-4  block   bg-gray-100 border-2 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
+                        <!-- <option selected="">Select the attribute</option>
                         <option value="color" >Color</option>
-                        <option  value="lenth">Length</option>
+                        <option  value="lenth">Length</option> -->
                     </select>
 
                     <button  id="addAttribute"
@@ -324,9 +326,14 @@
 
                 <div>
 
-                <table class="w-full max-h-full text-left table-auto overflow-auto min-w-max">
+                <table id="newattrtable"  class="w-full hidden max-h-full text-left table-auto overflow-auto min-w-max">
                         <thead>
                             <tr>
+                                <th class="p-4 border-b border-slate-300 bg-slate-50">
+                                    <p class="block text-sm font-normal leading-none text-slate-500">
+                                        
+                                    </p>
+                                </th>
                                 <th class="p-4 border-b border-slate-300 bg-slate-50">
                                     <p class="block text-sm font-normal leading-none text-slate-500">
                                         S.no
@@ -367,7 +374,7 @@
                             </tr>
                         </thead>
                         <tbody id="field_att_tbody">
-                            <tr class="hover:bg-slate-50 border-b border-slate-200">
+                            <!-- <tr class="hover:bg-slate-50 border-b border-slate-200">
                                 <td class="p-4 py-5">
                                     <p class="block font-semibold text-sm text-slate-800">1</p>
                                 </td>
@@ -384,7 +391,7 @@
                                     <p class="block text-sm text-slate-800">Placeholder</p>
                                 </td>
 
-                            </tr>
+                            </tr> -->
 
                         </tbody>
                     </table>
@@ -406,13 +413,18 @@
                 <button data-dialog-close="true" class="rounded-md border border-transparent py-2 px-4 text-center text-sm transition-all text-slate-600 hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
                     Cancel
                 </button>
-                <button data-dialog-close="true" class="flex select-none items-center gap-3 rounded-lg bg-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+                <button id="attrbute_confirm" data-dialog-close="true" class="flex select-none items-center gap-3 rounded-lg bg-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
                     Confirm
                 </button>
             </div>
         </div>
     </div>
+
     </div>
+
+
+
+                                
 </body>
 
 

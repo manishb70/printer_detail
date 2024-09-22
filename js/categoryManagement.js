@@ -120,10 +120,11 @@ $("#subcatselect").on("change", function () {
 $("#addAttribute").on("click", function () {
   let fields_name = $("#requiredFieldsArea").val();
 
+  let tbody = $("#field_att_tbody")[0];
+  let lenoftbody = tbody.querySelectorAll("tr").length;
+  lenoftbody++;
 
-  let tbody = $("#field_att_tbody")[0]
-  let lenoftbody = tbody.length
-    
+  $("#newattrtable").slideDown(1000);
 
   $("#field_att_tbody").append(`
     
@@ -132,6 +133,12 @@ $("#addAttribute").on("click", function () {
 
 
      <tr class="hover:bg-slate-50 border-b border-slate-200">
+      <td class="p-4 py-5">
+                                    <p class="block text-sm text-slate-800"> 
+                                     <input checked id="checked-checkbox" attr-value="${fields_name}"type="checkbox" value="" class="w-4 h-4 text-black-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue -600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    
+                                    </p>
+                                </td>
                                 <td class="p-4 py-5">
                                     <p class="block font-semibold text-sm text-slate-800">${lenoftbody}</p>
                                 </td>
@@ -147,6 +154,7 @@ $("#addAttribute").on("click", function () {
                                 <td class="p-4 py-5">
                                     <p class="block text-sm text-slate-800">${fields_name}</p>
                                 </td>
+                               
 
                             </tr>
 
@@ -156,5 +164,97 @@ $("#addAttribute").on("click", function () {
     
     
     
-    `)
+    `);
+});
+
+$("#addMoreAttrubite-btn").click(function (e) {
+  e.preventDefault();
+
+  let subCatId = $("#subcatselect").val();
+
+  console.log("CLicked on addMoreAttrubite-btn");
+
+  let data = {
+    getAllAttrubte: "getAllAttrubte",
+    subCatId: subCatId,
+  };
+
+  $.getJSON(
+    "./phpAjax/categoryManagentAjax.php",
+    data,
+    function (data, textStatus, jqXHR) {
+      console.log(data);
+
+      if (data.success) {
+        $("#requiredFieldsArea").html("");
+
+        let resData = data.data;
+
+        $("#requiredFieldsArea").append(`
+
+            <option selected  disabled  >select</option>
+          
+            `);
+
+        resData.forEach((name) => {
+          console.log(name);
+
+          $("#requiredFieldsArea").append(`
+
+              <option  class="cursor-pointer" value="${name.name}" >${name.name}</option>
+            
+              `);
+        });
+      }
+    }
+  ).fail((error) => {
+    console.log(error);
+  });
+});
+
+$("#attrbute_confirm").on("click", function (e) {
+  let trows = $("#field_att_tbody")[0].querySelectorAll("tr");
+  let chcked_box = $("#field_att_tbody")[0].querySelectorAll(
+    "tr input[type='checkbox']:checked"
+  );
+
+  let checkedRowData = [];
+
+  let checkedRow = trows.forEach((row) => {
+    let checkbox = row.querySelector("input[type='checkbox']");
+
+    if (checkbox.checked) {
+      let attr_name = $(checkbox).attr("attr-value");
+
+      checkedRowData.push(attr_name);
+    }
+  });
+
+  let data = {
+    checkedRowData: checkedRowData,
+    addNewAttributesToSubCat: "addNewAttributesToSubCat",
+  };
+
+  $.post(
+    "./phpAjax/categoryManagentAjax.php",
+    data,
+    function (data, textStatus, jqXHR) {
+      console.log(data);
+      if (data.success) {
+        alert("Data fetched successfully ");
+      } else {
+        alert(
+          "something went wrong please check network connection or refresh the page"
+        );
+      }
+    },
+    "json"
+  ).fail((error) => {
+    alert(
+      "something went wrong please check network connection or refresh the page"
+    );
+    console.log(error);
+  });
+
+  console.log(checkedRowData);
 });
