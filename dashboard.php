@@ -104,15 +104,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             // if ($_SESSION["role"] == "requisitionGen" || $role == "admin") {
 
 
+
+
+            
+        if($role!=="normal_user"){
+
+        
+            if ($role !== 'storemanager') {
             if ($role !== 'txnFormAccess') {
 
                 if ($role !== 'leadGenTest') {
 
 
-
-
-
-                    if ($_SESSION["store_genrate"] || $role == "admin") {
+                
 
 
 
@@ -124,10 +128,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                                 Requisition Request Creation Form</button>
 
                         </form>
-                    <?php }
+                  
 
+                    
 
-                    ?>
+                        
 
 
                     <a type="button" href="requisition.php"
@@ -140,33 +145,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
                     <?php
-                    if ($_SESSION["store_isseuer"] || $role == "admin") {
-                    ?>
-                        <a type="button" href="mangerApprove.php"
-                            class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Item
-                            Request Creation Report</a>
-                    <?php
+
+                }
                     }
+                    // if ( $role !== "storemanager") {
+                    
+                    ?>
+
+                     
+                    <?php
+                    // }
                     ?>
                     <?php
                     // if ($_SESSION["role"] == "admin" || $role == "admin") {
-                    if ($_SESSION["admin_write"]) {
+                  
                     ?>
                         <a type="button" href="purchaseorder.php"
                             class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">PO
                             Summary History</a>
                     <?php
-                    }
+                    
                     ?>
                     <?php
                     // if ($_SESSION["role"] == "admin" || $role == "admin") {
-                    if ($_SESSION["admin_write"] || $role == "admin") {
+                   
                     ?>
                         <a type="button" href="gateentryform.php"
                             class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Gate
                             Entry Creation Form</a>
                     <?php
-                    }
+                    
                     ?>
 
                     <a type="submit" href="./GRN/index.php"
@@ -177,7 +185,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
                     <?php
                     // if ($_SESSION["role"] == "admin" || $role == "admin") {
-                    if ($_SESSION["PO_appover"] || $role == "admin") {
+             
                     ?>
 
 
@@ -189,12 +197,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
                     <?php
-                    }
+                    
                     ?>
 
                     <?php
                     // if ($_SESSION["role"] == "admin" || $role == "admin") {
-                    if ($_SESSION["admin_write"] || $role == "admin") {
+                
                     ?>
                         <a type="submit" href="./users_form.php"
                             class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
@@ -203,11 +211,48 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
                     <?php
                     }
-                    ?>
+                }
+        ?>
+
+
+
+
+                                    
+
+                                <?php
+
+if($role!=="normal_user"){
+?>
+
+                        <a type="button" href="mangerApprove.php"
+                            class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Item
+                            Request Creation Report</a>
+                            <?php }  ?>
                     <a type="submit" href="./itemAdd.php"
                         class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
                         Item Request Creation Form </a>
+                    <a type="submit" href="./allitems.php"
+                        class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                        All items data </a>
 
+                        <a type="submit" href="./itemMasterCreation.php"
+                        class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                        Item Request Creation Form
+                    </a>
+
+
+                        <?php 
+
+
+
+                        if($role !== "normal_user" ){
+                        if($role !== "storemanager" ){
+
+
+
+                        
+
+                            ?>
 
                     <a type="submit" href="./userCreate.php"
                         class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
@@ -258,10 +303,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                     <a type="submit" href="../"
                         class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
                         Grn Edit </a>
-                    <a type="submit" href="./itemMasterCreation.php"
-                        class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                        Item Request Creation Form
-                    </a>
+
+                       
+                   
                     <a type="submit" href="./searchCreation.php"
                         class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
                         Search Customer
@@ -282,12 +326,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                         class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
                         Grn Report
                     </a>
+                    <a type="submit" href="./categoryManagement.php"
+                        class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                        Category management
+                    </a>
+                    <a type="submit" href="./itemCategoryReports.php"
+                        class="py-2.5 px-5 me-2 mb-2 text-sm  font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                        Category reports
+                    </a>
 
 
 
                 <?php
 
-                }
+                
+
 
                 ?>
                 <a type="submit" href="./leadGnration.php"
@@ -299,7 +352,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                     Query Reports
                 </a>
 
-            <?php }
+            <?php 
 
 
             if ($role !== 'leadGenTest') {
@@ -318,8 +371,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 </a>
 
             <?php
-
             }
+        }}
+            
             ?>
 
 
@@ -338,21 +392,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
             <h1 class="w-full shadow-md mb-2  h-10 text-xl font-medium text-center ">Management Dashboard</h1>
 
-
+                <?php  if($role!=="normal_user"){ ?>
 
             <div class="h-full w-full  flex mx-auto  justify-around flex-wrap ">
                 <a href="./query_report.php">
                     <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="Lead_status_box"></div>
                 </a>
 
-                <?php if ($role !== 'leadGenTest') {
+
+                <?php }
+                 if ($role !== 'leadGenTest') {
+                 if ($role !== 'normal_user') {
+
+                    
                 ?>
                     <a href="./purchaseorder.php">
                         <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="purchase_order"></div>
                     </a>
+
+                    <?php  } ?>
                     <a href="./mangerApprove.php">
                         <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="item_requests"></div>
                     </a>
+
+
+                    <?php  if ($role !== 'normal_user') { ?>
                     <a href="./requisition.php">
                         <div class="datachart bg-gray-100 " style="width:26rem; height:17rem" id="pr_requests"></div>
                     </a>
@@ -364,7 +428,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
 
-                <?php }  ?>
+                <?php } } ?>
 
 
 

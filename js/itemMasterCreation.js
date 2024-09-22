@@ -329,8 +329,12 @@ const saveItemDataToTemp = () => {
           }
       });
   } else {
+    alert("Please uplaod the picture and fill the valid fields")
       console.log("No file selected or file input not found.");
-  }
+
+
+
+    }
 
 
 

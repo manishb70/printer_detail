@@ -54,6 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $sql = "$columns from for_office.item_master_temp where SubcatId=$selectedSubCatId;";
         $result = mysqli_query($con, $sql);
 
+        // echo $sql;
+
         while ($row = mysqli_fetch_assoc($result)) {
 
 
@@ -64,9 +66,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
         // $response["theaders"] = $data;
-
+        $response["error"]=mysqli_error($con);
         $response["tbody_data"] = $tbody_data;
-
+        
         $response["success"] = true;
 
 

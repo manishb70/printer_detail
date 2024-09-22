@@ -270,6 +270,22 @@ include("./navForLogged.php");
 
     <script src="./js/jquery-3.7.1.min.js"></script>
     <script src="./js/itemMasterCreation.js"></script>
+    <script>
+        document.getElementById('dropzone-file').addEventListener('change', function(event) {
+    const file = event.target.files[0]; // Get the file input
+    if (file) {
+        const reader = new FileReader(); // Create a FileReader object
+
+        reader.onload = function(e) {
+            const imagePreview = document.getElementById('uploaded_file_path');
+            imagePreview.src = e.target.result; // Set the src of the img to the file content
+        }
+
+        reader.readAsDataURL(file); // Read the file as a DataURL (base64 string)
+    }
+});
+
+    </script>
 </body>
 
 </html>
