@@ -8,7 +8,7 @@ JOIN for_office.requireattributeforcatname c on b.subCatId= c.SubcatId
 order by b.subcatid asc;;";
 
 
-$result = mysqli_query($con,$sql);
+$result = mysqli_query($con, $sql);
 
 ?>
 
@@ -82,7 +82,7 @@ $result = mysqli_query($con,$sql);
         </div>
     </div>
 
-    <button onclick="exportTableToCSV('categgoryReportcsv')" >Export to csv</button>
+    <button onclick="exportTableToCSV('categgoryReportcsv')">Export to csv</button>
     <div class="relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
         <table id="reportTable" class="w-full text-left table-auto min-w-max">
             <thead>
@@ -138,46 +138,46 @@ $result = mysqli_query($con,$sql);
 
 
 
-        $i=0;
-                while ($row = mysqli_fetch_assoc($result)){
+                $i = 0;
+                while ($row = mysqli_fetch_assoc($result)) {
 
-             $i++;   
+                    $i++;
 
 
-?>
+                ?>
 
-                <tr class="hover:bg-slate-50">
-                    <td class="p-4 border-b border-slate-200 py-5">
-                        <p class="block font-semibold text-sm text-slate-800"><?php  echo $i ?></p>
-                    </td>
-                    <td class="p-4 border-b border-slate-200 py-5">
-                        <p class="text-sm text-slate-500"><?php echo $row['categoryId']  ?></p>
-                    </td>
-                    <td class="p-4 border-b border-slate-200 py-5">
-                        <p class="text-sm text-slate-500"><?php echo $row['catagory_name']  ?></p>
-                    </td>
-                    <td class="p-4 border-b border-slate-200 py-5">
-                        <p class="text-sm text-slate-500"><?php echo $row['subCatId']  ?></p>
-                    </td>
-                    <td class="p-4 border-b border-slate-200 py-5">
-                        <p class="text-sm text-slate-500"><?php echo $row['subCatname']  ?></p>
-                    </td>
-                    <td class="p-4 border-b border-slate-200 py-5">
-                        <p class="text-sm text-slate-500"><?php echo $row['attr_id']  ?></p>
-                    </td>
-                    <td class="p-4 border-b border-slate-200 py-5">
-                        <p class="text-sm text-slate-500"><?php echo $row['name']  ?></p>
-                    </td>
-                    <td class="p-4 border-b border-slate-200 py-5">
-                        <p class="text-sm text-slate-500"><?php echo $row['dropdown']  ?></p>
-                    </td>
-                  
-                </tr>
+                    <tr class="hover:bg-slate-50">
+                        <td class="p-4 border-b border-slate-200 py-5">
+                            <p class="block font-semibold text-sm text-slate-800"><?php echo $i ?></p>
+                        </td>
+                        <td class="p-4 border-b border-slate-200 py-5">
+                            <p class="text-sm text-slate-500"><?php echo $row['categoryId']  ?></p>
+                        </td>
+                        <td class="p-4 border-b border-slate-200 py-5">
+                            <p class="text-sm text-slate-500"><?php echo $row['catagory_name']  ?></p>
+                        </td>
+                        <td class="p-4 border-b border-slate-200 py-5">
+                            <p class="text-sm text-slate-500"><?php echo $row['subCatId']  ?></p>
+                        </td>
+                        <td class="p-4 border-b border-slate-200 py-5">
+                            <p class="text-sm text-slate-500"><?php echo $row['subCatname']  ?></p>
+                        </td>
+                        <td class="p-4 border-b border-slate-200 py-5">
+                            <p class="text-sm text-slate-500"><?php echo $row['attr_id']  ?></p>
+                        </td>
+                        <td class="p-4 border-b border-slate-200 py-5">
+                            <p class="text-sm text-slate-500"><?php echo $row['name']  ?></p>
+                        </td>
+                        <td class="p-4 border-b border-slate-200 py-5">
+                            <p class="text-sm text-slate-500"><?php echo $row['dropdown']  ?></p>
+                        </td>
+
+                    </tr>
 
 
 
                 <?php  } ?>
-       
+
             </tbody>
         </table>
     </div>

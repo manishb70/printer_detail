@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-    $item_code = $_POST['item_code'];
+    $item_code = $_POST['item_name'];
     $item_name = $_POST['item_name'];
     $percentage = $_POST['percentage'];
     $warehouse_location = $_POST['warehouse_location'];
@@ -32,13 +32,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // $sql = "INSERT INTO `for_office`.`purchase_order_header` (`createdBy`, `created_date`) VALUES ('$user', '$currentDateTime');";
 
-    $sql = "INSERT INTO `for_office`.`bom_hedar_detail` ( `item_name`,`item_code`, `percentage`, `wharehouse_`, `created_by`, `created_date`) 
+    $sql = "INSERT INTO `for_office`.`bom_hedar_detail` ( `item_name`,`item_code`, `percentage`, `wharehouse_`, `created_by`) 
     VALUES (?, ?, ?, ?, ?);";
 
 
     $stmt = $con->prepare($sql);
 
-    $stmt->bind_param("ssssss",$item_code, $item_name, $percentage, $warehouse_location, $user, $currentDateTime);
+    $stmt->bind_param("sssss",$item_code, $item_name, $percentage, $warehouse_location, $user);
 
 
 

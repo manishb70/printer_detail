@@ -596,8 +596,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         $response["success"] = true;
 
-        $sql = "SELECT subCatId FROM for_office.item_master_temp where   S_No=$id";
+        $sql = "SELECT subCatId FROM for_office.item_master_temp where  S_No=$id";
 
+        
         $result  = mysqli_query($con, $sql);
 
         $row = mysqli_fetch_assoc($result);

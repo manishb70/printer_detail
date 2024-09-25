@@ -53,8 +53,8 @@
                             Order Number
                             :
                         </label>
-                        <input type="text" name="sales_order_number"
-                            class="w-40 rounded-md border mb-3 text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                        <input type="text" name="sales_order_number" disabled
+                            class="w-40 rounded-md border mb-3 hidden text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
                             style="border-color: #C8A1E0;" />
                     </div>
 
@@ -176,7 +176,7 @@
 
                                     </tbody>
                                 </table>
-                                </div>
+                            </div>
 
 
 
@@ -184,6 +184,11 @@
 
 
 
+                        <button id="openBomBodyBox" data-modal-target="extralarge-modal" data-modal-toggle="extralarge-modal"
+                            class="text-white hidden bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            type="button">
+                            Bom
+                        </button>
 
 
                         <div
@@ -235,22 +240,22 @@
 
 
 
-<div class="relative flex flex-col w-full h-full  text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
-    <table class="w-full hidden  text-left table-auto min-w-max">
-        <thead>
-            <tr class="border-b border-slate-300 bg-slate-50">
-                <th class="p-4 text-sm font-normal leading-none text-slate-500">S.no</th>
-                <th class="p-4 text-sm font-normal leading-none text-slate-500">item name</th>
-                <th class="p-4 text-sm font-normal leading-none text-slate-500">item code</th>
-                <th class="p-4 text-sm font-normal leading-none text-slate-500">Rate</th>
-                <th class="p-4 text-sm font-normal leading-none text-slate-500">item Qty</th>
-                <th class="p-4 text-sm font-normal leading-none text-slate-500">Total price</th>
-                <th class="p-4 text-sm font-normal leading-none text-slate-500">Product</th>
-                <th class="p-4 text-sm font-normal leading-none text-slate-500"></th>   
-            </tr>
-        </thead>
-        <tbody id="row_items_body">
-            <!-- <tr class="hover:bg-slate-50">
+                                <div class="relative flex flex-col w-full h-full  text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
+                                    <table class="w-full hidden  text-left table-auto min-w-max">
+                                        <thead>
+                                            <tr class="border-b border-slate-300 bg-slate-50">
+                                                <th class="p-4 text-sm font-normal leading-none text-slate-500">S.no</th>
+                                                <th class="p-4 text-sm font-normal leading-none text-slate-500">item name</th>
+                                                <th class="p-4 text-sm font-normal leading-none text-slate-500">item code</th>
+                                                <th class="p-4 text-sm font-normal leading-none text-slate-500">Rate</th>
+                                                <th class="p-4 text-sm font-normal leading-none text-slate-500">item Qty</th>
+                                                <th class="p-4 text-sm font-normal leading-none text-slate-500">Total price</th>
+                                                <th class="p-4 text-sm font-normal leading-none text-slate-500">Product</th>
+                                                <th class="p-4 text-sm font-normal leading-none text-slate-500"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="row_items_body">
+                                            <!-- <tr class="hover:bg-slate-50">
 
                 <td class="p-4 border-b border-slate-200 py-5">
                     <p class="block font-semibold text-sm text-slate-800">1</p>
@@ -300,22 +305,22 @@
 
 
 
-        </tbody>
-    </table>
-    </div>
+                                        </tbody>
+                                    </table>
+                                </div>
 
-    <div class="mt-2">
-                                <button
-                                    onclick="setItemsForAddInItemsRow('__')"
-                                    data-dialog-target="dialog-row"
-                                    class="rounded-md cursor-pointer bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-black transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
-                                    Add item
-                                </button>
+                                <div class="mt-2">
+                                    <button
+                                        onclick="setItemsForAddInItemsRow('__')"
+                                        data-dialog-target="dialog-row"
+                                        class="rounded-md cursor-pointer bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-black transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
+                                        Add item
+                                    </button>
 
+
+                                </div>
 
                             </div>
-
-</div>
                         </div>
 
                         <div class="border border-gray-900 w-full p-2 rounded-lg mt-2" id="raw_section"
@@ -363,7 +368,7 @@
                             </div><br>
                         </div
 
-                        <!-- Main modal -->
+                            <!-- Main modal -->
                         <div id="crud-modal" tabindex="-1" aria-hidden="true"
                             class="overflow-y-auto overflow-x-hidden hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                             <div class="relative p-4 w-full max-w-md max-h-full">
@@ -488,11 +493,10 @@
 
                                         <div>
                                             <label for=""
-                                                class="block  mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">New
-                                                BOM
+                                                class="block  mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Bom id
                                                 :
                                             </label>
-                                            <input type="text" name="new_bom"
+                                            <input type="text" name="bom_id"
                                                 class="w-40 rounded-md mb-3 border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
                                                 style="border-color: #C8A1E0;" />
                                         </div>
@@ -520,7 +524,7 @@
                                                 class="w-40 rounded-md mb-3  border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
                                                 style="border-color: #C8A1E0;" />
                                         </div>
-                                        <div class="">
+                                        <!-- <div class="">
                                             <label
                                                 class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Products
                                                 :
@@ -528,16 +532,16 @@
                                             <input type="text" name="bom_products"
                                                 class="w-40 rounded-md mb-3  border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
                                                 style="border-color: #C8A1E0;" />
-                                        </div>
-                                        <div class="">
+                                        </div> -->
+                                        <!-- <div class="">
                                             <label
                                                 class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Created
                                                 Date : </label>
                                             <input type="date" name="bom_created_date"
                                                 class="w-40 rounded-md mb-3  border text-xs border-gray-500 bg-white pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
                                                 style="border-color: #C8A1E0;" />
-                                        </div>
-                                        <div class="">
+                                        </div> -->
+                                        <!-- <div class="">
                                             <label
                                                 class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Created
                                                 By :
@@ -545,7 +549,7 @@
                                             <input type="text" name="bom_created_by"
                                                 class="w-40 rounded-md mb-3  border text-xs border-gray-500 bg-white pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
                                                 style="border-color: #C8A1E0;" />
-                                        </div>
+                                        </div> -->
                                         <div class="">
                                             <label
                                                 class="block  mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Organization
@@ -558,7 +562,7 @@
                                             <label
                                                 class="block w-40 mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Warehouse
                                                 Location : </label>
-                                            <input type="text" name="bom_warehouse_location"
+                                            <input type="text" name="wharehouse_location"
                                                 class="w-40 rounded-md mb-3 border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
                                                 style="border-color: #C8A1E0;" />
                                         </div>
@@ -570,165 +574,62 @@
                             </div>
                         </div>
 
-                        <div class="mt-6">
-                            <form class="w-full border p-3 border-gray-500 rounded-md">
-                                <div class="flex flex-wrap items-center justify-between">
-                                    <div class="ml-2">
-                                        <label
-                                            class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Item
-                                            Seq
-                                            :
-                                        </label>
-                                        <input type="text" name="bom_item_seq" id=""
-                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                            style="border-color: #C8A1E0;" />
-                                    </div>
-                                    <div class="ml-2">
-                                        <label
-                                            class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Process
-                                            Seq:
-                                        </label>
-                                        <input type="text" name="bom_proccess_seq" id=""
-                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                            style="border-color: #C8A1E0;" />
-                                    </div>
-                                    <div class="ml-2">
-                                        <label
-                                            class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Item
-                                            code :
-                                        </label>
-                                        <input type="text" name="bom_item_code" id=""
-                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                            style="border-color: #C8A1E0;" />
-                                    </div>
-                                    <div class="ml-2">
-                                        <label
-                                            class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">
-                                            Item Name :
-                                        </label>
-                                        <input type="text" name="bom_item_name" id=""
-                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                            style="border-color: #C8A1E0;" />
-                                    </div>
-                                    <div class="ml-2">
-                                        <label
-                                            class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Qty
-                                            :
-                                        </label>
-                                        <input type="text" name="bom_qty" id=""
-                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                            style="border-color: #C8A1E0;" />
-                                    </div>
-                                    <div class="ml-2">
-                                        <label
-                                            class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Percentage
-                                            :
-                                        </label>
-                                        <input type="number" name="bom_item_percentage" id=""
-                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                            style="border-color: #C8A1E0;" />
-                                    </div>
+                        <!-- component -->
+                        <div class="max-w-[720px] mx-auto">
+
+                          
+                            <div class="w-full flex justify-between items-center mb-3 mt-12 pl-3">
+                                <div>
+                                    <h3 class="text-lg font-semibold text-slate-800">List items</h3>
+
                                 </div>
-                                <div
-                                    class="flex flex-wrap items-center border-gray-500 justify-between border-t mt-2">
-                                    <div class="ml-2 mt-2">
-                                        <input type="text" name="" id=""
-                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                            style="border-color: #C8A1E0;" />
-                                    </div>
-                                    <div class="ml-2 mt-2">
-                                        <input type="text" name="" id=""
-                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                            style="border-color: #C8A1E0;" />
-                                    </div>
-                                    <div class="ml-2 mt-2">
-                                        <input type="text" name="" id=""
-                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                            style="border-color: #C8A1E0;" />
-                                    </div>
-                                    <div class="ml-2 mt-2">
-                                        <input type="text" name="" id=""
-                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                            style="border-color: #C8A1E0;" />
-                                    </div>
-                                    <div class="ml-2 mt-2">
-                                        <input type="text" name="" id=""
-                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                            style="border-color: #C8A1E0;" />
-                                    </div>
-                                    <div class="ml-2 mt-2">
-                                        <input type="number" name="" id=""
-                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                            style="border-color: #C8A1E0;" />
-                                    </div>
-                                </div>
-                                <div
-                                    class="flex flex-wrap items-center border-gray-500 justify-between border-t mt-2">
-                                    <div class="ml-2 mt-2">
-                                        <input type="text" name="" id=""
-                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                            style="border-color: #C8A1E0;" />
-                                    </div>
-                                    <div class="ml-2 mt-2">
-                                        <input type="text" name="" id=""
-                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                            style="border-color: #C8A1E0;" />
-                                    </div>
-                                    <div class="ml-2 mt-2">
-                                        <input type="text" name="" id=""
-                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                            style="border-color: #C8A1E0;" />
-                                    </div>
-                                    <div class="ml-2 mt-2">
-                                        <input type="text" name="" id=""
-                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                            style="border-color: #C8A1E0;" />
-                                    </div>
-                                    <div class="ml-2 mt-2">
-                                        <input type="text" name="" id=""
-                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                            style="border-color: #C8A1E0;" />
-                                    </div>
-                                    <div class="ml-2 mt-2">
-                                        <input type="number" name="" id=""
-                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                            style="border-color: #C8A1E0;" />
-                                    </div>
-                                </div>
-                                <div
-                                    class="flex flex-wrap items-center border-gray-500 justify-between border-t mt-2">
-                                    <div class="ml-2 mt-2">
-                                        <input type="text" name="" id=""
-                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                            style="border-color: #C8A1E0;" />
-                                    </div>
-                                    <div class="ml-2 mt-2">
-                                        <input type="text" name="" id=""
-                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                            style="border-color: #C8A1E0;" />
-                                    </div>
-                                    <div class="ml-2 mt-2">
-                                        <input type="text" name="" id=""
-                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                            style="border-color: #C8A1E0;" />
-                                    </div>
-                                    <div class="ml-2 mt-2">
-                                        <input type="text" name="" id=""
-                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                            style="border-color: #C8A1E0;" />
-                                    </div>
-                                    <div class="ml-2 mt-2">
-                                        <input type="text" name="" id=""
-                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                            style="border-color: #C8A1E0;" />
-                                    </div>
-                                    <div class="ml-2 mt-2">
-                                        <input type="number" name="" id=""
-                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                            style="border-color: #C8A1E0;" />
-                                    </div>
-                                </div>
-                            </form>
+                                
+                            </div>
+
+                            <div class="relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
+                                <table class="w-full text-left table-auto min-w-max">
+                                    <thead>
+                                        <tr class="border-b border-slate-300 bg-slate-50">
+                                            <th class="p-4 text-sm font-normal leading-none text-slate-500">Product</th>
+                                            <th class="p-4 text-sm font-normal leading-none text-slate-500">S .no</th>
+                                            <th class="p-4 text-sm font-normal leading-none text-slate-500">Process seq</th>
+                                            <th class="p-4 text-sm font-normal leading-none text-slate-500">Item code :</th>
+                                            <th class="p-4 text-sm font-normal leading-none text-slate-500">Item name :</th>
+                                            <th class="p-4 text-sm font-normal leading-none text-slate-500">Qty :</th>
+                                            <th class="p-4 text-sm font-normal leading-none text-slate-500">price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="bomLineTbody">
+                                        <tr class="hover:bg-slate-50">
+                                            <td class="p-4 border-b border-slate-200 py-5">
+                                                <img src="https://demos.creative-tim.com/corporate-ui-dashboard-pro/assets/img/kam-idris-_HqHX3LBN18-unsplash.jpg" alt="Product 1" class="w-16 h-16 object-cover rounded" />
+                                            </td>
+                                            <td class="p-4 border-b border-slate-200 py-5">
+                                                <p class="block font-semibold text-sm text-slate-800">S.no</p>
+                                            </td>
+                                            <td class="p-4 border-b border-slate-200 py-5">
+                                                <p class="text-sm text-slate-500">Process seq</p>
+                                            </td>
+                                            <td class="p-4 border-b border-slate-200 py-5">
+                                                <p class="text-sm text-slate-500">Item cde</p>
+                                            </td>
+                                            <td class="p-4 border-b border-slate-200 py-5">
+                                                <p class="text-sm text-slate-500">item name</p>
+                                            </td>
+                                            <td class="p-4 border-b border-slate-200 py-5">
+                                                Qty
+                                            </td>
+                                            <td class="p-4 border-b border-slate-200 py-5">
+                                                Price
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+
                         </div>
                     </div>
                     <!-- Modal footer -->
@@ -2229,9 +2130,9 @@
         </div>
         <div
             class="flex items-center justify-center p-4 md:p-5 space-x-3 rtl:space-x-reverse border-t border-gray-200 rounded-b dark:border-gray-600">
-            <button data-modal-hide="extralarge-modal" id="saleOrderSavebtn" type="button"
+            <button data-modal-hide="extralarge-modal"  type="button"
                 class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Save</button>
-            <button data-modal-hide="extralarge-modal" type="submit"
+            <button data-modal-hide="extralarge-modal" id="saleOrderSavebtn" type="button"
                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit
                 Now</button>
         </div>
@@ -2253,20 +2154,20 @@
                     <div class="w-full ">
                         <div class="bg-white shadow-md rounded-lg px-3 py-2 mb-4">
                             <div class="block text-gray-700 text-lg font-semibold py-2 px-2">
-                               Finsh Items list
+                                Finsh Items list
                             </div>
                             <div class="flex items-center bg-gray-200 rounded-md">
                                 <div class="pl-2">
                                     <svg class="fill-current text-gray-500 w-6 h-6" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 24 24">    
+                                        viewBox="0 0 24 24">
                                         <path class="heroicon-ui"
                                             d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" />
                                     </svg>
                                 </div>
-                                <input          
-                                id="search_input_item"
-                                onchange=""
-                                
+                                <input
+                                    id="search_input_item"
+                                    onchange=""
+
                                     class="w-full rounded-md bg-gray-200 text-gray-700 leading-tight focus:outline-none py-2 px-2"
                                     id="search" type="text" placeholder="Search teams or members">
                             </div>
@@ -2275,7 +2176,7 @@
 
 
                                 <div style="max-height: 400px;" class="relative flex flex-col w-full  overflow-auto text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
-                                
+
                                     <table class="w-full    text-left table-auto min-w-max text-slate-800">
                                         <thead>
                                             <tr class="text-slate-500 border-b border-slate-300 bg-slate-50">
@@ -2299,7 +2200,7 @@
                                                         Price
                                                     </p>
                                                 </th>
-                                               
+
 
                                                 <th class="p-4">
                                                     <p></p>
@@ -2412,7 +2313,7 @@
                 </div>
             </div>
             <div class="flex    shrink-0 flex-wrap items-center pt-4 justify-end">
-                
+
                 <button data-dialog-close="true" class="rounded-md bg-green-600 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-green-700 focus:shadow-none active:bg-green-700 hover:bg-green-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
                     Close
                 </button>
@@ -2421,10 +2322,10 @@
     </div>
 
 
-<!-- second dilog for row items -->
+    <!-- second dilog for row items -->
 
 
-<div
+    <div
         data-dialog-backdrop="dialog-row"
         data-dialog-backdrop-close="true"
         class="pointer-events-none fixed inset-0 z-[999] grid  w-screen place-items-center bg-black bg-opacity-60 opacity-0 backdrop-blur-sm transition-opacity duration-300">
@@ -2443,15 +2344,15 @@
                             <div class="flex items-center bg-gray-200 rounded-md">
                                 <div class="pl-2">
                                     <svg class="fill-current text-gray-500 w-6 h-6" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 24 24">    
+                                        viewBox="0 0 24 24">
                                         <path class="heroicon-ui"
                                             d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" />
                                     </svg>
                                 </div>
-                                <input          
-                                id="search_input_item_row"
-                                onchange=""
-                                
+                                <input
+                                    id="search_input_item_row"
+                                    onchange=""
+
                                     class="w-full rounded-md bg-gray-200 text-gray-700 leading-tight focus:outline-none py-2 px-2"
                                     id="search" type="text" placeholder="Search teams or members">
                             </div>
@@ -2460,7 +2361,7 @@
 
 
                                 <div style="max-height: 400px;" class="relative flex flex-col w-full  overflow-auto text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
-                                
+
                                     <table class="w-full    text-left table-auto min-w-max text-slate-800">
                                         <thead>
                                             <tr class="text-slate-500 border-b border-slate-300 bg-slate-50">
@@ -2484,7 +2385,7 @@
                                                         Price
                                                     </p>
                                                 </th>
-                                               
+
 
                                                 <th class="p-4">
                                                     <p></p>
@@ -2597,7 +2498,7 @@
                 </div>
             </div>
             <div class="flex    shrink-0 flex-wrap items-center pt-4 justify-end">
-                
+
                 <button data-dialog-close="true" class="rounded-md bg-green-600 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-green-700 focus:shadow-none active:bg-green-700 hover:bg-green-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
                     Close
                 </button>

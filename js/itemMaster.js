@@ -1462,16 +1462,19 @@ const setDataToAllItemview = async () => {
 
 
 
-
+        
 
 var itemManagerSearchbtn = document.getElementById("searchQueryBtnManagerItem")
 
 
 itemManagerSearchbtn.addEventListener("click", function (event) {
-
+    
     event.preventDefault();
 
     var text = $("#search_query").val()
+
+
+    console.log("clieckd on query");
 
 
     searchDataInitemTampTable(text)
@@ -1489,7 +1492,8 @@ const searchDataInitemTampTable = (searchId) => {
     let id = searchId
 
 
-
+            
+    console.log("Clicked on search");
 
     $.ajax({
         url: "ajaxItemMaster.php",
@@ -1503,7 +1507,13 @@ const searchDataInitemTampTable = (searchId) => {
 
             console.log(data);
             setTableFormSubCatSearch(data.tbody_data)
-        }
+        },error:function (error) {
+
+
+            console.log(error);
+
+
+          }
     })
 
 

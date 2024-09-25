@@ -85,6 +85,7 @@ join for_office.grn_goods_receipt_header c on a.grn_head_id = c.id inner JOIN pu
 
 
 
+        echo $sql;
 
         $data  = [];
 

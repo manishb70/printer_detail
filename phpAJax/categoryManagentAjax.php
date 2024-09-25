@@ -597,7 +597,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-        if ($result) {
+        if ($result) {  
 
 
 

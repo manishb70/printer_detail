@@ -11,65 +11,72 @@ $("#saleOrderSavebtn").on("click", function () {
 
     inputsData[name] = value;
   });
-
+  
   let data = {};
 
   let itemsArray = [];
   const itemssDataCreate = (item_type, tbody_id) => {
     let tbody = $(`#${tbody_id}`)[0];
-    
+
     let trows = tbody.querySelectorAll("tr");
-    
+
     trows.forEach((row) => {
-      console.log(row);
       let itemssData = {};
       let qty = row.querySelector("input[name='qty']").value;
 
       itemssData["item_id"] = $(row).attr("item-id");
       itemssData["quantuty"] = qty;
       itemssData["item_type"] = item_type;
+      
+      itemssData["rate"] = row
+        .querySelector("p[name='rate']")
+        .getAttribute("itemprice");
+      itemssData["itemname"] = row
+        .querySelector("p[name='itemname']")
+        .getAttribute("itemname");
+      itemssData["itemcode"] = row
+        .querySelector("p[name='itemcode']")
+        .getAttribute("itemcode");
+      itemssData["item_image"] = row.getAttribute("item-image");
 
 
 
-      itemsArray.push(itemssData)
+
+      // console.log($("p[name='rate']"));
+
+      itemsArray.push(itemssData);
     });
-
-
-
-
-
-    
-    console.log();
   };
-  
-
-
-
-
-
 
   itemssDataCreate("finish_good", "finish_good_items_body");
   itemssDataCreate("row_item", "row_items_body");
 
-
-  
   data["userInputData"] = inputsData;
   data["createdSaleOrder"] = "createdSaleOrder";
-  data["inItems"]=itemsArray;
-  
+  data["inItems"] = itemsArray;
+
   console.log("data", data);
   $.post(
     "./phpAjax/saleOrderAjax.php",
     data,
     function (data) {
       if (data.success) {
-        alert("Success");
+        alert(`Sale order created success fully ${data.so_number}`);
+      
+        $("input[name='sales_order_number']").val(data.so_number);
+        $("input[name='sales_order_number']").fadeIn(1000);
+
+      
+      
       }
       console.log(data);
     },
     "json"
   ).fail((error) => {
-    console.log(error);
+    
+
+    
+    console.log(error.responseText);
   });
 
   // console.log(inputsData);
@@ -111,6 +118,9 @@ const setBomItemInSearch = (bom_data) => {
                                                     Add
                                                     </a>
                                                     </td>
+                                                       <td class="p-4 border-b border-slate-200 py-5">
+                                                <img src="./images/${Element.item_image}" alt="Product 1" class="w-16 h-16 object-cover rounded" />
+                                            </td>
                                                     </tr>
                                                     
                                                     
@@ -188,6 +198,8 @@ const setBomDataToTable = (id) => {
 
         let tr = document.createElement("tr");
         tr.setAttribute("item-id", bom_data.header_id);
+        tr.setAttribute("item-type", "finish_good");
+        tr.setAttribute("item-name", bom_data.item_name);
         tr.innerHTML = `
 
                
@@ -197,14 +209,14 @@ const setBomDataToTable = (id) => {
                                             </td>
 
                                             <td class="p-4 border-b border-slate-200 py-5">
-                                                <p class="text-sm text-slate-500">${bom_data.item_name}</p>
+                                                <p name='itemname' itemname='${bom_data.item_name}' class="text-sm text-slate-500">${bom_data.item_name}</p>
                                             </td>
                                             <td class="p-4 border-b border-slate-200 py-5">
-                                                <p class="text-sm text-slate-500">${bom_data.item_code}</p>
+                                                <p name='itemcode' itemcode='${bom_data.item_code}' class="text-sm text-slate-500">${bom_data.item_code}</p>
                                             </td>
                                             <td class="p-4 border-b border-slate-200 py-5">
 
-                                                <p class="text-sm text-slate-500">${bom_data.price}</p>
+                                                <p name='rate' itemPrice='${bom_data.price}' class="text-sm text-slate-500">${bom_data.price}</p>
                                             </td>
                                             <td class="p-4 border-b border-slate-200 py-5">
                                                 <input type="number" name="qty"
@@ -213,10 +225,12 @@ const setBomDataToTable = (id) => {
                                             </td>
                                             <td class="p-4 border-b border-slate-200 py-5">
 
-                                                <p class="text-sm text-slate-500">200</p>
+                                                <p class="text-sm text-slate-500"><input type="number" name="total_price"
+                                                    class="w-28 rounded-md border text-xs border-gray-500 bg-white py-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                                    style="border-color: #C8A1E0;" /></p>
                                             </td>
                                             <td class="p-4 border-b border-slate-200 py-5">
-                                                <img src="https://demos.creative-tim.com/corporate-ui-dashboard-pro/assets/img/kam-idris-_HqHX3LBN18-unsplash.jpg" alt="Product 1" class="w-16 h-16 object-cover rounded" />
+                                                <img src="./images/${bom_data.item_image}" alt="Product 1" class="w-16 h-16 object-cover rounded" />
                                             </td>
 
 
@@ -230,7 +244,7 @@ const setBomDataToTable = (id) => {
                                             </td>
 
                                             <td class="p-4 border-b border-slate-200 py-5">
-                                                <button data-modal-target="extralarge-modal" data-modal-toggle="extralarge-modal"
+                                                <button name='openBomBodyBox'
                                                     class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                                     type="button">
                                                     Bom
@@ -244,6 +258,34 @@ const setBomDataToTable = (id) => {
               `;
 
         $(tbody).append(tr);
+
+        // let dataForline = {
+        //   getDataOfLineBom: "getDataOfLineBom",
+        //   bomId: id,
+        // };
+        // $.getJSON(
+        //   "./phpAjax/saleOrderAjax.php",
+        //   dataForline,
+        //   function (data) {
+        //     console.log(data);
+
+        //     if(data.success){
+
+        //       let attrData = data.tbody_data
+
+        //       let bomLineData = {
+        //         bomid:{
+
+        //         },
+
+        //       }
+
+        //     }
+
+        //   }
+        // ).fail((error) => {
+        //   console.log(error.responseText);
+        // });
       }
     },
     "json"
@@ -251,6 +293,87 @@ const setBomDataToTable = (id) => {
     console.log(error);
   });
 };
+
+$("#finish_good_items_body").on(
+  "click",
+  "button[name='openBomBodyBox']",
+  function () {
+    $("#openBomBodyBox").click();
+
+    let currentTr = $(this)[0].closest("tr");
+    let bom_id = $(currentTr).attr("item-id");
+
+    console.log(bom_id);
+
+    let data = {
+      getBomDataById: "getBomDataById",
+      bom_id: bom_id,
+    };
+
+    $.getJSON(
+      "./phpAjax/saleOrderAjax.php",
+      data,
+      function (data, textStatus, jqXHR) {
+        console.log(data);
+
+        if (data.success) {
+          let resData = data.data;
+
+          $("input[name='bom_item_name']").val(resData[0].item_name);
+          $("input[name='wharehouse_location']").val(resData[0].wharehouse_);
+
+          $("#bomLineTbody").html("");
+          resData.forEach((row, index) => {
+            index++;
+
+            $("#bomLineTbody").append(`
+              
+                <tr class="hover:bg-slate-50">
+                                            <td class="p-4 border-b border-slate-200 py-5">
+                                                <img src="https://demos.creative-tim.com/corporate-ui-dashboard-pro/assets/img/kam-idris-_HqHX3LBN18-unsplash.jpg" alt="Product 1" class="w-16 h-16 object-cover rounded" />
+                                            </td>
+                                            <td class="p-4 border-b border-slate-200 py-5">
+                                                <p class="block font-semibold text-sm text-slate-800">${index}</p>
+                                            </td>
+                                            <td class="p-4 border-b border-slate-200 py-5">
+                                                <p class="text-sm text-slate-500">Process seq</p>
+                                            </td>
+                                            <td class="p-4 border-b border-slate-200 py-5">
+                                                <p class="text-sm text-slate-500">${row.line_item_code}</p>
+                                            </td>
+                                            <td class="p-4 border-b border-slate-200 py-5">
+                                                <p class="text-sm text-slate-500">${row.item_name}</p>
+                                            </td>
+                                            <td class="p-4 border-b border-slate-200 py-5">
+                                                ${row.quantity}
+                                            </td>
+                                            <td class="p-4 border-b border-slate-200 py-5">
+                                                ${row.quantity}
+                                            </td>
+                                        </tr>
+
+              
+              
+              `);
+          });
+
+          let orderObject = [
+            {
+              bom_id: 47,
+              lineid: 1,
+              itemCode: item_code,
+              attrs: {
+                color: black,
+              },
+            },
+          ];
+        }
+      }
+    ).fail((error) => {
+      console.log(error);
+    });
+  }
+);
 
 const selfRemoveRowFromTable = (event) => {
   let tr = event.target.closest("tr");
@@ -313,6 +436,11 @@ const setItemsForAddInItemsRow = (searchQuery) => {
                                                                   Add
                                                                   </a>
                                                                   </td>
+                   <td class="p-4 border-b border-slate-200 py-5">
+                                                <img src="./images/${Element.imagePath}" alt="Product 1" class="w-16 h-16 object-cover rounded" />
+                                            </td>
+
+
                                                                   </tr>
                                                                   
                                                                   
@@ -362,7 +490,8 @@ const setBomDataToTableRow = (id) => {
         console.log(bom_data.item_code);
 
         let tr = document.createElement("tr");
-        tr.setAttribute("item-id", bom_data.S_No)
+        tr.setAttribute("item-id", bom_data.S_No);
+        tr.setAttribute("item-image", bom_data.imagePath);
 
         tr.innerHTML = `
 
@@ -373,14 +502,14 @@ const setBomDataToTableRow = (id) => {
                                             </td>
 
                                             <td class="p-4 border-b border-slate-200 py-5">
-                                                <p class="text-sm text-slate-500">${bom_data.Short_Description}</p>
+                                                <p name='itemname' itemname='${bom_data.Short_Description}'  class="text-sm text-slate-500">${bom_data.Short_Description}</p>
                                             </td>
                                             <td class="p-4 border-b border-slate-200 py-5">
-                                                <p class="text-sm text-slate-500">${bom_data.item_code}</p>
+                                                <p name='itemcode' itemcode='${bom_data.item_code}' class="text-sm text-slate-500">${bom_data.item_code}</p>
                                             </td>
                                             <td class="p-4 border-b border-slate-200 py-5">
 
-                                                <p class="text-sm text-slate-500">${bom_data.Price}</p>
+                                                <p name='rate' itemPrice='${bom_data.Price}' class="text-sm text-slate-500">${bom_data.Price}</p>
                                             </td>
                                             <td class="p-4 border-b border-slate-200 py-5">
                                                 <input type="number" name="qty"
@@ -389,10 +518,10 @@ const setBomDataToTableRow = (id) => {
                                             </td>
                                             <td class="p-4 border-b border-slate-200 py-5">
 
-                                                <p class="text-sm text-slate-500">200</p>
+                                                <p name='total_price' class="text-sm text-slate-500">200</p>
                                             </td>
-                                            <td class="p-4 border-b border-slate-200 py-5">
-                                                <img src="https://demos.creative-tim.com/corporate-ui-dashboard-pro/assets/img/kam-idris-_HqHX3LBN18-unsplash.jpg" alt="Product 1" class="w-16 h-16 object-cover rounded" />
+                                            <td  class="p-4 border-b border-slate-200 py-5">
+                                                <img src="./images/${bom_data.imagePath}" alt="Product 1" class="w-16 h-16 object-cover rounded" />
                                             </td>
 
 
@@ -413,6 +542,8 @@ const setBomDataToTableRow = (id) => {
 
         $(tbody).append(tr);
       }
+
+      ////setting up with json
     },
     "json"
   ).fail((error) => {
@@ -429,3 +560,5 @@ const setIdToBomTableRow = (event) => {
 
   $(event.target).fadeOut();
 };
+
+

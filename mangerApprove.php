@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 </head>
 
 <body
-    style=" margin-top:8rem;"
+    
     class="font-sans ">
 
 
