@@ -49,7 +49,7 @@ CREATE TABLE `admin_roles` (
   `store_genrate_endDate` date DEFAULT NULL,
   PRIMARY KEY (`S_NO`),
   UNIQUE KEY `admin_id_UNIQUE` (`admin_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,6 +64,8 @@ UNLOCK TABLES;
 
 --
 -- Table structure for table `asl_header_level`
+
+
 --
 
 DROP TABLE IF EXISTS `asl_header_level`;
@@ -79,7 +81,7 @@ CREATE TABLE `asl_header_level` (
   `updated_date` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`header_id`),
   UNIQUE KEY `item_code_UNIQUE` (`item_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -113,7 +115,7 @@ CREATE TABLE `asl_line_data` (
   `status` varchar(45) DEFAULT NULL,
   `vendor_id` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`S.no`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -148,7 +150,7 @@ CREATE TABLE `bom_hedar_detail` (
   `price` int DEFAULT NULL,
   `bom_hedar_detailcol` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`header_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -182,7 +184,7 @@ CREATE TABLE `bom_line_detail` (
   `updated_date` varchar(50) DEFAULT NULL,
   `process_seq` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -212,7 +214,7 @@ CREATE TABLE `company_banking_details` (
   `bank_branch_name` varchar(45) NOT NULL,
   PRIMARY KEY (`account_id`),
   UNIQUE KEY `account_id_UNIQUE` (`account_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -240,7 +242,7 @@ CREATE TABLE `company_header_level_details` (
   `company_email` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`company_id`),
   UNIQUE KEY `company_id_UNIQUE` (`company_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -279,7 +281,7 @@ CREATE TABLE `create_query_form` (
   `followup_reminder_frequency` int DEFAULT '5',
   `no_of_times` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`record_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -309,7 +311,7 @@ CREATE TABLE `customer_line_label_details` (
   `company_email` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`sub_company_id`),
   UNIQUE KEY `sub_company_id_UNIQUE` (`sub_company_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -346,7 +348,7 @@ CREATE TABLE `daily_txn_book` (
   `remarks` varchar(45) DEFAULT NULL,
   `form_status` varchar(45) NOT NULL DEFAULT 'SAVE',
   PRIMARY KEY (`transaction_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -370,7 +372,7 @@ CREATE TABLE `drop_lookup_info_category_header` (
   `header_id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   PRIMARY KEY (`header_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -398,7 +400,7 @@ CREATE TABLE `drop_lookup_info_category_line` (
   `start_date` date DEFAULT NULL,
   `end_date` date DEFAULT NULL,
   PRIMARY KEY (`line_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -445,7 +447,7 @@ CREATE TABLE `electrical_catinfo` (
   `status` varchar(45) DEFAULT 'PENDING',
   `cut` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`S.No`)
-) ENGINE=InnoDB AUTO_INCREMENT=202 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=202 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -479,7 +481,7 @@ CREATE TABLE `employee_head` (
   `created_date` varchar(400) DEFAULT NULL,
   `updated_by` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -521,7 +523,7 @@ CREATE TABLE `employee_info_line` (
   `offer_letter_path` varchar(45) DEFAULT NULL,
   `leave_letter_path` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -573,7 +575,7 @@ CREATE TABLE `employees_information` (
   `updated_by` varchar(45) DEFAULT NULL,
   `updated_date` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -599,7 +601,7 @@ CREATE TABLE `expenses_gl` (
   `start_date` date DEFAULT NULL,
   `end_date` date DEFAULT NULL,
   PRIMARY KEY (`S_NO`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -625,7 +627,7 @@ CREATE TABLE `fields_lookup` (
   `start _date` varchar(45) DEFAULT NULL,
   `end_date` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=333 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=333 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -659,7 +661,7 @@ CREATE TABLE `gate_entry_form` (
   `po_number` varchar(45) DEFAULT NULL,
   `created_by` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -710,7 +712,7 @@ CREATE TABLE `grn_goods_receipt` (
   `invoice_date` varchar(50) DEFAULT NULL,
   `amount` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`inventory_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -743,7 +745,7 @@ CREATE TABLE `grn_goods_receipt_header` (
   `sub_inventory` varchar(45) DEFAULT NULL,
   `grn_goods_receipt_headercol` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=192 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=192 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -776,7 +778,7 @@ CREATE TABLE `grn_line_items` (
   `po_number` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=276 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=276 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -810,7 +812,7 @@ CREATE TABLE `grn_sub_line_status` (
   `price` varchar(45) DEFAULT NULL,
   `last_balance` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=300 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=300 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -914,7 +916,7 @@ CREATE TABLE `item_master_main` (
   `gallery` varchar(45) DEFAULT NULL,
   `Gallery_type` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`S_No`)
-) ENGINE=InnoDB AUTO_INCREMENT=422 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=422 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1019,7 +1021,7 @@ CREATE TABLE `item_master_temp` (
   `gallery` varchar(45) DEFAULT NULL,
   `Finish_type` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`S_No`)
-) ENGINE=InnoDB AUTO_INCREMENT=446 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=446 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1045,7 +1047,7 @@ CREATE TABLE `itemattribute` (
   `item_code` int DEFAULT NULL,
   `attribute_value` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=301 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=301 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1117,7 +1119,7 @@ CREATE TABLE `itemmaster` (
   `itemmastercol` varchar(45) DEFAULT NULL,
   `imagePath` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`S_No`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1142,7 +1144,7 @@ CREATE TABLE `itemmastercategory` (
   `catagory_name` varchar(45) NOT NULL,
   PRIMARY KEY (`categoryId`),
   UNIQUE KEY `itemMasterCategorycol_UNIQUE` (`categoryId`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1171,7 +1173,7 @@ CREATE TABLE `itemmasterheader` (
   `subcatid` int NOT NULL,
   `status` varchar(45) DEFAULT 'SAVE',
   PRIMARY KEY (`itemid`)
-) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1206,7 +1208,7 @@ CREATE TABLE `lead_details_header_form` (
   `contact_person_address` varchar(45) DEFAULT NULL,
   `lead_received_date` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`record_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1239,7 +1241,7 @@ CREATE TABLE `location` (
   `created_date` varchar(45) DEFAULT NULL,
   `created_by` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1275,7 +1277,7 @@ CREATE TABLE `move_order_item_header` (
   `updated_by` varchar(45) DEFAULT NULL,
   `update_date` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1314,7 +1316,7 @@ CREATE TABLE `move_order_line` (
   `date_required` varchar(45) DEFAULT NULL,
   `uom` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='		';
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='		';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1348,7 +1350,7 @@ CREATE TABLE `mtl_inventory_transactions` (
   `mtl_inventory_transactionscol` varchar(45) DEFAULT NULL,
   `mtl_inventory_transactionscol1` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1381,7 +1383,7 @@ CREATE TABLE `mtl_sub_inventory` (
   `updated_by` varchar(45) DEFAULT NULL,
   `location` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1421,7 +1423,7 @@ CREATE TABLE `project_status_table` (
   `updated_date` varchar(45) DEFAULT NULL,
   `updated_by` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1459,7 +1461,7 @@ CREATE TABLE `purchase_order_header` (
   `remarks_nots` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`PO_number`),
   UNIQUE KEY `PO_number_UNIQUE` (`PO_number`)
-) ENGINE=InnoDB AUTO_INCREMENT=587 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=587 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1493,7 +1495,7 @@ CREATE TABLE `purchase_order_line` (
   `reqiuisition_id` varchar(45) DEFAULT NULL,
   `status` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=342 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=342 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1521,7 +1523,7 @@ CREATE TABLE `require_atts` (
   `placeholder` varchar(45) DEFAULT NULL,
   `dropdown` varchar(45) DEFAULT 'no',
   PRIMARY KEY (`attr_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=509 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=509 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1550,7 +1552,7 @@ CREATE TABLE `requireattributeforcatname` (
   `placeholder` varchar(45) DEFAULT NULL,
   `dropdown` varchar(45) DEFAULT 'no',
   PRIMARY KEY (`attr_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=475 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=475 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1596,7 +1598,7 @@ CREATE TABLE `requisition_table` (
   `po_status` varchar(45) DEFAULT NULL,
   `po_number` int DEFAULT NULL,
   PRIMARY KEY (`S_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=186 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=186 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1625,7 +1627,7 @@ CREATE TABLE `requisition_table_header` (
   `updated_date` date NOT NULL,
   `recordStatus` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`record_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=371 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=371 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1661,7 +1663,7 @@ CREATE TABLE `sale_order_header` (
   `created_by` varchar(45) DEFAULT 'inProcess',
   `created_date` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1699,7 +1701,7 @@ CREATE TABLE `sale_order_items_lines` (
   `created_by` varchar(45) DEFAULT NULL,
   `created_date` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1764,7 +1766,7 @@ CREATE TABLE `sale_order_table` (
   `updated_date` date DEFAULT NULL,
   PRIMARY KEY (`project_number`),
   UNIQUE KEY `project_number_UNIQUE` (`project_number`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1795,7 +1797,7 @@ CREATE TABLE `saleorder_sub_line` (
   `updated_date` varchar(45) DEFAULT NULL,
   `price` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1819,7 +1821,7 @@ CREATE TABLE `sub_category` (
   `catId` int DEFAULT NULL,
   `name` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`subCatId`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1847,7 +1849,7 @@ CREATE TABLE `supplier_details_header` (
   `pan` varchar(45) DEFAULT NULL,
   `attribute` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`vendor_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1881,7 +1883,7 @@ CREATE TABLE `supplier_site_detail_line` (
   `supplier_sub_category` varchar(45) DEFAULT NULL,
   `GSTIN number` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`vendor_line_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1909,7 +1911,7 @@ CREATE TABLE `timestamps` (
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `status` varchar(45) DEFAULT NULL,
   `qty` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1933,7 +1935,7 @@ CREATE TABLE `user_details` (
   `fullName` varchar(50) DEFAULT NULL,
   `phone_number` bigint DEFAULT NULL,
   `country` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1983,7 +1985,7 @@ CREATE TABLE `user_info` (
   `membership_renewed` varchar(10) DEFAULT NULL,
   `user_type` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2024,7 +2026,7 @@ CREATE TABLE `user_management` (
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_id_UNIQUE` (`user_id`),
   UNIQUE KEY `user_name_UNIQUE` (`user_name`)
-) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2057,7 +2059,7 @@ CREATE TABLE `warehouse_deatails` (
   `updated_by` varchar(45) DEFAULT NULL,
   `status` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MYISAM ROW_FORMAT=COMPRESSED AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
