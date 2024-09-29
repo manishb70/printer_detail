@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <label class="block mb-2 text-sm font-medium text-slate-600">
                             Record Id
                         </label>
-                        <input class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Record id" />
+                        <input name="reacord_id" class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Record id" />
                     </div>
 
 
@@ -142,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <label class="block mb-2 text-sm font-medium text-slate-600">
                             Description
                         </label>
-                        <input class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Discription" />
+                        <input name="description" class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Discription" />
                     </div>
 
                     <!-- <div class="">
@@ -162,7 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <label class="block mb-2 text-sm font-medium text-slate-600">
                             Move order type
                         </label>
-                        <input class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Move order type" />
+                        <input name="move_order_type" class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Move order type" />
                     </div>
 
 
@@ -191,7 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <label class="block mb-2 text-sm font-medium text-slate-600">
                             Transaction type :
                         </label>
-                        <input name="transaction type" class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Transaction type ...." />
+                        <input name="transaction_type" class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Transaction type ...." />
                     </div>
                     <div
 
@@ -201,7 +201,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             Source sub inventory :
                         </label>
                         <input
-                            name="transaction type" class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Source sub inventory...." />
+                            name="source_sub_invetory" class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Source sub inventory...." />
                     </div>
 
                     <!-- 
@@ -331,9 +331,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         style="min-width: 150px;max-width:200px"
                         class="w-full max-w-sm min-w-[200px]">
                         <label class="block mb-2 text-sm font-medium text-slate-600">
-                            Required Subinv :
+                            Date Required Subinv :
                         </label>
-                        <input name="required_sub_inventory" class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="required_sub_inventory" />
+                        <input name="date_required_sub_inventory" type="date" class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="required_sub_inventory" />
                     </div>
 
 
@@ -562,162 +562,173 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div> -->
 
 
-            <div
-                class="relative flex flex-col w-full h-full overflow-auto text-gray-700 bg-white shadow-md rounded-xl bg-clip-border">
-                <table class="w-full text-left table-auto min-w-max">
-                    <thead>
-                        <tr>
-                            <th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
-                                <p class="block font-bold text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                                    SO No.
-                                </p>
-                            </th>
-                            <th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
-                                <p class="block font-bold text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                                    Line number
-                                </p>
-                            </th>
-                            <th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
-                                <p class="block font-bold text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                                    Item code
-                                </p>
-                            </th>
-                            <th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
-                                <p class="block font-bold text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                                    Qty
-                                </p>
-                            </th>
-                            <th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
-                                <p class="block font-bold text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                                    Process seq
-                                </p>
-                            </th>
-                            <th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
-                                <p class="block font-bold text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                                    Transaction type
-                                </p>
-                            </th>
-                            <th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
-                                <p class="block font-bold text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                                    Date required
-                                </p>
-                            </th>
-                            <th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
-                                <p class="block font-bold text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                                    UOM
-                                </p>
-                            </th>
 
-                            <th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
-                                <p class="block font-bold text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70"></p>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
+
+            <?php
+            if (isset($so_search_number)) {
 
 
 
+            ?>
 
-
-
-                        <?php
-
-                        $i = 0;
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            $i++;
-                        ?>
-
-
+                <div
+                    class="relative flex flex-col w-full h-full overflow-auto text-gray-700 bg-white shadow-md rounded-xl bg-clip-border">
+                    <table class="w-full text-left table-auto min-w-max">
+                        <thead>
                             <tr>
+                                <th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
+                                    <p class="block font-bold text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                                        SO No.
+                                    </p>
+                                </th>
+                                <th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
+                                    <p class="block font-bold text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                                        Line number
+                                    </p>
+                                </th>
+                                <th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
+                                    <p class="block font-bold text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                                        Item code
+                                    </p>
+                                </th>
+                                <th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
+                                    <p class="block font-bold text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                                        Qty
+                                    </p>
+                                </th>
+                                <th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
+                                    <p class="block font-bold text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                                        Process seq
+                                    </p>
+                                </th>
+                                <th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
+                                    <p class="block font-bold text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                                        Transaction type
+                                    </p>
+                                </th>
+                                <th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
+                                    <p class="block font-bold text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                                        Date required
+                                    </p>
+                                </th>
+                                <th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
+                                    <p class="block font-bold text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                                        UOM
+                                    </p>
+                                </th>
 
-                                <td class="p-4 border-b border-blue-gray-50">
-                                    <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                                        <?php echo $i ?>
-                                </td>
-                                <td class="p-4 border-b border-blue-gray-50">
-
-
-                                    <div
-                                        style="max-width: 200px;"
-                                        class="w-full max-w-sm min-w-[150px]">
-                                        <?php echo $row['id'] ?>
-
-                                    </div>
-
-                                </td>
-                                <td class="p-4 border-b border-blue-gray-50">
-                                    <div
-
-                                        class="w-full max-w-sm min-w-[150px]">
-                                        <input
-                                            style="max-width: 200px;"
-                                            placeholder="item_Code"
-                                            value=""
-                                            class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow">
-                                    </div>
-                                </td>
-                                <td class="p-4 border-b border-blue-gray-50">
-                                    <div
-                                        style="max-width: 200px;"
-                                        class="w-full max-w-sm min-w-[150px]">
-
-                                        <?php echo $row['qty'] ?>
-                                    </div>
-                                </td>
-                                <td class="p-4 border-b border-blue-gray-50">
-                                    <div
-                                        style="max-width: 200px;"
-                                        class="w-full max-w-sm min-w-[150px]">
-                                        <input
-                                            placeholder="Process seq"
-
-                                            class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow">
-                                    </div>
-                                </td>
-                                <td class="p-4 border-b border-blue-gray-50">
-                                    <div
-                                        style="max-width: 200px;"
-                                        class="w-full max-w-sm min-w-[150px]">
-                                        <input
-                                            placeholder="Transaction type"
-
-                                            class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow">
-                                    </div>
-                                </td>
-                                <td class="p-4 border-b border-blue-gray-50">
-                                    <div
-                                        style="max-width: 200px;"
-                                        class="w-full max-w-sm min-w-[150px]">
-                                        <input
-                                            name=rec_qty
-                                            value="<?php echo $row['qty'] ?>"
-                                            type="date"
-                                            placeholder="Date required.."
-                                            class="w-full cursor-pointer bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow">
-                                    </div>
-                                </td>
-                                <td class="p-4 border-b border-blue-gray-50">
-                                    <div
-                                        style="max-width: 200px;"
-                                        class="w-full max-w-sm min-w-[150px]">
-                                        <input
-                                            placeholder="UOM"
-                                            class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow">
-                                    </div>
-                                </td>
-
+                                <th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
+                                    <p class="block font-bold text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70"></p>
+                                </th>
                             </tr>
+                        </thead>
+                        <tbody>
 
 
-                        <?php
 
 
-                        }
-                        ?>
 
-                    </tbody>
-                </table>
-            </div>
+
+                            <?php
+
+
+
+                            $i = 0;
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $i++;
+                            ?>
+
+
+                                <tr>
+
+                                    <td class="p-4 border-b border-blue-gray-50">
+                                        <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                                            <?php echo $i ?>
+                                    </td>
+                                    <td class="p-4 border-b border-blue-gray-50">
+
+
+                                        <div
+                                            style="max-width: 200px;"
+                                            class="w-full max-w-sm min-w-[150px]">
+                                            <?php echo $row['id'] ?>
+
+                                        </div>
+
+                                    </td>
+                                    <td class="p-4 border-b border-blue-gray-50">
+                                        <div
+
+                                            class="w-full max-w-sm min-w-[150px]">
+                                            <input
+                                                style="max-width: 200px;"
+                                                placeholder="item_Code"
+                                                value=""
+                                                class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow">
+                                        </div>
+                                    </td>
+                                    <td class="p-4 border-b border-blue-gray-50">
+                                        <div
+                                            style="max-width: 200px;"
+                                            class="w-full max-w-sm min-w-[150px]">
+
+                                            <?php echo $row['qty'] ?>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 border-b border-blue-gray-50">
+                                        <div
+                                            style="max-width: 200px;"
+                                            class="w-full max-w-sm min-w-[150px]">
+                                            <input
+                                                placeholder="Process seq"
+
+                                                class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow">
+                                        </div>
+                                    </td>
+                                    <td class="p-4 border-b border-blue-gray-50">
+                                        <div
+                                            style="max-width: 200px;"
+                                            class="w-full max-w-sm min-w-[150px]">
+                                            <input
+                                                placeholder="Transaction type"
+
+                                                class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow">
+                                        </div>
+                                    </td>
+                                    <td class="p-4 border-b border-blue-gray-50">
+                                        <div
+                                            style="max-width: 200px;"
+                                            class="w-full max-w-sm min-w-[150px]">
+                                            <input
+                                                name=rec_qty
+                                                value="<?php echo $row['qty'] ?>"
+                                                type="date"
+                                                placeholder="Date required.."
+                                                class="w-full cursor-pointer bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow">
+                                        </div>
+                                    </td>
+                                    <td class="p-4 border-b border-blue-gray-50">
+                                        <div
+                                            style="max-width: 200px;"
+                                            class="w-full max-w-sm min-w-[150px]">
+                                            <input
+                                                placeholder="UOM"
+                                                class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow">
+                                        </div>
+                                    </td>
+
+                                </tr>
+
+
+                            <?php
+
+
+                            }
+                            ?>
+
+                        </tbody>
+                    </table>
+                </div>
         </div>
 
 
@@ -726,6 +737,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 class="w-28 text-white border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs py-2.5 text-center me-2 mb-2 font-bold dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 ">Clear
                 Form</button>
             <button type="text"
+                name="on-hand"
                 class="w-28 text-white border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs py-2.5 text-center me-2 mb-2 font-bold dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 ">On
                 Hand</button>
             <div>
@@ -733,6 +745,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     class="w-28 text-white border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs py-2.5 text-center me-2 font-bold dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 ">Approve</button>
             </div>
         </div>
+            <?php
+
+            }
+            ?>
     </div>
 
 
