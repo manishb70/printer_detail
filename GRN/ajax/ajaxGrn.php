@@ -550,6 +550,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
             if ($result2) {
+                
+
+
 
                 $row2 = mysqli_fetch_assoc($result2);
 
@@ -557,8 +560,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
+                $sqlforinv = "INSERT INTO `for_office`.`mtl_inventory_transactions` (`form_tranx_id`, `sub_inventory_name`, `sub_inventory_id`, `location_id`, `item_qty`, `item_code`,`created_date`,`created_by`) 
+                VALUES ('GRN', 'STORE', '1', '1', '$recQty', '$item_code','$current_date','$current_user');";
+
+                if (mysqli_query($con, $sqlforinv)) {
 
 
+                    $response["messageforinvquery"] = 'Item created in store';  
+                } else {
+
+                    $response['success'] = false;
+                    $response['error'] = mysqli_error(mysql: $con);
+                    $response['error_sql'] = $sqlforinv;
+                }   
+
+
+
+                
 
 
 

@@ -15,6 +15,7 @@ const setSubCatNameToOption = () =>{
 
 
 
+
     $.ajax({
 
             url:"ajaxAtrubites.php",

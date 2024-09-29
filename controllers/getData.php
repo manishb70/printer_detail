@@ -60,59 +60,50 @@ function StatusAndValue($tableNAme,  $statusColumnName)
         return json_encode(mysqli_error($con));
     }
 }
-function getRowDataById($tableNAme,  $id)
+
+
+
+
+
+
+
+
+
+
+function getRowDataById($sql_query)
 {
     // include("../db.php");
     include('../dbconnection/db.php');
-    
 
 
-    $query = "SELECT * FROM for_office.bom_hedar_detail a JOIN for_office.bom_line_detail  b  on a.header_id= b.bom_id   where a.header_id = $id; ";
-
-
-
+    $query = $sql_query;
 
     $result = mysqli_query($con, $query);
 
 
 
 
-
-
-
-
-
-    if ($result) {
-
+    if (mysqli_num_rows($result) > 0) {
 
 
         $data = [];
 
-
         while ($row = mysqli_fetch_assoc($result)) {
 
-
-            $data[] = $row[$statusColumnName];
+            $data[] = $row; 
         }
 
 
 
-
-
-
-
-        $unicIndex = array_count_values($filteredArray);
-
-
-
-
-
-
-        return $data;
+        $response['success'] = true;
+        
+        $response['rows_data'] = $data; 
     } else {
+        $response['success'] = false;
+        $response['data not found'] = false;
 
+        $response['error'] = mysqli_error($con);
 
-
-        return json_encode(mysqli_error($con));
     }
+    return  $response;
 }

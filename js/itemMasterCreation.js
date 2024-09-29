@@ -202,7 +202,7 @@ const saveItemDataToTemp = () => {
     }
 
     if ((index > 0) & (index < 6)) {
-        let attributeValue = input.value;
+      let attributeValue = input.value;
       shortDescription += "-";
       shortDescription += attributeValue.substring(0, 4);
       console.log(attributeValue);
@@ -227,142 +227,67 @@ const saveItemDataToTemp = () => {
   attrData["Short_Description"] = shortDescription;
   attrData["finish_type"] = $("#finish_raw_material").val();
 
-
-
-
   let itemFilePath = "";
 
   let fileItem = document.querySelector('[name="itemImage"]');
 
   if (fileItem && fileItem.files.length > 0) {
-      var formData = new FormData();
-      formData.append('itemImage', fileItem.files[0]);
+    var formData = new FormData();
+    formData.append("itemImage", fileItem.files[0]);
 
-      // Assuming there are other fields in the form to append to formData
+    // Assuming there are other fields in the form to append to formData
 
-       $.ajax({
-          url: './phpAjax/itemMasterCreationAjax.php',
-          type: 'POST',
-          data: formData,
-          dataType: "JSON",
-          contentType: false, // Prevent jQuery from setting Content-Type header
-          processData: false, // Prevent jQuery from converting the data into a query string
-          success: function (response) {
+    $.ajax({
+      url: "./phpAjax/itemMasterCreationAjax.php",
+      type: "POST",
+      data: formData,
+      dataType: "JSON",
+      contentType: false, // Prevent jQuery from setting Content-Type header
+      processData: false, // Prevent jQuery from converting the data into a query string
+      success: function (response) {
+        if (response.success) {
+          alert("Image uploaded successfully");
 
+          itemFilePath = response.filePath;
 
-            if(response.success){
+          console.log("File path is :" + response.filePath);
+          console.log(response);
 
-                alert("Image uploaded successfully")
-                
-                itemFilePath = response.filePath;
+          document.getElementById("uploaded_file_path").style.display = "block";
+          document.getElementById(
+            "uploaded_file_path"
+          ).src = `./images/${itemFilePath}`;
 
-                
-                console.log("File path is :" + response.filePath);
-                console.log(response);
-                
-                
-                document.getElementById("uploaded_file_path").style.display = "block"
-                document.getElementById("uploaded_file_path").src = `./images/${itemFilePath}`
+          data["filePath"] = itemFilePath;
 
+          $.post(
+            "./phpAjax/itemMasterCreationAjax.php",
+            data,
+            function (data, textStatus, jqXHR) {
+              console.log(data);
 
+              if (data.success) {
+                $("#item_code").val(data.ItemCode);
+                $("#record_id").val(data.recordId);
+                $("#item_name").val(data.shortDiscription);
 
+                alert("Request created success fully");
 
-
-
-                        data["filePath"]=itemFilePath
-
-
-
-
-
-
-
-                  $.post(
-    "./phpAjax/itemMasterCreationAjax.php",
-    data,
-    function (data, textStatus, jqXHR) {
-      console.log(data);
-
-      if (data.success) {
-        $("#item_code").val(data.ItemCode);
-        $("#record_id").val(data.recordId);
-        $("#item_name").val(data.shortDiscription);
-
-        alert("Request created success fully");
-
-
-
-        $("#save-item").fadeOut(1000);
-
-        
-
-
-
-      }
-    },
-    "json"
-  ).fail((error) => {
-    console.log(error);
-  });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            }
-
-          },
-          error: function (error) {
-              console.error(error );
-          }
-      });
+                $("#save-item").fadeOut(1000);
+              }
+            },
+            "json"
+          ).fail((error) => {
+            console.log(error);
+          });
+        }
+      },
+      error: function (error) {
+        console.error(error);
+      },
+    });
   } else {
-    alert("Please uplaod the picture and fill the valid fields")
-      console.log("No file selected or file input not found.");
-
-
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    alert("Please uplaod the picture and fill the valid fields");
+    console.log("No file selected or file input not found.");
+  }
 };
