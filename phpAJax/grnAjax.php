@@ -51,10 +51,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
         // $sql = "SELECT * FROM for_office.grn_sub_line_status;";
-//         $sql = "SELECT * FROM for_office.grn_sub_line_status a join for_office.grn_line_items b on a.po_line_id=b.id 
-// join for_office.grn_goods_receipt_header c on a.grn_head_id = c.id inner JOIN purchase_order_line d ON a.po_line_id = d.id WHERE a.status LIKE ''";
+        //         $sql = "SELECT * FROM for_office.grn_sub_line_status a join for_office.grn_line_items b on a.po_line_id=b.id 
+        // join for_office.grn_goods_receipt_header c on a.grn_head_id = c.id inner JOIN purchase_order_line d ON a.po_line_id = d.id WHERE a.status LIKE ''";
         $sql = "SELECT  a.* ,d.quantity,d.po_number,c.* FROM for_office.grn_sub_line_status a join for_office.grn_line_items b on a.grn_line_id=b.id 
-join for_office.grn_goods_receipt_header c on a.grn_head_id = c.id inner JOIN purchase_order_line d ON a.grn_line_id = d.id WHERE a.status LIKE '$search_query'";
+        join for_office.grn_goods_receipt_header c on a.grn_head_id = c.id inner JOIN purchase_order_line d ON a.grn_line_id = d.id WHERE a.status LIKE '$search_query'";
 
 
 
@@ -186,7 +186,4 @@ join for_office.grn_goods_receipt_header c on a.grn_head_id = c.id WHERE status 
 
         echo json_encode($response);
     }
-
-
-
 }

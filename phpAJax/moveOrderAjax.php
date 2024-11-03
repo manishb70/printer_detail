@@ -253,3 +253,9 @@ if ($_SERVER['REQUEST_METHOD'] = 'POST') {
         moveOrderBy($last_id, $source_sub_invetory, $quantity, $destination_sub_inventory, $lot_number);
     }
 }
+
+
+
+
+
+
