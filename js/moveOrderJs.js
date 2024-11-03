@@ -1,56 +1,113 @@
-console.log("Hello world!");
+console.log("Hello worldededmeiodmd!");
 
-$("button[name='getSodata-btn']").click(function (e) {
-  let id = $("input[name='sonumber']").val();
-
+$("button[name='move_item']").click(function (e) {
   e.preventDefault();
 
-  let data = {
-    getSOData: "getSOData",
-    sonumber: id,
-  };
 
-  $.getJSON(
-    "./phpAjax/projectStatusAjax.php",
-    data,
-    function (data, textStatus, jqXHR) {
-      console.log(data);
-    }
-  ).fail((error) => {
-    console.log(error.responseText);
+
+
+
+  
+  
+  let tbody = $("#items_data_table")[0]
+      
+  tbody = tbody.querySelectorAll("tr")
+  // console.log(tbody);
+  
+
+  let inputData = [];
+
+
+
+
+
+  tbody.forEach(tr => {
+
+        var  move_item = {}
+
+
+        
+        
+        
+        let checkbox = tr.querySelector("input[type='checkbox']")
+
+        
+        if(checkbox.checked) {
+          
+          // console.log(tr);
+          
+          
+
+          move_item.transaction_id =tr.querySelector("input[name='item_code']").getAttribute("transaction-id")  ;
+
+
+          console.log(move_item);
+
+
+
+          //data object from last to next transaction
+        move_item.destination_sub_inventory = parseInt(tr.querySelector("select[name='destination_sub_inventory']").value)
+        move_item.source_sub_invetory = parseInt(document.querySelector("select[name='source_sub_invetory']").value)
+        move_item.qty =  parseInt(tr.querySelector("input[name='qty']").value)
+        move_item.lot_number = tr.querySelector("input[name='lot_number']").value
+
+
+        inputData.push(move_item) ;
+
+        }
+
+          
+
+    
   });
-});
 
-$("button[name='on-hand']").click(function (e) {
-  e.preventDefault();
 
-  let inputData = {
-    move_order_type: $("input[name='move_order_type']").val(),
-    transaction_type: $("input[name='transaction_type']").val(),
-    source_sub_invetory: $("input[name='source_sub_invetory']").val(),
-    so_search_number: $("input[name='so_search_number']").val(),
-    location: $("input[name='location']").val(),
-    destination_sub_inventory: $(
-      "input[name='destination_sub_inventory']"
-    ).val(),
-    date_required_sub_inventory: $(
-      "input[name='date_required_sub_inventory']"
-    ).val(),
-    description: $("input[name='description']").val(),
-  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   let data = {
-    creatingMoveOrderHeader: "creatingMoveOrderHeader",
+    move_order: "move_order",
     inputData: inputData,
   };
 
   console.log(data);
 
+
+
+
+
+
+
+
   $.post(
     "./phpAjax/moveOrderAjax.php",
     data,
-    function (data, textStatus, jqXHR) {
-      console.log(data);
+    function (data) {
+      console.log(data);  
+
+        console.log("succss request");
 
 
       if (data.success) {
@@ -61,7 +118,8 @@ $("button[name='on-hand']").click(function (e) {
     },
     "json"
   ).fail(error => {
-                
+
+    console.log(error);
 
     console.log(error.responseText);
 

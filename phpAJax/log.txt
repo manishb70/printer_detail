@@ -1,0 +1,51 @@
+[2024-10-26 16:59:43] This is a log message.
+[2024-10-26 16:59:43] User logged in.
+[2024-10-26 16:59:43] An error occurred: Invalid user input.
+[2024-10-26 16:59:48] This is a log message.
+[2024-10-26 16:59:48] User logged in.
+[2024-10-26 16:59:48] An error occurred: Invalid user input.
+[2024-10-26 17:01:58] Script started.
+[2024-10-26 17:01:58] Operation successful.
+[2024-10-26 17:01:58] Script ended.
+[2024-10-26 17:02:00] Script started.
+[2024-10-26 17:02:00] Operation successful.
+[2024-10-26 17:02:00] Script ended.
+[2024-11-02 13:05:03] - This is a log message.
+[2024-11-02 13:05:03] - Another log entry.
+[2024-11-02 13:05:08] - This is a log message.
+[2024-11-02 13:05:08] - Another log entry.
+[2024-11-02 13:05:31] - This is a log message.
+[2024-11-02 13:05:33] - This is a log message.
+[2024-11-02 13:05:35] - This is a log message.
+[2024-11-02 13:05:36] - This is a log message.
+[2024-11-02 13:05:37] - This is a log message.
+[2024-11-02 13:06:06] - This is a log message.
+[2024-11-02 13:08:17] [HTTP_REQUEST] - GET /Luxxard/printer_detail/phpAjax/grnAjax.php?getGrnReportData=getGrnReportData&searchDataArr%5B%5D=___
+[2024-11-02 13:08:17] [REGISTRATION] - User 'john_doe' registered.
+[2024-11-02 13:08:17] [LOGIN] - User 'john_doe' logged in.
+[2024-11-02 13:08:53] [HTTP_REQUEST] - GET /Luxxard/printer_detail/phpAjax/grnAjax.php?getGrnReportData=getGrnReportData&searchDataArr%5B%5D=___
+[2024-11-02 13:08:53] [REGISTRATION] - User 'john_doe' registered.
+[2024-11-02 13:08:53] [LOGIN] - User 'john_doe' logged in.
+[2024-11-02 13:08:54] [HTTP_REQUEST] - GET /Luxxard/printer_detail/phpAjax/grnAjax.php?getGrnReportData=getGrnReportData&searchDataArr%5B%5D=___
+[2024-11-02 13:08:54] [REGISTRATION] - User 'john_doe' registered.
+[2024-11-02 13:08:54] [LOGIN] - User 'john_doe' logged in.
+[2024-11-02 13:09:09] [HTTP_REQUEST] - GET /Luxxard/printer_detail/phpAjax/grnAjax.php?getGrnReportData=getGrnReportData&searchDataArr%5B%5D=___
+[2024-11-02 13:09:09] [REGISTRATION] - User 'john_doe' registered.
+[2024-11-02 13:09:09] [LOGIN] - User 'john_doe' logged in.
+[2024-11-02 13:09:17] [HTTP_REQUEST] - GET /Luxxard/printer_detail/phpAjax/grnAjax.php?getGrnReportData=getGrnReportData&searchDataArr%5B%5D=___
+[2024-11-02 13:09:17] [REGISTRATION] - User 'john_doe' registered.
+[2024-11-02 13:09:17] [LOGIN] - User 'john_doe' logged in.
+[2024-11-02 13:09:28] [HTTP_REQUEST] - GET /Luxxard/printer_detail/phpAjax/dashboardAjax.php?pieChartData=pieChartData
+[2024-11-02 13:09:28] [REGISTRATION] - User 'john_doe' registered.
+[2024-11-02 13:09:28] [LOGIN] - User 'john_doe' logged in.
+[2024-11-02 13:11:07] [HTTP_REQUEST] - GET /Luxxard/printer_detail/phpAjax/dashboardAjax.php?pieChartData=pieChartData
+[2024-11-02 13:11:07] [REGISTRATION] - User 'john_doe' registered.
+[2024-11-02 13:11:07] [LOGIN] - User 'john_doe' logged in.
+[2024-11-02 13:12:25] [HTTP_REQUEST] - GET /Luxxard/printer_detail/phpAjax/dashboardAjax.php?pieChartData=pieChartData
+[2024-11-02 13:12:25] [HTTP_REQUEST] - GET /Luxxard/printer_detail/phpAjax/dashboardAjax.php?pieChartData=pieChartData
+[2024-11-02 13:12:26] [HTTP_REQUEST] - GET /Luxxard/printer_detail/phpAjax/dashboardAjax.php?pieChartData=pieChartData
+[2024-11-02 13:12:26] [HTTP_REQUEST] - GET /Luxxard/printer_detail/phpAjax/dashboardAjax.php?pieChartData=pieChartData
+[2024-11-02 13:12:26] [HTTP_REQUEST] - GET /Luxxard/printer_detail/phpAjax/dashboardAjax.php?pieChartData=pieChartData
+[2024-11-02 13:12:26] [HTTP_REQUEST] - GET /Luxxard/printer_detail/phpAjax/dashboardAjax.php?pieChartData=pieChartData
+[2024-11-02 13:14:57] [HTTP_REQUEST] - GET /Luxxard/printer_detail/phpAjax/dashboardAjax.php?pieChartData=pieChartData
+[2024-11-02 13:14:58] [HTTP_REQUEST] - GET /Luxxard/printer_detail/phpAjax/dashboardAjax.php?pieChartData=pieChartData

@@ -25,7 +25,7 @@ function getShortDiscriptionAndSetTOInputField() {
 
         $("#shortDisDiv").show();
         $("#shortDiscription").val(data.sDiscription)
-
+                    
 
 
 

@@ -42,6 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION["role"] = $row["role"];
                 $user_id = $row["user_id"];
 
+                
+
 
                 $sql = "SELECT * FROM for_office.admin_roles WHERE admin_id = $user_id;";
 
@@ -61,6 +63,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION["store_genrate"] = (int) $row["store_genrate"];
                 $_SESSION["PO_appover"] = (int) $row["PO_appover"];
 
+                
+
                 $yes = $_SERVER["user_viewOnly"];
                 // $user_write = (int) $row["user_write"];
                 // $admin_viewOnly = (int) $row["admin_viewOnly"];
@@ -73,18 +77,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 // Display the values
                 header("location:dashboard.php");
-
-
-
-
-
-
-
-
-
-
-
-
             } else {
 
                 echo "Password not match";
@@ -227,9 +219,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
         echo json_encode($respone);
-
-
-
     }
 
 
@@ -259,15 +248,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
             $respone['success'] = true;
             $respone['imgpath'] = $imagePath;
-
         } else {
 
             $respone['success'] = false;
             $respone['message'] = 'Something went wrong';
-            $respone['error'] = mysqli_error( $con);
+            $respone['error'] = mysqli_error($con);
             $respone['sql_error'] = $sql;
-
-
         }
 
 
@@ -285,12 +271,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
         echo json_encode($respone);
-
-
-
-
     }
-
-
-
 }
