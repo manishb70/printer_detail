@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
 
-        $sql = "SELECT sub_inventory_name,sum(item_qty) as qty FROM for_office.mtl_inventory_transactions where item_code ='EL-2-1-FU-EA-WH-XY-25-3-RA' group by sub_inventory_name;";
+        $sql = "SELECT sub_inventory_name,sum(item_qty) as qty FROM for_office.mtl_inventory_transactions  group by sub_inventory_name;";
 
 
 
