@@ -38,6 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         $total = 0;
 
+
+
         while ($row = mysqli_fetch_assoc($result_2)){
 
             

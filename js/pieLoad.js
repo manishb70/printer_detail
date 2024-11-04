@@ -83,7 +83,7 @@ $(document).ready(function () {
       await setDataOfPie(itemrequest, "Item Request", "item_requests");
       await setDataOfPie(grnStatus, "GRN status", "GRN_status");
       await setDataOfPie(Lead_status, "Lead Status", "Lead_status_box");
-      await setDataOfPie(Lead_status, "Inventory items", "invetory_items");
+      await setDataOfPie(invetory_items, "Inventory items", "invetory_items");
     },
     "json"
   ).fail(error=>{

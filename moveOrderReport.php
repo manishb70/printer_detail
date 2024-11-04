@@ -939,8 +939,8 @@ $result = mysqli_query($con, $sql);
                                 <th scope="col" class="px-4 py-3">sub_inventory_id</th>
                                 <th scope="col" class="px-4 py-3">location_id</th>
                                 <th scope="col" class="px-4 py-3">po_number</th>
-                                <!-- <th scope="col" class="px-4 py-3">Created by</th>
-                                <th scope="col" class="px-4 py-3">Created date</th> -->
+                                    <!-- <th scope="col" class="px-4 py-3">Created by</th>
+                                    <th scope="col" class="px-4 py-3">Created date</th> -->
                                 <!-- <th scope="col" class="px-4 py-3">Total Price</th> -->
                                 
                                 <th scope="col" class="px-4 py-3">

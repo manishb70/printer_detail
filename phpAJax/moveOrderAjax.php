@@ -39,8 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] = 'POST') {
 
 
 
-
-
         $check_subinventory_query = "SELECT * FROM for_office.mtl_inventory_transactions where lot_number= '$lot_number' and sub_inventory_id = $destinationId ";
 
         $check_subinventory = mysqli_query($con, $check_subinventory_query);
