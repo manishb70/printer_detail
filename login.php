@@ -1,11 +1,10 @@
 <?php
-    
 
-    session_start();
 
-if(isset($_SESSION['username'])){
+session_start();
+
+if (isset($_SESSION['username'])) {
     header('location:dashboard.php');
-    
 }
 
 ?>
@@ -83,7 +82,33 @@ if(isset($_SESSION['username'])){
                     </div>
 
 
-                    <div class="mt-6">
+
+                    <!-- this is for otop send  -->
+
+                    <div class="mt-6 hidden" id="otpArea">
+                        <label for="password_confirmation" class="block text-sm font-medium leading-5 text-gray-700">
+                            Enter Otp
+                        </label>
+                        <div class="mt-1 rounded-md shadow-sm">
+                            <input id="" name="otp" type="number" required=""
+                                class="appearance-none  block w-[400px] px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+                        </div>
+                    </div>
+
+                    <div id="errorArea" class="p-4 hidden  mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 w-50" role="alert">
+                        <span id="errorAreaText" class="font-medium">Error!</span>
+                    </div>
+
+                    <div class="mt-6" id="sendOtp">
+                        <span class="block w-full rounded-md shadow-sm">
+                            <button type="button" otp-send="false" id="sendOtpButton" name="login"
+                                class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out">
+                                Send otp
+                            </button>
+                        </span>
+                    </div>
+
+                    <div class="mt-6 hidden" id="log_in_button_area">
                         <span class="block w-full rounded-md shadow-sm">
                             <button type="submit" name="login"
                                 class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out">
@@ -105,5 +130,171 @@ if(isset($_SESSION['username'])){
 </body>
 
 <script src="./js/jquery.min.js"></script>
+<script>
+    $("#sendOtpButton").click(function() {
+
+        let otp_send = $(this).attr("otp-send");
+
+
+
+
+
+
+        $(this).text("Sending....")
+
+
+        $(this).attr('disable', true);
+
+
+        console.log("hello");
+
+
+
+        if (otp_send == "false") {
+            let username = $("input[name=username]").val();
+            let password = $("input[name=password]").val();
+
+
+            let data = {
+
+                username,
+                password
+
+
+            }
+
+
+            $.post("./phpAjax/checkUser.php", data,
+                function(data, textStatus, jqXHR) {
+
+
+                    console.log(data);
+
+                    if (data.status == "error") {
+
+                        $("#errorArea").fadeIn();
+
+
+
+                        $("#sendOtpButton").html("Send again")
+
+
+                        $("#sendOtpButton").attr('disable', false);
+
+                    }
+
+                    if (data.status == "success") {
+
+                        $(this).attr("otp-send", true)
+
+                        let selector = "#sendOtpButton";
+
+                        $(selector).attr("otp-send", true);
+
+
+                        console.log("All work done");
+
+                        $("#sendOtpButton").html("Verify")
+
+
+                        $("#sendOtpButton").attr('disable', false);
+                        $("#otpArea").fadeIn();
+
+                    }
+
+
+
+
+
+
+
+                },
+
+            ).fail(error => {
+                console.log(error.responseText);
+
+                $("#errorArea").fadeIn();
+            })
+
+
+        } else {
+
+
+
+            let otp = $("input[name=otp]").val();
+
+            let data = {
+                otp
+
+            }
+
+            $.post("./phpAjax/checkOtp.php", data,
+                function(data, textStatus, jqXHR) {
+
+                    console.log(data);
+
+
+                    if (data.success) {
+
+                        $("#log_in_button_area").fadeIn();
+
+
+
+                        // $("#errorArea").fadeIn();
+
+                        // $("#errorAreaText").text("Otp veryfied !!");
+
+
+                        
+                        $("#sendOtpButton").fadeOut()
+
+
+                        
+
+
+
+
+
+
+                        $(this).fadeOut();
+
+
+                    } else {
+
+
+
+                        $("#errorArea").fadeIn();
+
+                        $("#errorAreaText").text("Otp Verification failed please try again  ! !");
+
+
+                        
+                        $("#sendOtpButton").html("Check again")
+
+
+                        $("#sendOtpButton").attr('disable', false);
+
+                    }
+
+
+
+
+                },
+                "json"
+            );
+
+
+            console.log("checking the otp");
+
+
+
+
+        }
+
+
+
+
+    })
+</script>
 
 </html>

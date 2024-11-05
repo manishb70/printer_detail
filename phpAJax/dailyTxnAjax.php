@@ -1,6 +1,6 @@
 <?php 
 // include("./controller/db.php");
-include("../dbconnection/db.php");
+  include("../dbconnection/db.php");
 
 // $transaction_no = $_POST["transaction_no"];
 $transaction_date = isset($_POST["transaction_date"]) ? $_POST["transaction_date"] : '';
