@@ -1,7 +1,7 @@
 <?php
 
 
-
+date_default_timezone_set("Asia/Kolkata");
 
 // Function to log messages to a specified log file
 // function logMessage($eventType, $details, $logFile = 'log.txt') {

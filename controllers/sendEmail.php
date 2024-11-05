@@ -37,7 +37,7 @@ function sendOtpMail($email)
 
         // Content
         $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = 'Here is the subject';
+        $mail->Subject = 'Otp verification';
         $mail->Body    = '<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -125,7 +125,7 @@ function sendWelcomeMessage($email, $name)
         $mail->Port       = 587;
 
         // Recipients
-        $mail->setFrom('dye9543@gmail.com', 'Mailer');
+        $mail->setFrom('dye9543@gmail.com', 'Algo2Bots');
         $mail->addAddress($email, $name); // Use the provided name
 
         // Content

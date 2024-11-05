@@ -1,11 +1,3 @@
-<?php
-
-include "./dbconnection/db.php";
-
-
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,25 +11,37 @@ include "./dbconnection/db.php";
     <title>Create Move Order Form</title>
 </head>
 
+
+<style>
+.input-acceptable {
+border: 2px solid green;
+}
+.input-exceeds {
+border: 2px solid red;
+}
+</style>
+
 <body class="">
 
 
     <?php
-    include("./navForLogged.php")
+
+    include("./navForLogged.php");
+    include("./dbconnection/db.php");;
 
     ?>
 
     <div id="create_section" class="mt-3 border border-gray-900 p-5 rounded-lg mx-5">
         <h1 class="text-center underline text-3xl mb-3 font-bold"> Create Project Form</h1>
-        <form class=" border border-gray-500 p-5 rounded-md bg-gray-300">
+        <form method="POST" class=" border border-gray-500 p-5 rounded-md bg-gray-300">
             <div class="border-b border-gray-900 ">
                 <label class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">SO
                     Number
                     :
                 </label>
-                <input type="text" name="sonumber" id="sonumber"
-                    class="w-40 rounded-md border mb-3 text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
-                <button type="button" name="search_so" class="bg-blue border-2 p-1 hover:bg-green-600  hover:text-white rounded">Search</button>
+                <input type="text" name="so_number" id="so_number"
+                    value="<?php echo $_POST['so_number'] ?? "" ?>" class="w-40 rounded-md border mb-3 text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                <button type="submit" name="button" class="bg-blue border-2 p-1 hover:bg-green-600  hover:text-white rounded">Search</button>
             </div>
             <div class="border-b border-gray-200 dark:border-gray-700 mt-4">
                 <ul class="flex flex-wrap justify-between -mb-px text-sm font-medium text-center " id="default-styled-tab"
@@ -45,7 +49,7 @@ include "./dbconnection/db.php";
                     data-tabs-active-classes="text-gray-600 text-gray-600 dark:text-gray-500 bg-gray-50 dark:text-gray-500 border-gray-600 dark:border-gray-500"
                     data-tabs-inactive-classes="dark:border-transparent text-gray-500 text-gray-600 bg-gray-200 dark:text-gray-400 border-gray-100 border-gray-300 dark:border-gray-700 dark:text-gray-300"
                     role="tablist">
-                    <!-- <li class="me-2" role="presentation">
+                    <li class="me-2" role="presentation">
                         <button
                             class="inline-block py-3 px-5 border-t border-r focus:outline-none border-l dark:hover:bg-gray-50 border-gray-500 rounded-t-lg"
                             id="profile-styled-tab" data-tabs-target="#styled-profile" type="button" role="tab"
@@ -60,7 +64,7 @@ include "./dbconnection/db.php";
                     <li class="me-2" role="presentation">
                         <button
                             class="inline-block py-3 px-5 border-t border-r focus:outline-none border-l border-gray-500 rounded-t-lg"
-                            id="dashboard-styled-tab" data-tabs-target="#styled-dashboard" type="button" role="tab"
+                            id="dashboard-styled-tab" data-tabs-target="#issue_item" type="button" role="tab"
                             aria-controls="dashboard" aria-selected="false">Issue Item</button>
                     </li>
                     <li class="me-2" role="presentation">
@@ -99,92 +103,48 @@ include "./dbconnection/db.php";
                             id="contacts-styled-tab" data-tabs-target="#styled-installation" type="button" role="tab"
                             aria-controls="contacts" aria-selected="false">Installation</button>
                     </li>
-
- -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    <?php
-
-                    $sql = "SELECT * FROM for_office.mtl_sub_inventory;";
-
-
-
-
-                    $result = mysqli_query($con, $sql);
-
-
-
-                    while ($row = mysqli_fetch_assoc($result)) {
-
-                    ?>
-
-
-
-
-                        <li role="presentation">
-                            <button
-                                class="inline-block py-3 px-5 border-t border-r focus:outline-none border-l border-gray-500 rounded-t-lg"
-                                id="contacts-styled-tab" data-tabs-target="#<?php echo  $row['sub_inventory_name'];  ?>" type="button" role="tab"
-                                aria-controls="contacts" aria-selected="false"><?php echo  $row['sub_inventory_name'];  ?></button>
-                        </li>
-
-
-
-
-                    <?php
-
-
-                    }
-
-                    ?>
                 </ul>
             </div>
-
-
-
-
-
-
-            <?php
-
-            $sql = "SELECT * FROM for_office.mtl_sub_inventory;";
-
-
-
-
-            $result = mysqli_query($con, $sql);
-
-
-
-            if ($res)
-
-
-                while ($row = mysqli_fetch_assoc($result)) {
-
-            ?>
-
-
-
-
-                <div class="<?php echo  $row['sub_inventory_name'];  ?> p-4 rounded-b-lg bg-gray-50 dark:bg-gray-200 border-x border-b border-gray-600" id="<?php echo  $row['sub_inventory_name'];  ?>" role="tabpanel"
-                    aria-labelledby="contacts-tab">
+            <div id="default-styled-tab-content">
+                <div class="hidden p-4 bg-gray-50 dark:bg-gray-200 border-x border-b border-gray-600 rounded-b-lg" id="styled-profile" role="tabpanel"
+                    aria-labelledby="profile-tab">
+                    <!-- <div class="flex gap-x-10 overflow-x-auto py-3">
+                        <div>
+                                <label class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Item
+                                    Name :
+                                </label>
+                                <input type="text" name=""
+                                    class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                            </div>
+                            <div>
+                                <label
+                                    class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Quantity
+                                    :
+                                </label>
+                                <input type="text" name=""
+                                    class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                            </div>
+                            <div>
+                                <label
+                                    class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Drawing
+                                    Approval :
+                                </label>
+                                <input type="text" name=""
+                                    class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                            </div>
+                            <div>
+                                <label
+                                    class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Drawing
+                                    Approval Date :
+                                </label>
+                                <input type="date" name=""
+                                    class="w-40 rounded-md border text-xs bor   der-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                            </div>
+                        </div> -->
                     <div>
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <thead
+                                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
                                     <th scope="col" class="px-6 py-3">
                                         Item Name
@@ -193,7 +153,229 @@ include "./dbconnection/db.php";
                                         Quantity
                                     </th>
                                     <th scope="col" class="px-6 py-3">
-                                        installtion date
+                                        Drawing Approval Date
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Remarks if any
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        <span class="sr-only">Submit</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="drawing_item_tbody">
+                                <tr
+                                    class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                                    <th scope="row"
+                                        class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <input type="text" name=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                    </th>
+                                    <td class="px-6 py-1">
+                                        <input type="text" name=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                    </td>
+                                    <td class="px-6 py-1">
+                                        <input type="date" name=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                    </td>
+                                    <td class="px-6 py-1">
+                                        <input type="text" name=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                    </td>
+                                    <td class="px-6 py-1 text-right">
+                                        <a href="#"
+                                            class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="hidden p-4 rounded-x-lg bg-gray-50 dark:bg-gray-200 border-x border-b border-gray-600 rounded-b-lg" id="styled-sample"
+                    role="tabpanel" aria-labelledby="dashboard-tab">
+                    <!-- <div class="flex gap-x-10 overflow-x-auto py-3">
+                            <div>
+                                <label class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Item
+                                    Name :
+                                </label>
+                                <input type="text" name=""
+                                    class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                            </div>
+                            <div>
+                                <label
+                                    class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Quantity
+                                    :
+                                </label>
+                                <input type="text" name=""
+                                    class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                            </div>
+                            <div>
+                                <label class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Sample
+                                    Approval :
+                                </label>
+                                <input type="text" name=""
+                                    class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                            </div>
+                            <div>
+                                <label class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Sample
+                                    Approval Date :
+                                </label>
+                                <input type="date" name=""
+                                    class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                            </div>
+                        </div> -->
+                    <div>
+                        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                            <thead
+                                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">
+                                        Item Name
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Quantity
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Sample Approval Date
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Remarks if any
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        <span class="sr-only">Submit</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                                    <th scope="row"
+                                        class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <input type="text" name=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                    </th>
+                                    <td class="px-6 py-1">
+                                        <input type="text" name=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                    </td>
+                                    <td class="px-6 py-1">
+                                        <input type="date" name=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                    </td>
+                                    <td class="px-6 py-1">
+                                        <input type="text" name=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                    </td>
+                                    <td class="px-6 py-1 text-right">
+                                        <a href="#"
+                                            class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                    </td>
+                                </tr>
+                                <tr
+                                    class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                                    <th scope="row"
+                                        class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <input type="text" name=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                    </th>
+                                    <td class="px-6 py-1">
+                                        <input type="text" name=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                    </td>
+                                    <td class="px-6 py-1">
+                                        <input type="date" name=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                    </td>
+                                    <td class="px-6 py-1">
+                                        <input type="text" name=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                    </td>
+                                    <td class="px-6 py-1 text-right">
+                                        <a href="#"
+                                            class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                    </td>
+                                </tr>
+                                <tr
+                                    class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                                    <th scope="row"
+                                        class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <input type="text" name=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                    </th>
+                                    <td class="px-6 py-1">
+                                        <input type="text" name=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                    </td>
+                                    <td class="px-6 py-1">
+                                        <input type="date" name=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                    </td>
+                                    <td class="px-6 py-1">
+                                        <input type="text" name=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                    </td>
+                                    <td class="px-6 py-1 text-right">
+                                        <a href="#"
+                                            class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                    </td>
+                                </tr>
+                                <tr
+                                    class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                                    <th scope="row"
+                                        class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <input type="text" name=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                    </th>
+                                    <td class="px-6 py-1">
+                                        <input type="text" name=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                    </td>
+                                    <td class="px-6 py-1">
+                                        <input type="date" name=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                    </td>
+                                    <td class="px-6 py-1">
+                                        <input type="text" name=""
+                                            class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                    </td>
+                                    <td class="px-6 py-1 text-right">
+                                        <a href="#"
+                                            class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="hidden p-4 rounded-b-lg bg-gray-50 dark:bg-gray-200 border-x border-b border-gray-600" id="issue_item" role="tabpanel"
+                    aria-labelledby="dashboard-tab">
+
+
+                    <div>
+                        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                            <thead
+                                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">
+                                        S no
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Item Name
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Need quantity
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Quantity_in_store
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Quantity
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Issue Date
                                     </th>
                                     <th scope="col" class="px-6 py-3">
                                         Remarks if any
@@ -206,82 +388,1012 @@ include "./dbconnection/db.php";
 
 
 
-
-
-
-
                             <tbody>
+
 
 
                                 <?php
 
-
-                                $current_inv_if = $row['id'];
-                                $sql = "SELECT * FROM for_office.mtl_inventory_transactions where sub_inventory_id =$current_inv_if ;";
+                                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
-                                $result2 = $con->query($sql);
+                                    $so_number = $_POST['so_number'];
+
+                                    // echo "so Number" . $so_number;
+
+                                    $sql = "SELECT * FROM for_office.sale_order_items_lines where so_number='$so_number';";
 
 
-                                while ($row1 = mysqli_fetch_assoc($result2)) {
+
+                                    $result = mysqli_query($con, $sql);
+
+                                    if (mysqli_num_rows($result) > 0) {
+
+
+
+
+
+                                        while ($row = mysqli_fetch_assoc($result)) {
+
+
+
+
+
+
+                                            $item_code = $row['item_code'];
+                                            $available_qty = 0;
+
+
+
+                                            $sql_check_quantity = mysqli_query($con, "SELECT item_code,sum(item_qty) as available_qty FROM for_office.mtl_inventory_transactions where item_code='$item_code'  group by item_code;");
+
+                                            if (mysqli_num_rows($sql_check_quantity) > 0) {
+
+                                                $rs_1 = mysqli_fetch_assoc($sql_check_quantity);
+                                                // var_dump($rs_1);
+                                                $available_qty = $rs_1['available_qty'];
+
+                                                // echo $item_code;
+                                                // echo "<br>";
+
+                                            }
+
+                                ?>
+                                            <tr
+                                            main-id-so="<?php echo  $row['so_number'] ?>"
+                                            data-line-id="<?php echo  $row['id'] ?>"
+                                                class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                                                <th scope="row"
+                                                    class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    <?php echo $row['id']  ?>
+                                                </th>
+                                                <th scope="row"
+                                                    class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    <?php echo $row['item_code']  ?>
+                                                </th>
+                                                <th scope="row"
+                                                name="need_qty_area"
+                                                    class="px-6 py-1  font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    <?php echo $row['qty']-$row['work_in_progress_qty']  ?>
+                                                </th>
+                                                <th scope="row"
+                                                name="avaliable_qty_area"
+                                                    class="px-6 py-1 <?php echo ($available_qty < $row['qty']) ? "text-red-700" : "text-green-700"  ?> font-medium  whitespace-nowrap dark:text-white">
+                                                    <?php echo $available_qty ?>
+                                                </th>
+                                                <td class="px-6 py-1">
+                                                    <input type="text" name="need_qty"
+                                                        placeholder="please enter quantity"
+                                                        oninput="checkInputValue( <?php echo $available_qty ?>,event)"
+                                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                                </td>
+                                                <td class="px-6 py-1">
+                                                    <input type="date" name=""
+                                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                                </td>
+                                                <td class="px-6 py-1">
+                                                    <input type="text" name=""
+
+                                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                                </td>
+                                                <td class="px-6 py-1 text-right">
+                                                    <a onClick="issueItems(event)"
+                                                        class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                                </td>
+                                            </tr>
+                                <?php
+                                        }
+                                    } else {
+                                        echo "no data found";
+                                    }
+                                }
 
 
                                 ?>
-
-                                    <tr
-                                        class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
-                                        <th scope="row"
-                                            class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            <input type="text" name=""
-                                                value="<?php echo  $row1['item_code'];  ?>"
-                                                class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
-                                        </th>
-                                        <td class="px-6 py-1">
-                                            <input type="text" name=""
-                                                value="<?php echo  $row1['item_qty'];  ?>"
-                                                class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
-                                        </td>
-                                        <td class="px-6 py-1">
-                                            <input type="date" name=""
-                                                class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
-                                        </td>
-                                        <td class="px-6 py-1">
-                                            <input type="text" name=""
-                                                class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
-                                        </td>
-                                        <td class="px-6 py-1 text-right">
-                                            <a href="#"
-                                                class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
-                                        </td>
-                                    </tr>
-
-                                <?php } ?>
-
-
-
-
                             </tbody>
                         </table>
                     </div>
+
+                </div>
+            </div>
+            <div class="hidden p-4 rounded-b-lg bg-gray-50 dark:bg-gray-200 border-x border-b border-gray-600" id="styled-settings" role="tabpanel"
+                aria-labelledby="settings-tab">
+                <!-- <div class="flex gap-x-10 overflow-x-auto py-3">
+                        <div>
+                            <label class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Item
+                                Name :
+                            </label>
+                            <input type="text" name=""
+                                class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        </div>
+                        <div>
+                            <label class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Quantity
+                                :
+                            </label>
+                            <input type="text" name=""
+                                class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        </div>
+                        <div>
+                            <label class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Items
+                                Assemble
+                                :
+                            </label>
+                            <input type="text" name=""
+                                class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        </div>
+                        <div>
+                            <label class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Items
+                                Assemble Date
+                                :
+                            </label>
+                            <input type="date" name=""
+                                class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        </div>
+                    </div> -->
+                <div>
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">
+                                    Item Name
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Quantity
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Item Assemble Date
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Remarks if any
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    <span class="sr-only">Submit</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                                <th scope="row"
+                                    class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </th>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="date" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1 text-right">
+                                    <a href="#"
+                                        class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                </td>
+                            </tr>
+                            <tr
+                                class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                                <th scope="row"
+                                    class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </th>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="date" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1 text-right">
+                                    <a href="#"
+                                        class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                </td>
+                            </tr>
+                            <tr
+                                class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                                <th scope="row"
+                                    class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </th>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="date" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1 text-right">
+                                    <a href="#"
+                                        class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                </td>
+                            </tr>
+                            <tr
+                                class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                                <th scope="row"
+                                    class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </th>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="date" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1 text-right">
+                                    <a href="#"
+                                        class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
+            </div>
+            <div class="hidden p-4 rounded-b-lg bg-gray-50 dark:bg-gray-200 border-x border-b border-gray-600" id="styled-contacts" role="tabpanel"
+                aria-labelledby="contacts-tab">
+                <!-- <div class="flex gap-x-10 overflow-x-auto py-3">
+                        <div>
+                            <label class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Item
+                                Name :
+                            </label>
+                            <input type="text" name=""
+                                class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        </div>
+                        <div>
+                            <label class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Quantity :
+                            </label>
+                            <input type="text" name=""
+                                class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        </div>
+                        <div>
+                            <label class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Quality
+                                Check :
+                            </label>
+                            <input type="text" name=""
+                                class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        </div>
+                        <div>
+                            <label class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Quality
+                                Check Date :
+                            </label>
+                            <input type="date" name=""
+                                class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        </div>
+                    </div> -->
 
+                <div>
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">
+                                    Item Name
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Quantity
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Quality Check Date
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Remarks if any
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    <span class="sr-only">Submit</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                                <th scope="row"
+                                    class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </th>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="date" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1 text-right">
+                                    <a href="#"
+                                        class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                </td>
+                            </tr>
+                            <tr
+                                class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                                <th scope="row"
+                                    class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </th>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="date" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1 text-right">
+                                    <a href="#"
+                                        class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                </td>
+                            </tr>
+                            <tr
+                                class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                                <th scope="row"
+                                    class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </th>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="date" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1 text-right">
+                                    <a href="#"
+                                        class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                </td>
+                            </tr>
+                            <tr
+                                class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                                <th scope="row"
+                                    class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </th>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="date" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1 text-right">
+                                    <a href="#"
+                                        class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
+            </div>
+            <div class="hidden p-4 rounded-b-lg bg-gray-50 dark:bg-gray-200 border-x border-b border-gray-600" id="styled-about" role="tabpanel"
+                aria-labelledby="contacts-tab">
+                <!-- <div class="flex gap-x-10 overflow-x-auto py-3">
+                        <div>
+                            <label class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Item
+                                Name :
+                            </label>
+                            <input type="text" name=""
+                                class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        </div>
+                        <div>
+                            <label class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Quantity :
+                            </label>
+                            <input type="text" name=""
+                                class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        </div>
+                        <div>
+                            <label class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Items
+                                Dismantle :
+                            </label>
+                            <input type="text" name=""
+                                class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        </div>
+                        <div>
+                            <label class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Items
+                                Dismantle Date :
+                            </label>
+                            <input type="date" name=""
+                                class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        </div>
+                    </div> -->
+                <div>
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">
+                                    Item Name
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Quantity
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Item Dismantle Date
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Remarks if any
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    <span class="sr-only">Submit</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                                <th scope="row"
+                                    class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </th>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="date" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1 text-right">
+                                    <a href="#"
+                                        class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                </td>
+                            </tr>
+                            <tr
+                                class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                                <th scope="row"
+                                    class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </th>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="date" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1 text-right">
+                                    <a href="#"
+                                        class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                </td>
+                            </tr>
+                            <tr
+                                class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                                <th scope="row"
+                                    class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </th>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="date" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1 text-right">
+                                    <a href="#"
+                                        class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                </td>
+                            </tr>
+                            <tr
+                                class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                                <th scope="row"
+                                    class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </th>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="date" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1 text-right">
+                                    <a href="#"
+                                        class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-            <?php
+            </div>
+            <div class="hidden p-4 rounded-b-lg bg-gray-50 dark:bg-gray-200 border-x border-b border-gray-600" id="styled-packaging" role="tabpanel"
+                aria-labelledby="contacts-tab">
+                <!-- <div class="flex gap-x-10 overflow-x-auto py-3">
+                        <div>
+                            <label class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Item
+                                Name :
+                            </label>
+                            <input type="text" name=""
+                                class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        </div>
+                        <div>
+                            <label class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Quantity :
+                            </label>
+                            <input type="text" name=""
+                                class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        </div>
+                        <div>
+                            <label class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Packaging
+                                :
+                            </label>
+                            <input type="text" name=""
+                                class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        </div>
+                        <div>
+                            <label class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Packaging
+                                Date :
+                            </label>
+                            <input type="date" name=""
+                                class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        </div>
+                    </div> -->
+                <div>
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">
+                                    Item Name
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Quantity
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Packaging Date
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Remarks if any
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    <span class="sr-only">Submit</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                                <th scope="row"
+                                    class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </th>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="date" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1 text-right">
+                                    <a href="#"
+                                        class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                </td>
+                            </tr>
+                            <tr
+                                class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                                <th scope="row"
+                                    class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </th>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="date" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1 text-right">
+                                    <a href="#"
+                                        class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                </td>
+                            </tr>
+                            <tr
+                                class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                                <th scope="row"
+                                    class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </th>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="date" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1 text-right">
+                                    <a href="#"
+                                        class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                </td>
+                            </tr>
+                            <tr
+                                class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                                <th scope="row"
+                                    class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </th>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="date" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1 text-right">
+                                    <a href="#"
+                                        class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
+            </div>
+            <div class="hidden p-4 rounded-b-lg bg-gray-50 dark:bg-gray-200 border-x border-b border-gray-600" id="styled-gate" role="tabpanel"
+                aria-labelledby="contacts-tab">
+                <!-- <div class="flex gap-x-10 overflow-x-auto py-3">
+                        <div>
+                            <label class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Item
+                                Name :
+                            </label>
+                            <input type="text" name=""
+                                class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        </div>
+                        <div>
+                            <label class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Quantity :
+                            </label>
+                            <input type="text" name=""
+                                class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        </div>
+                        <div>
+                            <label class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Gate Exit
+                                :
+                            </label>
+                            <input type="text" name=""
+                                class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        </div>
+                        <div>
+                            <label class="block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Gate Exit
+                                Date :
+                            </label>
+                            <input type="date" name=""
+                                class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        </div>
+                    </div> -->
+                <div>
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">
+                                    Item Name
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Quantity
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Gate Exit Date
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Remarks if any
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    <span class="sr-only">Submit</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                                <th scope="row"
+                                    class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </th>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="date" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1 text-right">
+                                    <a href="#"
+                                        class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                </td>
+                            </tr>
+                            <tr
+                                class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                                <th scope="row"
+                                    class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </th>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="date" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1 text-right">
+                                    <a href="#"
+                                        class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                </td>
+                            </tr>
+                            <tr
+                                class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                                <th scope="row"
+                                    class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </th>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="date" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1 text-right">
+                                    <a href="#"
+                                        class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                </td>
+                            </tr>
+                            <tr
+                                class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                                <th scope="row"
+                                    class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </th>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="date" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1 text-right">
+                                    <a href="#"
+                                        class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-                }
-
-            ?>
-
-
-
-
-
-
-
-
+            </div>
+            <div class="hidden p-4 rounded-b-lg bg-gray-50 dark:bg-gray-200 border-x border-b border-gray-600" id="styled-installation" role="tabpanel"
+                aria-labelledby="contacts-tab">
+                <div>
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">
+                                    Item Name
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Quantity
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Installation Date
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Remarks if any
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    <span class="sr-only">Submit</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                                <th scope="row"
+                                    class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </th>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="date" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1 text-right">
+                                    <a href="#"
+                                        class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                </td>
+                            </tr>
+                            <tr
+                                class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                                <th scope="row"
+                                    class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </th>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="date" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1 text-right">
+                                    <a href="#"
+                                        class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                </td>
+                            </tr>
+                            <tr
+                                class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                                <th scope="row"
+                                    class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </th>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="date" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1 text-right">
+                                    <a href="#"
+                                        class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                </td>
+                            </tr>
+                            <tr
+                                class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                                <th scope="row"
+                                    class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </th>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="date" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1">
+                                    <input type="text" name=""
+                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </td>
+                                <td class="px-6 py-1 text-right">
+                                    <a href="#"
+                                        class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
     </div>
 
     </form>

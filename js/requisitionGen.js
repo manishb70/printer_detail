@@ -41,7 +41,7 @@ function getShortDiscriptionAndSetTOInputField() {
 
 
 
-console.log("HEllo from js ");
+
 
 
 const setLineRowDataForIssuerForPoGenrate = (event) => {
@@ -528,3 +528,7 @@ function addReqiuisitionItemsToPurchaseLine(event) {
 
 
 }
+
+
+
+

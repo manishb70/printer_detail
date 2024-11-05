@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+.date-range, .export-buttons {
+    display: inline-block;
+    margin: 10px;
+}
+.metrics {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    background-color: #f2f2f2;
+}
+.metric {
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    width: 20%;
+}
+.chart {
+    padding: 20px;
+}
+.details {
+    padding: 20px;
+}
+footer {
+    background-color: #f2f2f2;
+    color: #555;
+    padding: 10px 0;
+    text-align: center;
+}
+
+</style>
+<body>
+    <header>
+        <h1>Report Dashboard</h1>
+        <div class="date-range">
+            <label for="start-date">From:</label>
+            <input type="date" id="start-date">
+            <label for="end-date">To:</label>
+            <input type="date" id="end-date">
+        </div>
+        <div class="export-buttons">
+            <button>Export to PDF</button>
+            <button>Export to Excel</button>
+        </div>
+    </header>
+    <main>
+        <section class="metrics">
+            <div class="metric">Total Sales: $500,000</div>
+            <div class="metric">New Customers: 1,200</div>
+            <div class="metric">Metric 3: ...</div>
+            <div class="metric">Metric 4: ...</div>
+        </section>
+        <section class="chart">
+            <canvas id="trendChart"></canvas>
+        </section>
+        <section class="details">
+            <h2>Sales by Region</h2>
+            <table>
+                <!-- Your data here -->
+            </table>
+            <h2>Performance by Product</h2>
+            <table>
+                <!-- Your data here -->
+            </table>
+        </section>
+    </main>
+    <footer>
+        <p>Data Sources: Database, API, etc.</p>
+        <p>Last Updated: <span id="last-updated">[Date]</span></p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+
+
+<script>
+
+document.addEventListener('DOMContentLoaded', () => {
+    const lastUpdated = document.getElementById('last-updated');
+    lastUpdated.textContent = new Date().toLocaleDateString();
+
+    // Placeholder data for chart
+    const ctx = document.getElementById('trendChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['January', 'February', 'March', 'April'],
+            datasets: [{
+                label: 'Sales Over Time',
+                data: [1000, 2000, 1500, 3000],
+                borderColor: 'rgba(75, 192, 192, 1)',
+                fill: false
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: { beginAtZero: true },
+                y: { beginAtZero: true }
+            }
+        }
+    });
+});
+
+</script>
+</html>
