@@ -2,6 +2,7 @@
 
 session_start();
 include('./dbconnection/db.php');
+include("./controllers/sendEmail.php");
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -43,6 +44,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $user_id = $row["user_id"];
 
                 
+                sendWelcomeMessage($row["email_id"],$row['username']);
+                
+                // sendOtpMail($row["email_id"]);
 
 
                 $sql = "SELECT * FROM for_office.admin_roles WHERE admin_id = $user_id;";
@@ -75,7 +79,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 // echo "<script>alert(")</script>"
 
+
+                
                 // Display the values
+
+                
+
+                
                 header("location:dashboard.php");
             } else {
 
