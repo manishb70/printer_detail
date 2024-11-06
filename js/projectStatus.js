@@ -37,7 +37,7 @@ function checkInputValue(maxAllowedValue, event) {
   }
 }
 
-function issueItems() {
+async function  issueItems()  {
   let currentTr = event.target.closest("tr");
 
 
@@ -46,6 +46,7 @@ function issueItems() {
   let qty = parseInt(currentTr.querySelector('input[name="need_qty"]').value);
   let avaliable_qty_area_th  =currentTr.querySelector("th[name='avaliable_qty_area']")
   let need_qty_area  =currentTr.querySelector("th[name='need_qty_area']")
+  let remarks  =currentTr.querySelector("input[name='remarks']").value;
 
 
   console.log(avaliable_qty_area_th);
@@ -53,14 +54,15 @@ function issueItems() {
   let data = {
     issueItems: "issueItems",
     so_line_id: so_line_id,
-    qty:qty
+    qty:qty,
+    remarks:remarks
 
   };
 
 
 
 
-  $.post(
+  await  $.post(
     "./phpAjax/mainProjectStatusAjax.php",
     data,
     function (data, textStatus, jqXHR) {
@@ -72,7 +74,7 @@ function issueItems() {
 
           avaliable_qty_area_th.textContent =parseInt(avaliable_qty_area_th.textContent)-parseInt(qty)
           need_qty_area.textContent =parseInt(need_qty_area.textContent)-parseInt(qty)
-
+          alert(`.${data.message_so} :${data.data.qty}`)
 
 
       }

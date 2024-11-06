@@ -105,7 +105,7 @@ VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?);";
 
 
                 $stmt = $con->prepare($sql);
-                $stmt->bind_param("sssiiisssss", $so_number, $itemcode, $itemname, $qty, $rate, $total_price, $shippingaddress, $img, $item_type, $created_by, $created_date);
+                $stmt->bind_param("sssiiisssss", $so_number, $itemcode, $itemname, $quantuty, $rate, $total_price, $shippingaddress, $img, $item_type, $created_by, $created_date);
 
 
 
@@ -407,9 +407,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
         $sql = "SELECT *,b.item_code as line_item_code FROM for_office.bom_hedar_detail a JOIN for_office.bom_line_detail  b  on a.header_id= b.bom_id where a.header_id = $bom_id;";
-//         $sql = "SELECT a.*,b.*,c.imagePath as imagepath,b.item_code as line_item_code,b.item_name as item_name_product FROM for_office.bom_hedar_detail a 
-// JOIN for_office.bom_line_detail  b  on a.header_id= b.bom_id 
-// JOIN for_office.item_master_main c on b.item_code= c.item_code where a.header_id = $bom_id ;";
+        //         $sql = "SELECT a.*,b.*,c.imagePath as imagepath,b.item_code as line_item_code,b.item_name as item_name_product FROM for_office.bom_hedar_detail a 
+        // JOIN for_office.bom_line_detail  b  on a.header_id= b.bom_id 
+        // JOIN for_office.item_master_main c on b.item_code= c.item_code where a.header_id = $bom_id ;";
 
 
 

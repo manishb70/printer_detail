@@ -60,4 +60,32 @@ $itemCode = isset($_GET["itemCodeGenrated"]) ? $_GET["itemCodeGenrated"] : null;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $phone = $_POST['phone'];
+        $subject = $_POST['subject'];
+
+
+
+
+
+        
+
+
+
         ?>
+

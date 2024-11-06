@@ -13,12 +13,13 @@
 
 
 <style>
-.input-acceptable {
-border: 2px solid green;
-}
-.input-exceeds {
-border: 2px solid red;
-}
+    .input-acceptable {
+        border: 2px solid green;
+    }
+
+    .input-exceeds {
+        border: 2px solid red;
+    }
 </style>
 
 <body class="">
@@ -65,7 +66,7 @@ border: 2px solid red;
                         <button
                             class="inline-block py-3 px-5 border-t border-r focus:outline-none border-l border-gray-500 rounded-t-lg"
                             id="dashboard-styled-tab" data-tabs-target="#issue_item" type="button" role="tab"
-                            aria-controls="dashboard" aria-selected="false">Issue Item</button>
+                            aria-controls="dashboard" aria-selected="true">Issue Item</button>
                     </li>
                     <li class="me-2" role="presentation">
                         <button
@@ -193,7 +194,7 @@ border: 2px solid red;
                         </table>
                     </div>
                 </div>
-                <div class="hidden p-4 rounded-x-lg bg-gray-50 dark:bg-gray-200 border-x border-b border-gray-600 rounded-b-lg" id="styled-sample"
+                <div class="hidden p-4 rounded-x-lg b   g-gray-50 dark:bg-gray-200 border-x border-b border-gray-600 rounded-b-lg" id="styled-sample"
                     role="tabpanel" aria-labelledby="dashboard-tab">
                     <!-- <div class="flex gap-x-10 overflow-x-auto py-3">
                             <div>
@@ -355,15 +356,18 @@ border: 2px solid red;
 
 
                     <div>
-                        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <table class="w-full text-sm whitespace-nowrap text-left rtl:text-right text-gray-500 dark:text-gray-400">
                             <thead
-                                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                class="text-xs text-gray-700 whites uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
                                     <th scope="col" class="px-6 py-3">
                                         S no
                                     </th>
                                     <th scope="col" class="px-6 py-3">
                                         Item Name
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Raise quantity
                                     </th>
                                     <th scope="col" class="px-6 py-3">
                                         Need quantity
@@ -401,7 +405,7 @@ border: 2px solid red;
 
                                     // echo "so Number" . $so_number;
 
-                                    $sql = "SELECT * FROM for_office.sale_order_items_lines where so_number='$so_number';";
+                                    $sql = "SELECT *,qty-work_in_progress_qty as total_qty FROM for_office.sale_order_items_lines where so_number='$so_number';";
 
 
 
@@ -440,8 +444,8 @@ border: 2px solid red;
 
                                 ?>
                                             <tr
-                                            main-id-so="<?php echo  $row['so_number'] ?>"
-                                            data-line-id="<?php echo  $row['id'] ?>"
+                                                main-id-so="<?php echo  $row['so_number'] ?>"
+                                                data-line-id="<?php echo  $row['id'] ?>"
                                                 class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
                                                 <th scope="row"
                                                     class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -452,18 +456,29 @@ border: 2px solid red;
                                                     <?php echo $row['item_code']  ?>
                                                 </th>
                                                 <th scope="row"
-                                                name="need_qty_area"
+                                                    name=""
                                                     class="px-6 py-1  font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                    <?php echo $row['qty']-$row['work_in_progress_qty']  ?>
+                                                    <?php echo $row['qty']  ?>
                                                 </th>
                                                 <th scope="row"
-                                                name="avaliable_qty_area"
+                                                    name="need_qty_area"
+                                                    class="px-6 py-1  font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    <?php echo $row['total_qty']  ?>
+                                                </th>
+                                                <th scope="row"
+                                                    name="avaliable_qty_area"
                                                     class="px-6 py-1 <?php echo ($available_qty < $row['qty']) ? "text-red-700" : "text-green-700"  ?> font-medium  whitespace-nowrap dark:text-white">
                                                     <?php echo $available_qty ?>
                                                 </th>
                                                 <td class="px-6 py-1">
                                                     <input type="text" name="need_qty"
+                                                        value="<?php if ((int) $row['total_qty'] <= (int) $available_qty) {
+                                                                    echo $row['total_qty'];
+                                                                } else {
+                                                                    echo $available_qty;
+                                                                }  ?>"
                                                         placeholder="please enter quantity"
+                                                        readonly
                                                         oninput="checkInputValue( <?php echo $available_qty ?>,event)"
                                                         class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                                 </td>
@@ -472,7 +487,7 @@ border: 2px solid red;
                                                         class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                                 </td>
                                                 <td class="px-6 py-1">
-                                                    <input type="text" name=""
+                                                    <input type="text" name="remarks" placeholder="remarks"
 
                                                         class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                                 </td>
@@ -1397,6 +1412,10 @@ border: 2px solid red;
     </div>
 
     </form>
+
+
+
+
 </body>
 
 <script src='./js/jquery.min.js'></script>
