@@ -470,7 +470,7 @@
                                                     class="px-6 py-1 <?php echo ($available_qty < $row['qty']) ? "text-red-700" : "text-green-700"  ?> font-medium  whitespace-nowrap dark:text-white">
                                                     <?php echo $available_qty ?>
                                                 </th>
-                                                <td class="px-6 py-1">
+                                                <td class="px-6 py-1 flex flex-col">
                                                     <input type="text" name="need_qty"
                                                         value="<?php if ((int) $row['total_qty'] <= (int) $available_qty) {
                                                                     echo $row['total_qty'];
@@ -481,7 +481,12 @@
                                                         readonly
                                                         oninput="checkInputValue( <?php echo $available_qty ?>,event)"
                                                         class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
-                                                </td>
+
+                                                 
+                                                        <a onClick="setSerialData(<?php echo $row['so_number'] ?>,<?php echo $row['id'] ?>)"
+                                                        class="font-medium text-blue-600 cursor-pointer dark:text-blue-500 underline">View allocated items</a>
+
+                                                        </td>
                                                 <td class="px-6 py-1">
                                                     <input type="date" name=""
                                                         class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
@@ -1414,9 +1419,147 @@
     </form>
 
 
+    <button
+        data-dialog-target="animated-dialog"
+        class="rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
+        Open Dialog
+    </button>
+    <div
+        data-dialog-backdrop="animated-dialog"
+        data-dialog-backdrop-close="true"
+        class="pointer-events-none fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 opacity-0 backdrop-blur-sm transition-opacity duration-300">
+        <div
+            data-dialog="animated-dialog"
+            data-dialog-mount="opacity-100 translate-y-0 scale-100"
+            data-dialog-unmount="opacity-0 -translate-y-28 scale-90 pointer-events-none"
+            data-dialog-transition="transition-all duration-300"
+            class="relative m-4 p-4 w-2/5 min-w-[40%] max-w-[40%] rounded-lg bg-white shadow-sm">
+            <div class="flex shrink-0 items-center pb-4 text-xl font-medium text-slate-800">
+                Its a simple dialog.
+            </div>
+            <div class="relative border-t border-slate-200 py-4 leading-normal text-slate-600 font-light">
+                The key to more success is to have a lot of pillows. Put it this
+                way, it took me twenty five years to get these plants, twenty five
+                years of blood sweat and tears, and I&apos;m never giving up,
+                I&apos;m just getting started. I&apos;m up to something. Fan luv.
+            </div>
+            <div class="flex shrink-0 flex-wrap items-center pt-4 justify-end">
+                <button data-dialog-close="true" class="rounded-md border border-transparent py-2 px-4 text-center text-sm transition-all text-slate-600 hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+                    Cancel
+                </button>
+                <button data-dialog-close="true" class="rounded-md bg-green-600 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-green-700 focus:shadow-none active:bg-green-700 hover:bg-green-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
+                    Confirm
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div
+
+            style="height: 80%;"
+            class="bg-white p-6 rounded-lg ">
+
+            <h2 class="text-xl font-semibold text-center mb-4">Allocated Data</h2>
+
+
+            <div
+
+
+                style="    height: 85%;"
+
+                class="relative h-full overflow-auto shadow-md sm:rounded-lg">
+                <table class="w-full  overflow-auto text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                S.No
+                            </th>
+                            <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+                                Item code
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Serial number
+                            </th>
+                            <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+                                Lot number
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="setAllocatedTbody">
+                        <tr class="border-b border-gray-200 dark:border-gray-700">
+                            <td class="px-6 py-4">
+                                1
+                            </td>
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                                Apple MacBook Pro 17
+                            </th>
+                            <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
+                                Serial number
+                            </td>
+                            <td class="px-6 py-4">
+                                lot number
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="flex justify-center gap-4">
+                <button id="closeModalBtn" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600">Close</button>
+                <button class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <button id="openModalBtn" class="px-4 hidden py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+        Open Dialog
+    </button>
 
 
 </body>
+<script>
+    // Get references to modal and buttons
+    const modal = document.getElementById('modal');
+    const openModalBtn = document.getElementById('openModalBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+
+    // Open the modal
+    openModalBtn.addEventListener('click', function() {
+        modal.classList.remove('hidden');
+    });
+
+    // Close the modal
+    closeModalBtn.addEventListener('click', function() {
+        modal.classList.add('hidden');
+    });
+
+    // Close the modal if the user clicks outside the modal content
+    window.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.classList.add('hidden');
+        }
+    });
+</script>
 
 <script src='./js/jquery.min.js'></script>
 <script src="./js/projectStatus.js"></script>

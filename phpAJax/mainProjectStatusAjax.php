@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $allocated_serial_number = [];
 
+        $so_head_id = 0;
 
         if ($table_data["success"]) {
 
@@ -40,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $total_qty  = (int) $_POST['qty'];
                 $so_head_id = (int) $row['so_number'];
                 $remarks =  $_POST['remarks'];
+                $so_head_id = $so_head_id;
 
                 if (is_numeric($total_qty)) {
 
@@ -104,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                                         while ($row_serials = mysqli_fetch_assoc($sql_to_get_serail_number)) {
 
-                                            $allocated_serial_number[] = $row_serials['serial_number'];
+                                            $allocated_serial_number[] = $row_serials;
                                         }
 
 
@@ -150,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                                         while ($row_serials = mysqli_fetch_assoc($sql_to_get_serail_number)) {
 
-                                            $allocated_serial_number[] = $row_serials['serial_number'];
+                                            $allocated_serial_number[] = $row_serials;
                                         }
                                     } else {
 
@@ -206,21 +208,81 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-        
-        // if (count($allocated_serial_number) > 0) {
 
-        //     foreach ($allocated_serial_number as $key => $value) {
+        if (count($allocated_serial_number) > 0) {
+
+            foreach ($allocated_serial_number as $key => $value) {
 
 
-        //         $sql = 
+                $serial_number = $value['serial_number'];
+                $sql = "UPDATE `for_office`.`mtl_serial_number` SET `status` = 'no', `so_number` = '$so_head_id', `so_line_number` = '$so_line_id' WHERE (`serial_number` = '$serial_number');";
 
-        //     }
-        // }
+                if (mysqli_query($con, $sql)) {
+                    $response['success'] = true;
+                } else {
+                    $response['message'] = "Error while updating serial number";
+                    $response['success'] = false;
+                    $response['error'] = mysqli_error($con);
+                    exit;
+                }
+            }
+        }
 
 
         $response['data'] = $_POST;
         $response['allocated_data'] = $allocated_serial_number;
 
         echo json_encode($response);
+    }
+}
+
+
+
+
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+
+
+    if (isset($_GET['getSetSerialData'])) {
+
+
+
+        $so_head_id = $_GET['so_head_id'];
+        $so_line_id = $_GET['so_line_id'];
+
+
+
+
+        $sql = "SELECT * FROM for_office.mtl_serial_number where  so_number= $so_head_id and so_line_number = $so_line_id ;";
+
+
+
+        $result = mysqli_query($con, $sql);
+        $data = [];
+
+
+
+        if (mysqli_num_rows($result) > 0) {
+
+
+            while ($row = mysqli_fetch_assoc($result)) {
+
+                $data[] = $row;
+            }
+
+            $response['data'] = $data;
+
+            $response['success'] = true;
+            $response['message'] = "data successfully found";
+        } else {
+
+            $response['success'] = true;
+            $response['message'] = "data successfully found";
+        }
+
+
+
+
+
+        echo  json_encode($response);
     }
 }
