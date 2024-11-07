@@ -163,6 +163,7 @@ $('button[name="create-po"]').click(function() {
   console.log(this);
 
 
+  let btn = this
 
   let data = {
     createPurchaseOrder: "createPurchaseOrder",
@@ -182,7 +183,11 @@ $('button[name="create-po"]').click(function() {
     function (data, textStatus, jqXHR) {
       console.log(data);
       if (data.success) {
-        alert("Purchase Order created successfully!");
+        alert(`Purchase Order created successfully !! PO number is :  ${data.po_number}  !`);
+
+        btn.disabled= true
+
+
       }
     },
     "json"

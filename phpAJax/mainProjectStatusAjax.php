@@ -306,7 +306,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $response['success'] = true;
                 $response['message'] = "Purchase Order Created Successfully";
                 $response['item_data'] = $item_row;
-                $response['insert_id'] = mysqli_insert_id($con);
+                $response['po_number'] = $last_id;
             } else {
                 $response['success'] = false;
                 $response['message'] = "Invalid data please check";
