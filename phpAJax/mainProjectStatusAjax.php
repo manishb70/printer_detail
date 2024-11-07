@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-    if ($_POST['issueItems']) {
+    if (isset($_POST['issueItems'])) {
 
         $so_line_id = $_POST['so_line_id'];
 
@@ -231,6 +231,97 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $response['data'] = $_POST;
         $response['allocated_data'] = $allocated_serial_number;
+
+        echo json_encode($response);
+    }
+
+
+    if (isset($_POST["createPurchaseOrder"])) {
+
+
+
+
+
+        $vendor_code = 01;
+        $supplier_name = "XYZ";
+        $supplier_site_code = "ABC";
+        $payment_term = "30";
+        $bill_to_location = "ABC";
+        $shipTo = "XYZ";
+        $current_date = date("Y-m-d H:i:s");
+        $current_user = $_SESSION['username'];
+        $so_id = $_POST['so_head_id'];
+        $item_code = $_POST['item_code'];
+        $r_qty = (int) $_POST['r_qty'];
+
+
+
+        $table_data = getTableDataById("item_master_main", "item_code", $item_code);
+
+
+
+
+        $item_row  = $table_data['data'][0];
+
+
+
+
+
+        $query = "INSERT INTO `for_office`.`purchase_order_header` (`vendore_code`, `supplier_name`, `supplier_site_code`, `payment_term`, `bill_to_location`, `shipTo`, `createdBy`, `created_date`, `so_id`)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
+        $stmt = $con->prepare($query);
+        $stmt->bind_param('sssssssss', $vendor_code, $supplier_name, $supplier_site_code, $payment_term, $bill_to_location, $shipTo, $current_user, $current_date, $so_id);
+
+
+
+        if ($stmt->execute()) {
+
+
+
+            $last_id = $con->insert_id;
+
+
+                $total_price = $r_qty * (int) $item_row['Price'];
+
+
+            $query = "INSERT INTO `for_office`.`purchase_order_line` (`po_number`, `item_code`, `item_shortdiscription`, `unit_price`, `quantity`, `total_price`,`balance`)
+         VALUES (?,?,?,?,?,?,?);";
+            $stmt = $con->prepare($query);
+            $stmt->bind_param('sssiisi', $last_id, $item_code, $item_row['Long_Description'], $item_row['unit_price'], $r_qty,$total_price,$r_qty );
+
+
+
+
+
+
+
+
+
+
+            if ($stmt->execute()) {
+
+
+
+                $response['success'] = true;
+                $response['message'] = "Purchase Order Created Successfully";
+                $response['item_data'] = $item_row;
+                $response['insert_id'] = mysqli_insert_id($con);
+            } else {
+                $response['success'] = false;
+                $response['message'] = "Invalid data please check";
+                $response['sql_error'] = mysqli_error($con);
+            }
+        } else {
+
+
+
+            $response['success'] = false;
+            $response['message'] = "Invalid data please check";
+            $response['sql_error'] = mysqli_error($con);
+        }
+
+
 
         echo json_encode($response);
     }

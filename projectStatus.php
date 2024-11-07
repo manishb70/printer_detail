@@ -367,11 +367,12 @@
                                         Item Name
                                     </th>
                                     <th scope="col" class="px-6 py-3">
-                                        Raise quantity
+                                        Sale quantity
                                     </th>
                                     <th scope="col" class="px-6 py-3">
                                         Need quantity
                                     </th>
+                                   
                                     <th scope="col" class="px-6 py-3">
                                         Quantity_in_store
                                     </th>
@@ -440,6 +441,9 @@
                                                 // echo $item_code;
                                                 // echo "<br>";
 
+
+                                                $n_qty=$row['total_qty']-$available_qty ;
+
                                             }
 
                                 ?>
@@ -465,19 +469,58 @@
                                                     class="px-6 py-1  font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                     <?php echo $row['total_qty']  ?>
                                                 </th>
+                                              
                                                 <th scope="row"
                                                     name="avaliable_qty_area"
                                                     class="px-6 py-1 <?php echo ($available_qty < $row['qty']) ? "text-red-700" : "text-green-700"  ?> font-medium  whitespace-nowrap dark:text-white">
-                                                    <?php echo $available_qty ?>
+                                                    <?php echo $available_qty;
+                                                    
+                                                    
+                                                    
+                                                    if($available_qty < $row['qty']){
+
+                                                        $item_code = $row['item_code'];
+                                                        $rs_qty = 0;
+                                                        $sql_for_check_qty = "SELECT b.item_code, SUM(b.quantity) as po_created
+                                                            FROM for_office.purchase_order_header a JOIN for_office.purchase_order_line b ON a.PO_number = b.po_number
+                                                            WHERE a.so_id = 36 and b.item_code ='$item_code' GROUP BY b.item_code;";
 
 
+                                                        $result_rs = mysqli_query($con,$sql_for_check_qty);
+                                                        if(mysqli_num_rows($result_rs)  > 0){
+
+                                                            $rs_qty= mysqli_fetch_assoc($result_rs);
+                                                            
+                                                            $rs_qty =(int) $rs_qty['po_created']; 
+                                                        }
+                                                        
 
 
+                                                            if($row['total_qty']>$rs_qty){
 
 
-                                                    <?php echo ($available_qty < $row['qty']) ?  '<button type="submit" class="bg-white ml-4 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+                                                                
+                                                                
+                                                                echo '<button type="button" so_id="'.(int) $row['so_number'] .'" nqty="'.(int) $row['total_qty']-$available_qty-$rs_qty.'"  item_code="'. $row['item_code'] .'"  name="create-po" class="bg-white ml-4 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
                                                                 Create po
-                                                          </button>' : ""  ?>
+                                                                </button>';
+                                                                
+                                                                
+
+                                                            }
+                                                        
+                                                            if($rs_qty > 0){
+
+                                                                echo '<p class="ml-2 text-xs">'.$rs_qty.' quantity  already requested</p>';
+                                                            }
+                                                        }
+
+
+
+                                                    
+                                                    ?>
+
+                                                
 
 
                                                 </th>

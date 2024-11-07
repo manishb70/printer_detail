@@ -159,10 +159,51 @@ const setSerialData = (so_head_id, so_line_id) => {
 
 
 
+$('button[name="create-po"]').click(function() {
+  console.log(this);
+
+
+
+  let data = {
+    createPurchaseOrder: "createPurchaseOrder",
+    so_head_id: parseInt($(this).attr("so_id")),
+    r_qty: parseInt($(this).attr("nqty")),
+    item_code: $(this).attr("item_code"),
+    
+  };
+
+
+
+  console.log(data);
+
+  $.post(
+    "./phpAjax/mainProjectStatusAjax.php",
+    data,
+    function (data, textStatus, jqXHR) {
+      console.log(data);
+      if (data.success) {
+        alert("Purchase Order created successfully!");
+      }
+    },
+    "json"
+    ).fail(function (error) {
+      console.log(error);
+    });
+
+}); 
+
+
+
+
+
+
+
+
+
 const createPurchaseOrder = () => {
 
 
-  
+
 
 
 
