@@ -35,7 +35,7 @@ WHERE a.PO_number = $po_number;   ";
 
 
 
-        $result2 = mysqli_query($con, "SELECT * FROM for_office.purchase_order_header where PO_number = $po_number;");
+        $result2 = mysqli_query($con, "SELECT * FROM for_office.purchase_order_header where PO_number = $po_number  and status= 'Approved';");
 
 
 
@@ -73,7 +73,7 @@ WHERE a.PO_number = $po_number;   ";
 <body>
     <div style="width:90%" class=" m-auto background-{#FF8A8A}">
         
-        <div class="w-2/6 mt-5 flex justify-between">
+        <div class="w-2/6 mt-5 hidden flex justify-between">
             <button type="text" onclick="view_section()"
                 class="text-white border border-blue-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs px-5 py-2.5 text-center me-2 mb-2 font-medium dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">View
                 GRN</button>
@@ -323,7 +323,7 @@ WHERE a.PO_number = $po_number;   ";
                                                             class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
                                                             <input type="txt" id="input-email-label" name="need_by_date"
                                                                 class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                                                                placeholder="need_by_date" value="inProcess">
+                                                                placeholder="need_by_date" value="Approved">
                                                         </td>
 
 

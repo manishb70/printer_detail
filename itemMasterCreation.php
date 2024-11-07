@@ -17,10 +17,16 @@ include("./navForLogged.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.4/dist/tailwind.min.css" rel="stylesheet">
+
+
+
+
+
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <title>Item Master Form</title>
 </head>
 
@@ -82,7 +88,7 @@ include("./navForLogged.php");
                             <label
                                 class="w-36 inline-block mb-2 font-bold text-xs font-medium text-gray-900 dark:text-white">Item sub Category :
                             </label>
-                            <input type="text" name="item_sub_category" disabled id="item_sub_category" 
+                            <input type="text" name="item_sub_category" disabled id="item_sub_category"
                                 class="w-44 rounded-md border text-xs border-gray-500 bg-white py-1 pl-2 text-[#6B7280] h-6 outline-none mb-3 focus:border-[#6A64F1] focus:shadow-md" />
                         </div>
 
@@ -121,17 +127,17 @@ include("./navForLogged.php");
                             <input type="date" name="item_ending_date"
                                 class="w-44 rounded-md border text-xs border-gray-500 bg-white py-1 pl-2 text-[#6B7280] h-6 outline-none mb-3 focus:border-[#6A64F1] focus:shadow-md" />
                         </div>
-                        <!-- <div class="">
+                        <div class="">
                             <label
                                 class="w-28 inline-block font-bold text-xs font-medium text-gray-900 dark:text-white">Item Status :
                             </label>
-                            <select id="countries" name="item_status"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-md focus:ring-blue-500 w-44 focus:border-blue-500 pl-3 py-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 mb-3 dark:focus:border-blue-500">
-                                <option selected disabled>Choose One</option>
-                                <option  value="Finish Goods">Active</option>
-                                <option value="Raw Material">Un-Active</option>
-                            </select>
-                        </div> -->
+
+                            <input type="txt" name="item_ending_date"
+                                readonly
+                                value="SAVE"
+                                class="w-44 rounded-md border text-xs border-gray-500 bg-white py-1 pl-2 text-[#6B7280] h-6 outline-none mb-3 focus:border-[#6A64F1] focus:shadow-md" />
+
+                        </div>
                         <div class="flex">
                             <label
                                 class="w-28 inline-block mb-1 font-bold text-xs font-medium text-gray-900 dark:text-white">Upload Image :
@@ -203,7 +209,7 @@ include("./navForLogged.php");
                 <div class=" p-4 border-x border-b border-gray-600 rounded-b-lg bg-gray-50 dark:bg-gray-800"
                     id="styled-profile" role="tabpanel" aria-labelledby="profile-tab">
                     <div id="sub-cat-area-field" class="flex gap-x-20">
-                      
+
                     </div>
 
                     <div class="item border border-gray-700 p-5 mt-4 rounded-lg" ">
@@ -215,41 +221,39 @@ include("./navForLogged.php");
 
                         <div   id="sub-cat-attr-area" class=" flex flex-wrap gap-x-14">
 
-                        
-                        </div>
-                    
-                    
-                        
 
-                    
                     </div>
 
 
 
 
-                    
+
                 </div>
 
 
-                
+
+
 
             </div>
 
 
-            
-            <div>
+
+
+        </div>
+
+
+
+        <div>
 
             <center>
 
                 <button type="button" id="save-item" onclick="saveItemDataToTemp()" class="text-white mt-3 bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Submit</button>
             </center>
 
-</div>
-
-
         </div>
 
 
+    </div>
 
 
 
@@ -260,9 +264,11 @@ include("./navForLogged.php");
 
 
 
-   
-   
-        </div>
+
+
+
+
+    </div>
     </div>
     </div>
 
@@ -272,18 +278,20 @@ include("./navForLogged.php");
     <script src="./js/itemMasterCreation.js"></script>
     <script>
         document.getElementById('dropzone-file').addEventListener('change', function(event) {
-    const file = event.target.files[0]; // Get the file input
-    if (file) {
-        const reader = new FileReader(); // Create a FileReader object
+            const file = event.target.files[0]; // Get the file input
+            if (file) {
+                const reader = new FileReader(); // Create a FileReader object
 
-        reader.onload = function(e) {
-            const imagePreview = document.getElementById('uploaded_file_path');
-            imagePreview.src = e.target.result; // Set the src of the img to the file content
-        }
+                reader.onload = function(e) {
+                    const imagePreview = document.getElementById('uploaded_file_path');
+                    imagePreview.src = e.target.result; // Set the src of the img to the file content
+                }
 
-        reader.readAsDataURL(file); // Read the file as a DataURL (base64 string)
-    }
-});
+                reader.readAsDataURL(file); // Read the file as a DataURL (base64 string)
+            }
+        });
+
+
 
     </script>
 </body>

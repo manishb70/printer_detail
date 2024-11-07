@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         $data = [];
 
-        $columns = "SELECT S_No,Short_Description,item_code,Item_Category,subCatId";
+        $columns = "SELECT S_No,item_name,createdBy,item_code,Item_Category,subCatId";
 
         if (mysqli_num_rows($result) > 0) {
 
@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         $data = [];
 
-        $columns = "SELECT S_No,item_code,Short_Description,Item_Category,subCatId    ";
+        $columns = "SELECT S_No,item_code,createdBy,item_name,Item_Category,subCatId    ";
 
         if (mysqli_num_rows($result) > 0) {
 
@@ -341,7 +341,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         $sql = "INSERT into item_master_temp (item_code,
         Item_Category,
-        Short_Description,
+        item_name,
         subCatId,
         Price,
         SI_unit,
@@ -837,7 +837,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $itemCode = isset($attr["item_code"]) ? $attr["item_code"] : null;
         // $itemCode = isset($_GET["itemCodeGenrated"]) ? $_GET["itemCodeGenrated"] : null;
         $Item_Category = isset($attr["Item_Category"]) ? $attr["Item_Category"] : null;
-        $Short_Description = isset($attr["Short_Description"]) ? $attr["Short_Description"] : null;
+        $Short_Description = isset($attr["item_name"]) ? $attr["item_name"] : null;
         $subCatId  = isset($attr["subCatId"]) ? $attr["subCatId"] : null;
         $Price  = isset($attr["Price"]) ? $attr["Price"] : null;
         $si_unit  = isset($attr["SI_unit"]) ? $attr["SI_unit"] : null;
@@ -902,7 +902,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $colour_temparature = isset($attr["Colour_Temparature"]) ? $attr["Colour_Temparature"] :   null;
         $Dimmable = isset($attr["Dimmable"]) ? $attr["Dimmable"] :   null;
         $Location = isset($attr["Location"]) ? $attr["Location"] :   null;
-        $Dimmeter = isset($attr["Diameter"]) ? $attr["Diameter"] :   null;
+        $Diameter = isset($attr["Diameter"]) ? $attr["Diameter"] :   null;
         $Collar = isset($attr["Collar"]) ? $attr["Collar"] :   null;
         $Socket = isset($attr["Socket"]) ? $attr["Socket"] :   null;
         $Ink_type = isset($attr["Ink_type"]) ? $attr["Ink_type"] :   null;
@@ -921,7 +921,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $itemId = $attr["S_No"];
 
 
-
+        
         // $response["acceptes data"] = $attr;
 
         ////
@@ -931,7 +931,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $sql = "INSERT into item_master_main (item_code,
         Item_Category,
-        Short_Description,
+        item_name,
         subCatId,
         Price,
         SI_unit,
@@ -1002,7 +1002,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         Location,
         createdBy,
         createdDate,
-        itemStatus
+        itemStatus,
+        Diameter
 
         ) 
         values ('$itemCode',
@@ -1078,7 +1079,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         '$Location',
         '$createdBy',
         '$createdDate',
-        '$itemStatus'
+        '$itemStatus',
+        '$Diameter'
         )";
 
 

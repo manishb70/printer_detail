@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.4/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
 
-    <title>Create Move Order Form</title>
+    <title>Project status</title>
 </head>
 
 
@@ -469,6 +469,17 @@
                                                     name="avaliable_qty_area"
                                                     class="px-6 py-1 <?php echo ($available_qty < $row['qty']) ? "text-red-700" : "text-green-700"  ?> font-medium  whitespace-nowrap dark:text-white">
                                                     <?php echo $available_qty ?>
+
+
+
+
+
+
+                                                    <?php echo ($available_qty < $row['qty']) ?  '<button type="submit" class="bg-white ml-4 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+                                                                Create po
+                                                          </button>' : ""  ?>
+
+
                                                 </th>
                                                 <td class="px-6 py-1 flex flex-col">
                                                     <input type="text" name="need_qty"
@@ -480,13 +491,13 @@
                                                         placeholder="please enter quantity"
                                                         readonly
                                                         oninput="checkInputValue( <?php echo $available_qty ?>,event)"
-                                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                                        class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280]     h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
 
-                                                 
-                                                        <a onClick="setSerialData(<?php echo $row['so_number'] ?>,<?php echo $row['id'] ?>)"
+
+                                                    <a onClick="setSerialData(<?php echo $row['so_number'] ?>,<?php echo $row['id'] ?>)"
                                                         class="font-medium text-blue-600 cursor-pointer dark:text-blue-500 underline">View allocated items</a>
 
-                                                        </td>
+                                                </td>
                                                 <td class="px-6 py-1">
                                                     <input type="date" name=""
                                                         class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />

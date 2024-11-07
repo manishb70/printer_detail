@@ -76,6 +76,7 @@ const addRequireField = (data) => {
 
         var div = document.createElement("div")
         div.classList.add("mb-4", "md:mr-2", "max-w-1", "md:mb-0")
+        console.log("heddededello");
 
         var lable = document.createElement("lable")
         lable.classList.add("block", "mb-2", "text-sm", "name", "font-bold", "text-gray-700", "dark:text-white")
@@ -1138,11 +1139,12 @@ const setTableFormSubCat = (data) => {
 
         tr.appendChild(td)
 
-        if (element.itemStatus != "Approve`" ) {
-            tr.appendChild(btn)
+        if (element.itemStatus != "Approve" ) {
+           console.log("this is approce item");  tr.appendChild(btn)
         }
         document.getElementById("dataBodyTd").appendChild(tr);
 
+        console.log("Diej");
 
     })
 

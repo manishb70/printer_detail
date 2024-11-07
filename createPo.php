@@ -490,7 +490,94 @@ if (isset($po_number)) {
 
     </div>
 </body>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/po.js"></script>
 
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
+
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
+
+
+
+<script>
+
+
+
+
+
+
+
+
+    function setNameItemData(){
+
+
+
+
+    
+    var availableTags = [
+            "ActionScript",
+            "AppleScript",
+            "Asp",
+            "BASIC",
+            "C",
+            "C++",
+            "Clojure",
+            "COBOL",
+            "ColdFusion",
+            "Erlang",
+            "Fortran",
+            "Groovy",
+            "Haskell",
+            "Java",
+            "JavaScript",
+            "Lisp",
+            "Perl",
+            "PHP",
+            "Python",
+            "Ruby",
+            "Scala",
+            "Scheme"
+        ];
+
+
+        console.log(availableTags);
+        $.get("ajax.php", {
+            "itemCodeInfoForPr": "itemCodeInfoForPr"
+        }, function(data) {
+
+            availableTags = JSON.parse(data);
+
+
+
+            console.log(availableTags);
+            
+
+            let inputes_item_name = document.querySelectorAll("input[name='item_code']")
+
+
+
+                inputes_item_name.forEach(input =>{
+
+                    
+        
+                    $(input).autocomplete({
+                        source: availableTags
+                    });
+
+
+                })
+
+
+
+
+        })
+
+
+
+
+}
+</script>
 
 
 
@@ -587,11 +674,12 @@ if (isset($po_number)) {
 
         $("#poCreteTbody").append(tr)
 
-
-
+        setNameItemData()
+        
     }
-
-
+    
+    
+    setNameItemData()
 
 
     const setAmountToMainHeader = () => {
@@ -642,12 +730,6 @@ if (isset($po_number)) {
 
 
 </script>
-
-
-
-<script src="./js/jquery.min.js"></script>
-<script src="./js/po.js"></script>
-
 
 
 

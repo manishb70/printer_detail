@@ -155,7 +155,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $colour_temparature = isset($attr["Colour_Temparature"]) ? $attr["Colour_Temparature"] :   null;
         $Dimmable = isset($attr["Dimmable"]) ? $attr["Dimmable"] :   null;
         $Location = isset($attr["Location"]) ? $attr["Location"] :   null;
-        $Dimmeter = isset($attr["Diameter"]) ? $attr["Diameter"] :   null;
+        $Diameter = isset($attr["Diameter"]) ? $attr["Diameter"] :   null;
         $Collar = isset($attr["Collar"]) ? $attr["Collar"] :   null;
         $Socket = isset($attr["Socket"]) ? $attr["Socket"] :   null;
         $Ink_type = isset($attr["Ink_type"]) ? $attr["Ink_type"] :   null;
@@ -180,7 +180,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 
         $sql = "INSERT into item_master_temp (item_code,
         Item_Category,
-        Short_Description,
+        item_name,
         subCatId,
         Price,
         SI_unit,
@@ -246,7 +246,8 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         Location,
         createdBy,
         createdDate,
-        itemStatus
+        itemStatus,
+        Diameter
 
         ) 
         values ('$itemCode',
@@ -317,7 +318,8 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         '$Location',
         '$createdBy',
         '$createdDate',
-        '$itemStatus'
+        '$itemStatus',
+        '$Diameter'
         )";
 
 

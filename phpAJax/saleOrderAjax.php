@@ -202,8 +202,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
 
-        $sql = "SELECT a.*,b.imagePath as item_image FROM for_office.bom_hedar_detail a   JOIN for_office.item_master_main b on a.item_code = b.item_code where a.item_name like '%$search_query%'  or a.item_code like '%$search_query%' order by a.header_id DESC;";
-
+        $sql = "SELECT * FROM for_office.item_master_main where item_name like '%$search_query%'  or item_code like '%$search_query%' order by S_No DESC ";
         $result  = mysqli_query($con, $sql);
 
 
@@ -260,7 +259,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
 
-        $sql = "SELECT * FROM for_office.item_master_main where Short_Description like '%$search_query%'  or item_code like '%$search_query%' order by S_No DESC ";
+        $sql = "SELECT * FROM for_office.item_master_main where item_name like '%$search_query%'  or item_code like '%$search_query%' order by S_No DESC ";
 
         $result  = mysqli_query($con, $sql);
 
@@ -525,7 +524,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
                     $data = [];
 
-                    $columns = "SELECT item_code,Short_Description,Item_Category,subCatId    ";
+                    $columns = "SELECT item_code,item_name,Item_Category,subCatId    ";
 
                     if (mysqli_num_rows($result) > 0) {
 

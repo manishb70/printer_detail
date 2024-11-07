@@ -502,7 +502,7 @@ const setBomDataToTableRow = (id) => {
                                             </td>
 
                                             <td class="p-4 border-b border-slate-200 py-5">
-                                                <p name='itemname' itemname='${bom_data.Short_Description}'  class="text-sm text-slate-500">${bom_data.Short_Description}</p>
+                                                <p name='itemname' itemname='${bom_data.item_name}'  class="text-sm text-slate-500">${bom_data.Short_Description}</p>
                                             </td>
                                             <td class="p-4 border-b border-slate-200 py-5">
                                                 <p name='itemcode' itemcode='${bom_data.item_code}' class="text-sm text-slate-500">${bom_data.item_code}</p>
@@ -562,3 +562,4 @@ const setIdToBomTableRow = (event) => {
 };
 
 
+  

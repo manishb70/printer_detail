@@ -175,7 +175,7 @@ and aa.name not in (select name from for_office.requireattributeforcatname where
         // $attr_id = $_GET['attr_id'];
 
 
-        $sql = "SELECT * FROM for_office.sub_category a join for_office.itemmastercategory b on a.catId=b.categoryId; ";
+        $sql = "SELECT * FROM for_office.sub_category a join for_office.itemmastercategory b on a.catId=b.categoryId order by b.catagory_name  ; ";
 
 
 
