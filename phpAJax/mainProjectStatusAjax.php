@@ -2,7 +2,8 @@
 session_start();
 include '../controllers/db_functions.php';
 
-$current_date = date('Y-m-d');
+$current_date =  date('Y-m-d H:i:s');
+
 $current_user = $_SESSION['username'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -211,11 +212,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if (count($allocated_serial_number) > 0) {
 
+            $response['total_serial_number'] = count($allocated_serial_number);
             foreach ($allocated_serial_number as $key => $value) {
 
 
                 $serial_number = $value['serial_number'];
-                $sql = "UPDATE `for_office`.`mtl_serial_number` SET `status` = 'no', `so_number` = '$so_head_id', `so_line_number` = '$so_line_id' WHERE (`serial_number` = '$serial_number');";
+                $sql = "UPDATE `for_office`.`mtl_serial_number` SET `status` = 'no', `so_number` = '$so_head_id', `so_line_number` = '$so_line_id' , `updated_date`='$current_date' ,`updated_by`='$current_user' WHERE (`serial_number` = '$serial_number');";
 
                 if (mysqli_query($con, $sql)) {
                     $response['success'] = true;
@@ -282,13 +284,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $last_id = $con->insert_id;
 
 
-                $total_price = $r_qty * (int) $item_row['Price'];
+            $total_price = $r_qty * (int) $item_row['Price'];
 
 
             $query = "INSERT INTO `for_office`.`purchase_order_line` (`po_number`, `item_code`, `item_shortdiscription`, `unit_price`, `quantity`, `total_price`,`balance`)
          VALUES (?,?,?,?,?,?,?);";
             $stmt = $con->prepare($query);
-            $stmt->bind_param('sssiisi', $last_id, $item_code, $item_row['Long_Description'], $item_row['unit_price'], $r_qty,$total_price,$r_qty );
+            $stmt->bind_param('sssiisi', $last_id, $item_code, $item_row['Long_Description'], $item_row['unit_price'], $r_qty, $total_price, $r_qty);
 
 
 
@@ -325,6 +327,84 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         echo json_encode($response);
     }
+
+    if (isset($_POST["removeSerial"])) {
+
+        $serial_number = $_POST['serial_numbers'];
+        $so_head_id = $_POST['so_head_id'];
+        $so_line_id = $_POST['so_line_id'];
+        $current_date = date("Y-m-d H:i:s");
+        $current_user = $_SESSION['username'];
+
+        $response = [];
+        $response['success'] = false;
+        $response['message'] = "Error while removing serial number. Please try again.";
+
+        foreach ($serial_number as $s_number) {
+
+            $query = "UPDATE `for_office`.`mtl_serial_number` SET `status` = 'yes', `updated_date` = ?, `updated_by` = ? WHERE `serial_number` = ? AND `so_number` = ? AND `so_line_number` = ?";
+
+
+            if ($stmt = $con->prepare($query)) {
+
+                $stmt->bind_param('sssii', $current_date, $current_user, $s_number, $so_head_id, $so_line_id);
+
+
+                if ($stmt->execute()) {
+
+                    $lot_query = "SELECT lot_number FROM `for_office`.`mtl_serial_number` WHERE `serial_number` = ?";
+
+                    if ($lot_stmt = $con->prepare($lot_query)) {
+
+                        $lot_stmt->bind_param('s', $s_number);
+                        $lot_stmt->execute();
+                        $lot_stmt->store_result();
+                        $lot_stmt->bind_result($lot_number);
+                        $lot_stmt->fetch(); // Fetch the lot number
+
+
+                        $lot_stmt->close();
+
+                        if ($lot_number) {
+
+                            $update_qty_query = "UPDATE `for_office`.`mtl_inventory_transactions` SET `item_qty` = item_qty + 1 WHERE `lot_number` = ?";
+
+                            if ($update_qty_stmt = $con->prepare($update_qty_query)) {
+
+                                $update_qty_stmt->bind_param('s', $lot_number);
+
+
+                                if ($update_qty_stmt->execute()) {
+                                    $response['success'] = true;
+                                    $response['message'] = "Serial number removed successfully.";
+                                } else {
+                                    $response['message'] = "Error while updating inventory transaction.";
+                                }
+
+
+                                $update_qty_stmt->close();
+                            } else {
+                                $response['message'] = "Error preparing inventory transaction update query.";
+                            }
+                        } else {
+                            $response['message'] = "Lot number not found for serial number: $s_number.";
+                        }
+                    } else {
+                        $response['message'] = "Error preparing query to fetch lot number.";
+                    }
+                } else {
+                    $response['message'] = "Error while removing serial number: " . $stmt->error;
+                }
+
+
+                $stmt->close();
+            } else {
+                $response['message'] = "Error preparing query to remove serial number.";
+            }
+        }
+
+        echo json_encode($response);
+    }
 }
 
 
@@ -343,7 +423,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
 
-        $sql = "SELECT * FROM for_office.mtl_serial_number where  so_number= $so_head_id and so_line_number = $so_line_id ;";
+        $sql = "SELECT * FROM for_office.mtl_serial_number where  so_number= $so_head_id and so_line_number = $so_line_id and status='no' ;";
 
 
 

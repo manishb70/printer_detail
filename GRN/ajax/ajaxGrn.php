@@ -579,7 +579,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-                    for ($i = 1; $i < $recQty; $i++) {
+                    for ($i = 1; $i <= $recQty; $i++) {
 
 
 

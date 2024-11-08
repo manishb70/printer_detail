@@ -118,17 +118,19 @@ const setSerialData = (so_head_id, so_line_id) => {
 
         $("#setAllocatedTbody").html("");
 
+        $("#openModalBtn").click();
 
-        $("#openModalBtn").click()
-
-
-
-        if((resData.length > 0 )){
-
-        resData.forEach((Element, index) => {
-          index++;
-          $("#setAllocatedTbody")
-            .append(`      <tr class="border-b border-gray-200 dark:border-gray-700">
+        if (resData.length > 0) {
+          resData.forEach((Element, index) => {
+            index++;
+            $("#setAllocatedTbody")
+              .append(`      <tr slid='${so_line_id}' so='${so_head_id}' class="border-b border-gray-200 dark:border-gray-700">
+                          <td class="px-6 py-4">
+                              <div class="flex items-center mb-4">
+    <input id="default-checkbox" serial_number='${Element.serial_number}'  type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+    
+</div>
+                          </td>
                           <td class="px-6 py-4">
                               ${index}
                           </td>
@@ -144,9 +146,8 @@ const setSerialData = (so_head_id, so_line_id) => {
                               ${Element.lot_number}
                           </td>
                       </tr>`);
-        });
-    
-      }
+          });
+        }
       }
 
       console.log(data);
@@ -156,24 +157,17 @@ const setSerialData = (so_head_id, so_line_id) => {
   });
 };
 
-
-
-
-$('button[name="create-po"]').click(function() {
+$('button[name="create-po"]').click(function () {
   console.log(this);
 
-
-  let btn = this
+  let btn = this;
 
   let data = {
     createPurchaseOrder: "createPurchaseOrder",
     so_head_id: parseInt($(this).attr("so_id")),
     r_qty: parseInt($(this).attr("nqty")),
     item_code: $(this).attr("item_code"),
-    
   };
-
-
 
   console.log(data);
 
@@ -183,20 +177,18 @@ $('button[name="create-po"]').click(function() {
     function (data, textStatus, jqXHR) {
       console.log(data);
       if (data.success) {
-        alert(`Purchase Order created successfully !! PO number is :  ${data.po_number}  !`);
+        alert(
+          `Purchase Order created successfully !! PO number is :  ${data.po_number}  !`
+        );
 
-        btn.disabled= true
-
-
+        btn.disabled = true;
       }
     },
     "json"
-    ).fail(function (error) {
-      console.log(error);
-    });
-
-}); 
-
+  ).fail(function (error) {
+    console.log(error);
+  });
+});
 
 
 
@@ -205,7 +197,20 @@ $('button[name="create-po"]').click(function() {
 
 
 
-const createPurchaseOrder = () => {
+$("#reject_serials").click(function (e) { 
+  e.preventDefault();
+
+  // alert("done sir item removed")
+  
+
+  remove_srial_number_from_so()
+
+
+});
+
+
+
+const remove_srial_number_from_so = () => {
 
 
 
@@ -215,6 +220,29 @@ const createPurchaseOrder = () => {
 
 
 
+  let serial_numbers = [];
+
+
+  
+  let tbody = document.getElementById("setAllocatedTbody")
+
+
+  let checke_input = tbody.querySelectorAll("tr input:checked")
+
+  console.log(checke_input);
+
+let tr = checke_input[0].closest("tr")
+
+  let so_line_id = tr.getAttribute("slid")
+  let so_head_id = tr.getAttribute("so")
+  
+
+  checke_input.forEach((check_box) => {
+    let serial_number = $(check_box).attr("serial_number");
+
+
+
+    serial_numbers.push(serial_number);
 
 
 
@@ -224,5 +252,36 @@ const createPurchaseOrder = () => {
 
 
 
+  });
 
-}
+
+  
+
+
+  let data = {
+    removeSerial: "removeSerial",
+    so_line_id: so_line_id,
+    so_head_id: so_head_id,
+    serial_numbers: serial_numbers,
+  };
+
+  console.log(data);
+
+  $.post(
+    "./phpAjax/mainProjectStatusAjax.php",
+    data,
+    function (data, textStatus, jqXHR) {
+      console.log(data);
+
+      if (data.success) {
+        alert("Serial number removed successfully");
+        setSerialData(so_head_id, so_line_id);
+      }
+    },
+    "json"
+  ).fail(function (error) {
+    console.log(error);
+  });
+
+  console.log("Clicked on button");
+};

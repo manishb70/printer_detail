@@ -406,7 +406,13 @@
 
                                     // echo "so Number" . $so_number;
 
-                                    $sql = "SELECT *,qty-work_in_progress_qty as total_qty FROM for_office.sale_order_items_lines where so_number='$so_number';";
+                                    $sql = "   
+                                                            SELECT *,item_code,qty- case 
+                                                         when     (SELECT count(*) FROM for_office.mtl_serial_number where so_line_number = a.id  and status='no' group by item_code  ) > 0   
+                                                         then  (SELECT count(*) FROM for_office.mtl_serial_number where so_line_number = a.id  and status='no' group by item_code  )
+                                                          else 0
+                                                          end as total_qty FROM for_office.sale_order_items_lines a where so_number=$so_number;
+                                                            ";
 
 
 
@@ -429,6 +435,21 @@
                                             $available_qty = 0;
 
 
+
+                                            $query_check_available_qty = "
+                                                            
+                                                            SELECT item_code,(SELECT count(*) FROM for_office.mtl_serial_number where item_code = $item_code    group by item_code  ) as avilablle_serials,
+                                                            sum(item_qty)-      
+                                                            case 
+                                                         when     (SELECT count(*) FROM for_office.mtl_serial_number where item_code = $item_code  and status='no' group by item_code  ) > 0   
+                                                         then  (SELECT count(*) FROM for_office.mtl_serial_number where item_code = $item_code  and status='no' group by item_code  )
+                                                          else 0
+                                                          end
+                                                          
+                                                            as available_qty 
+                                                            
+                                                            
+                                                            FROM for_office.mtl_inventory_transactions where item_code='El---lo-al-El-Bu--20-20'  group by item_code ;";
 
                                             $sql_check_quantity = mysqli_query($con, "SELECT item_code,sum(item_qty) as available_qty FROM for_office.mtl_inventory_transactions where item_code='$item_code'  group by item_code;");
 
@@ -481,9 +502,10 @@
 
                                                         $item_code = $row['item_code'];
                                                         $rs_qty = 0;
+                                                        $so_number_1 = $row['so_number'];
                                                         $sql_for_check_qty = "SELECT b.item_code, SUM(b.quantity) as po_created
                                                             FROM for_office.purchase_order_header a JOIN for_office.purchase_order_line b ON a.PO_number = b.po_number
-                                                            WHERE a.so_id = 36 and b.item_code ='$item_code' GROUP BY b.item_code;";
+                                                            WHERE a.so_id = $so_number_1 and b.item_code ='$item_code' GROUP BY b.item_code;";
 
 
                                                         $result_rs = mysqli_query($con,$sql_for_check_qty);
@@ -496,15 +518,19 @@
                                                         
 
 
+                                                        $needtocreatpoqty = $row['total_qty']-$available_qty-$rs_qty;
+
                                                             if($row['total_qty']>$rs_qty){
 
 
                                                                 
-                                                                
-                                                                echo '<button type="button" so_id="'.(int) $row['so_number'] .'" nqty="'.(int) $row['total_qty']-$available_qty-$rs_qty.'"  item_code="'. $row['item_code'] .'"  name="create-po" class="bg-white ml-4 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
-                                                                Create po
-                                                                </button>';
-                                                                
+                                                                if($needtocreatpoqty>0){
+                                                                    // echo "<br>need qty".$row['total_qty']-$available_qty-$rs_qty;
+                                                                    echo '<button type="button" so_id="'.(int) $row['so_number'] .'" nqty="'.(int) $row['total_qty']-$available_qty-$rs_qty.'"  item_code="'. $row['item_code'] .'"  name="create-po" class="bg-white ml-4 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+                                                                    Create po
+                                                                    </button>';
+                                                                    
+                                                                }
                                                                 
 
                                                             }
@@ -551,8 +577,12 @@
                                                         class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                                 </td>
                                                 <td class="px-6 py-1 text-right">
-                                                    <a onClick="issueItems(event)"
-                                                        class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                                    <!-- <a onClick="issueItems(event)"
+                                                        class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a> -->
+
+                                                        <button type="button"   onClick="issueItems(event)" class="bg-white ml-4 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+                                                                    Submit
+                                                                    </button>
                                                 </td>
                                             </tr>
                                 <?php
@@ -628,6 +658,7 @@
                         <tbody>
                             <tr
                                 class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                               <th></th>
                                 <th scope="row"
                                     class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     <input type="text" name=""
@@ -1528,6 +1559,9 @@
                     <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
                         <tr>
                             <th scope="col" class="px-6 py-3">
+                                
+                            </th>
+                            <th scope="col" class="px-6 py-3">
                                 S.No
                             </th>
                             <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
@@ -1578,7 +1612,7 @@
 
             <div class="flex justify-center gap-4">
                 <button id="closeModalBtn" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600">Close</button>
-                <button class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">Confirm</button>
+                <button id="reject_serials" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-green-600">Reject the items</button>
             </div>
         </div>
     </div>

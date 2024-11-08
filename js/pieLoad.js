@@ -61,6 +61,7 @@ $(document).ready(function () {
     await loadPie(divId, title, arrForPie);
   }
 
+  
   $.get(
     "./phpAjax/dashboardAjax.php",
     {
