@@ -66,9 +66,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
         // $response["theaders"] = $data;
-        $response["error"]=mysqli_error($con);
+        $response["error"] = mysqli_error($con);
         $response["tbody_data"] = $tbody_data;
-        
+
         $response["success"] = true;
 
 
@@ -339,7 +339,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         ////
 
 
-        $sql = "INSERT into item_master_temp (item_code,
+        $sql = "INSERT into item_master_temp (
+        item_code,
         Item_Category,
         item_name,
         subCatId,
@@ -598,7 +599,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         $sql = "SELECT subCatId FROM for_office.item_master_temp where  S_No=$id";
 
-        
+
         $result  = mysqli_query($con, $sql);
 
         $row = mysqli_fetch_assoc($result);
@@ -736,14 +737,12 @@ JOIN sub_category c ON a.subCatId  = c.subCatId where S_No=$id;";
                 $columns .= " , " . $row["name"];
             }
             $columns .= " , " . "imagePath";
-        
-        
         }
 
 
 
 
-        
+
         $columns .= " , " . "itemStatus";
 
 
@@ -778,18 +777,18 @@ JOIN sub_category c ON a.subCatId  = c.subCatId where a.item_code ='$id';";
 
 
 
-                $sql = "SELECT * FROM for_office.requireattributeforcatname where SubcatId = $subId;";
+        $sql = "SELECT * FROM for_office.requireattributeforcatname where SubcatId = $subId;";
 
-                $result = mysqli_query($con,$sql);
+        $result = mysqli_query($con, $sql);
 
-                $inputFields = [];
-
-
+        $inputFields = [];
 
 
-                while($row = mysqli_fetch_assoc($result)){
-                    $inputFields[] = $row;
-                }
+
+
+        while ($row = mysqli_fetch_assoc($result)) {
+            $inputFields[] = $row;
+        }
 
 
 
@@ -921,7 +920,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $itemId = $attr["S_No"];
 
 
-        
+
         // $response["acceptes data"] = $attr;
 
         ////
