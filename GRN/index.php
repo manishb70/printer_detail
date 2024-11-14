@@ -276,7 +276,7 @@ WHERE a.PO_number = $po_number;   ";
                                                             class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
                                                             <input type="txt" id="input-email-label" name="item_code"
                                                                 value="<?php echo $row['item_code'] ?>"
-                                                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                                class="py-3 px-4 block  border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                                                 placeholder="item_code">
                                                         </td>
                                                         <td
@@ -294,9 +294,10 @@ WHERE a.PO_number = $po_number;   ";
                                                                 value="<?php echo $row['unit_price'] ?>">
                                                         </td>
                                                         <td
-                                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                                                            <input type="number" id="input-email-label" name="balance_qty"
-                                                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:
+                                                            class=" whitespace-nowrap text-sm font-medium text-gray-800">
+                                                            <input type="number" 
+                                                            readonly id="input-email-label" name="balance_qty"
+                                                                class=" block  text-center w-10 border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:
                                                 inter-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                                                 placeholder="Quantity" value="<?php echo $row['balance'] ?>">
                                                         </td>

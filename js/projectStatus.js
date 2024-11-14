@@ -179,6 +179,7 @@ $('button[name="create-po"]').click(function () {
       if (data.success) {
         alert(
           `Purchase Order created successfully !! PO number is :  ${data.po_number}  !`
+          location.reload()
         );
 
         btn.disabled = true;
@@ -276,6 +277,7 @@ let tr = checke_input[0].closest("tr")
       if (data.success) {
         alert("Serial number removed successfully");
         setSerialData(so_head_id, so_line_id);
+        Window.location.reload();
       }
     },
     "json"

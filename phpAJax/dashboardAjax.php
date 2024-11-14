@@ -70,5 +70,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         // echo print_r($data);
         echo json_encode($response);
-    }
+    }   
+
+    
+
+
 }

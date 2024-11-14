@@ -28,7 +28,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $allocated_serial_number = [];
 
-        $so_head_id = 0;
+
+
+        
+        
 
         if ($table_data["success"]) {
 
@@ -42,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $total_qty  = (int) $_POST['qty'];
                 $so_head_id = (int) $row['so_number'];
                 $remarks =  $_POST['remarks'];
-                $so_head_id = $so_head_id;
+                // $so_head_id = $so_head_id;
 
                 if (is_numeric($total_qty)) {
 
@@ -66,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     if ($stmt->execute()) {
 
-                        $quer_for_update_so_line =  "UPDATE `for_office`.`sale_order_items_lines` SET `work_in_progress_qty` = work_in_progress_qty+$total_qty WHERE (`id` = $so_line_id);";
+                        $quer_for_update_so_line =  "UPDATE `sale_order_items_lines` SET `work_in_progress_qty` = work_in_progress_qty+$total_qty WHERE (`id` = $so_line_id);";
                         mysqli_query($con, "commit;");
                         if (mysqli_query($con, $quer_for_update_so_line)) {
 
@@ -78,9 +81,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                             $process_qty = $total_qty;
                             while ($process_qty > 0) {
+ 
 
-
-                                $sql = mysqli_query($con, "SELECT  * FROM for_office.mtl_inventory_transactions  where item_code='$item_code'  order by item_qty desc limit 1");
+                                $sql = mysqli_query($con, "SELECT  * FROM for_office.mtl_inventory_transactions  where item_code='$item_code'  and sub_inventory_id=1  order by item_qty desc limit 1");
 
                                 $result = mysqli_fetch_assoc($sql);
                                 $current_id = (int) $result['id'];
@@ -238,6 +241,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
 
+
+
+
+    if(isset($_POST['send_items_to_assembly_po'])){
+
+
+        //what i have to do for send items in assembly
+        //1. get all serial_numbers and after collecting them and sending to sassembly
+        //2. get item details from so_line_id
+        //3.` 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
     if (isset($_POST["createPurchaseOrder"])) {
 
 
@@ -247,7 +281,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $vendor_code = 01;
         $supplier_name = "XYZ";
         $supplier_site_code = "ABC";
-        $payment_term = "30";
+        $payment_term = "by check";
         $bill_to_location = "ABC";
         $shipTo = "XYZ";
         $current_date = date("Y-m-d H:i:s");
@@ -367,7 +401,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                         if ($lot_number) {
 
-                            $update_qty_query = "UPDATE `for_office`.`mtl_inventory_transactions` SET `item_qty` = item_qty + 1 WHERE `lot_number` = ?";
+                            $update_qty_query = "UPDATE `for_office`.`mtl_inventory_transactions` SET `item_qty` = item_qty + 1 ,`hold_qty`=hold_qty-1 WHERE `lot_number` = ?";
 
                             if ($update_qty_stmt = $con->prepare($update_qty_query)) {
 

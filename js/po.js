@@ -17,6 +17,7 @@ const getfulldataofponumber = (event) => {
 
         data.data.forEach((element, index) => {
           console.log(element);
+          index++
 
           let tr = document.createElement("tr");
 

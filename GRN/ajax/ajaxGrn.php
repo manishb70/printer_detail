@@ -591,7 +591,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $serial_number = "GRN_S_" . $grnNumber . "_" . $recQty . "_" . $i;
 
 
-                        $sql = "INSERT INTO `for_office`.`mtl_serial_number` (`serial_number`, `grn_id`, `grn_line_id`, `po_number`, `po_line_number`, `item_code`, `created_by`, `created_date` ,`mtnl_transaction_id`,`lot_number` ) VALUES (?, ?, ?, ?, ?, ?, ?, ? ,? , ?);";
+                        $sql = "INSERT INTO `for_office`.`mtl_serial_number` (`serial_number`, `grn_id`, `grn_line_id`, `po_number`, `po_line_number`, `item_code`, `created_by`, `created_date` ,`mtnl_transaction_id`,`lot_number` ,`inventory_id` ) VALUES (?, ?, ?, ?, ?, ?, ?, ? ,? , ?,1);";
 
 
                         $stmt = $con->prepare($sql);
