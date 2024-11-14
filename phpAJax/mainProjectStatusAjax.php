@@ -408,7 +408,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 $update_qty_stmt->bind_param('s', $lot_number);
 
 
+
                                 if ($update_qty_stmt->execute()) {
+
+                                    mysqli_query($con,"UPDATE `for_office`.`sale_order_items_lines` SET `work_in_progress_qty` = work_in_progress_qty-1 WHERE (`id` = '$so_line_id');");
+                                    
                                     $response['success'] = true;
                                     $response['message'] = "Serial number removed successfully.";
                                 } else {

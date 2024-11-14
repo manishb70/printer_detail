@@ -89,6 +89,7 @@ $(document).ready(function () {
     "json"
   ).fail(error=>{
     console.log(error);
+    console.log(error.responseText);
   })
 });
 

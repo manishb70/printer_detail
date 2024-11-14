@@ -179,8 +179,8 @@ $('button[name="create-po"]').click(function () {
       if (data.success) {
         alert(
           `Purchase Order created successfully !! PO number is :  ${data.po_number}  !`
-          location.reload()
         );
+        Window.location.reload()
 
         btn.disabled = true;
       }
