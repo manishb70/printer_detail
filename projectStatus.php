@@ -686,8 +686,8 @@
 
 
                                         </td>
-                                        <td class="px-6 py-1">
-                                            <a href="">see Allocated item</a>
+                                        <td class="px-6 text-blue underline py-1">
+                                            <a onClick="setSerialData(<?php echo $row['so_number'] ?>,<?php echo $row['id'] ?>)">See items</a>
                                         </td>
                                         <td class="px-6 py-1">
                                             <input type="date">
