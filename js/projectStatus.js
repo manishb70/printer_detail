@@ -102,12 +102,33 @@ async function issueItems() {
   console.log(currentTr);
 }
 
-const setSerialData = (so_head_id, so_line_id) => {
+const setSerialData = (so_head_id, so_line_id, mode) => {
   let data = {
     getSetSerialData: "getSetSerialData",
     so_head_id: so_head_id,
     so_line_id: so_line_id,
+    mode: mode,
   };
+
+  $("#setTitleOfAllocatedSerial").text(mode);
+
+  console.log(mode);
+  // (mode =="issue_stage")
+
+  let buttons = document.querySelectorAll("#btn-are-carfully button");
+
+  buttons.forEach((btn) => $(btn).hide());
+
+  let btns_to_activate = document.querySelectorAll(`#${mode} button`);
+
+  btns_to_activate.forEach((btn) => {
+    $(btn).show();
+    console.log(btn);
+
+    $(`#${mode}`).show();
+  });
+
+  $("#closeModalBtn").show();
 
   $.getJSON(
     "./phpAjax/mainProjectStatusAjax.php",
@@ -180,7 +201,7 @@ $('button[name="create-po"]').click(function () {
         alert(
           `Purchase Order created successfully !! PO number is :  ${data.po_number}  !`
         );
-        Window.location.reload()
+        Window.location.reload();
 
         btn.disabled = true;
       }
@@ -191,73 +212,34 @@ $('button[name="create-po"]').click(function () {
   });
 });
 
-
-
-
-
-
-
-
-$("#reject_serials").click(function (e) { 
+$("#reject_serials_issue").click(function (e) {
   e.preventDefault();
 
   // alert("done sir item removed")
-  
 
-  remove_srial_number_from_so()
-
-
+  remove_srial_number_from_so();
 });
-
-
 
 const remove_srial_number_from_so = () => {
 
-
-
-
-
-
-
-
-
   let serial_numbers = [];
 
+  let tbody = document.getElementById("setAllocatedTbody");
 
-  
-  let tbody = document.getElementById("setAllocatedTbody")
-
-
-  let checke_input = tbody.querySelectorAll("tr input:checked")
+  let checke_input = tbody.querySelectorAll("tr input:checked");
 
   console.log(checke_input);
 
-let tr = checke_input[0].closest("tr")
+  let tr = checke_input[0].closest("tr");
 
-  let so_line_id = tr.getAttribute("slid")
-  let so_head_id = tr.getAttribute("so")
-  
+  let so_line_id = tr.getAttribute("slid");
+  let so_head_id = tr.getAttribute("so");
 
   checke_input.forEach((check_box) => {
     let serial_number = $(check_box).attr("serial_number");
 
-
-
     serial_numbers.push(serial_number);
-
-
-
-
-
-
-
-
-
   });
-
-
-  
-
 
   let data = {
     removeSerial: "removeSerial",
@@ -276,7 +258,7 @@ let tr = checke_input[0].closest("tr")
 
       if (data.success) {
         alert("Serial number removed successfully");
-        setSerialData(so_head_id, so_line_id);
+        setSerialData(so_head_id, so_line_id,"issue_items");
         Window.location.reload();
       }
     },
@@ -287,3 +269,67 @@ let tr = checke_input[0].closest("tr")
 
   console.log("Clicked on button");
 };
+
+$("#send_serials_to_assembly").click(function (e) {
+
+
+
+
+
+
+
+  let serial_numbers = [];
+
+  let tbody = document.getElementById("setAllocatedTbody");
+
+  let checke_input = tbody.querySelectorAll("tr input:checked");
+
+  console.log(checke_input);
+
+  let tr = checke_input[0].closest("tr");
+
+  let so_line_id = tr.getAttribute("slid");
+  let so_head_id = tr.getAttribute("so");
+
+  checke_input.forEach((check_box) => {
+    let serial_number = $(check_box).attr("serial_number");
+
+    serial_numbers.push(serial_number);
+  });
+
+  let data = {
+    send_items_to_assembly_po: "send_items_to_assembly_po",
+    so_line_id: so_line_id,
+    so_head_id: so_head_id,
+    serial_numbers: serial_numbers,
+  };
+
+  console.log(data);
+
+
+  $.post(
+    "./phpAjax/mainProjectStatusAjax.php",
+    data,
+    function (data, textStatus, jqXHR) {
+      console.log(data);
+
+      if (data.success) {
+        alert("Serial number removed successfully");
+        setSerialData(so_head_id, so_line_id,"assembly_items");
+        Window.location.reload();
+      }
+    },
+    "json"
+  ).fail(function (error) {
+    console.log(error);
+  });
+
+
+
+
+
+
+
+
+
+});

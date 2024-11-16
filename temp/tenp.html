@@ -1,125 +1,994 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<style>
-    body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-header {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 0;
-    text-align: center;
-}
-.date-range, .export-buttons {
-    display: inline-block;
-    margin: 10px;
-}
-.metrics {
-    display: flex;
-    justify-content: space-around;
-    padding: 20px;
-    background-color: #f2f2f2;
-}
-.metric {
-    background-color: white;
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-    width: 20%;
-}
-.chart {
-    padding: 20px;
-}
-.details {
-    padding: 20px;
-}
-footer {
-    background-color: #f2f2f2;
-    color: #555;
-    padding: 10px 0;
-    text-align: center;
-}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ticket Availability</title>
+    <script src="https://assets.queue-it.net/script/customlayout.min.js" type="text/javascript"></script>
+    <script src="iframeResizer.contentWindow.min.js"></script>
+    <style>
+        @font-face {
+            font-family: "Roboto-Regular";
+            src: url("fonts/Roboto-Regular.ttf");
+        }
 
-</style>
-<body>
-    <header>
-        <h1>Report Dashboard</h1>
-        <div class="date-range">
-            <label for="start-date">From:</label>
-            <input type="date" id="start-date">
-            <label for="end-date">To:</label>
-            <input type="date" id="end-date">
-        </div>
-        <div class="export-buttons">
-            <button>Export to PDF</button>
-            <button>Export to Excel</button>
-        </div>
-    </header>
-    <main>
-        <section class="metrics">
-            <div class="metric">Total Sales: $500,000</div>
-            <div class="metric">New Customers: 1,200</div>
-            <div class="metric">Metric 3: ...</div>
-            <div class="metric">Metric 4: ...</div>
-        </section>
-        <section class="chart">
-            <canvas id="trendChart"></canvas>
-        </section>
-        <section class="details">
-            <h2>Sales by Region</h2>
-            <table>
-                <!-- Your data here -->
-            </table>
-            <h2>Performance by Product</h2>
-            <table>
-                <!-- Your data here -->
-            </table>
-        </section>
-    </main>
-    <footer>
-        <p>Data Sources: Database, API, etc.</p>
-        <p>Last Updated: <span id="last-updated">[Date]</span></p>
-    </footer>
-    <script src="script.js"></script>
-</body>
+        @font-face {
+            font-family: "Roboto-Medium";
+            src: url("fonts/Roboto-Medium.ttf");
+        }
 
+        @font-face {
+            font-family: "Roboto-Bold";
+            src: url("fonts/Roboto-Bold.ttf");
+        }
 
-<script>
+        body {
+            font-family: "Roboto-Regular", sans-serif;
+            margin: 0;
+        }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const lastUpdated = document.getElementById('last-updated');
-    lastUpdated.textContent = new Date().toLocaleDateString();
+        .container {
+            overflow-x: hidden;
+        }
 
-    // Placeholder data for chart
-    const ctx = document.getElementById('trendChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['January', 'February', 'March', 'April'],
-            datasets: [{
-                label: 'Sales Over Time',
-                data: [1000, 2000, 1500, 3000],
-                borderColor: 'rgba(75, 192, 192, 1)',
-                fill: false
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                x: { beginAtZero: true },
-                y: { beginAtZero: true }
+        #venue-category-wrapper,
+        .fallback-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 18px;
+        }
+
+        .venue-title {
+            color: #000000;
+            font-weight: 500;
+            font-size: 32px;
+            line-height: 40px;
+            margin-bottom: 4px;
+
+            @media (max-width: 920px) {
+                font-size: 16px;
+                line-height: 20px;
             }
         }
-    });
-});
 
-</script>
+        .venue-note {
+            color: #808080;
+            font-size: 14px;
+            line-height: 24px;
+
+            @media (max-width: 920px) {
+                font-size: 11px;
+                line-height: 16px;
+            }
+        }
+
+        .category-title {
+            color: #404040;
+            font-size: 14px;
+            line-height: 18px;
+            font-weight: 700;
+            margin-top: 12px;
+            width: 100%;
+
+            @media (min-width: 920px) {
+                display: none;
+            }
+        }
+
+        .category-note {
+            color: #808080;
+            font-size: 14px;
+            line-height: 18px;
+            margin-bottom: 8px;
+
+            @media (max-width: 920px) {
+                display: none;
+            }
+        }
+
+        .category-note-mob {
+            color: #808080;
+            font-size: 11px;
+            line-height: 16px;
+            width: 100%;
+
+            @media (min-width: 920px) {
+                display: none;
+            }
+        }
+
+        #seat-layout-image {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 528px;
+            margin-left: 52px;
+            aspect-ratio: 1.129;
+            background: #ffffff;
+            margin: auto;
+        }
+
+        .fallback-layout {
+            display: block;
+            height: 500px;
+            margin: 40px auto;
+            aspect-ratio: 1.128;
+            background: #ffffff;
+
+            @media (max-width: 768px) {
+                width: 100%;
+                height: auto;
+                margin: 16px auto;
+            }
+        }
+
+        .category {
+            margin: 10px 0;
+        }
+
+        .sold-out {
+            color: red;
+            font-weight: bold;
+        }
+
+        .category-layout {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: start;
+            align-items: center;
+            height: 100%;
+            max-height: 468px;
+            margin-top: 12px;
+
+            @media (max-width: 920px) {
+                flex-direction: column;
+                height: auto;
+                max-height: fit-content;
+                margin-top: 8px;
+            }
+        }
+
+        .accordion {
+            border-bottom: 1px dashed #b3b3b3;
+            padding: 20px 24px 24px;
+            background: #f5f5f5;
+
+            &.soldout {
+                pointer-events: none;
+                opacity: 0.6;
+            }
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+
+        .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+            align-items: center;
+            position: relative;
+        }
+
+        .accordion-content {
+            display: none;
+            padding-top: 28px;
+        }
+
+        .status {
+            color: #008a1e;
+            font-size: 12px;
+            line-height: 16px;
+            font-weight: 500;
+            min-width: 82px;
+
+            &.soldout {
+                color: #404040;
+            }
+        }
+
+        .stand-info {
+            display: flex;
+            justify-content: space-between;
+            margin: 0 0 4px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        .price {
+            font-size: 14px;
+            line-height: 22px;
+            font-weight: 500;
+            color: #404040;
+            min-width: 60px;
+        }
+
+        .expand-icon {
+            transform: rotate(45deg);
+            transition: transform 0.3s ease;
+            border: solid black;
+            border-width: 0px 1px 1px 0;
+            display: inline-block;
+            padding: 2px;
+            height: 4px;
+            width: 4px;
+            position: relative;
+            bottom: 2px;
+
+            &.soldout {
+                visibility: hidden;
+            }
+        }
+
+        .stand-count {
+            position: absolute;
+            top: 22px;
+            color: #008a1e;
+            font-size: 11px;
+            line-height: 14px;
+        }
+
+        .stand-count.soldout {
+            color: #999999;
+        }
+
+        .accordion.active .expand-icon {
+            transform: rotate(-135deg);
+            top: 2px;
+        }
+
+        .accordion.active .accordion-content {
+            display: block;
+        }
+
+        #categories-container {
+            max-width: 298px;
+            min-width: 298px;
+            overflow: auto;
+            border-radius: 6px;
+            max-height: inherit;
+            background: #f5f5f5;
+
+            @media (max-width: 920px) {
+                height: 267px;
+                max-height: 468px;
+                margin-top: 16px;
+                min-width: 100%;
+                max-width: fit-content;
+                overflow: hidden;
+            }
+        }
+
+        .showAllCategories {
+            height: auto !important;
+            overflow: auto !important;
+        }
+
+        #categories-container::-webkit-scrollbar {
+            -webkit-appearance: none;
+            width: 6px;
+        }
+
+        #categories-container::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: #cccccc;
+        }
+
+        #viewAllBtn {
+            color: #dc354b;
+            font-size: 14px;
+            line-height: 16px;
+            font-weight: 500;
+            padding: 4px;
+            cursor: pointer;
+            visibility: hidden;
+
+            @media (min-width: 920px) {
+                display: none;
+            }
+        }
+
+        .category-name {
+            font-size: 12px;
+            line-height: 16px;
+            font-weight: 500;
+            color: #404040;
+        }
+
+        .category-available {
+            font-size: 11px;
+            line-height: 16px;
+            font-weight: 500;
+            color: #008a1e;
+            text-align: end;
+            min-width: 86px;
+
+            &.soldout {
+                color: #999999;
+                text-align: left;
+                min-width: 74px;
+            }
+        }
+
+        .tnc {
+            margin-top: 40px;
+            background: #f2f5f9;
+            padding: 32px 0;
+            display: flex;
+            flex-direction: column;
+
+            @media (max-width: 768px) {
+                display: none;
+            }
+        }
+
+        .tnc.prequeue {
+            margin-top: 0px;
+        }
+
+        .tnc-sold-out {
+            margin-top: 0;
+        }
+
+        .tnc-wrapper {
+            max-width: 1200px;
+            width: 100%;
+            margin: auto;
+            padding: 0 18px;
+        }
+
+        .tnc-title {
+            font-size: 32px;
+            line-height: 40px;
+            font-weight: 500;
+            color: #000000;
+        }
+
+        .tnc-title-mob {
+            font-size: 14px;
+            line-height: 20px;
+            color: #404040;
+        }
+
+        #tnc-list {
+            font-size: 14px;
+            line-height: 20px;
+            color: #808080;
+            margin: 8px 0 0;
+            padding-left: 16px;
+        }
+
+        #tnc-list-mobile {
+            font-size: 12px;
+            line-height: 18px;
+            color: #808080;
+            margin: auto;
+            padding: 8px 12px 12px 32px;
+            border-top: 1px solid #c0c0c0;
+        }
+
+        #updatedAt {
+            font-size: 12px;
+            line-height: 16px;
+            color: #85a6ff;
+            height: 16px;
+
+            @media (max-width: 920px) {
+                display: none;
+            }
+        }
+
+        #updatedAt-mob {
+            font-size: 11px;
+            line-height: 16px;
+            color: #85a6ff;
+            height: 16px;
+            width: 100%;
+            margin: 2px 0 4px;
+
+            @media (min-width: 920px) {
+                display: none;
+            }
+        }
+
+        details {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2);
+
+            @media (min-width: 768px) {
+                display: none;
+            }
+        }
+
+        details[open] .expand-icon {
+            transform: rotate(-135deg);
+            top: 2px;
+        }
+
+        summary {
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .tnc-acc {
+            background: #f2f5f9;
+            padding: 18px;
+
+            @media (min-width: 768px) {
+                display: none;
+            }
+        }
+
+        .carousel-container {
+            display: none;
+            justify-content: center;
+            position: relative;
+            margin: 0 18px 36px;
+
+            @media (max-width: 768px) {
+                margin: 0 18px 24px;
+            }
+        }
+
+        .carousel {
+            width: 1200px;
+            height: 134px;
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+
+            @media (max-width: 768px) {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 4.5;
+            }
+        }
+
+        .carousel-item {
+            min-width: 100%;
+            display: none;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .carousel-item.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 134px;
+
+            @media (max-width: 768px) {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 4.5;
+            }
+        }
+
+        .carousel-control {
+            display: none;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            font-size: 24px;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        .carousel-control.prev {
+            left: 140px;
+        }
+
+        .carousel-control.next {
+            right: 140px;
+        }
+
+        .carousel-indicators {
+            position: absolute;
+            bottom: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .carousel-indicators span {
+            width: 5px;
+            height: 5px;
+            background-color: #999999;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .carousel-indicators .active {
+            width: 8px;
+            height: 8px;
+            background-color: #1f253a;
+        }
+
+        .separator {
+            display: none;
+
+            @media (max-width: 768px) {
+                height: 16px;
+                width: 100%;
+                background: #f2f5f9;
+                margin-bottom: 16px;
+            }
+        }
+
+        .scroll-cta {
+            display: none;
+
+            @media (max-width: 768px) {
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 18px;
+                padding: 12px;
+                margin: 0 18px 16px;
+                color: #dc354b;
+                border: 1px solid #dc354b;
+                text-align: center;
+                border-radius: 8px;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            .separator.mobile,
+            .scroll-cta.mobile {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="scroll-cta" onclick="scrollLayoutIntoView()">Check Venue Layout and Availability</div>
+        <div id="carousel-wrapper">
+            <div class="carousel-container">
+                <div class="carousel" id="carouselItems"></div>
+                <button class="carousel-control prev" id="prevSlide">&#10094;</button>
+                <button class="carousel-control next" id="nextSlide">&#10095;</button>
+                <div class="carousel-indicators" id="carouselIndicators"></div>
+            </div>
+        </div>
+        <div class="separator"></div>
+        <div id="venue-category-wrapper">
+            <div class="venue-title"></div>
+            <div class="venue-note"></div>
+            <div class="category-note"></div>
+            <div id="updatedAt"></div>
+            <div class="category-layout">
+                <img id="seat-layout-image" src=" " />
+                <div class="category-title"></div>
+                <div id="updatedAt-mob"></div>
+                <div class="category-note-mob"></div>
+                <div id="categories-container"></div>
+                <div id="viewAllBtn" onclick="toggleView()">View All</div>
+            </div>
+        </div>
+        <div class="tnc">
+            <div class="tnc-wrapper">
+                <div class="tnc-title">Terms & Conditions</div>
+                <ol id="tnc-list"></ol>
+            </div>
+        </div>
+        <div class="tnc-acc">
+            <details>
+                <summary><span class="tnc-title-mob">Terms & Conditions</span><span class="expand-icon"></span>
+                </summary>
+                <ol id="tnc-list-mobile"></ol>
+            </details>
+        </div>
+    </div>
+
+    <!-- Fallback container to be shown when API fails -->
+    <div class="fallback-container" style="display: none">
+        <div class="venue-title">Venue Layout</div>
+        <div class="venue-note">You can check the venue layout here and plan your seats while you await your turn.</div>
+        <img class="fallback-layout" src="assets/coldplay-ahmedabad-layout.jpg" />
+    </div>
+    <script>
+        let endpoint = "https://in-cdn.bmscdn.com/le-synopsis/event-category-queueinfo-et00419733-spsm-10089.json";
+        let disableAccordion;
+        const expandedStates = {};
+
+
+        const details = document.querySelector("details");
+        details.addEventListener("toggle", function () {
+            // When the accordion is opened, adjust the iframe height
+            const height = document.body.scrollHeight;
+            parent.postMessage(height, "*");
+        });
+
+        function scrollLayoutIntoView() {
+            const element = document.getElementById("venue-category-wrapper");
+            if (element) {
+                // Calculate the element's position within the iframe
+                const elementPosition = element.getBoundingClientRect().top;
+
+                // Send a message to the parent window with the position
+                window.parent.postMessage(
+                    {
+                        type: "scrollToElement",
+                        position: elementPosition
+                    },
+                    "*"
+                ); // The second argument '*' allows any origin, change it to a specific origin for security
+            }
+        }
+
+        function closeAllAccordions() {
+            const accordions = document.querySelectorAll(".accordion");
+            accordions.forEach((accordion, index) => {
+                // Remove the active class and hide the content
+                accordion.classList.remove("active");
+                accordion.querySelector(".accordion-content").style.display = "none";
+
+                // Update the expandedStates object
+                expandedStates[index] = false;
+            });
+        }
+
+        function toggleView() {
+            const categoriesWrapper = document.getElementById("categories-container");
+            const viewAllBtn = document.getElementById("viewAllBtn");
+            categoriesWrapper.classList.toggle("showAllCategories");
+            const height = document.body.scrollHeight;
+            parent.postMessage(height, "*");
+            if (viewAllBtn.innerText === "View All") {
+                viewAllBtn.innerText = "View Less";
+            } else {
+                closeAllAccordions();
+                categoriesWrapper.scrollTop = 0;
+                viewAllBtn.innerText = "View All";
+            }
+        }
+
+        function handleCategoryClick(event) {
+            const categoriesWrapper = document.getElementById("categories-container");
+            if (categoriesWrapper.clientHeight <= 270) {
+                toggleView();
+            }
+        }
+
+        function setPageId(pageId) {
+            const venueCategoryWrapper = document.getElementById("venue-category-wrapper");
+            const carouselWrapper = document.getElementById("carousel-wrapper");
+            const tncElement = document.getElementsByClassName("tnc")[0];
+            const scrollCTA = document.getElementsByClassName("scroll-cta")[0];
+
+            if (pageId === "queue") {
+                venueCategoryWrapper.style.display = "block";
+                scrollCTA.style.display = "";
+            } else {
+                venueCategoryWrapper.style.display = "none";
+                scrollCTA.style.display = "none";
+            }
+
+            if (pageId === "before") {
+                tncElement.classList.add("prequeue");
+            } else {
+                tncElement.classList.remove("prequeue");
+            }
+
+            if (pageId === "queue" || pageId === "before") {
+                carouselWrapper.style.display = "block";
+                tncElement.classList.remove("tnc-sold-out");
+            } else {
+                carouselWrapper.style.display = "none";
+                tncElement.classList.add("tnc-sold-out");
+            }
+            const height = document.body.scrollHeight;
+            parent.postMessage(height, "*");
+        }
+
+        /* function to display last updated time */
+        function lastUpdatedTime(date) {
+            const hours = date.getHours();
+            const minutes = String(date.getMinutes()).padStart(2, "0");
+            const seconds = String(date.getSeconds()).padStart(2, "0");
+            const ampm = hours >= 12 ? "PM" : "AM";
+            const formattedTime = `${hours % 12 || 12}:${minutes}:${seconds} ${ampm}`;
+            document.getElementById("updatedAt").innerText = `Updated at ${formattedTime} IST`;
+            document.getElementById("updatedAt-mob").innerText = `Updated at ${formattedTime} IST`;
+        }
+
+        /* function to add unique timestamp query param */
+        function timeStampQuery(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, "0");
+            const day = String(date.getDate()).padStart(2, "0");
+            const hours = String(date.getHours()).padStart(2, "0");
+            const minutes = String(date.getMinutes()).padStart(2, "0");
+            const seconds = date.getSeconds() < 30 ? "00" : "30";
+            return `${year}${month}${day}${hours}${minutes}${seconds}`;
+        }
+
+        function addCarouselEventListeners() {
+            let currentIndex = 0;
+            const slides = document.querySelectorAll(".carousel-item");
+            const indicators = document.querySelectorAll(".carousel-indicators span");
+
+            if (slides.length > 1) {
+                function showSlide(index) {
+                    slides.forEach((slide, i) => {
+                        slide.classList.remove("active");
+                        indicators[i].classList.remove("active");
+                        if (i === index) {
+                            slide.classList.add("active");
+                            indicators[i].classList.add("active");
+                        }
+                    });
+                }
+
+                function nextSlide() {
+                    currentIndex = (currentIndex + 1) % slides.length;
+                    showSlide(currentIndex);
+                }
+
+                function prevSlide() {
+                    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+                    showSlide(currentIndex);
+                }
+
+                document.getElementById("nextSlide").addEventListener("click", nextSlide);
+                document.getElementById("prevSlide").addEventListener("click", prevSlide);
+
+                indicators.forEach((indicator, i) => {
+                    indicator.addEventListener("click", () => {
+                        currentIndex = i;
+                        showSlide(currentIndex);
+                    });
+                });
+
+                setInterval(nextSlide, 4000);
+            }
+        }
+
+        // Function to populate carousel
+        function populateCarousel(sponsors) {
+            sponsors.forEach((sponsor, index) => {
+                // Create carousel item
+                const carouselItem = document.createElement("div");
+                const carouselItemsContainer = document.getElementById("carouselItems");
+                const carouselIndicatorsContainer = document.getElementById("carouselIndicators");
+                carouselItem.className = `carousel-item ${index === 0 ? "active" : ""}`;
+                carouselItem.innerHTML = `<img src="${sponsor}" alt=" ">`;
+                carouselItemsContainer.appendChild(carouselItem);
+
+                // hide indicators when images are less than equal to 1
+                if (sponsors?.length <= 1) {
+                    carouselIndicatorsContainer.style.display = "none";
+                    return;
+                }
+                // Create indicator
+                const indicator = document.createElement("span");
+                indicator.dataset.slideTo = index;
+                indicator.className = index === 0 ? "active" : "";
+                carouselIndicatorsContainer.appendChild(indicator);
+            });
+
+            // Add event listeners for carousel controls
+            addCarouselEventListeners();
+        }
+
+        // Function to create accordion HTML
+        function createAccordionItem(item, index) {
+            let accordion = document.createElement("div");
+            const soldOutClass = item.isSoldOut ? " soldout" : "";
+            accordion.className = "accordion";
+            accordion.dataset.index = index; // Set a data attribute to identify the accordion
+
+            let header = document.createElement("div");
+            const numberOfStands = item.isSoldOut ? item.categories?.length : item.categories?.filter(category => !category.isSoldOut).length;
+            const standText = numberOfStands > '1' ? 'Stands' : 'Stand'
+            header.className = "accordion-header";
+            header.innerHTML = `
+          <span class="price">₹ ${item.priceCategory}</span>
+          ${!disableAccordion ? '<span class="expand-icon"></span>' : ''}
+          <span class="stand-count${soldOutClass}">${numberOfStands} ${standText} ${item.isSoldOut ? "Sold Out" : "Available"}</span>
+        `;
+
+            const categoriesWrapper = document.getElementById("categories-container");
+
+            // Restore the expanded state if it was expanded before
+            if (expandedStates[index]) {
+                accordion.classList.add("active");
+            }
+
+            // If disableAccordion is true, show all accordions open and disable click event
+            if (disableAccordion) {
+                accordion.classList.add("active"); // Open accordion
+                categoriesWrapper.style.height = "auto";
+                // Disable click event on the accordion header
+                header.style.pointerEvents = "none";
+            } else {
+                // Enable toggle functionality only if disableAccordion is false
+                header.addEventListener("click", function () {
+                    const isActive = accordion.classList.toggle("active");
+                    expandedStates[index] = isActive; // Update expanded state
+
+                    // Toggle the content display based on the active state
+                    content.style.display = isActive ? "block" : "none";
+
+                    // Trigger view toggle if container height is 166px
+                    handleCategoryClick();
+                });
+            }
+
+
+            let content = document.createElement("div");
+            content.className = "accordion-content";
+            item.categories.forEach(category => {
+                let standInfo = document.createElement("div");
+                standInfo.className = "stand-info";
+                const categoryName = category.name.endsWith(".") ? category.name.slice(0, -1) : category.name;
+                standInfo.innerHTML = `
+                    <span class="category-name">${categoryName}</span>
+                    <span class="category-available${category.isSoldOut ? " soldout" : ""}">${category.isSoldOut ? "Sold Out" : `${category.availabilityPercent}% Available`
+                    }</span>
+                `;
+                content.appendChild(standInfo);
+            });
+
+            // Ensure the content visibility matches the expanded state
+            content.style.display = accordion.classList.contains("active") ? "block" : "none";
+
+            accordion.appendChild(header);
+            accordion.appendChild(content);
+
+            return accordion;
+        }
+
+        // Async function to fetch data and update the UI
+        const fetchData = async () => {
+            const fallbackContainer = document.getElementsByClassName("fallback-container")[0];
+            try {
+                if (endpoint) {
+                    /* Update the time at the moment of API call */
+                    const apiCallTime = new Date();
+                    const currentOffset = apiCallTime.getTimezoneOffset();
+                    const istOffset = 330; // IST offset UTC +5:30
+                    const istTime = new Date(apiCallTime.getTime() + (istOffset + currentOffset) * 60000);
+                    lastUpdatedTime(istTime);
+
+                    const response = await fetch(`${endpoint}?${timeStampQuery(apiCallTime)}`);
+
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch data from the API");
+                    }
+
+                    const data = await response.json();
+
+                    const venueTitleElement = document.getElementsByClassName("venue-title")[0];
+                    const venueNoteElement = document.getElementsByClassName("venue-note")[0];
+                    const categoryTitleElement = document.getElementsByClassName("category-title")[0];
+                    const categoryNoteElement = document.getElementsByClassName("category-note")[0];
+                    const categoryNoteMobElement = document.getElementsByClassName("category-note-mob")[0];
+                    const seatLayoutImageElement = document.getElementById("seat-layout-image");
+                    const carouselIndicatorsContainer = document.getElementById("carouselIndicators");
+                    const carouselItemsContainer = document.getElementById("carouselItems");
+                    const scrollCTA = document.getElementsByClassName("scroll-cta")[0];
+                    const separator = document.getElementsByClassName("separator")[0];
+                    const carouselContainer = document.getElementsByClassName("carousel-container")[0];
+                    const categoriesContainer = document.getElementById("categories-container");
+                    const tncList = document.getElementById("tnc-list");
+                    const tncListMobile = document.getElementById("tnc-list-mobile");
+                    const viewAllBtn = document.getElementById("viewAllBtn");
+
+                    const {
+                        venueNote = "",
+                        venueTitle = "",
+                        categoryList = [],
+                        categoryNote = "",
+                        categoryTitle = "",
+                        tnc = [],
+                        primarySponsors = [],
+                        categoryExpandable = false,
+                    } = data || {};
+                    document.querySelector(".container").style.display = "block";
+                    fallbackContainer.style.display = "none";
+                    venueTitleElement.innerHTML = venueTitle;
+                    venueNoteElement.innerHTML = venueNote;
+                    categoryTitleElement.innerHTML = categoryTitle;
+                    categoryNoteElement.innerHTML = categoryNote;
+                    categoryNoteMobElement.innerHTML = categoryNote;
+                    seatLayoutImageElement.src = data.seatLayoutImageUrl;
+                    carouselIndicatorsContainer.innerHTML = "";
+                    carouselItemsContainer.innerHTML = "";
+                    disableAccordion = categoryExpandable;
+
+                    if (!disableAccordion) {
+                        viewAllBtn.style.visibility = "visible";
+                        viewAllBtn.style.padding = "16px";
+                    }
+
+                    if (primarySponsors?.length) {
+                        scrollCTA.classList.add("mobile");
+                        separator.classList.add("mobile");
+                        carouselContainer.style.display = "flex";
+                        populateCarousel(primarySponsors);
+                    }
+
+                    // Clear previous category items
+                    categoriesContainer.innerHTML = "";
+
+                    // Add updated category items
+                    categoryList.forEach((item, index) => {
+                        if (!item.isSoldOut) {
+                            let accordionItem = createAccordionItem(item, index);
+                            categoriesContainer.appendChild(accordionItem);
+                        }
+                    });
+                    categoryList.forEach((item, index) => {
+                        if (item.isSoldOut) {
+                            let accordionItem = createAccordionItem(item, index);
+                            categoriesContainer.appendChild(accordionItem);
+                        }
+                    });
+
+                    tncList.innerHTML = ""; // Clear previous terms and conditions
+                    tnc.forEach(condition => {
+                        tncList.innerHTML += `<li>${condition}</li>`;
+                    });
+
+                    tncListMobile.innerHTML = ""; // Clear previous terms and conditions
+                    tnc.forEach(condition => {
+                        tncListMobile.innerHTML += `<li>${condition}</li>`;
+                    });
+
+                    const height = document.body.scrollHeight;
+                    parent.postMessage(height, "*");
+                    return;
+                }
+                throw new Error("API endpoint missing !!!");
+            } catch (error) {
+                console.log(error);
+                document.querySelector(".container").style.display = "none";
+                fallbackContainer.style.display = "block";
+                const height = document.body.scrollHeight;
+                parent.postMessage(height, "*");
+            }
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
+            if (window.queueUserInfoClient && window.queueUserInfoClient.userInfo) {
+                /* pageId is the state of page, it can be:
+                 * queue - when user is in queue
+                 * before - pre queue state (when event has not started yet)
+                 * after - event is sold out
+                 */
+                setPageId(window.queueUserInfoClient.userInfo.pageId);
+            }
+        });
+
+        window.queueUserInfoClient.onPageIdChanged = setPageId;
+        fetchData();
+
+        // Set interval to fetch data after specific duration
+        setInterval(fetchData, 180 * 1000);
+    </script>
+</body>
+
 </html>

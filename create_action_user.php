@@ -44,7 +44,7 @@ $transaction_creation_to_date = $_POST['transaction_creation_to_date'];
 
 $transaction_search = isset($_POST['transaction_search']) ? 1 : 0;
 $transaction_search_from_date = $_POST['transaction_search_from_date'];
-$transaction_search_to_date = $_POST['transaction_search_to_date'];
+$transaction_search_to_date = $_POST['transa    ction_search_to_date'];
 
 
 $transaction_report = isset($_POST['transaction_report']) ? 1 : 0;

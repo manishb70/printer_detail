@@ -458,7 +458,7 @@
                                                             
                                                             FROM for_office.mtl_inventory_transactions where item_code='$item_code' where sub_inventory_id=1  group by item_code ;";
 
-                                            $sql_check_quantity = mysqli_query($con, "SELECT item_code,(SELECT count(*) FROM for_office.mtl_serial_number where item_code=inv.item_code and status='yes') as available_qty FROM for_office.mtl_inventory_transactions inv where item_code='$item_code' and sub_inventory_id=1   group by item_code;");
+                                            $sql_check_quantity = mysqli_query($con, "SELECT item_code,(SELECT count(*) FROM for_office.mtl_serial_number where item_code=inv.item_code and status='yes' and inventory_id = 1) as available_qty FROM for_office.mtl_inventory_transactions inv where item_code='$item_code' and sub_inventory_id=1   group by item_code;");
 
                                             if (mysqli_num_rows($sql_check_quantity) > 0) {
 
@@ -467,7 +467,7 @@
                                                 $available_qty = $rs_1['available_qty'];
 
                                                 // echo $item_code;
-                                                // echo "<br>";
+                                                // echo "<br>"; 
 
 
                                                 $n_qty = $row['total_qty'] - $available_qty;
@@ -566,7 +566,7 @@
                                                         class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280]     h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
 
 
-                                                    <a onClick="setSerialData(<?php echo $row['so_number'] ?>,<?php echo $row['id'] ?>)"
+                                                    <a onClick="setSerialData(<?php echo $row['so_number'] ?>,<?php echo $row['id'] ?>,'issue_items')"
                                                         class="font-medium text-blue-600 cursor-pointer dark:text-blue-500 underline">View allocated items</a>
 
                                                 </td>
@@ -654,21 +654,21 @@
 
 
                                     //getting the totol num ber of issued  items
-                                    
-                                    $sql_issued="select count(*) as issued_qty from for_office.mtl_serial_number where so_line_number=".$row['id']." and status='no'	";
 
-                                    $result_issued=mysqli_query($con, $sql_issued);
-                                    
-                                    $row_issued=mysqli_fetch_assoc($result_issued);
-                                    
-                                    $issued_qty=$row_issued['issued_qty'];
+                                    $sql_issued = "select count(*) as issued_qty from for_office.mtl_serial_number where so_line_number=" . $row['id'] . " and status='no'	";
+
+                                    $result_issued = mysqli_query($con, $sql_issued);
+
+                                    $row_issued = mysqli_fetch_assoc($result_issued);
+
+                                    $issued_qty = $row_issued['issued_qty'];
 
                             ?>
 
 
 
                                     <tr
-                                    
+
                                         class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
                                         <th><?php echo $i  ?></th>
                                         <th scope="row"
@@ -676,18 +676,18 @@
                                             <?php echo $row['item_code']  ?>
                                         </th>
                                         <td class="px-6 font-medium py-1">
-                                            
+
                                             <?php echo $row['qty']  ?>
                                         </td>
                                         <td class="px-6 font-bold py-1">
-                                            
-                                            
+
+
                                             <?php echo $issued_qty  ?>
 
 
                                         </td>
                                         <td class="px-6 text-blue underline py-1">
-                                            <a onClick="setSerialData(<?php echo $row['so_number'] ?>,<?php echo $row['id'] ?>)">See items</a>
+                                            <a onClick="setSerialData(<?php echo $row['so_number'] ?>,<?php echo $row['id'] ?>,'assembly_items')">See items</a>
                                         </td>
                                         <td class="px-6 py-1">
                                             <input type="date">
@@ -704,7 +704,7 @@
 
                             <?php
 
-                            $i++;
+                                    $i++;
                                 }
                             }
 
@@ -1503,7 +1503,7 @@
             style="height: 80%;"
             class="bg-white p-6 rounded-lg ">
 
-            <h2 class="text-xl font-semibold text-center mb-4">Allocated Data</h2>
+            <h2 class="text-xl font-semibold text-center mb-4">Allocated Data <span id="setTitleOfAllocatedSerial"></span></h2>
 
 
             <div
@@ -1567,9 +1567,16 @@
 
 
 
-            <div class="flex justify-center gap-4">
+            <div id="btn-are-carfully" class="flex justify-center gap-4">
                 <button id="closeModalBtn" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600">Close</button>
-                <button id="reject_serials" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-green-600">Reject the items</button>
+                <div id="issue_items" class="hidden">
+                    <button id="reject_serials_issue" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-green-600">Reject the items</button>
+                    <button id="send_serials_to_assembly" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">Send to assembly</button>
+                </div>
+                <div id="assembly_items" class="hidden">
+                    <button id="send_serials_to_assembly" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-green-600">Reject to issued </button>
+                    <button id="reject_serials_assmbly" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">send to quality check</button>
+                </div>
             </div>
         </div>
     </div>
