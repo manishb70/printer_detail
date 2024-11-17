@@ -322,6 +322,145 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
 
+    if (isset($_POST['send_item_to_qc'])) {
+        // Get POST variables
+        $serial_number = $_POST['serial_numbers'];
+        $so_head_id = $_POST['so_head_id'];
+        $so_line_id = $_POST['so_line_id'];
+        $inventory_id = 9;
+        $inventory_name = "QUALITY_CHECK";
+
+
+
+        sendSerialsToAnother($serial_number, $so_head_id, $so_line_id, $inventory_id, $inventory_name);
+    }
+
+
+    if (isset($_POST['reject_item_assembly_to_store'])) {
+        // Get POST variables
+        $serial_number = $_POST['serial_numbers'];
+        $so_head_id = $_POST['so_head_id'];
+        $so_line_id = $_POST['so_line_id'];
+        $inventory_id = 1;
+        $inventory_name = "STORE";
+
+
+
+        sendSerialsToAnother($serial_number, $so_head_id, $so_line_id, $inventory_id, $inventory_name);
+    }
+
+    if (isset($_POST['reject_item_quality_check_to_assembly'])) {
+
+        // Get POST variables
+        $serial_number = $_POST['serial_numbers'];
+        $so_head_id = $_POST['so_head_id'];
+        $so_line_id = $_POST['so_line_id'];
+        $inventory_id = 2;
+        $inventory_name = "ASSEMBLY";
+
+
+
+        sendSerialsToAnother($serial_number, $so_head_id, $so_line_id, $inventory_id, $inventory_name);
+    }
+
+    if (isset($_POST['send_item_quality_check_to_packaging'])) {
+
+
+        // Get POST variables
+        $serial_number = $_POST['serial_numbers'];
+        $so_head_id = $_POST['so_head_id'];
+        $so_line_id = $_POST['so_line_id'];
+        $inventory_id = 4;
+        $inventory_name = "PACKAGING";
+
+
+
+        sendSerialsToAnother($serial_number, $so_head_id, $so_line_id, $inventory_id, $inventory_name);
+    }
+
+    if (isset($_POST['reject_item_packaging_to_quality_check'])) {
+
+
+
+        // Get POST variables
+        $serial_number = $_POST['serial_numbers'];
+        $so_head_id = $_POST['so_head_id'];
+        $so_line_id = $_POST['so_line_id'];
+        $inventory_id = 9;
+        $inventory_name = "QUALITY_CHECK";
+
+
+
+        sendSerialsToAnother($serial_number, $so_head_id, $so_line_id, $inventory_id, $inventory_name);
+    }
+
+    if (isset($_POST['send_item_packaging_to_gate_exit'])) {
+
+
+
+        // Get POST variables
+        $serial_number = $_POST['serial_numbers'];
+        $so_head_id = $_POST['so_head_id'];
+        $so_line_id = $_POST['so_line_id'];
+        $inventory_id = 5;
+        $inventory_name = "GATE_EXIT";
+
+
+
+        sendSerialsToAnother($serial_number, $so_head_id, $so_line_id, $inventory_id, $inventory_name);
+    }
+
+
+
+
+
+    if (isset($_POST['reject_item_gate_exit_to_packaging'])) {
+
+
+        // Get POST variables
+        $serial_number = $_POST['serial_numbers'];
+        $so_head_id = $_POST['so_head_id'];
+        $so_line_id = $_POST['so_line_id'];
+        $inventory_id = 4;
+        $inventory_name = "PACKAGING";
+
+
+
+        sendSerialsToAnother($serial_number, $so_head_id, $so_line_id, $inventory_id, $inventory_name);
+    }
+
+
+    if (isset($_POST['send_item_gate_exit_to_installtion'])) {
+
+
+
+        // Get POST variables
+        $serial_number = $_POST['serial_numbers'];
+        $so_head_id = $_POST['so_head_id'];
+        $so_line_id = $_POST['so_line_id'];
+        $inventory_id = 10;
+        $inventory_name = "INSTALLION";
+
+
+
+        sendSerialsToAnother($serial_number, $so_head_id, $so_line_id, $inventory_id, $inventory_name);
+    }
+
+    if (isset($_POST['reject_item_installtion_to_gate_exit'])) {
+
+
+
+        // Get POST variables
+        $serial_number = $_POST['serial_numbers'];
+        $so_head_id = $_POST['so_head_id'];
+        $so_line_id = $_POST['so_line_id'];
+        $inventory_id = 5;
+        $inventory_name = "GATE_EXIT";
+
+        sendSerialsToAnother($serial_number, $so_head_id, $so_line_id, $inventory_id, $inventory_name);
+    }
+
+
 
 
 
@@ -415,6 +554,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         echo json_encode($response);
     }
+
+
+
+
+
+
 
     if (isset($_POST["removeSerial"])) {
 
@@ -519,6 +664,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         } else if ($mode == "assembly_items") {
             //this is assembly items
             $sql = "SELECT * FROM for_office.mtl_serial_number where  so_number= $so_head_id and so_line_number = $so_line_id and status='no' and inventory_id = 2 ;";
+        } else if ($mode == "qualitycheck_items") {
+            //this is assembly items
+            $sql = "SELECT * FROM for_office.mtl_serial_number where  so_number= $so_head_id and so_line_number = $so_line_id and status='no' and inventory_id = 9 ;";
+        } else if ($mode == "packaging_items") {
+            //this is assembly items
+            $sql = "SELECT * FROM for_office.mtl_serial_number where  so_number= $so_head_id and so_line_number = $so_line_id and status='no' and inventory_id = 4 ;";
+        } else if ($mode == "gate_exit_items") {
+            //this is assembly items
+            $sql = "SELECT * FROM for_office.mtl_serial_number where  so_number= $so_head_id and so_line_number = $so_line_id and status='no' and inventory_id = 5 ;";
+        } else if ($mode == "installation_items") {
+            //this is assembly items
+            $sql = "SELECT * FROM for_office.mtl_serial_number where  so_number= $so_head_id and so_line_number = $so_line_id and status='no' and inventory_id = 10 ;";
         }
 
 
@@ -556,4 +713,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         echo  json_encode($response);
     }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if (isset($_POST['send_item_to_qc'])) {
+
+
+    // Get POST variables
+    $serial_number = $_POST['serial_numbers'];
+    $so_head_id = $_POST['so_head_id'];
+    $so_line_id = $_POST['so_line_id'];
 }

@@ -148,7 +148,7 @@ const setSerialData = (so_head_id, so_line_id, mode) => {
               .append(`      <tr slid='${so_line_id}' so='${so_head_id}' class="border-b border-gray-200 dark:border-gray-700">
                           <td class="px-6 py-4">
                               <div class="flex items-center mb-4">
-    <input id="default-checkbox" serial_number='${Element.serial_number}'  type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+    <input id="default-checkbox" serial_number='${Element.serial_number}'  type="checkbox" value="" class="w-4 h-4 cursor-pointer text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
     
 </div>
                           </td>
@@ -221,7 +221,6 @@ $("#reject_serials_issue").click(function (e) {
 });
 
 const remove_srial_number_from_so = () => {
-
   let serial_numbers = [];
 
   let tbody = document.getElementById("setAllocatedTbody");
@@ -258,7 +257,7 @@ const remove_srial_number_from_so = () => {
 
       if (data.success) {
         alert("Serial number removed successfully");
-        setSerialData(so_head_id, so_line_id,"issue_items");
+        setSerialData(so_head_id, so_line_id, "issue_items");
         Window.location.reload();
       }
     },
@@ -271,13 +270,6 @@ const remove_srial_number_from_so = () => {
 };
 
 $("#send_serials_to_assembly").click(function (e) {
-
-
-
-
-
-
-
   let serial_numbers = [];
 
   let tbody = document.getElementById("setAllocatedTbody");
@@ -306,6 +298,52 @@ $("#send_serials_to_assembly").click(function (e) {
 
   console.log(data);
 
+  $.post(
+    "./phpAjax/mainProjectStatusAjax.php",
+    data,
+    function (data, textStatus, jqXHR) {
+      console.log(data);
+
+      if (data.success) {
+        alert("Serial success fully transfered to assembly ");
+        setSerialData(so_head_id, so_line_id, "issue_items");
+        Window.location.reload();
+      }
+    },
+    "json"
+  ).fail(function (error) {
+    console.log(error);
+  });
+});
+
+$("#send_serials_quality_check").click(function (e) {
+  let serial_numbers = [];
+
+  let tbody = document.getElementById("setAllocatedTbody");
+
+  let checke_input = tbody.querySelectorAll("tr input:checked");
+
+  console.log(checke_input);
+
+  let tr = checke_input[0].closest("tr");
+
+  let so_line_id = tr.getAttribute("slid");
+  let so_head_id = tr.getAttribute("so");
+
+  checke_input.forEach((check_box) => {
+    let serial_number = $(check_box).attr("serial_number");
+
+    serial_numbers.push(serial_number);
+  });
+
+  let data = {
+    send_item_to_qc: "send_item_to_qc",
+    so_line_id: so_line_id,
+    so_head_id: so_head_id,
+    serial_numbers: serial_numbers,
+  };
+
+  console.log(data);
 
   $.post(
     "./phpAjax/mainProjectStatusAjax.php",
@@ -315,7 +353,53 @@ $("#send_serials_to_assembly").click(function (e) {
 
       if (data.success) {
         alert("Serial number removed successfully");
-        setSerialData(so_head_id, so_line_id,"assembly_items");
+        setSerialData(so_head_id, so_line_id, "assembly_items");
+        Window.location.reload();
+      }
+    },
+    "json"
+  ).fail(function (error) {
+    console.log(error);
+  });
+});
+$("#reject_serials_to_issue").click(function (e) {
+  let serial_numbers = [];
+
+  let tbody = document.getElementById("setAllocatedTbody");
+
+  let checke_input = tbody.querySelectorAll("tr input:checked");
+
+  console.log(checke_input);
+
+  let tr = checke_input[0].closest("tr");
+
+  let so_line_id = tr.getAttribute("slid");
+  let so_head_id = tr.getAttribute("so");
+
+  checke_input.forEach((check_box) => {
+    let serial_number = $(check_box).attr("serial_number");
+
+    serial_numbers.push(serial_number);
+  });
+
+  let data = {
+    reject_item_assembly_to_store: "reject_item_assembly_to_store",
+    so_line_id: so_line_id,
+    so_head_id: so_head_id,
+    serial_numbers: serial_numbers,
+  };
+
+  console.log(data);
+
+  $.post(
+    "./phpAjax/mainProjectStatusAjax.php",
+    data,
+    function (data, textStatus, jqXHR) {
+      console.log(data);
+
+      if (data.success) {
+        alert("Serial's issues items successfully rejected");
+        setSerialData(so_head_id, so_line_id, "assembly_items");
         Window.location.reload();
       }
     },
@@ -324,12 +408,141 @@ $("#send_serials_to_assembly").click(function (e) {
     console.log(error);
   });
 
+});
 
 
 
+$("#reject_serials_to_assembly").click(function (e) {
+  
+  
+  e.preventDefault();
 
-
-
-
+  serialTransferBySerial("reject_item_quality_check_to_assembly","qualitycheck_items","success fully items rejected and transfered to assembly")
 
 });
+
+
+
+
+$("#send_serials_to_packaging").click(function (e) {
+  
+  
+  e.preventDefault();
+
+  serialTransferBySerial("send_item_quality_check_to_packaging","qualitycheck_items","success fully items trsnsfered to packaging ")
+
+});
+
+
+$("#reject_serials_to_quality_check").click(function (e) {
+  
+  
+  e.preventDefault();
+
+  serialTransferBySerial("reject_item_packaging_to_quality_check","packaging_items","success fully items rejected and transfered to quality_check ")
+
+});
+
+$("#send_serials_to_gate_exit").click(function (e) {
+
+  
+  
+  e.preventDefault();
+
+  serialTransferBySerial("send_item_packaging_to_gate_exit","packaging_items","success fully items tranfered  transfered to gate exit ")
+
+});
+
+
+$("#reject_serials_to_packaging").click(function (e) {
+
+  
+  
+  e.preventDefault();
+
+  serialTransferBySerial("reject_item_gate_exit_to_packaging","gate_exit_items","success fully  items rejeted tranfered   to gate exit ")
+
+});
+
+
+$("#send_serials_to_installion").click(function (e) {
+
+  
+  
+  e.preventDefault();
+
+  serialTransferBySerial("send_item_gate_exit_to_installtion","gate_exit_items","success fully  items  tranfered gate exit to installation ")
+
+});
+
+$("#reject_serials_to_gate_exit").click(function (e) {
+
+  
+
+  e.preventDefault();
+
+  serialTransferBySerial("reject_item_installtion_to_gate_exit","installation_items","Success fully items rejeted transfer to gateway exit ")
+
+});
+
+
+
+
+
+
+
+
+function serialTransferBySerial(transferName, invetoryName, message) {
+  let serial_numbers = [];
+
+  let tbody = document.getElementById("setAllocatedTbody");
+  let checke_input = tbody.querySelectorAll("tr input:checked");
+
+  // Check if any checkboxes are selected
+  if (checke_input.length === 0) {
+    alert("Please select at least one serial number.");
+    return;
+  }
+
+  console.log(checke_input);
+
+  let tr = checke_input[0].closest("tr");
+  let so_line_id = tr.getAttribute("slid");
+  let so_head_id = tr.getAttribute("so");
+
+  checke_input.forEach((check_box) => {
+    let serial_number = $(check_box).attr("serial_number");
+    serial_numbers.push(serial_number);
+  });
+
+  let data = {
+
+    so_line_id: so_line_id,
+    so_head_id: so_head_id,
+    serial_numbers: serial_numbers,
+  };
+
+  data[transferName]=transferName
+
+  console.log(data);
+
+  $.post(
+    "./phpAjax/mainProjectStatusAjax.php",
+    data,
+    function (data, textStatus, jqXHR) {
+      console.log(data);
+
+      if (data.success) {
+        alert(message);
+        setSerialData(so_head_id, so_line_id, invetoryName);
+        // window.location.reload();  // Fixed typo here (Window -> window)
+      } else {
+        alert("Error: " + data.message);  // Assuming the response has a message field for errors
+      }
+    },
+    "json"
+  ).fail(function (error) {
+    console.log(error);
+    alert("An error occurred. Please try again.");
+  });
+}
