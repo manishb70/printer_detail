@@ -1292,7 +1292,7 @@
 
                                         </td>
                                         <td class="px-6 text-blue underline py-1">
-                                            <a onClick="setSerialData(<?php echo $row['so_number'] ?>,<?php echo $row['id'] ?>,'installation_items')">See items</a>
+                                            <!-- <a onClick="setSerialData(<?php echo $row['so_number'] ?>,<?php echo $row['id'] ?>,'installation_items')">See items</a> -->
                                         </td>
                                         <td class="px-6 py-1">
                                             <input type="date">
@@ -1380,7 +1380,12 @@
                     <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
                         <tr>
                             <th scope="col" class="px-6 py-3">
-
+                            
+                            <div class="flex flex-col items-start ">
+                                <br>
+                                <label for="default-checkbox" class="ms-2   text-gray-900 dark:text-gray-300">Select all</label>
+                                <input id="selectAllCheckBox" type="checkbox" value="" class=" m-1  text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+</div>
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 S.No

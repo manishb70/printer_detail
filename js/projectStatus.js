@@ -148,7 +148,7 @@ const setSerialData = (so_head_id, so_line_id, mode) => {
               .append(`      <tr slid='${so_line_id}' so='${so_head_id}' class="border-b border-gray-200 dark:border-gray-700">
                           <td class="px-6 py-4">
                               <div class="flex items-center mb-4">
-    <input id="default-checkbox" serial_number='${Element.serial_number}'  type="checkbox" value="" class="w-4 h-4 cursor-pointer text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+    <input id="default-checkbox" serial_number='${Element.serial_number}'  type="checkbox" value="" class="w-4 h-4 cursor-pointer rowCheckbox text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
     
 </div>
                           </td>
@@ -407,90 +407,77 @@ $("#reject_serials_to_issue").click(function (e) {
   ).fail(function (error) {
     console.log(error);
   });
-
 });
-
-
 
 $("#reject_serials_to_assembly").click(function (e) {
-  
-  
   e.preventDefault();
 
-  serialTransferBySerial("reject_item_quality_check_to_assembly","qualitycheck_items","success fully items rejected and transfered to assembly")
-
+  serialTransferBySerial(
+    "reject_item_quality_check_to_assembly",
+    "qualitycheck_items",
+    "success fully items rejected and transfered to assembly"
+  );
 });
-
-
-
 
 $("#send_serials_to_packaging").click(function (e) {
-  
-  
   e.preventDefault();
 
-  serialTransferBySerial("send_item_quality_check_to_packaging","qualitycheck_items","success fully items trsnsfered to packaging ")
-
+  serialTransferBySerial(
+    "send_item_quality_check_to_packaging",
+    "qualitycheck_items",
+    "success fully items trsnsfered to packaging "
+  );
 });
 
-
 $("#reject_serials_to_quality_check").click(function (e) {
-  
-  
   e.preventDefault();
 
-  serialTransferBySerial("reject_item_packaging_to_quality_check","packaging_items","success fully items rejected and transfered to quality_check ")
-
+  serialTransferBySerial(
+    "reject_item_packaging_to_quality_check",
+    "packaging_items",
+    "success fully items rejected and transfered to quality_check "
+  );
 });
 
 $("#send_serials_to_gate_exit").click(function (e) {
-
-  
-  
   e.preventDefault();
 
-  serialTransferBySerial("send_item_packaging_to_gate_exit","packaging_items","success fully items tranfered  transfered to gate exit ")
-
+  serialTransferBySerial(
+    "send_item_packaging_to_gate_exit",
+    "packaging_items",
+    "success fully items tranfered  transfered to gate exit "
+  );
 });
-
 
 $("#reject_serials_to_packaging").click(function (e) {
-
-  
-  
   e.preventDefault();
 
-  serialTransferBySerial("reject_item_gate_exit_to_packaging","gate_exit_items","success fully  items rejeted tranfered   to gate exit ")
-
+  serialTransferBySerial(
+    "reject_item_gate_exit_to_packaging",
+    "gate_exit_items",
+    "success fully  items rejeted tranfered   to gate exit "
+  );
 });
 
-
 $("#send_serials_to_installion").click(function (e) {
-
-  
-  
   e.preventDefault();
 
-  serialTransferBySerial("send_item_gate_exit_to_installtion","gate_exit_items","success fully  items  tranfered gate exit to installation ")
-
+  serialTransferBySerial(
+    "send_item_gate_exit_to_installtion",
+    "gate_exit_items",
+    "success fully  items  tranfered gate exit to installation "
+  );
 });
 
 $("#reject_serials_to_gate_exit").click(function (e) {
-
-  
-
   e.preventDefault();
 
-  serialTransferBySerial("reject_item_installtion_to_gate_exit","installation_items","Success fully items rejeted transfer to gateway exit ")
-
+  serialTransferBySerial(
+    "reject_item_installtion_to_gate_exit",
+    "installation_items",
+    "Success fully items rejeted transfer to gateway exit "
+  );
 });
-
-
-
-
-
-
-
 
 function serialTransferBySerial(transferName, invetoryName, message) {
   let serial_numbers = [];
@@ -516,13 +503,12 @@ function serialTransferBySerial(transferName, invetoryName, message) {
   });
 
   let data = {
-
     so_line_id: so_line_id,
     so_head_id: so_head_id,
     serial_numbers: serial_numbers,
   };
 
-  data[transferName]=transferName
+  data[transferName] = transferName;
 
   console.log(data);
 
@@ -537,7 +523,7 @@ function serialTransferBySerial(transferName, invetoryName, message) {
         setSerialData(so_head_id, so_line_id, invetoryName);
         // window.location.reload();  // Fixed typo here (Window -> window)
       } else {
-        alert("Error: " + data.message);  // Assuming the response has a message field for errors
+        alert("Error: " + data.message); // Assuming the response has a message field for errors
       }
     },
     "json"
@@ -546,3 +532,26 @@ function serialTransferBySerial(transferName, invetoryName, message) {
     alert("An error occurred. Please try again.");
   });
 }
+
+
+const selectAllCheckbox = document.getElementById('selectAllCheckBox');
+
+
+selectAllCheckbox.addEventListener('change', function() {
+  console.log("hello");
+  let rowCheckboxes = document.querySelectorAll('#setAllocatedTbody input[type="checkbox"]');
+
+  console.log(rowCheckboxes );
+  rowCheckboxes.forEach(checkbox => {
+    checkbox.checked = selectAllCheckbox.checked;
+    console.log("frj");
+  });
+});
+
+
+rowCheckboxes.forEach(checkbox => {
+  checkbox.addEventListener('change', function() {
+    
+    selectAllCheckbox.checked = rowCheckboxes.length === [...rowCheckboxes].filter(c => c.checked).length;
+  });
+});
