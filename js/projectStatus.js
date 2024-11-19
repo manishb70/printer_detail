@@ -549,6 +549,7 @@ selectAllCheckbox.addEventListener('change', function() {
 });
 
 
+
 rowCheckboxes.forEach(checkbox => {
   checkbox.addEventListener('change', function() {
     
