@@ -112,6 +112,10 @@ const setSerialData = (so_head_id, so_line_id, mode) => {
 
   $("#setTitleOfAllocatedSerial").text(mode);
 
+  $("#DismentalItem").attr("data-id",mode);
+
+
+
   console.log(mode);
   // (mode =="issue_stage")
 
@@ -129,6 +133,7 @@ const setSerialData = (so_head_id, so_line_id, mode) => {
   });
 
   $("#closeModalBtn").show();
+  $("#DismentalItem").show()
 
   $.getJSON(
     "./phpAjax/mainProjectStatusAjax.php",
@@ -469,6 +474,7 @@ $("#send_serials_to_installion").click(function (e) {
   );
 });
 
+
 $("#reject_serials_to_gate_exit").click(function (e) {
   e.preventDefault();
 
@@ -478,6 +484,35 @@ $("#reject_serials_to_gate_exit").click(function (e) {
     "Success fully items rejeted transfer to gateway exit "
   );
 });
+
+
+
+$("#DismentalItem").click(function (e) {
+  e.preventDefault();
+
+
+  let inventor_name = $(this).attr("data-id");
+
+
+  serialTransferBySerial(
+    "send_item_to_disemnetal",
+    inventor_name,
+    "Success fully items  transfer  "+inventor_name+ " to gateway exit "
+  );
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function serialTransferBySerial(transferName, invetoryName, message) {
   let serial_numbers = [];

@@ -409,8 +409,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         sendSerialsToAnother($serial_number, $so_head_id, $so_line_id, $inventory_id, $inventory_name);
     }
+    if (isset($_POST['send_item_to_disemnetal'])) {
 
 
+
+        // Get POST variables
+        $serial_number = $_POST['serial_numbers'];
+        $so_head_id = $_POST['so_head_id'];
+        $so_line_id = $_POST['so_line_id'];
+        $inventory_id = 3;
+        $inventory_name = "DISAMENTAL";
+
+
+
+        sendSerialsToAnother($serial_number, $so_head_id, $so_line_id, $inventory_id, $inventory_name);
+    }
+
+
+    
 
 
 
@@ -676,6 +692,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         } else if ($mode == "installation_items") {
             //this is assembly items
             $sql = "SELECT * FROM for_office.mtl_serial_number where  so_number= $so_head_id and so_line_number = $so_line_id and status='no' and inventory_id = 10 ;";
+        }
+         else if ($mode == "disemntal_itmes") {
+            //this is assembly items
+            $sql = "SELECT * FROM for_office.mtl_serial_number where  so_number= $so_head_id and so_line_number = $so_line_id and status='no' and inventory_id = 3 ;";
         }
 
 
