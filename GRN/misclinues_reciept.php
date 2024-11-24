@@ -9,13 +9,21 @@
 </head>
 
 <body class="bg-gray-50 p-4 min-h-screen">
+<?php
+
+
+include("../navForLogged.php");
+
+
+
+?>
 
     <div class="max-w-7xl mx-auto bg-white rounded-lg shadow-md p-6">
         <h1 class="text-2xl font-bold text-center mb-8 underline">Miscellaneous Issue Form</h1>
 
         <form id="miscForm" class="space-y-6">
             <!-- Header Form Section -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div class="space-y-2">
                     <label for="poNumber" class="block text-sm font-medium text-gray-700">PO Number:</label>
                     <input type="text" id="poNumber" name="poNumber"
@@ -31,7 +39,7 @@
                     <input type="text" id="vendorName" name="vendorName"
                         class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                 </div>
-            </div>
+            </div> -->
 
             <!-- Table Section -->
             <div class="overflow-x-auto">
@@ -42,16 +50,29 @@
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Vendor Code</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Vendor Name</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Item Code</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Item Short Desc</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Item name</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Qty</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Unit price</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">total price</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="tableBody" class="bg-white divide-y divide-gray-200">
+                   
                         <!-- Rows will be added here dynamically -->
+
+
+
+
+                    <tbody id="tableBody" class="bg-white divide-y divide-gray-200">
+
+                        <!-- Rows will be added here dynamically -->
+                        
+
                     </tbody>
+
+
+
+                    
                 </table>
             </div>
 
@@ -69,134 +90,199 @@
         </form>
     </div>
 
+    <script src="../js/jquery.min.js"></script>
     <script>
-       document.addEventListener('DOMContentLoaded', function () {
-    const tableBody = document.getElementById('tableBody');
-    const addRowBtn = document.getElementById('addRowBtn');
-    const form = document.getElementById('miscForm');
-    const totalQtyField = document.getElementById('totalQty'); // Add a field for total quantity
-    let rowCount = 0;
 
-    // Function to calculate total quantity
-    function calculateTotalQty() {
-        const qtyInputs = document.querySelectorAll("input[name^='qty_']");
-        let totalQty = 0;
-        qtyInputs.forEach(input => {
-            const value = parseFloat(input.value) || 0; // Convert input value to number, default to 0
-            totalQty += value;
-        });
-        totalQtyField.value = totalQty.toFixed(2); // Update the total quantity field
+function exportToCSV(data, columnName, fileName) {
+  // Add the column name as the first row
+  const csvData = [[columnName], ...data.map(row => [row])];
+
+  // Convert the array into CSV format
+  const csvContent = csvData.map(row => row.join(",")).join("\n");
+
+  // Create a Blob from the CSV content
+  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+
+  // Create a link element for downloading the file
+  const link = document.createElement("a");
+
+  // Set the download attribute with the provided filename
+  link.download = fileName;
+
+  // Create an object URL for the Blob and set it as the href of the link
+  link.href = URL.createObjectURL(blob);
+
+  // Append the link to the document, trigger the click, and then remove it
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+
+
+
+    function calculateTotoal(event){
+
+        let currentRow = (event.target).closest("tr"); 
+
+
+            let qty = currentRow.querySelectorAll("input[name='qty']")
+            let unit_price = currentRow.querySelectorAll("input[name='unit_price']")
+            let total_price = currentRow.querySelectorAll("input[name='total_price']")
+
+
+            total_price[0].value = parseInt(qty[0].value) * parseInt(unit_price[0].value);
+
+
+
+
     }
 
-    // Function to create a new row
-    function createNewRow() {
-        rowCount++;
-        const row = document.createElement('tr');
-        row.id = `row_${rowCount}`;
-        row.className = 'hover:bg-gray-50';
+        function removeRow(event) {
 
-        const fields = ['serialNo', 'vendorCode', 'vendorName', 'itemCode',
-            'itemShortDesc', 'qty', 'slInvetory', 'subInvetory'
-        ];
 
-        fields.forEach(field => {
-            const td = document.createElement('td');
-            td.className = 'px-6 py-4 whitespace-nowrap';
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.name = `${field}_${rowCount}`;
-            input.id = `${field}_${rowCount}`;
-            input.className = 'w-full p-1 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm';
-            if (field === 'serialNo') {
-                input.value = rowCount;
-                input.readOnly = true;
-            } else if (field === 'qty') {
-                input.type = 'number';
-                input.min = '0';
-                input.oninput = calculateTotalQty; // Attach the calculate function to the qty input
+            console.log(this);
+                
+                let currentRow = (event.target).closest("tr");
+                console.log(currentRow.remove());
             }
-            td.appendChild(input);
-            row.appendChild(td);
-        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const tableBody = document.getElementById('tableBody');
 
-        // Add delete button
-        const deleteCell = document.createElement('td');
-        deleteCell.className = 'px-6 py-4 whitespace-nowrap';
-        const deleteButton = document.createElement('button');
-        deleteButton.type = 'button';
-        deleteButton.className = 'text-red-600 hover:text-red-800 focus:outline-none';
-        deleteButton.innerHTML = '🗑️';
-        deleteButton.onclick = () => {
-            if (tableBody.children.length > 1) {
-                row.remove();
-                calculateTotalQty(); // Recalculate total quantity after deletion
-            } else {
-                alert('Cannot delete the last row');
+            const addRowBtn = document.getElementById('addRowBtn');
+            const form = document.getElementById('miscForm');
+            let rowCount = (tableBody.querySelectorAll("tr")).length;
+
+            // Function to create a new row
+
+            function createNewRow() {
+                rowCount++;
+                const row = document.createElement('tr');
+                row.id = `row_${rowCount}`;
+                row.className = 'hover:bg-gray-50';
+
+                const fields = ['serialNo', 'vendorCode', 'vendorName', 'itemCode',
+                    'itemShortDesc', 'qty', 'slInvetory', 'subInvetory'
+                ];
+
+           
+                
+
+                $("#tableBody").append(`
+
+                  <tr id="row_1" class="hover:bg-gray-50">
+                            <td class="px-6 py-4 whitespace-nowrap">
+            ${rowCount}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <input type="text" name="vendorCode"  class="w-full p-1 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <input type="text" name="vendorName_1"  class="w-full p-1 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+                            </td>
+
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <input type="text" name="item_code"  class="w-full p-1 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <input type="text" name="item_name"  class="w-full p-1 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <input type="text" name="qty" onInput="calculateTotoal(event)"  class="w-full p-1 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <input type="text" name="unit_price" onInput="calculateTotoal(event)"   class="w-full p-1 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+                            </td>   
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <input type="text" name="total_price"  class="w-full p-1 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <button type="button" onclick="removeRow(event)" class="text-red-600 hover:text-red-800 focus:outline-none">🗑️</button>
+                            </td>
+                        </tr>
+                
+                
+                `);
             }
-        };
-        deleteCell.appendChild(deleteButton);
-        row.appendChild(deleteCell);
 
-        tableBody.appendChild(row);
-    }
+            // Add initial row
+            createNewRow();
 
-    // Add initial row
-    createNewRow();
+           
 
-    // Add row button click handler
-    addRowBtn.addEventListener('click', createNewRow);
+            // Add row button click handler
+            addRowBtn.addEventListener('click', createNewRow);
 
-    // Form submit handler
-    form.addEventListener('submit', function (e) {
-        e.preventDefault();
+            // Form submit handler
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
 
-        // Collect form data
-        const formData = {
-            poNumber: document.getElementById('poNumber').value,
-            vendorCode: document.getElementById('vendorCode').value,
-            vendorName: document.getElementById('vendorName').value,
-            totalQty: totalQtyField.value,
-            rows: []
-        };
+                // Collect form data
 
-        // Collect rows data
-        const rows = tableBody.getElementsByTagName('tr');
-        Array.from(rows).forEach((row, index) => {
-            const rowNum = index + 1;
-            const rowData = {
-                serialNo: document.getElementById(`serialNo_${rowNum}`).value,
-                vendorCode: document.getElementById(`vendorCode_${rowNum}`).value,
-                vendorName: document.getElementById(`vendorName_${rowNum}`).value,
-                itemCode: document.getElementById(`itemCode_${rowNum}`).value,
-                itemShortDesc: document.getElementById(`itemShortDesc_${rowNum}`).value,
-                qty: document.getElementById(`qty_${rowNum}`).value,
-                slInvetory: document.getElementById(`slInvetory_${rowNum}`).value,
-                subInvetory: document.getElementById(`subInvetory_${rowNum}`).value
-            };
-            formData.rows.push(rowData);
+                let trows = tableBody.querySelectorAll('tr');   
+                console.log(trows);
+
+
+                let data = {
+                    creating_reciept_of_miscelinius:"creating_reciept_of_miscelinius",
+                    mislinius_items:[]
+
+                    }   
+
+
+
+                    trows.forEach(row =>{
+                        let dataObject = {}
+
+
+                        row.querySelectorAll('input').forEach(input => {
+                            dataObject[input.name] = input.value;
+                        });
+
+                        data.mislinius_items.push(dataObject);  
+
+                            
+                    })
+
+                    console.log(data);
+
+
+
+                 // AJAX call to submit the form data to the server
+                 // Replace the following line with your AJAX call
+
+                    
+                 $.post("ajax/ajaxGrn.php", data,
+                    function (data, textStatus, jqXHR) {
+
+                        console.log(data);
+                        if(data.success){
+                            console.log('Form submitted successfully');
+                            // Clear the form
+
+                            exportToCSV(data.serialNumbers,"serial number","mislineriusserialnumber")
+                            alert("item_success fully created in store")
+
+                            form.reset();
+                        }
+
+
+                    },
+                    "json"
+                 ).fail(error=>{
+                    console.log(error);
+                 })
+
+
+
+                // Log the form data (replace with your submission logic)
+                    
+
+
+
+            });
         });
-
-        // Log the form data (replace with your submission logic)
-        console.log('Form Data:', formData);
-        alert('Form submitted! Check console for data.');
-    });
-});
-
     </script>
-
-    <script>
-          function updateTotal(inputElement) {
-    const row = inputElement.closest("tr");
-    const qty = row.querySelector(".qty-input").value || 0;
-    const unitPrice = row.querySelector(".unit-price-input").value || 0;
-    const totalPrice = row.querySelector(".total-price-input");
-
-    // Calculate the total price
-    totalPrice.value = (parseFloat(qty) * parseFloat(unitPrice)).toFixed(2);
-  }
-    </script>
-
-    
 </body>
 
 </html>
