@@ -104,6 +104,12 @@
                             id="contacts-styled-tab" data-tabs-target="#styled-installation" type="button" role="tab"
                             aria-controls="contacts" aria-selected="false">Installation</button>
                     </li>
+                    <li role="presentation">
+                        <button
+                            class="inline-block py-3 px-5 border-t border-r focus:outline-none border-l border-gray-500 rounded-t-lg"
+                            id="contacts-styled-tab" data-tabs-target="#styled-refurbished" type="button" role="tab"
+                            aria-controls="contacts" aria-selected="false">Refurbished items</button>
+                    </li>
                 </ul>
             </div>
             <div id="default-styled-tab-content">
@@ -560,7 +566,7 @@
                                                         class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280]     h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
 
 
-                                                    <a onClick="setSerialData(<?php echo $row['so_number'] ?>,<?php echo $row['id'] ?>,'issue_items')"
+                                                    <a onClick="setSerialData(<?php echo $row['so_number'] ?>,<?php echo $row['id'] ?>,'issue_items','STORE',1)"
                                                         class="font-medium text-blue-600 cursor-pointer dark:text-blue-500 underline">View allocated items</a>
 
                                                 </td>
@@ -824,7 +830,7 @@
                 </div>
             </div>
             <div class="hidden p-4 rounded-b-lg bg-gray-50 dark:bg-gray-200 border-x border-b border-gray-600" id="styled_disemental" role="tabpanel"
-            
+
                 aria-labelledby="contacts-tab">
                 <!-- <div class="flex gap-x-10 overflow-x-auto py-3">
                         <div>
@@ -1276,7 +1282,119 @@
 
                                         </td>
                                         <td class="px-6 text-blue underline py-1">
-                                            <a onClick="setSerialData(<?php echo $row['so_number'] ?>,<?php echo $row['id'] ?>,'installation_items')">See items</a>
+                                            <a onClick="setSerialData(<?php echo $row['so_number'] ?>,<?php echo $row['id'] ?>,'installation_items','INSTALLTION',10)">See items</a>
+                                        </td>
+                                        <td class="px-6 py-1">
+                                            <input type="date">
+                                        </td>
+                                        <td class="px-6 py-1 ">
+                                            <input type="txt" class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" name="remarks">
+                                        </td>
+                                        <td>
+                                            <a href="#"
+                                                class="font-medium text-blue-600 dark:text-blue-500 underline">Submit</a>
+                                        </td>
+                                    </tr>
+
+
+                            <?php
+
+                                    $i++;
+                                }
+                            }
+
+                            ?>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="hidden p-4 rounded-b-lg bg-gray-50 dark:bg-gray-200 border-x border-b border-gray-600" id="styled-refurbished" role="tabpanel"
+
+                aria-labelledby="contacts-tab">
+                <div>
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">
+                                    S.no
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Item code
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Sale qty
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Gate exit qty
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Show serial number
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    assmble date
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    remarks
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    <span class="sr-only">Submit</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+
+
+
+
+                            if (isset($so_number)) {
+
+
+                                $sql    = "select * from for_office.sale_order_items_lines where so_number= $so_number";
+
+                                $result = mysqli_query($con, $sql);
+
+                                $i = 1;
+                                while ($row = mysqli_fetch_assoc($result)) {
+
+
+                                    //getting the totol num ber of issued  items
+
+                                    $sql_issued = "select count(*) as issued_qty from for_office.mtl_serial_number where so_line_number=" . $row['id'] . " and status='no'  and inventory_id=6	";
+
+                                    $result_issued = mysqli_query($con, $sql_issued);
+
+                                    $row_issued = mysqli_fetch_assoc($result_issued);
+
+                                    $issued_qty = $row_issued['issued_qty'];
+
+                            ?>
+
+
+
+                                    <tr
+
+                                        class="bg-white border-b dark:bg-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-600">
+                                        <th><?php echo $i  ?></th>
+                                        <th scope="row"
+                                            class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <?php echo $row['item_code']  ?>
+                                        </th>
+                                        <td class="px-6 font-medium py-1">
+
+                                            <?php echo $row['qty']  ?>
+                                        </td>
+                                        <td class="px-6 font-bold py-1">
+
+
+                                            <?php echo $issued_qty  ?>
+
+
+                                        </td>
+                                        <td class="px-6 text-blue underline py-1">
+                                            <a onClick="setSerialData(<?php echo $row['so_number'] ?>,<?php echo $row['id'] ?>,'refurbished_items','INSTALLTION',10)">See items</a>
                                         </td>
                                         <td class="px-6 py-1">
                                             <input type="date">
@@ -1345,10 +1463,10 @@
     </div>
 
 
-    <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div id="modal" class="fixed inset-0 overflow-y-scroll bg-black bg-opacity-50 flex items-center justify-center hidden">
         <div
 
-            style="height: 80%;"
+            style="height: 90%;    ;"
             class="bg-white p-6 rounded-lg ">
 
             <h2 class="text-xl font-semibold text-center mb-4">Allocated Data <span id="setTitleOfAllocatedSerial"></span></h2>
@@ -1357,7 +1475,7 @@
             <div
 
 
-                style="    height: 85%;"
+                style="    max-height: 80%;"
 
                 class="relative h-full overflow-auto shadow-md sm:rounded-lg">
                 <table class="w-full  overflow-auto text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -1423,6 +1541,9 @@
             <div id="btn-are-carfully" class="flex justify-center gap-4">
                 <button id="closeModalBtn" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600">Close</button>
                 <button id="DismentalItem" data-id="" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-gray-600">Disemental items</button>
+                <button id="send_serials_to_refurbished" data-id="" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-gray-600">send refurshbished inventory </button>
+
+
                 <div id="issue_items" class="hidden">
                     <button id="reject_serials_issue" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-green-600">Reject the items</button>
                     <button id="send_serials_to_assembly" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">Send to assembly</button>
@@ -1451,7 +1572,41 @@
                     <!-- <button id="" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-green-600">Reject to gate exit </button> -->
                     <!-- <button id="send_serials_to_installion" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">send to installion</button> -->
                 </div>
+                <div id="refurbished_items" class="hidden">
+                    <button id="reject_serials_to_gate_exit" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-green-600">refurbished staged </button>
+                    <!-- <button id="send_serials_to_installion" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">send to installion</button> -->
+                </div>
+
+
+
+
             </div>
+
+            <div class="w-full max-w-sm min-w-[200px]">
+                <label class="block mb-1 text-sm text-slate-800">
+                    Transfer to other inventory
+                </label>
+
+                <div class="flex" >
+                    <div class="relative">
+                        <select  id="directTranferoptions" 
+
+
+                            class="min-w-20 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer">
+                            <option value="ind">india</option>
+                            
+                        </select>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.2" stroke="currentColor" class="h-5 w-5 ml-1 absolute top-2.5 right-2.5 text-slate-700">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+                        </svg>
+                    </div>
+                    <button type="button" id="directTransfertoAnySubInventory" class="bg-white  hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+                        Transfer
+                    </button>
+                </div>
+            </div>
+
+
         </div>
     </div>
 

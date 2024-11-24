@@ -13,8 +13,7 @@ include('./dbconnection/db.php');
 
 
 
-$sql = "SELECT * FROM mtl_serial_number a join  mtl_sub_inventory b on a.inventory_id=b.id;
-";
+$sql = "SELECT * FROM for_office.move_order_item_header where serial_number is not null order by created_date ;";
 
 
 
@@ -32,9 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $query = $_GET["search_query"];
 
         $query=mysqli_real_escape_string($con,$query);
+                            
+        $sql = "SELECT * FROM for_office.move_order_item_header where serial_number = '$query' order by   created_date ;";
         
-        
-        $sql = "SELECT * FROM mtl_serial_number a join  mtl_sub_inventory b on a.inventory_id=b.id where a.serial_number='$query'; ";
 
                 // echo  $sql;
 
@@ -60,6 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/fontawesome.min.css" integrity="sha512-lauN4D/0AgFUGvmMR+knQnbOADyD/XuQ8VF18I8Ll0+TLvsujshyxvU+uzogmQbSq6qJd5jnUdYtK8ShxXMlSg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        
     </script>
     <title>Project status</title>
 </head>
@@ -190,22 +191,24 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                         </div>
                     </div>
                 </div>
+                <h1><i class="fa-solid fa-arrow-right"></i></h1>
                 <div class="overflow-x-auto">
                     <table id="dataTable"
-                        class="w-full text-sm whitespace-nowrap text-left text-gray-500 dark:text-gray-400">
+                        class="w-full text-sm whitespace-nowrap text-center text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">S.no </th>
+                                <th scope="col" class="px-6 py-3">Move order number </th>
                                 <th scope="col" class="px-6 py-3">Serial number</th>
 
                                 <th scope="col" class="px-6 py-3">item code </th>
-                                <th scope="col" class="px-6 py-3">Unit price </th>
-                                <th scope="col" class="px-6 py-3">status </th>
-                                <th scope="col" class="px-6 py-3">inventory id </th>
-                                <th scope="col" class="px-6 py-3">inventory name </th>
+                                <th scope="col" class="px-6 py-3">transaction qty </th>
+                                <th scope="col" class="px-6 py-3">source inventory  </th>
+                                <th scope="col" class="px-6 py-3">destination inventory </th>
+                                <th scope="col" class="px-6 py-3">SO head number  </th>
+                                <th scope="col" class="px-6 py-3">so line number </th>
+                                
 
-                                <th scope="col" class="px-6 py-3">Lot number</th>
-                                <th scope="col" class="px-6 py-3">SO number</th>
                                 <th scope="col" class="px-6 py-3">Created by</th>
                                 <th scope="col" class="px-6 py-3">Created date</th>
                                 
@@ -235,36 +238,38 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                                         <?php echo $i ?>
                                     </td>
                                     <td class="px-6 font-medium py-4">
+                                        <?php echo $row['id'] ?>
+                                    </td>
+                                    <td class="px-6 font-medium py-4">
                                         <?php echo $row['serial_number'] ?>
                                     </td>
                                     <td class="px-6 py-4">
                                         <?php echo $row['item_code'] ?>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <?php echo $row['unit_price'] ?>
+                                        <?php echo $row['transaction_qty'] ?>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <?php echo $row['status'] ?>
+                                        <?php echo $row['source_invetory'] ?>
+                                       
                                     </td>
                                     <td class="px-6 py-4">
-                                        <?php echo $row['inventory_id'] ?>
+                                        <?php echo $row['destination_inv'] ?>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <?php echo $row['sub_inventory_name'] ?>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <?php echo $row['lot_number'] ?>
+                                        <?php echo $row['so_number'] ?>
                                     </td>
                                     <td class="px-6 py-4">
                                         <?php echo $row['so_line_number'] ?>
                                     </td>
+
+                                   
                                     <td class="px-6 py-4">
                                         <?php echo $row['created_by'] ?>
                                     </td>
                                     <td class="px-6 py-4">
                                         <?php echo $row['created_date'] ?>
                                     </td>
-                                   
                       
                                     <td class="px-6 py-3 flex items-center justify-end">
                                         <button id="apple-imac-27-dropdown-button"

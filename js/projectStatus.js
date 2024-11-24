@@ -102,7 +102,7 @@ async function issueItems() {
   console.log(currentTr);
 }
 
-const setSerialData = (so_head_id, so_line_id, mode,inv_name,inv_id) => {
+const setSerialData = (so_head_id, so_line_id, mode, inv_name, inv_id) => {
   let data = {
     getSetSerialData: "getSetSerialData",
     so_head_id: so_head_id,
@@ -112,11 +112,10 @@ const setSerialData = (so_head_id, so_line_id, mode,inv_name,inv_id) => {
 
   $("#setTitleOfAllocatedSerial").text(mode);
 
-  $("#DismentalItem").attr("data-id",mode);
-  $("#modal").attr("inv-name",inv_name);
-  $("#modal").attr("inv-id",inv_id);
-
-
+  $("#DismentalItem").attr("data-id", mode);
+  $("#send_serials_to_refurbished").attr("data-id", mode);
+  $("#modal").attr("inv-name", inv_name);
+  $("#modal").attr("inv-id", inv_id);
 
   console.log(mode);
   // (mode =="issue_stage")
@@ -135,7 +134,38 @@ const setSerialData = (so_head_id, so_line_id, mode,inv_name,inv_id) => {
   });
 
   $("#closeModalBtn").show();
-  $("#DismentalItem").show()
+  $("#DismentalItem").show();
+  $("#send_serials_to_refurbished").show();
+
+  //TO SET OPTIONS FOR DIRECT TRANSFER INVENTIRY TO
+
+  $("#directTranferoptions").html("");
+  $.getJSON(
+    "./phpAjax/mainProjectStatusAjax.php",
+    {
+      getOptionsForInventory: "getOptionsForInventory",
+      inv_id: inv_id,
+    },
+    function (data, textStatus, jqXHR) {
+      console.log(data);
+      if (data.success) {
+        let optdata = data.data;
+
+        optdata.forEach((option) => {
+          $("#directTranferoptions").append(`
+                
+                  <option value="${option.id}">${option.sub_inventory_name}</option>
+                
+                `);
+        });
+      }
+    }
+  ).fail(error => {
+
+    console.log(error);
+
+  }
+  )
 
   $.getJSON(
     "./phpAjax/mainProjectStatusAjax.php",
@@ -350,6 +380,9 @@ $("#send_serials_quality_check").click(function (e) {
     serial_numbers: serial_numbers,
   };
 
+  data["source_inventory_name"] = $("#modal").attr("inv-name");
+  data["source_inventory_id"] = $("#modal").attr("inv-id");
+
   console.log(data);
 
   $.post(
@@ -476,7 +509,6 @@ $("#send_serials_to_installion").click(function (e) {
   );
 });
 
-
 $("#reject_serials_to_gate_exit").click(function (e) {
   e.preventDefault();
 
@@ -487,21 +519,59 @@ $("#reject_serials_to_gate_exit").click(function (e) {
   );
 });
 
-
-
 $("#DismentalItem").click(function (e) {
   e.preventDefault();
 
-
   let inventor_name = $(this).attr("data-id");
-
 
   serialTransferBySerial(
     "send_item_to_disemnetal",
     inventor_name,
-    "Success fully items  transfer  "+inventor_name+ " to gateway exit "
+    "Success fully items  transfer  " + inventor_name + " to gateway exit "
   );
 });
+
+$("#send_serials_to_refurbished").click(function (e) {
+  e.preventDefault();
+
+  let inventor_name = $(this).attr("data-id");
+
+  const destination_inventory_name = "REFURBISHENT";
+  const destination_inventory_id = 6;
+
+  diretct_serialTransferBySerial(
+    "reject_item_installtion_to_gate_exit",
+    inventor_name,
+    "Success fully items " + inventor_name + " transfer to refurbished ",
+    destination_inventory_id,
+    destination_inventory_name
+  );
+});
+
+
+
+
+$("#directTransfertoAnySubInventory").click(function (e) {
+
+  e.preventDefault();
+
+  let inventor_name = $("#send_serials_to_refurbished").attr("data-id");
+
+
+
+  const destination_inventory_name = $("#directTranferoptions")[0].options[$("#directTranferoptions")[0].selectedIndex].text;
+  const destination_inventory_id = $("#directTranferoptions").val();
+
+  diretct_serialTransferBySerial(
+    "reject_item_installtion_to_gate_exit",
+    inventor_name,
+    "Success fully items " + inventor_name + " transfer to " +destination_inventory_name,
+    destination_inventory_id,
+    destination_inventory_name
+  );
+});
+
+
 
 
 
@@ -545,10 +615,8 @@ function serialTransferBySerial(transferName, invetoryName, message) {
     serial_numbers: serial_numbers,
   };
 
-
-  data["source_inv_name"]=$("#modal").attr('inv-name');
-  data["source_inv_id"]=$("#modal").attr('inv-id');
-
+  data["source_inventory_name"] = $("#modal").attr("inv-name");
+  data["source_inventory_id"] = $("#modal").attr("inv-id");
 
   data[transferName] = transferName;
 
@@ -574,27 +642,101 @@ function serialTransferBySerial(transferName, invetoryName, message) {
     alert("An error occurred. Please try again.");
   });
 }
+function diretct_serialTransferBySerial(
+  transferName,
+  invetoryName,
+  message,
+  destination_inventory_id,
+  destination_inventory_name
+) {
+  let serial_numbers = [];
+
+  let tbody = document.getElementById("setAllocatedTbody");
+  let checke_input = tbody.querySelectorAll("tr input:checked");
+
+  // Check if any checkboxes are selected
+  if (checke_input.length === 0) {
+    alert("Please select at least one serial number.");
+    return;
+  }
+
+  console.log(checke_input);
+
+  let tr = checke_input[0].closest("tr");
+  let so_line_id = tr.getAttribute("slid");
+  let so_head_id = tr.getAttribute("so");
+
+  checke_input.forEach((check_box) => {
+    let serial_number = $(check_box).attr("serial_number");
+    serial_numbers.push(serial_number);
+  });
+
+  let data = {
+    so_line_id: so_line_id,
+    so_head_id: so_head_id,
+    serial_numbers: serial_numbers,
+    move_item_serails: "move_item_serails",
+  };
+
+  data["source_inventory_name"] = $("#modal").attr("inv-name");
+  data["source_inventory_id"] = $("#modal").attr("inv-id");
+  data["destination_inventory_id"] = destination_inventory_id;
+  data["destination_inventory_name"] = destination_inventory_name;
+
+  console.log(data);
 
 
-const selectAllCheckbox = document.getElementById('selectAllCheckBox');
 
 
-selectAllCheckbox.addEventListener('change', function() {
+
+
+
+
+
+
+
+
+
+  $.post(
+    "./phpAjax/mainProjectStatusAjax.php",
+    data,
+    function (data, textStatus, jqXHR) {
+      console.log(data);
+
+      if (data.success) {
+        alert(message);
+        setSerialData(so_head_id, so_line_id, invetoryName);
+        // window.location.reload();  // Fixed typo here (Window -> window)
+      } else {
+        alert("Error: " + data.message); // Assuming the response has a message field for errors
+      }
+    },
+    "json"
+  ).fail(function (error) {
+    console.log(error);
+    alert("An error occurred. Please try again.");
+  });
+}
+
+const selectAllCheckbox = document.getElementById("selectAllCheckBox");
+
+selectAllCheckbox.addEventListener("change", function () {
   console.log("hello");
-  let rowCheckboxes = document.querySelectorAll('#setAllocatedTbody input[type="checkbox"]');
+  let rowCheckboxes = document.querySelectorAll(
+    '#setAllocatedTbody input[type="checkbox"]'
+  );
 
-  console.log(rowCheckboxes );
-  rowCheckboxes.forEach(checkbox => {
+  console.log(rowCheckboxes);
+  rowCheckboxes.forEach((checkbox) => {
     checkbox.checked = selectAllCheckbox.checked;
     console.log("frj");
   });
 });
 
-
-
-rowCheckboxes.forEach(checkbox => {
-  checkbox.addEventListener('change', function() {
-    
-    selectAllCheckbox.checked = rowCheckboxes.length === [...rowCheckboxes].filter(c => c.checked).length;
+rowCheckboxes.forEach((checkbox) => {
+  checkbox.addEventListener("change", function () {
+    selectAllCheckbox.checked =
+      rowCheckboxes.length ===
+      [...rowCheckboxes].filter((c) => c.checked).length;
   });
 });

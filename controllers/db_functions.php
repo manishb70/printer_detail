@@ -1,9 +1,10 @@
 <?php
 
 
-include "../dbconnection/db.php" ;
+include "../dbconnection/db.php";
 
-function getTableData($tableName) {
+function getTableData($tableName)
+{
 
     global $con;
 
@@ -45,7 +46,8 @@ function getTableData($tableName) {
 
 
 
-function getTableDataById($tableName, $columnName, $id) {
+function getTableDataById($tableName, $columnName, $id)
+{
     global $con;
 
     $conn = $con;
@@ -88,7 +90,7 @@ function getTableDataById($tableName, $columnName, $id) {
     }
 }
 
-function sendSerialsToAnother($serial_number, $so_head_id, $so_line_id, $inventory_id, $inventory_name)
+function sendSerialsToAnother($serial_number, $so_head_id, $so_line_id, $inventory_id, $inventory_name, $source_inventory_name)
 {
 
     global $con;
@@ -106,6 +108,15 @@ function sendSerialsToAnother($serial_number, $so_head_id, $so_line_id, $invento
 
     // Calculate the total quantity based on the number of serial numbers
     $total_qty = count($serial_number);
+
+
+
+
+
+
+
+
+
 
     // Initialize response variables
     $quantity_to_inserted = 0;
@@ -144,7 +155,33 @@ function sendSerialsToAnother($serial_number, $so_head_id, $so_line_id, $invento
 
             // Execute the statement and check if it succeeded
             if ($stmt->execute()) {
-                $quantity_to_inserted++;
+
+
+
+
+
+                $qury_to_make_transaction  = "INSERT INTO `for_office`.`move_order_item_header` (`so_number`, `so_line_number`, `serial_number`, `transaction_type`,  `item_code`,  `source_invetory`, `destination_inv`, `transaction_qty`,  `created_by`, `created_date`) 
+                VALUES ($so_head_id, $so_line_id, '$s_number', 'Sale order allocation', '$item_code',  '$source_inventory_name', '$inventory_name', 1,  '$current_user', '$current_date');";
+
+
+// echo "$qury_to_make_transaction";
+                // Prepare the query and bind parameters
+
+                $result_stmt = mysqli_query($con,$qury_to_make_transaction);
+
+                // Execute the statement and check if it succeeded
+                if ($result_stmt) {
+                    $quantity_to_inserted++;
+                    // $quantity_to_inserted++;
+                } else {
+                    $response['message'] = "Error while making move order";
+                    $response['success'] = false;
+                    $response['error'] = mysqli_error($con);;
+                    $response['num_of_created'] = $quantity_to_inserted;
+                    $response['at_error'] = $value;
+                    echo json_encode($response);
+                    exit;
+                }
             } else {
                 $response['message'] = "Error while updating serial number";
                 $response['success'] = false;
@@ -167,5 +204,3 @@ function sendSerialsToAnother($serial_number, $so_head_id, $so_line_id, $invento
         echo json_encode($response);
     }
 }
-
-?>
