@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+$current_date =  date('Y-m-d H:i:s');
+
+$current_user = $_SESSION['username'];
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -597,7 +600,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                         $stmt = $con->prepare($sql);
 
-                        $stmt->bind_param('siiissssisi', $serial_number, $grnNumber, $grn_line_id, $po_number, $po_lineid, $item_code, $current_user, $current_date,$mtnl_transaction_id,$lot_name,$unit_price);
+                        $stmt->bind_param('siiissssisi', $serial_number, $grnNumber, $grn_line_id, $po_number, $po_lineid, $item_code, $current_user, $current_date, $mtnl_transaction_id, $lot_name, $unit_price);
 
                         $stmt->execute();
                     }
@@ -858,6 +861,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         echo json_encode($response);
     }
+
+
+
+    //miscelliniuous recepit
+
+
+    if(isset($_POST['creating_reciept_of_miscelinius_'])){
+
+
+        $mislinius_items = $_POST['mislinius_items'];
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    }
+
+
+
 }
 
 
