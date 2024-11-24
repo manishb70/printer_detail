@@ -102,7 +102,7 @@ async function issueItems() {
   console.log(currentTr);
 }
 
-const setSerialData = (so_head_id, so_line_id, mode) => {
+const setSerialData = (so_head_id, so_line_id, mode,inv_name,inv_id) => {
   let data = {
     getSetSerialData: "getSetSerialData",
     so_head_id: so_head_id,
@@ -113,6 +113,8 @@ const setSerialData = (so_head_id, so_line_id, mode) => {
   $("#setTitleOfAllocatedSerial").text(mode);
 
   $("#DismentalItem").attr("data-id",mode);
+  $("#modal").attr("inv-name",inv_name);
+  $("#modal").attr("inv-id",inv_id);
 
 
 
@@ -542,6 +544,11 @@ function serialTransferBySerial(transferName, invetoryName, message) {
     so_head_id: so_head_id,
     serial_numbers: serial_numbers,
   };
+
+
+  data["source_inv_name"]=$("#modal").attr('inv-name');
+  data["source_inv_id"]=$("#modal").attr('inv-id');
+
 
   data[transferName] = transferName;
 

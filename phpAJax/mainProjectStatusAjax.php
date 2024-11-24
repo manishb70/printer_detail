@@ -14,6 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
+
+
+
     if (isset($_POST['issueItems'])) {
 
         $so_line_id = $_POST['so_line_id'];
@@ -750,6 +753,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
 
+
 if (isset($_POST['send_item_to_qc'])) {
 
 
@@ -758,3 +762,7 @@ if (isset($_POST['send_item_to_qc'])) {
     $so_head_id = $_POST['so_head_id'];
     $so_line_id = $_POST['so_line_id'];
 }
+
+
+
+?>

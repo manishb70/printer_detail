@@ -250,7 +250,7 @@ include('./dbconnection/db.php');
                                         </div>
                                         <div class="overflow-hidden">
                                             <table class="min-w-full divide-y divide-gray-200">
-                                                <thead class=" bg-gray-50">
+                                                <thead class=" bg-gray-50 whitespace-nowrap ">
                                                     <tr>
                                                       
                                                         <th scope="col"

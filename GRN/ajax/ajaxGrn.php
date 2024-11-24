@@ -547,7 +547,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($stmt->execute()) {
 
 
-            $sql2 = "SELECT balance,po_number FROM for_office.purchase_order_line where id = $po_lineid;";
+            $sql2 = "SELECT balance,po_number,unit_price FROM for_office.purchase_order_line where id = $po_lineid;";
 
 
 
@@ -565,6 +565,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 $realBalance = $row2['balance'];
                 $po_number = $row2['po_number'];
+                $unit_price = $row2['unit_price'];
 
 
                 $sqlforinv = "INSERT INTO `for_office`.`mtl_inventory_transactions` (`grn_line_number`,`grn_id` , `sub_inventory_name`, `sub_inventory_id`, `location_id`, `item_qty`, `item_code`,`created_date`,`created_by`,`lot_number`) 
@@ -591,12 +592,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $serial_number = "GRN_S_" . $grnNumber . "_" . $recQty . "_" . $i;
 
 
-                        $sql = "INSERT INTO `for_office`.`mtl_serial_number` (`serial_number`, `grn_id`, `grn_line_id`, `po_number`, `po_line_number`, `item_code`, `created_by`, `created_date` ,`mtnl_transaction_id`,`lot_number` ,`inventory_id` ) VALUES (?, ?, ?, ?, ?, ?, ?, ? ,? , ?,1);";
+                        $sql = "INSERT INTO `for_office`.`mtl_serial_number` (`serial_number`, `grn_id`, `grn_line_id`, `po_number`, `po_line_number`, `item_code`, `created_by`, `created_date` ,`mtnl_transaction_id`,`lot_number` ,`inventory_id` ,`unit_price`) VALUES (?, ?, ?, ?, ?, ?, ?, ? ,? , ?,1 ,?);";
 
 
                         $stmt = $con->prepare($sql);
 
-                        $stmt->bind_param('siiissssis', $serial_number, $grnNumber, $grn_line_id, $po_number, $po_lineid, $item_code, $current_user, $current_date,$mtnl_transaction_id,$lot_name);
+                        $stmt->bind_param('siiissssisi', $serial_number, $grnNumber, $grn_line_id, $po_number, $po_lineid, $item_code, $current_user, $current_date,$mtnl_transaction_id,$lot_name,$unit_price);
 
                         $stmt->execute();
                     }

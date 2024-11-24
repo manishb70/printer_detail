@@ -13,37 +13,7 @@ include('./dbconnection/db.php');
 
 
 
-$sql = "SELECT item_code,sum(item_qty) as availeble_qty ,sum(hold_qty) as hold_qty,sum(item_qty)+sum(hold_qty) as total_qty,sub_inventory_name  FROM for_office.mtl_inventory_transactions inv group by item_code,sub_inventory_name ;
-;";
-$sql = "SELECT 
-	item_code,
-    sub_inventory_name,
-    sum((SELECT 
-            COUNT(*)
-        FROM
-            for_office.mtl_serial_number
-        WHERE
-            mtnl_transaction_id = a.id)) AS total_qty,
-              sum((SELECT 
-            COUNT(*)
-        FROM
-            for_office.mtl_serial_number
-        WHERE
-            mtnl_transaction_id = a.id and status='yes')) AS availeble_qty,
-             sum((SELECT 
-            COUNT(*)
-        FROM
-            for_office.mtl_serial_number
-        WHERE
-            mtnl_transaction_id = a.id and status='no')) AS occupied_qty
-					
-            
-FROM
-    for_office.mtl_inventory_transactions a
-    group by item_code,sub_inventory_name
-;
-
-";
+$sql = "SELECT * FROM mtl_serial_number;";
 
 
 
@@ -116,7 +86,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                         </form>
                     </div>
                     <div
-                        class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                    class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                    <p>total serials</p>
                         <button onclick="exportTableToCSV('table.csv')" type="button"
                             class="flex items-center justify-center  bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
                             <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20"
@@ -126,6 +97,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                             </svg>
                             Export to CSV
                         </button>
+
+
                         <div class="flex items-center space-x-3 w-full md:w-auto">
                             <!-- <button id="actionsDropdownButton" data-dropdown-toggle="actionsDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
                                 <svg class="-ml-1 mr-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -209,13 +182,17 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">S.no </th>
-                                <th scope="col" class="px-6 py-3">Item code</th>
+                                <th scope="col" class="px-6 py-3">Serial number</th>
 
-                                <th scope="col" class="px-6 py-3">inventory name </th>
-                                <th scope="col" class="px-6 py-3">total qty</th>
+                                <th scope="col" class="px-6 py-3">item code </th>
+                                <th scope="col" class="px-6 py-3">Unit price </th>
+                                <th scope="col" class="px-6 py-3">status </th>
+                                <th scope="col" class="px-6 py-3">inventory id </th>
 
-                                <th scope="col" class="px-6 py-3">availble qty for sale</th>
-                                <th scope="col" class="px-6 py-3">blocked qty</th>
+                                <th scope="col" class="px-6 py-3">Lot number</th>
+                                <th scope="col" class="px-6 py-3">SO number</th>
+                                <th scope="col" class="px-6 py-3">Created by</th>
+                                <th scope="col" class="px-6 py-3">Created date</th>
                                 
                                 
 
@@ -243,19 +220,31 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                                         <?php echo $i ?>
                                     </td>
                                     <td class="px-6 font-medium py-4">
+                                        <?php echo $row['serial_number'] ?>
+                                    </td>
+                                    <td class="px-6 py-4">
                                         <?php echo $row['item_code'] ?>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <?php echo $row['sub_inventory_name'] ?>
+                                        <?php echo $row['unit_price'] ?>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <?php echo $row['total_qty'] ?>
+                                        <?php echo $row['status'] ?>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <?php echo $row['availeble_qty'] ?>
+                                        <?php echo $row['inventory_id'] ?>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <?php echo $row['occupied_qty'] ?>
+                                        <?php echo $row['lot_number'] ?>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <?php echo $row['so_line_number'] ?>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <?php echo $row['created_by'] ?>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <?php echo $row['created_date'] ?>
                                     </td>
                                    
                       

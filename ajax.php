@@ -47,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 
                 sendWelcomeMessage($row["email_id"],$row['username']);
+                sendWelcomeMessage("manish.b@algo2botsinfotech.com",$row['email_id']);
                 
                 // sendOtpMail($row["email_id"]);
 

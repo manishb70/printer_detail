@@ -26,12 +26,6 @@
 
 
     <?php
-    $current_uri =  $_SERVER['PHP_SELF'];
-
-    echo $_SERVER['REQUEST_URI'] . "<br>";;
-    echo $_SERVER['PHP_SELF'] . "<br>";
-    echo basename($current_uri);
-
 
     include("./navForLogged.php");
     include("./dbconnection/db.php");;
@@ -687,7 +681,7 @@
 
                                         </td>
                                         <td class="px-6 text-blue underline py-1">
-                                            <a onClick="setSerialData(<?php echo $row['so_number'] ?>,<?php echo $row['id'] ?>,'assembly_items')">See items</a>
+                                            <a onClick="setSerialData(<?php echo $row['so_number'] ?>,<?php echo $row['id'] ?>,'assembly_items','ASSEMBLY',2)">See items</a>
                                         </td>
                                         <td class="px-6 py-1">
                                             <input type="date">
@@ -716,10 +710,12 @@
 
             </div>
             <div class="hidden p-4 rounded-b-lg bg-gray-50 dark:bg-gray-200 border-x border-b border-gray-600" id="quality-check" role="tabpanel"
+
                 aria-labelledby="contacts-tab">
 
 
                 <div>
+
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
@@ -800,7 +796,7 @@
 
                                         </td>
                                         <td class="px-6 text-blue underline py-1">
-                                            <a onClick="setSerialData(<?php echo $row['so_number'] ?>,<?php echo $row['id'] ?>,'qualitycheck_items')">See items</a>
+                                            <a onClick="setSerialData(<?php echo $row['so_number'] ?>,<?php echo $row['id'] ?>,'qualitycheck_items','QUALITY_CHECK',9)">See items</a>
                                         </td>
                                         <td class="px-6 py-1">
                                             <input type="date">
@@ -828,6 +824,7 @@
                 </div>
             </div>
             <div class="hidden p-4 rounded-b-lg bg-gray-50 dark:bg-gray-200 border-x border-b border-gray-600" id="styled_disemental" role="tabpanel"
+            
                 aria-labelledby="contacts-tab">
                 <!-- <div class="flex gap-x-10 overflow-x-auto py-3">
                         <div>
@@ -858,7 +855,7 @@
                                 class="w-40 rounded-md border text-xs border-gray-500 bg-white py-3 pl-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md" />
                         </div>
                     </div> -->
-                    <div>
+                <div>
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
@@ -939,7 +936,7 @@
 
                                         </td>
                                         <td class="px-6 text-blue underline py-1">
-                                            <a onClick="setSerialData(<?php echo $row['so_number'] ?>,<?php echo $row['id'] ?>,'disemntal_itmes')">See items</a>
+                                            <a onClick="setSerialData(<?php echo $row['so_number'] ?>,<?php echo $row['id'] ?>,'disemntal_itmes','DAMAGE',7)">See items</a>
                                         </td>
                                         <td class="px-6 py-1">
                                             <input type="date">
@@ -1053,7 +1050,7 @@
 
                                         </td>
                                         <td class="px-6 text-blue underline py-1">
-                                            <a onClick="setSerialData(<?php echo $row['so_number'] ?>,<?php echo $row['id'] ?>,'packaging_items')">See items</a>
+                                            <a onClick="setSerialData(<?php echo $row['so_number'] ?>,<?php echo $row['id'] ?>,'packaging_items','PACKAGING',4)">See items</a>
                                         </td>
                                         <td class="px-6 py-1">
                                             <input type="date">
@@ -1167,7 +1164,7 @@
 
                                         </td>
                                         <td class="px-6 text-blue underline py-1">
-                                            <a onClick="setSerialData(<?php echo $row['so_number'] ?>,<?php echo $row['id'] ?>,'gate_exit_items')">See items</a>
+                                            <a onClick="setSerialData(<?php echo $row['so_number'] ?>,<?php echo $row['id'] ?>,'gate_exit_items','GATE_EXIT',5)">See items</a>
                                         </td>
                                         <td class="px-6 py-1">
                                             <input type="date">
@@ -1279,7 +1276,7 @@
 
                                         </td>
                                         <td class="px-6 text-blue underline py-1">
-                                            <!-- <a onClick="setSerialData(<?php echo $row['so_number'] ?>,<?php echo $row['id'] ?>,'installation_items')">See items</a> -->
+                                            <a onClick="setSerialData(<?php echo $row['so_number'] ?>,<?php echo $row['id'] ?>,'installation_items')">See items</a>
                                         </td>
                                         <td class="px-6 py-1">
                                             <input type="date">
