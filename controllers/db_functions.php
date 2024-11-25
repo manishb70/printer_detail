@@ -1,7 +1,7 @@
 <?php
 
 
-include "../dbconnection/db.php";
+//  include "../dbconnection/db.php";
 
 function getTableData($tableName)
 {
@@ -65,7 +65,7 @@ function getTableDataById($tableName, $columnName, $id)
     }
 
     // Bind parameters
-    $stmt->bind_param("i", $id);
+    $stmt->bind_param("s", $id);
 
     // Execute the statement
     if ($stmt->execute() === false) {
@@ -100,11 +100,18 @@ function sendSerialsToAnother($serial_number, $so_head_id, $so_line_id, $invento
     $table_data = getTableDataById("sale_order_items_lines", "id", $so_line_id);
 
 
-    $row  = $table_data['data'][0];
+    if(isset($table_data['data'][0])){
 
-
-
-    $item_code = $row['item_code'];
+        
+        $row  = $table_data['data'][0];
+        
+        
+        
+        $item_code = $row['item_code'];
+    }else{
+        
+        $item_code = "MIX Items";
+    }
 
     // Calculate the total quantity based on the number of serial numbers
     $total_qty = count($serial_number);
@@ -143,6 +150,10 @@ function sendSerialsToAnother($serial_number, $so_head_id, $so_line_id, $invento
         // Loop through each serial number and update the corresponding record
         foreach ($serial_number as $key => $value) {
             $s_number = $value;
+            if(!isset($table_data['data'][0])){
+
+                $item_code=$s_number;
+            }
 
             // Update query to set inventory ID and other fields
             $query = "UPDATE `for_office`.`mtl_serial_number` 
@@ -164,10 +175,10 @@ function sendSerialsToAnother($serial_number, $so_head_id, $so_line_id, $invento
                 VALUES ($so_head_id, $so_line_id, '$s_number', 'Sale order allocation', '$item_code',  '$source_inventory_name', '$inventory_name', 1,  '$current_user', '$current_date');";
 
 
-// echo "$qury_to_make_transaction";
+                // echo "$qury_to_make_transaction";
                 // Prepare the query and bind parameters
 
-                $result_stmt = mysqli_query($con,$qury_to_make_transaction);
+                $result_stmt = mysqli_query($con, $qury_to_make_transaction);
 
                 // Execute the statement and check if it succeeded
                 if ($result_stmt) {

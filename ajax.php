@@ -285,4 +285,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         echo json_encode($respone);
     }
+
+
+
+    if (isset($_GET['getSerialNumber'])) {
+
+        include('./dbconnection/db.php');
+
+        $sql = "SELECT serial_number FROM mtl_serial_number where status='yes' ;";
+
+        $result = mysqli_query($con, $sql);
+
+
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($result)) {
+
+            $data[] = $row["serial_number"];
+        }
+
+        echo json_encode($data);
+    }
+
+
 }

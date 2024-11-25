@@ -9,14 +9,14 @@
 </head>
 
 <body class="bg-gray-50 p-4 min-h-screen">
-<?php
+    <?php
 
 
-include("../navForLogged.php");
+    include("../navForLogged.php");
 
 
 
-?>
+    ?>
 
     <div class="max-w-7xl mx-auto bg-white rounded-lg shadow-md p-6">
         <h1 class="text-2xl font-bold text-center mb-8 underline">Miscellaneous Issue Form</h1>
@@ -57,8 +57,8 @@ include("../navForLogged.php");
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                         </tr>
                     </thead>
-                   
-                        <!-- Rows will be added here dynamically -->
+
+                    <!-- Rows will be added here dynamically -->
 
 
 
@@ -66,13 +66,13 @@ include("../navForLogged.php");
                     <tbody id="tableBody" class="bg-white divide-y divide-gray-200">
 
                         <!-- Rows will be added here dynamically -->
-                        
+
 
                     </tbody>
 
 
 
-                    
+
                 </table>
             </div>
 
@@ -91,39 +91,109 @@ include("../navForLogged.php");
     </div>
 
     <script src="../js/jquery.min.js"></script>
+
+    <script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css">
+
+
     <script>
-
-function exportToCSV(data, columnName, fileName) {
-  // Add the column name as the first row
-  const csvData = [[columnName], ...data.map(row => [row])];
-
-  // Convert the array into CSV format
-  const csvContent = csvData.map(row => row.join(",")).join("\n");
-
-  // Create a Blob from the CSV content
-  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-
-  // Create a link element for downloading the file
-  const link = document.createElement("a");
-
-  // Set the download attribute with the provided filename
-  link.download = fileName;
-
-  // Create an object URL for the Blob and set it as the href of the link
-  link.href = URL.createObjectURL(blob);
-
-  // Append the link to the document, trigger the click, and then remove it
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-}
+        function toSetItemCode() {
 
 
+            var availableTags = [
+                "ActionScript",
+                "AppleScript",
+                "Asp",
+                "BASIC",
+                "C",
+                "C++",
+                "Clojure",
+                "COBOL",
+                "ColdFusion",
+                "Erlang",
+                "Fortran",
+                "Groovy",
+                "Haskell",
+                "Java",
+                "JavaScript",
+                "Lisp",
+                "Perl",
+                "PHP",
+                "Python",
+                "Ruby",
+                "Scala",
+                "Scheme"
+            ];
 
 
-    function calculateTotoal(event){
+            console.log(availableTags);
+            $.get("../ajax.php", {
+                "itemCodeInfoForPr": "itemCodeInfoForPr"
+            }, function(data) {
 
-        let currentRow = (event.target).closest("tr"); 
+                availableTags = JSON.parse(data);
+
+                console.log(availableTags);
+
+
+                let inputes_item_code = document.querySelectorAll("input[name='item_code']")
+
+                inputes_item_code.forEach(input => {
+                    
+                    
+                                    $(input).autocomplete({
+                                        source: availableTags
+                                    });
+                    
+                });
+
+                    console.log(inputes_item_code);
+
+
+            })
+
+        }
+    </script>
+
+
+
+
+    <script>
+        function exportToCSV(data, columnName, fileName) {
+            // Add the column name as the first row
+            const csvData = [
+                [columnName], ...data.map(row => [row])
+            ];
+
+            // Convert the array into CSV format
+            const csvContent = csvData.map(row => row.join(",")).join("\n");
+
+            // Create a Blob from the CSV content
+            const blob = new Blob([csvContent], {
+                type: "text/csv;charset=utf-8;"
+            });
+
+            // Create a link element for downloading the file
+            const link = document.createElement("a");
+
+            // Set the download attribute with the provided filename
+            link.download = fileName;
+
+            // Create an object URL for the Blob and set it as the href of the link
+            link.href = URL.createObjectURL(blob);
+
+            // Append the link to the document, trigger the click, and then remove it
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+
+
+
+        function calculateTotoal(event) {
+
+            let currentRow = (event.target).closest("tr");
 
 
             let qty = currentRow.querySelectorAll("input[name='qty']")
@@ -136,16 +206,16 @@ function exportToCSV(data, columnName, fileName) {
 
 
 
-    }
+        }
 
         function removeRow(event) {
 
 
             console.log(this);
-                
-                let currentRow = (event.target).closest("tr");
-                console.log(currentRow.remove());
-            }
+
+            let currentRow = (event.target).closest("tr");
+            console.log(currentRow.remove());
+        }
         document.addEventListener('DOMContentLoaded', function() {
             const tableBody = document.getElementById('tableBody');
 
@@ -165,8 +235,8 @@ function exportToCSV(data, columnName, fileName) {
                     'itemShortDesc', 'qty', 'slInvetory', 'subInvetory'
                 ];
 
-           
-                
+
+
 
                 $("#tableBody").append(`
 
@@ -203,12 +273,15 @@ function exportToCSV(data, columnName, fileName) {
                 
                 
                 `);
+
+
+                toSetItemCode()
             }
 
             // Add initial row
             createNewRow();
 
-           
+
 
             // Add row button click handler
             addRowBtn.addEventListener('click', createNewRow);
@@ -219,48 +292,48 @@ function exportToCSV(data, columnName, fileName) {
 
                 // Collect form data
 
-                let trows = tableBody.querySelectorAll('tr');   
+                let trows = tableBody.querySelectorAll('tr');
                 console.log(trows);
 
 
                 let data = {
-                    creating_reciept_of_miscelinius:"creating_reciept_of_miscelinius",
-                    mislinius_items:[]
+                    creating_reciept_of_miscelinius: "creating_reciept_of_miscelinius",
+                    mislinius_items: []
 
-                    }   
-
-
-
-                    trows.forEach(row =>{
-                        let dataObject = {}
-
-
-                        row.querySelectorAll('input').forEach(input => {
-                            dataObject[input.name] = input.value;
-                        });
-
-                        data.mislinius_items.push(dataObject);  
-
-                            
-                    })
-
-                    console.log(data);
+                }
 
 
 
-                 // AJAX call to submit the form data to the server
-                 // Replace the following line with your AJAX call
+                trows.forEach(row => {
+                    let dataObject = {}
 
-                    
-                 $.post("ajax/ajaxGrn.php", data,
-                    function (data, textStatus, jqXHR) {
+
+                    row.querySelectorAll('input').forEach(input => {
+                        dataObject[input.name] = input.value;
+                    });
+
+                    data.mislinius_items.push(dataObject);
+
+
+                })
+
+                console.log(data);
+
+
+
+                // AJAX call to submit the form data to the server
+                // Replace the following line with your AJAX call
+
+
+                $.post("ajax/ajaxGrn.php", data,
+                    function(data, textStatus, jqXHR) {
 
                         console.log(data);
-                        if(data.success){
+                        if (data.success) {
                             console.log('Form submitted successfully');
                             // Clear the form
 
-                            exportToCSV(data.serialNumbers,"serial number","mislineriusserialnumber")
+                            exportToCSV(data.serialNumbers, "serial number", "mislineriusserialnumber")
                             alert("item_success fully created in store")
 
                             form.reset();
@@ -269,14 +342,14 @@ function exportToCSV(data, columnName, fileName) {
 
                     },
                     "json"
-                 ).fail(error=>{
+                ).fail(error => {
                     console.log(error);
-                 })
+                })
 
 
 
                 // Log the form data (replace with your submission logic)
-                    
+
 
 
 

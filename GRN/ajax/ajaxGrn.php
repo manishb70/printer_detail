@@ -1,5 +1,6 @@
 <?php
 session_start();
+include "../../controllers/db_functions.php";
 
 $current_date =  date('Y-m-d H:i:s');
 
@@ -139,6 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo json_encode($response);
         // echo  "hellow";
     }
+
 
 
 
@@ -876,17 +878,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-
-
         $total_qty = count($mislinius_items);
-
-
-
-
-
-
-
-
 
 
         $serialNumbers = [];
@@ -899,28 +891,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $quantity = $item['qty'];
             $unit_price = $item['unit_price'];
             $total_price = $item['total_price'];
-            
+
             $sql_to_create_inv_trx = "INSERT INTO `for_office`.`mtl_inventory_transactions` (`sub_inventory_name`, `sub_inventory_id`, `location_id`, `item_qty`, `item_code`, `created_date`, `created_by`) VALUES ('STORE', 1, 1, $quantity, '$item_code', '$current_date', '$current_user');";
-            
+
 
             $date = date('Ymd'); // Current date in YYYYMMDD format
             $time = date('His');
-            
+
             if (mysqli_query($con, $sql_to_create_inv_trx)) {
-                
+
                 $mtl_trx_id = mysqli_insert_id($con);
-                
-                
-                
-                
-                
-                
-                
-                
+
+
+
+
+
+
+
+
                 for ($i = 1; $i <= $quantity; $i++) {
-                    
-                    
-                    
+
+
+
 
                     $serialNumber = "MIS-$date-$time-" . str_pad($i, 3, "0", STR_PAD_LEFT);
                     $serialNumbers[] = $serialNumber;
@@ -953,10 +945,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $response['message'] = "Items created in store";
         $response['serialNumbers'] = $serialNumbers;
+        echo json_encode($response);
     }
 
 
-    echo json_encode($response);
+
+
+    if (isset($_POST['send_misliniuestoInstallation'])) {
+
+
+
+
+        $serial_number = $_POST['serialNumbers'];
+        $so_head_id = 0;
+        $so_line_id = 0;
+        $inventory_id = 10;
+        $inventory_name = "INSTALLION";
+        $source_inventory_name = "STORE";
+        $source_inventory_id = 1;
+
+        sendSerialsToAnother($serial_number, $so_head_id, $so_line_id, $inventory_id, $inventory_name, $source_inventory_name);
+    }
 }
 
 
@@ -1053,5 +1062,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
         echo json_encode($response);
+    }
+
+    if (isset($_GET['getSerialData'])) {
+
+
+
+        $serial_number_data = getTableDataById("mtl_serial_number", "status", "yes");
+
+
+
+        echo json_encode($serial_number_data);
+    }
+    if (isset($_GET['getSerialDatabySerialNumber'])) {
+
+
+        $serialNumber = $_GET['serialNumber']; 
+
+        $serial_number_data = getTableDataById("mtl_serial_number", "serial_number", $serialNumber);
+
+
+
+        echo json_encode($serial_number_data);
     }
 }
