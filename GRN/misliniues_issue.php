@@ -29,6 +29,14 @@
 </head>
 
 <body class="bg-gray-100 p-6">
+    <?php
+
+            
+            include "../navForLogged.php";
+
+       
+
+?>
     <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
         <h2 class="text-2xl font-bold mb-6 text-gray-800">Serial Number Management</h2>
 
