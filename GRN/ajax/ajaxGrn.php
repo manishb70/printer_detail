@@ -574,8 +574,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $unit_price = $row2['unit_price'];
 
 
-                $sqlforinv = "INSERT INTO `for_office`.`mtl_inventory_transactions` (`grn_line_number`,`grn_id` , `sub_inventory_name`, `sub_inventory_id`, `location_id`, `item_qty`, `item_code`,`created_date`,`created_by`,`lot_number`) 
-                VALUES ($grn_line_id,$grnNumber, 'STORE', '1', '1', '$recQty', '$item_code','$current_date','$current_user','$lot_name');";
+                $sqlforinv = "INSERT INTO `for_office`.`mtl_inventory_transactions` (`grn_line_number`,`grn_id` , `sub_inventory_name`, `sub_inventory_id`, `location_id`, `item_qty`, `item_code`,`created_date`,`created_by`,`lot_number` ,`in_type`) 
+                VALUES ($grn_line_id,$grnNumber, 'STORE', '1', '1', '$recQty', '$item_code','$current_date','$current_user','$lot_name','GRN');";
 
 
 
@@ -891,8 +891,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $quantity = $item['qty'];
             $unit_price = $item['unit_price'];
             $total_price = $item['total_price'];
+            
 
-            $sql_to_create_inv_trx = "INSERT INTO `for_office`.`mtl_inventory_transactions` (`sub_inventory_name`, `sub_inventory_id`, `location_id`, `item_qty`, `item_code`, `created_date`, `created_by`) VALUES ('STORE', 1, 1, $quantity, '$item_code', '$current_date', '$current_user');";
+            $sql_to_create_inv_trx = "INSERT INTO `for_office`.`mtl_inventory_transactions` (`sub_inventory_name`, `sub_inventory_id`, `location_id`, `item_qty`, `item_code`, `created_date`, `created_by`,`in_type`)
+             VALUES ('STORE', 1, 1, $quantity, '$item_code', '$current_date', '$current_user' ,'MIS');";
 
 
             $date = date('Ymd'); // Current date in YYYYMMDD format
@@ -902,7 +904,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 $mtl_trx_id = mysqli_insert_id($con);
 
+                $lot_number = "MIS_L_" ."$mtl_trx_id";
 
+
+                mysqli_query($con,"UPDATE `for_office`.`mtl_inventory_transactions` SET `lot_number` = '$lot_number' WHERE (`id` = '$mtl_trx_id');");
 
 
 
@@ -1077,7 +1082,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if (isset($_GET['getSerialDatabySerialNumber'])) {
 
 
-        $serialNumber = $_GET['serialNumber']; 
+        $serialNumber = $_GET['serialNumber'];
 
         $serial_number_data = getTableDataById("mtl_serial_number", "serial_number", $serialNumber);
 

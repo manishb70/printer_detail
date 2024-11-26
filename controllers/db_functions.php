@@ -215,3 +215,48 @@ function sendSerialsToAnother($serial_number, $so_head_id, $so_line_id, $invento
         echo json_encode($response);
     }
 }
+
+
+function getTableColumnDataById($tableName,$column, $columnName, $id)
+{
+    global $con;
+
+    $conn = $con;
+
+    if ($conn->connect_error) {
+        error_log("Connection failed: " . $conn->connect_error);
+        return ["success" => false, "message" => "Database connection failed"];
+    }
+
+    // Prepare and bind
+    $stmt = $conn->prepare("SELECT $column FROM $tableName WHERE $columnName = ?");
+    if ($stmt === false) {
+        error_log("Prepare failed: " . $conn->error);
+        return ["success" => false, "message" => "Error preparing query"];
+    }
+
+    // Bind parameters
+    $stmt->bind_param("s", $id);
+
+    // Execute the statement
+    if ($stmt->execute() === false) {
+        error_log("Execute failed: " . $stmt->error);
+        return ["success" => false, "message" => "Error executing query"];
+    }
+
+    // Get result
+    $result = $stmt->get_result();
+
+    // Fetch data
+    if ($result->num_rows > 0) {
+        $data = [];
+        while ($row = $result->fetch_assoc()) {
+            $data[] = $row[$column];
+        }
+        $stmt->close();
+        return ["success" => true, "data" => $data];
+    } else {
+        $stmt->close();
+        return ["success" => false, "message" => "No data found in table '$tableName'"];
+    }
+}

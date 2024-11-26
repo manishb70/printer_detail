@@ -58,58 +58,58 @@
 
 
 
-            <div   class="mt-10 m-4">
+            <div class="mt-10 m-4">
 
-                    <div id="oldMainCatArea">
-                <label
-                    class="block mb-2 font-bold text-x font-medium text-gray-900 dark:text-white"> Select category :
-                </label>
+                <div id="oldMainCatArea">
+                    <label
+                        class="block mb-2 font-bold text-x font-medium text-gray-900 dark:text-white"> Select category :
+                    </label>
 
-                <div class="flex">
+                    <div class="flex">
 
-                    <br>
-                    <select id="selectMainCat" class="py-3  px-4 pe-9 block   bg-gray-100 border-2 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
-
-
-
-                        <option selected="">Open this select menu</option>
+                        <br>
+                        <select id="selectMainCat" class="py-3  px-4 pe-9 block   bg-gray-100 border-2 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
 
 
 
-                        <?php
-                        include("./dbconnection/db.php");
-
-                        $sql = "SELECT * FROM for_office.itemmastercategory; ";
-                        $result = mysqli_query($con, $sql);
-
-                        while ($row = mysqli_fetch_assoc($result)) {
+                            <option selected="">Open this select menu</option>
 
 
 
+                            <?php
+                            include("./dbconnection/db.php");
 
+                            $sql = "SELECT * FROM for_office.itemmastercategory; ";
+                            $result = mysqli_query($con, $sql);
 
-                        ?>
-
-                            <option value="<?php echo $row['categoryId']  ?>"> <?php echo $row['catagory_name']  ?> </option>
-
-
-                        <?php
-                        }
-                        ?>
+                            while ($row = mysqli_fetch_assoc($result)) {
 
 
 
 
-                    </select>
+
+                            ?>
+
+                                <option value="<?php echo $row['categoryId']  ?>"> <?php echo $row['catagory_name']  ?> </option>
 
 
-                    <button name="create-main-cat-btn" class="rounded-md bg-blue-600 py-1 px-3 border border-transparent text-center text-xs text-white transition-all shadow-md hover:shadow-lg focus:bg-blue-700 focus:shadow-none active:bg-blue-700 hover:bg-blue-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
-                        Create new ?
-                    </button>
+                            <?php
+                            }
+                            ?>
 
 
 
-                </div>
+
+                        </select>
+
+
+                        <button name="create-main-cat-btn" class="rounded-md bg-blue-600 py-1 px-3 border border-transparent text-center text-xs text-white transition-all shadow-md hover:shadow-lg focus:bg-blue-700 focus:shadow-none active:bg-blue-700 hover:bg-blue-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
+                            Create new ?
+                        </button>
+
+
+
+                    </div>
 
                 </div>
 
@@ -120,7 +120,7 @@
 
 
                     <label
-                        class="block mb-2 font-bold text-x font-medium text-gray-900 dark:text-white"> Enter the  name of new category :
+                        class="block mb-2 font-bold text-x font-medium text-gray-900 dark:text-white"> Enter the name of new category :
                     </label>
 
                     <div class="flex">
@@ -239,7 +239,7 @@
 
 
 
-                        
+
             <div id="mainCatTable" class="relative hidden flex flex-col overflow-auto    text-gray-700 bg-white shadow-md rounded-xl bg-clip-border">
                 <div class="relative mx-4 mt-4  text-gray-700 bg-white rounded-none bg-clip-border">
                     <div class="flex items-center justify-between gap-8 mb-8">
@@ -253,7 +253,7 @@
                             </p>
                         </div>
                         <div class="flex flex-col gap-2 shrink-0 sm:flex-row">
-<!-- 
+                            <!-- 
                             <button id="addMoreAttrubite-btn" data-dialog-target="dialog-md"
                                 class="flex select-none items-center gap-3 rounded-lg bg-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                                 type="button">
@@ -283,9 +283,9 @@
                                         Action
                                     </p>
                                 </th>
-                               
-                               
-                               
+
+
+
                                 <th class="p-4 border-b border-slate-300 bg-slate-50">
                                     <p class="block text-sm font-normal leading-none text-slate-500">
 
@@ -302,12 +302,12 @@
                                 <td class="p-4 py-5">
                                     <p class="block text-sm text-slate-800">name</p>
                                 </td>
-                                
-                                
-                                <td class="p-4 py-5">
-                                    <p     class="block hover:underline  cursor-pointer font-medium text-sm text-red-800"><i m class="fa-solid fa-xmark"></i> </p>
 
-                                    
+
+                                <td class="p-4 py-5">
+                                    <p class="block hover:underline  cursor-pointer font-medium text-sm text-red-800"><i m class="fa-solid fa-xmark"></i> </p>
+
+
                                 </td>
                             </tr>
 
@@ -346,7 +346,7 @@
                             </p>
                         </div>
                         <div class="flex flex-col gap-2 shrink-0 sm:flex-row">
-<!-- 
+                            <!-- 
                             <button id="addMoreAttrubite-btn" data-dialog-target="dialog-md"
                                 class="flex select-none items-center gap-3 rounded-lg bg-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                                 type="button">
@@ -381,9 +381,9 @@
                                         Action
                                     </p>
                                 </th>
-                               
-                               
-                               
+
+
+
                                 <th class="p-4 border-b border-slate-300 bg-slate-50">
                                     <p class="block text-sm font-normal leading-none text-slate-500">
 
@@ -403,12 +403,12 @@
                                 <td class="p-4 py-5">
                                     <p class="block text-sm text-slate-800">Main cat name</p>
                                 </td>
-                                
-                                
-                                <td class="p-4 py-5">
-                                    <p     class="block hover:underline  cursor-pointer font-medium text-sm text-red-800"><i m class="fa-solid fa-xmark"></i> </p>
 
-                                    
+
+                                <td class="p-4 py-5">
+                                    <p class="block hover:underline  cursor-pointer font-medium text-sm text-red-800"><i m class="fa-solid fa-xmark"></i> </p>
+
+
                                 </td>
                             </tr>
 

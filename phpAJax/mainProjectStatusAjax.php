@@ -5,7 +5,7 @@ include '../controllers/db_functions.php';
 $current_date =  date('Y-m-d H:i:s');
 
 $current_user = $_SESSION['username'];
-
+    
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 

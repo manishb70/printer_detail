@@ -139,15 +139,15 @@
                 let inputes_item_code = document.querySelectorAll("input[name='item_code']")
 
                 inputes_item_code.forEach(input => {
-                    
-                    
-                                    $(input).autocomplete({
-                                        source: availableTags
-                                    });
-                    
+
+
+                    $(input).autocomplete({
+                        source: availableTags
+                    });
+
                 });
 
-                    console.log(inputes_item_code);
+                console.log(inputes_item_code);
 
 
             })
