@@ -197,12 +197,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
 
-        $sql = "SELECT * FROM for_office.bom_hedar_detail where item_name like '%$search_query%'  or item_code like '%$search_query%' order by header_id DESC;";
+        // $sql = "SELECT * FROM for_office.bom_hedar_detail where item_name like '%$search_query%'  or item_code like '%$search_query%' order by header_id DESC;";
 
 
 
 
-        $sql = "SELECT * FROM for_office.item_master_main where item_name like '%$search_query%'  or item_code like '%$search_query%' order by S_No DESC ";
+        $sql = "SELECT * FROM for_office.item_master_main where     item_type='finish_good' order by S_No DESC ";
         $result  = mysqli_query($con, $sql);
 
 
@@ -324,7 +324,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
         // $sql = "SELECT * FROM for_office.bom_hedar_detail where  header_id = $search_id;";
-        $sql = "SELECT a.*,b.imagePath as item_image FROM for_office.bom_hedar_detail a   JOIN for_office.item_master_main b on a.item_code = b.item_code where a.header_id = '$search_id'";
+        // $sql = "SELECT a.*,b.imagePath as item_image FROM for_office.bom_hedar_detail a   JOIN for_office.item_master_main b on a.item_code = b.item_code where a.header_id = '$search_id'";
+        $sql = "SELECT * FROM for_office.item_master_main where S_No = $search_id and item_type='finish_good' ;";
 
         $result  = mysqli_query($con, $sql);
 

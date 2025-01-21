@@ -2599,6 +2599,42 @@
     }
 </script>
 
+
+
+<script>
+
+
+
+
+
+        function  setTotalPrice(event) {
+
+            let currentTr = (event.target).closest("tr")
+
+            let item_qty = (event.target).value
+
+            let item_rate = currentTr.querySelector("p[name='rate']")
+            item_rate = $(item_rate).attr("itemprice")
+            
+            // console.log(item_rate);
+            let item_total = parseFloat(item_qty) * parseFloat(item_rate);
+
+            $(currentTr.querySelector("p[name='total_price']")).attr("item_total",item_total);
+            $(currentTr.querySelector("p[name='total_price']")).text(item_total)
+            console.log(item_total);
+            // (event.target).parentNode.parentNode.querySelector('[name="total_price"]').value = item_total.toFixed(2)
+
+
+
+
+          }
+
+
+
+
+</script>
+
+
 <script src="./js/jquery-3.7.1.min.js"></script>
 <script src="./js/sale_order.js"></script>
 <script src="node_modules/@material-tailwind/html@latest/scripts/dialog.js"></script>

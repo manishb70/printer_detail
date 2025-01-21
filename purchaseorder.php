@@ -2,6 +2,43 @@
 
 // include("./db.php");
 include('./dbconnection/db.php');
+
+
+
+
+$sql = "SELECT * FROM for_office.purchase_order_header ORDER BY PO_number desc ;";
+
+
+
+
+
+
+
+if($_SERVER['REQUEST_METHOD']=='POST'){
+    $id = filter_input(INPUT_POST, 'po', FILTER_VALIDATE_INT);
+
+    if ($id === false) {
+        die('Invalid PO number.');
+    }
+
+    
+    $sql = "SELECT * FROM for_office.purchase_order_header WHERE PO_number = $id;";
+    
+}
+
+
+$result = mysqli_query($con, $sql);
+
+
+
+
+
+
+
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -35,17 +72,25 @@ include('./dbconnection/db.php');
 
 
 
+
+
         <div class="flex flex-col  float-right">
             <div class="-m-1.5 overflow-x-auto overflow-y-auto">
                 <div style="height:50vh;" class="p-1.5  inline-block align-middle">
                     <div class="border rounded-lg divide-y divide-gray-200">
                         <div class="py-3   px-4">
-                            <div class="relative max-w-xs">
+                            <form action="./exportData.php?data=potable" method="get">
+                                <button class="buttonbg-blue-500 text-black border-2 font-bold py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">Export data</button>
+
+                            </form>
+                            <form class="relative max-w-xs" method="POST">
                                 <label class="sr-only">Search</label>
-                                <input type="text" name="hs-table-with-pagination-search"
+                                <input type="text" name="po"
                                     id="hs-table-with-pagination-search"
                                     class="py-2 px-3 ps-9 block w-full  ml-10 border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                                     placeholder="Search for items">
+
+
                                 <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-3">
                                     <svg class="size-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24"
                                         height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -53,8 +98,14 @@ include('./dbconnection/db.php');
                                         <circle cx="11" cy="11" r="8"></circle>
                                         <path d="m21 21-4.3-4.3"></path>
                                     </svg>
+
                                 </div>
-                            </div>
+
+                                <button class="rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-BLACK transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="submit">
+                                    Button
+                                </button>
+
+                            </form>
                         </div>
                         <div class="overflow-hidden">
                             <table class="min-w-full divide-y divide-gray-200">
@@ -112,16 +163,13 @@ include('./dbconnection/db.php');
                                     $i = 1;
 
 
-                                    $sql = "SELECT * FROM for_office.purchase_order_header ORDER BY PO_number desc ;";
-
-                                    $result = mysqli_query($con, $sql);
 
                                     while ($row = mysqli_fetch_assoc($result)) {
 
 
 
 
-                                        ?>
+                                    ?>
 
                                         <tr>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
@@ -146,12 +194,12 @@ include('./dbconnection/db.php');
                                                 <?php echo $row['status']; ?>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                                                <button type="button" 
-                                                onclick="getfulldataofponumber(event)"
+                                                <button type="button"
+                                                    onclick="getfulldataofponumber(event)"
 
-                                                po-id=" <?php echo $row['PO_number']; ?>"
-                                                
-                                                data-modal-target="poDetailsallbyponumber"
+                                                    po-id=" <?php echo $row['PO_number']; ?>"
+
+                                                    data-modal-target="poDetailsallbyponumber"
                                                     data-modal-toggle="poDetailsallbyponumber"
                                                     class="inline-flex cursor-pointer items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:text-blue-400">View
                                                     all</button>
@@ -159,9 +207,8 @@ include('./dbconnection/db.php');
 
                                         </tr>
 
-                                        <?php
+                                    <?php
                                         $i++;
-
                                     }
                                     ?>
 
@@ -252,7 +299,7 @@ include('./dbconnection/db.php');
                                             <table class="min-w-full divide-y divide-gray-200">
                                                 <thead class=" bg-gray-50 whitespace-nowrap ">
                                                     <tr>
-                                                      
+
                                                         <th scope="col"
                                                             class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
                                                             S .no
@@ -305,42 +352,42 @@ include('./dbconnection/db.php');
                                                 <tbody id="purchaseOrderLineDetails" class="divide-y overflow-y-auto overflow-x-auto divide-gray-200">
 
 
-                                                        <tr>
-                                                            <td
-                                                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                                                                s.no
-                                                            </td>
-                                                            <td
-                                                                class="px-6 font-medium py-4 whitespace-nowrap text-sm text-gray-800">
-                                                                po number
-                                                            </td>
-                                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                                                                item code
-                                                            </td>
-                                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                                                                short discription
-                                                            </td>
-                                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                                                                unit price
-                                                            </td>
-                                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                                                                quantity
-                                                            </td>
-                                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                                                                Total price
-                                                            </td>
-                                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                                                                Need by date
-                                                            </td>
-                                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                                                                Quantity recieved
-                                                            </td>
-                                                            <td
-                                                                class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                                                               balnce
-                                                            </td>
+                                                    <tr>
+                                                        <td
+                                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                            s.no
+                                                        </td>
+                                                        <td
+                                                            class="px-6 font-medium py-4 whitespace-nowrap text-sm text-gray-800">
+                                                            po number
+                                                        </td>
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                                                            item code
+                                                        </td>
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                                                            short discription
+                                                        </td>
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                                                            unit price
+                                                        </td>
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                                                            quantity
+                                                        </td>
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                                                            Total price
+                                                        </td>
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                                                            Need by date
+                                                        </td>
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                                                            Quantity recieved
+                                                        </td>
+                                                        <td
+                                                            class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+                                                            balnce
+                                                        </td>
 
-                                                        </tr>
+                                                    </tr>
 
 
                                                 </tbody>
@@ -367,10 +414,7 @@ include('./dbconnection/db.php');
 <script src="./js/po.js"></script>
 <script src="./js/jquery.min.js"></script>
 <script>
-
     let lineTable = document.getElementById("poDetailsallbyponumber")
-
-
 </script>
 
 

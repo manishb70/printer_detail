@@ -104,22 +104,22 @@ const setBomItemInSearch = (bom_data) => {
                                                 </td>
                                                 <td class="p-4">
                                                 <p class="text-sm">
-                                                    ${Element.item_name}
+                                                    ${Element.Short_Description}
                                                </p>
                                                </td>
                                                     <td class="p-4">
                                                     <p class="text-sm">
-                                                    ${Element.price}
+                                                    ${Element.Price}
                                                     </p>
                                                     </td>
                                                                                                       
                                                     <td class="p-4">
-                                                    <a  head-id='${Element.header_id}' onclick='setIdToBomTable(event)'  class="text-sm cursor-pointer font-semibold ">
+                                                    <a  head-id='${Element.S_No}' onclick='setIdToBomTable(event)'  class="text-sm cursor-pointer font-semibold ">
                                                     Add
                                                     </a>
                                                     </td>
                                                        <td class="p-4 border-b border-slate-200 py-5">
-                                                <img src="./images/${Element.item_image}" alt="Product 1" class="w-16 h-16 object-cover rounded" />
+                                                <img src="./images/${Element.imagePath}" alt="Product 1" class="w-16 h-16 object-cover rounded" />
                                             </td>
                                                     </tr>
                                                     
@@ -139,7 +139,7 @@ $("#search_input_item").on("input", function () {
 
 const setItemsForAddInItems = (searchQuery) => {
   let data = {
-    getIBomItem: "getIBomItem",
+    getIBomItem: "getRowItem",
     searchQuery: searchQuery,
   };
 
@@ -216,21 +216,26 @@ const setBomDataToTable = (id) => {
                                             </td>
                                             <td class="p-4 border-b border-slate-200 py-5">
 
-                                                <p name='rate' itemPrice='${bom_data.price}' class="text-sm text-slate-500">${bom_data.price}</p>
+                                                <p name='rate' itemPrice='${bom_data.Price}' class="text-sm text-slate-500">${bom_data.Price}</p>
                                             </td>
                                             <td class="p-4 border-b border-slate-200 py-5">
                                                 <input type="number" name="qty"
+                                                onchange='setTotalPrice(event)'
                                                     class="w-28 rounded-md border text-xs border-gray-500 bg-white py-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
                                                     style="border-color: #C8A1E0;" />
                                             </td>
-                                            <td class="p-4 border-b border-slate-200 py-5">
+                                            <td class="p-4 border-b  border-slate-200 py-5">
 
-                                                <p class="text-sm text-slate-500"><input type="number" name="total_price"
-                                                    class="w-28 rounded-md border text-xs border-gray-500 bg-white py-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                                    style="border-color: #C8A1E0;" /></p>
+                                                <p name='total_price' class="text-sm  text-slate-500">
+                                                    
+
+                                                 
+                                           
+                                           
+                                                </p>
                                             </td>
                                             <td class="p-4 border-b border-slate-200 py-5">
-                                                <img src="./images/${bom_data.item_image}" alt="Product 1" class="w-16 h-16 object-cover rounded" />
+                                                <img src="./images/${bom_data.imagePath}" alt="Product 1" class="w-16 h-16 object-cover rounded" />
                                             </td>
 
 
@@ -513,6 +518,7 @@ const setBomDataToTableRow = (id) => {
                                             </td>
                                             <td class="p-4 border-b border-slate-200 py-5">
                                                 <input type="number" name="qty"
+                                                onchange='setTotalPrice(event)'
                                                     class="w-28 rounded-md border text-xs border-gray-500 bg-white py-2 text-[#6B7280] h-6 outline-none focus:border-[#6A64F1] focus:shadow-md"
                                                     style="border-color: #C8A1E0;" />
                                             </td>

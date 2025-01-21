@@ -261,6 +261,8 @@ const saveItemDataToTemp = () => {
   let itemCodeGen = "";
   let shortDescription = $("#item_sub_category").val();
 
+  let finishtype= $("#finish_raw_material").val();
+
   itemCodeGen += $("#item_category").val().substring(0, 2);
 
   let sub_id = $("#item_sub_category").attr("sub-id");
@@ -347,6 +349,29 @@ catDataInputs.forEach((input,index) =>{
 
 
 
+if(finishtype=="finish_good"){
+
+
+
+
+
+    itemCodeGen+="FINSH"
+
+
+    const currentMilliseconds = new Date().getTime();
+
+
+    itemCodeGen += "-" + currentMilliseconds;
+
+
+
+
+
+
+}
+
+
+
 
 
 
@@ -362,6 +387,8 @@ catDataInputs.forEach((input,index) =>{
     saveItemDataToTemp: "saveItemDataToTemp",
     attrData: attrData,
   };
+
+  console.log(itemCodeGen);
 
   console.log(data);
 
